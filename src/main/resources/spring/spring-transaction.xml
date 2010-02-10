@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+						http://www.springframework.org/schema/tx 
+       					http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       					http://www.springframework.org/schema/aop 
+       					http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+	<!-- spring 容器事务管理 按需修改 -->
+	<!-- Define SessionFactory of Hibernate 
+		
+		<bean id="lobHandler"
+		class="org.springframework.jdbc.support.lob.DefaultLobHandler"
+		lazy-init="true" autowire="byName"/>
+		
+		<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+		autowire="byName">
+		<property name="configLocation">
+		<value>classpath:hibernate.cfg.xml</value>
+		</property>
+		</bean>
+	-->
+	<!-- end -->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<bean id="sqlMapClient"
+		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean" autowire="byName">
+		<property name="configLocation"
+			value="classpath:/ibatis/sqlmap-config.xml" />
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager" autowire="byName">
+	</bean>
+	<tx:advice id="transaction"
+		transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED"
+				read-only="false" rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED"
+				read-only="false" rollback-for="Exception" />
+			<tx:method name="remove*" propagation="REQUIRED"
+				read-only="false" rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED"
+				read-only="false" rollback-for="Exception" />
+			<tx:method name="get*" propagation="REQUIRED"
+				read-only="true" rollback-for="Exception" />
+			<tx:method name="find*" propagation="REQUIRED"
+				read-only="true" rollback-for="Exception" />
+			<tx:method name="*" propagation="REQUIRED" read-only="true"
+				rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="service"
+			expression="execution(* cn.org.seventh.service.*Service.*(..))" />
+		<aop:advisor advice-ref="transaction" pointcut-ref="service" />
+	</aop:config>
+	<!-- Declare the transaction management through Spring AOP. 
+		
+		<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+		autowire="byName" />
+		
+		<tx:advice id="transaction"
+		transaction-manager="transactionManager">
+		<tx:attributes>
+		<tx:method name="save*" propagation="REQUIRED"
+		read-only="false" rollback-for="Exception" />
+		<tx:method name="delete*" propagation="REQUIRED"
+		read-only="false" rollback-for="Exception" />
+		<tx:method name="remove*" propagation="REQUIRED"
+		read-only="false" rollback-for="Exception" />
+		<tx:method name="update*" propagation="REQUIRED"
+		read-only="false" rollback-for="Exception" />
+		<tx:method name="get*" propagation="REQUIRED"
+		read-only="true" rollback-for="Exception" />
+		<tx:method name="find*" propagation="REQUIRED"
+		read-only="true" rollback-for="Exception" />
+		<tx:method name="*" propagation="REQUIRED" read-only="true"
+		rollback-for="Exception" />
+		</tx:attributes>
+		</tx:advice>
+		
+		<aop:config>
+		<aop:pointcut id="service"
+		expression="execution(* cn.org.seventh.service.*Service.*(..))" />
+		<aop:advisor advice-ref="transaction" pointcut-ref="service" />
+		</aop:config>
+	-->
+	<!-- end -->
+
+</beans>
