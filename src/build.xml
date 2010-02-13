@@ -1,0 +1,79 @@
+<project name="Medidoc" basedir=".." default="all">
+
+<target name="init">
+<property name="dirs.base" value="${basedir}"/>
+<property name="srcdir" value="${dirs.base}/src"/>
+<property name="classdir" value="${dirs.base}/temp/classes"/>
+<property name="src" value="${srcdir}/main/WEB-INF/src"/>
+<property name="web" value="${dirs.base}/src/main/WEB-INF/jsp"/>
+<property name="deploymentdescription" value="${srcdir}/main/WEB-INF"/>
+
+<property name="warFile" value="MediDoc.war"/>
+<property name="earFile" value="MediDoc.ear"/>
+
+
+<property name="earDir" value="${basedir}/target/ear"/>
+<property name="warDir" value="${basedir}/target/war"/>
+
+
+<!-- Create Web-inf and classes directories -->
+<mkdir dir="${warDir}/WEB-INF"/>
+<mkdir dir="${warDir}/WEB-INF/classes"/>
+
+<!-- Create Meta-inf and classes directories -->
+<mkdir dir="${earDir}/META-INF"/>
+
+<path id="project.class.path">
+<pathelement location="${srcdir}\main\WEb-INF\lib\commons-lang-2.0.jar"/>
+<pathelement location="${srcdir}\main\WEb-INF\lib\commons-logging.jar"/>
+<pathelement location="${srcdir}\main\WEb-INF\lib\jfl.jar"/>
+<pathelement location="${srcdir}\main\WEb-INF\lib\jstl.jar"/>
+<pathelement location="${srcdir}\main\WEb-INF\lib\log4j-1.2.8.jar"/>
+<pathelement location="${srcdir}\main\WEb-INF\lib\standard.jar"/>
+<pathelement location="${srcdir}\main\WEb-INF\lib\taglibs-string.jar"/>
+<pathelement location="${srcdir}\main\WEb-INF\lib\spring.jar"/>
+</path>
+</target>
+
+<!-- Main target -->
+<target name="all" depends="init,build,buildWar,buildEar"/>
+
+<!-- Compile Java Files and store in /build/src directory -->
+<target name="build" >
+<javac srcdir="${src}" destdir="${classdir}" verbose="true" debug="true"  />
+  <classpath refid="project.class.path"/>
+</target>
+
+<!-- Create the War File -->
+<target name="buildWar" depends="init">
+<copy todir="${warDir}/WEB-INF/classes">
+<fileset dir="${classdir}" includes="**/*.class" /> 
+</copy>
+
+<copy todir="${warDir}/WEB-INF">
+<fileset dir="${deploymentdescription}" includes="web.xml" /> 
+</copy>
+
+<copy todir="${warDir}">
+<fileset dir="${web}" includes="**/*.*" /> 
+</copy>
+
+<!-- Create war file and place in ear directory -->
+<jar jarfile="${earDir}/${warFile}" basedir="${warDir}"  includes="**/*.class" />
+
+
+</target>
+
+
+<!-- Create the War File -->
+<target name="buildEar" depends="init">
+<copy todir="${earDir}/META-INF">
+<fileset dir="${deploymentdescription}" includes="application.xml" /> 
+</copy>
+
+<!-- Create ear file and place in ear directory -->
+<jar jarfile="${dirs.base}/${earFile}" basedir="${earDir}" />
+</target>
+
+</project>
+
