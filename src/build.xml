@@ -40,8 +40,7 @@
 
 <!-- Compile Java Files and store in /build/src directory -->
 <target name="build" >
-<javac srcdir="${src}" destdir="${classdir}" verbose="true" debug="true"  />
-  <classpath refid="project.class.path"/>
+<javac srcdir="${src}" destdir="${classdir}" verbose="true" debug="true"  />  
 </target>
 
 <!-- Create the War File -->
