@@ -5,7 +5,11 @@
 <property name="srcdir" value="${dirs.base}/src"/>
 <property name="classdir" value="${dirs.base}/temp/classes"/>
 <property name="src" value="${srcdir}/main/WEB-INF/src"/>
-<property name="web" value="${dirs.base}/src/main/WEB-INF/jsp"/>
+<property name="webjsp" value="${dirs.base}/src/main/WEB-INF/jsp"/>
+<property name="webjs" value="${dirs.base}/src/main/WEB-INF/js"/>
+<property name="webcss" value="${dirs.base}/src/main/WEB-INF/css"/>
+<property name="webimg" value="${dirs.base}/src/main/WEB-INF/images"/>
+<property name="weblib" value="${dirs.base}/src/main/WEB-INF/lib"/>
 <property name="deploymentdescription" value="${srcdir}/main/WEB-INF"/>
 
 <property name="warFile" value="MediDoc.war"/>
@@ -22,7 +26,7 @@
 
 <!-- Create Meta-inf and classes directories -->
 <mkdir dir="${earDir}/META-INF"/>
-
+<!--
 <path id="project.class.path">
 <pathelement location="${srcdir}\main\WEb-INF\lib\commons-lang-2.0.jar"/>
 <pathelement location="${srcdir}\main\WEb-INF\lib\commons-logging.jar"/>
@@ -33,6 +37,12 @@
 <pathelement location="${srcdir}\main\WEb-INF\lib\taglibs-string.jar"/>
 <pathelement location="${srcdir}\main\WEb-INF\lib\spring.jar"/>
 </path>
+-->
+<path id="project.class.path">
+	<pathelement  location="${srcdir}"/>
+    <fileset dir="${srcdir}/main/WEb-INF/lib" includes="*.jar" />
+	<fileset dir="C:/Documents and Settings/Administrator/Desktop/padmaraj/demo/mediclinic/mysql/jboss-6.0.0.M1/jboss-6.0.0.M1/common/lib" includes="*.jar"/>
+</path>	
 </target>
 
 <!-- Main target -->
@@ -40,8 +50,11 @@
 
 <!-- Compile Java Files and store in /build/src directory -->
 <target name="build" >
-<javac srcdir="${src}" destdir="${classdir}" verbose="true" debug="true"  />  
+<javac srcdir="${src}" destdir="${classdir}"  deprecation="on" debug="true"  >
+	<classpath refid="project.class.path" />	
+</javac>
 </target>
+	
 
 <!-- Create the War File -->
 <target name="buildWar" depends="init">
@@ -54,11 +67,15 @@
 </copy>
 
 <copy todir="${warDir}">
-<fileset dir="${web}" includes="**/*.*" /> 
+	<fileset dir="${webjsp}" includes="**/*.*" /> 
+	<fileset dir="${webjs}" includes="**/*.*" />
+	<fileset dir="${webcss}" includes="**/*.*" />
+	<fileset dir="${webimg}" includes="**/*.*" />
+	<fileset dir="${weblib}" includes="**/*.*" />
 </copy>
 
 <!-- Create war file and place in ear directory -->
-<jar jarfile="${earDir}/${warFile}" basedir="${warDir}"  includes="**/*.class" />
+<jar jarfile="${earDir}/${warFile}" basedir="${warDir}"  />
 
 
 </target>
