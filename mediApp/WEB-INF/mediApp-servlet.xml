@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>  
+	
+          
+    <bean id="logonValidator" class="com.mediapp.web.validator.common.LoginValidator"/>
+	<bean id="logonForm" class="com.mediapp.web.controller.common.LoginController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>person</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="validator"><ref bean="logonValidator"/></property>
+        <property name="formView"><value>logon</value></property>
+        <property name="successView"><value>welcomeDoc</value></property>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename"><value>messages</value></property>
+    </bean>
+    
+    <bean id="docWelcomeController" class="com.mediapp.web.controller.doc.DocWelcomeController"/>
+    
+	   
+	<!-- you can have more than one handler defined -->
+	<bean id="urlMapping" 
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="urlMap">
+			<map>
+				
+				<entry key="/logon.htm">
+					<ref bean="logonForm"/>
+				</entry>
+				<entry key="/welcomeDoc.htm">
+					<ref bean="docWelcomeController" />
+				</entry>
+				
+			</map>
+		</property>
+	</bean>
+	
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"><value>org.springframework.web.servlet.view.JstlView</value></property>
+        <property name="prefix"><value>/WEB-INF/jsp/</value></property>
+        <property name="suffix"><value>.jsp</value></property>
+    </bean>
+</beans>
