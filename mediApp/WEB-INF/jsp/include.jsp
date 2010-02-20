@@ -12,7 +12,11 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/menu.js"></script>
 </head>
-
+<script>
+function fn_target(url){
+	window.location = url;		
+}	
+</script>
 <body>
 	<div id="main">
 		<div id="header">
@@ -23,35 +27,26 @@
 				</h4>
 			</div>
 			<div id="controls">
-					<form id="searchform" action="http://www.developers-blog.org/blog/default/" method="post">
+					<form id="searchform" action="<%=request.getContextPath()%>" method="post">
 						<p>
 						<label id="searchlabel" for="searchfield">Search:</label>
 						<input id="searchfield" type="text" value="" name="query"/>
-						<input id="searchimage" type="image" title="Click here to search this blog" alt="Search" value="submit" src="http://www.developers-blog.org/resources/default/asual-search.jpg"/>
+						<input id="searchimage" type="image" title="Click here to search this website" alt="Search" value="submit" src="http://www.developers-blog.org/resources/default/asual-search.jpg"/>
 						</p>
 					</form>
 			</div>
 		</div>
+
+
 		<div id="contentHeadLeft">
 			<div id="menu">
-				<ul class="pureCssMenu pureCssMenum">
-					<li class="pureCssMenui"><a href="GOHE.html" class="parent"><span>Home</span></a></li>
-					<li class="pureCssMenui"><a href="./Find_A_Doctor.html"><span>Locate</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-						<ul class="pureCssMenum">
-								<li class="pureCssMenui"><a href="#"><span>Search by Speciality</span></a></li>
-								<li class="pureCssMenui"><a href="#"><span>Search by name</span></a></li>							
-								<li class="pureCssMenui"><a href="#"><span>Search by location</span></a></li>
-						</ul>
-					</li>
-					<li class="pureCssMenui"><a href="./Find_A_Doctor.html"><span>Login</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-						<ul class="pureCssMenum">
-								<li class="pureCssMenui"><a href="#"><span>Doctor</span></a></li>
-								<li class="pureCssMenui"><a href="#"><span>Patient</span></a></li>							
-						</ul>
-					</li>
-
+				<ul class="pureCssMenu pureCssMenum" id="nav">
+					<li class="pureCssMenui"><a class="pureCssMenui" href="#" onclick="fn_target('./welcome.htm')">Home</a></li>
+					<li class="pureCssMenui"><a class="pureCssMenui" href="#" onclick="fn_target('./welcome.htm')">Locate a Doctor</a></li>
+					<li class="pureCssMenui"><a class="pureCssMenui" href="#" onclick="fn_target('./logon.htm')">Login</a></li>
+					<li class="pureCssMenui"><a class="pureCssMenui" href="#" onclick="fn_target('./welcome.htm')">Contact Us</a></li>					
 				</ul>
-		</div>
+			</div>
 			
 			<div id="contentHeadRight">
 				<div id="contentHeadCenter"></div>

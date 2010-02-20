@@ -84,7 +84,7 @@ a:hover {
 #switcher a {
 	font-size: 84%;
 	text-decoration: none;
-	color: #000000;
+	color: #F0FFFF;
 	padding: 0;
 	border-top: 1px solid #F6FAFD;
 	border-bottom: 1px solid #FAFCFD;    
@@ -422,7 +422,7 @@ div.entry .info a:hover {
 	color: #A30000;
 }
 div.entry .links {
-	color: #000000;
+	color: #0000FF;
 	height: 2em;
 }
 div.entry .links a, div.entry .links a:visited {
@@ -553,7 +553,7 @@ div.entryAlone .info a:hover {
 	color: #A30000;
 }
 div.entryAlone .links {
-	color: #000000;
+	color: #0000FF;
 	height: 2em;
 }
 div.entryAlone .links a, div.entryAlone .links a:visited {
