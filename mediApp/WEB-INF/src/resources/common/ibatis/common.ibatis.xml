@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!--
+	iBATIS SQL object - Relational mapping for Concurrent Data
+	Includes SQL features: SELECT  -->
+	
+
+<sqlMap namespace="common">
+
+	<select id="getCount" resultClass="java.lang.Integer" >
+           SELECT COUNT(1) FROM person
+ 	</select>
+	
+</sqlMap>

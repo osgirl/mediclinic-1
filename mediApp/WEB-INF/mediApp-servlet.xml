@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>  
-	
+	 <import resource="classpath:resources/common/spring/database-context.xml"/>	
           
     <bean id="logonValidator" class="com.mediapp.web.validator.common.LoginValidator"/>
 	<bean id="logonForm" class="com.mediapp.web.controller.common.LoginController">
@@ -12,6 +12,10 @@
         <property name="validator"><ref bean="logonValidator"/></property>
         <property name="formView"><value>logon</value></property>
         <property name="successView"><value>welcomeDoc</value></property>
+        <property name="dao">
+			<ref bean="mediAppBaseDAOImpl"/>
+		</property>
+        
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

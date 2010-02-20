@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	
+	<!-- These settings control SqlMapClient configuration details, primarily to do with transaction
+	management. They are all optional-->
+	<settings
+	enhancementEnabled="true"
+	lazyLoadingEnabled="true"
+	useStatementNamespaces="true"
+	/>
+	
+ 	
+ 	<!-- SQL Map to be loaded for concurrent service -->
+ 	<sqlMap resource="resources/common/ibatis/common.ibatis.xml"/>
+ 	<!-- ends here -->
+
+</sqlMapConfig>

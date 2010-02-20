@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<description>MediApp Data Access Object Application Context</description>
+	
+	<!-- PropertyPlaceholderConfigurer used to abstract away the environment information into a properties file  -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:/resources/common/properties/datasource.properties"/>
+		<property name="placeholderPrefix" value="$mediAppDataSource{"/>
+		<property name="ignoreUnresolvablePlaceholders" value="true"/>
+	</bean>
+	<!-- PropertyPlaceholderConfigurer used to abstract away the environment information into a properties file  -->
+
+
+	<bean id="JdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="$mediAppDataSource{mediApp.jdbc.driverClassName}"/>
+		<property name="url" value="$mediAppDataSource{mediApp.jdbc.url}"/>
+        <property name="username" value="$mediAppDataSource{mediApp.jdbc.username}"/>
+        <property name="password" value="$mediAppDataSource{mediApp.jdbc.password}"/>
+        <property name="initialSize" value="1"/>
+        <property name="maxActive" value="20"/>
+    </bean>
+
+    <!-- Spring Transaction Manager -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource">
+			<ref bean="$mediAppDataSource{mediApp.dataSourceBeanName}"/>
+		</property>
+	</bean>
+    <!-- Spring Transaction Manager -->
+
+    <!-- SqlMapClient Configuration -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="classpath:resources/common/ibatis/SqlMapConfig.xml"/>
+		<property name="dataSource">
+			<ref bean="$mediAppDataSource{mediApp.dataSourceBeanName}"/>
+		</property>
+	</bean>
+    <!-- SqlMapClient Configuration -->
+
+    <!-- Abstract spring bean definition of the mediAppBaseDAOImpl class -->
+	<bean id="mediAppBaseDAOImpl" class="com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl">
+		<property name="sqlMapClientLocal">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+    <!-- Abstract spring bean definition of the mediAppBaseDAOImpl class -->
+	
+</beans>
