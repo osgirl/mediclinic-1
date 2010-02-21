@@ -12,10 +12,6 @@
         <property name="validator"><ref bean="logonValidator"/></property>
         <property name="formView"><value>logon</value></property>
         <property name="successView"><value>welcomeDoc</value></property>
-        <property name="dao">
-			<ref bean="mediAppBaseDAOImpl"/>
-		</property>
-        
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -30,6 +26,10 @@
         <property name="validator"><ref bean="logonValidator"/></property>
         <property name="formView"><value>welcomePage</value></property>
         <property name="successView"><value>welcomeDoc</value></property>
+   		<property name="dao">
+			<ref bean="mediAppBaseDAOImpl"/>
+		</property>        
+        
     </bean>
 	   
 	<!-- you can have more than one handler defined -->

@@ -12,9 +12,8 @@
 		<property name="placeholderPrefix" value="$mediAppDataSource{"/>
 		<property name="ignoreUnresolvablePlaceholders" value="true"/>
 	</bean>
+
 	<!-- PropertyPlaceholderConfigurer used to abstract away the environment information into a properties file  -->
-
-
 	<bean id="JdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="$mediAppDataSource{mediApp.jdbc.driverClassName}"/>
 		<property name="url" value="$mediAppDataSource{mediApp.jdbc.url}"/>
@@ -23,6 +22,7 @@
         <property name="initialSize" value="1"/>
         <property name="maxActive" value="20"/>
     </bean>
+	<!-- PropertyPlaceholderConfigurer used to abstract away the environment information into a properties file  -->
 
     <!-- Spring Transaction Manager -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
