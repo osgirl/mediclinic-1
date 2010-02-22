@@ -1,7 +1,6 @@
 package com.mediapp.core.common.dao.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,16 +8,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
-import com.ibatis.sqlmap.client.SqlMapClient;
-
-/**
- * @author A461353
- *
- */
 public class MediAppBaseDAOImpl extends SqlMapClientDaoSupport{
-	
-	private SqlMapClient sqlMapClientLocal;
-	
+
+	public MediAppBaseDAOImpl() {
+	}
 	protected final Log logger = LogFactory.getLog(getClass());
 	/**
 	 * Returns single Object
@@ -26,19 +19,27 @@ public class MediAppBaseDAOImpl extends SqlMapClientDaoSupport{
 	 * @param criteria
 	 * @return
 	 */
-	public void getObject() {
-		System.out.println("#Get Selected Market DAO#");
-		Integer count =(Integer) getSqlMapClientTemplate().queryForObject("getCount",null);
-		System.out.println("Count is" + count);
+	public Object getObject(String operationName, Map criteria) {
+		Object obj = null;
+		try {
+			obj = getSqlMapClient().queryForObject(operationName,
+					criteria);
+			if (logger.isDebugEnabled())
+				logger.debug((new StringBuilder()).append("Object retrieved [")
+						.append(obj).append("]").toString());
+		} catch (SQLException se) {
+			org.springframework.dao.DataAccessException dae = super
+					.getSqlMapClientTemplate().getExceptionTranslator()
+					.translate("RetrieveObject", operationName, se);
+			throw dae;
+		}
+		return obj;
 	}
 	
-
-	public SqlMapClient getSqlMapClientLocal() {
-		return sqlMapClientLocal;
+	public void testDBConnectivity() {
+		Map < String, Object > inputMap = new HashMap < String, Object > ();
+		Object obj = getObject("common.getCount", inputMap);
+		logger.info((new StringBuilder()).append("Object retrieved [")
+				.append(obj).append("]").toString());
 	}
-
-	public void setSqlMapClientLocal(SqlMapClient sqlMapClientLocal) {
-		this.sqlMapClientLocal = sqlMapClientLocal;
-	}
-
 }

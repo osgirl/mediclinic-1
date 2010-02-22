@@ -8,12 +8,13 @@
 	
 	<!-- PropertyPlaceholderConfigurer used to abstract away the environment information into a properties file  -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:/resources/common/properties/datasource.properties"/>
+		<property name="location" value="/WEB-INF/src/resources/common/properties/datasource.properties"/>
 		<property name="placeholderPrefix" value="$mediAppDataSource{"/>
 		<property name="ignoreUnresolvablePlaceholders" value="true"/>
 	</bean>
-
 	<!-- PropertyPlaceholderConfigurer used to abstract away the environment information into a properties file  -->
+
+	<!-- Development datasource -->
 	<bean id="JdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="$mediAppDataSource{mediApp.jdbc.driverClassName}"/>
 		<property name="url" value="$mediAppDataSource{mediApp.jdbc.url}"/>
@@ -22,7 +23,21 @@
         <property name="initialSize" value="1"/>
         <property name="maxActive" value="20"/>
     </bean>
-	<!-- PropertyPlaceholderConfigurer used to abstract away the environment information into a properties file  -->
+	<!-- Development datasource -->
+
+    <!-- Production datasource commented for now --><!--
+    <bean id="JndiDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="$mediAppDataSource{mediApp.jdbc.datasource}" />
+		 Setting these two properties ensures that 
+			 Spring does not eagerly lookup the DataSource from JNDI 
+		<property name="lookupOnStartup">
+			<value>false</value>
+		</property>
+		<property name="proxyInterface">
+			<value>javax.sql.DataSource</value>
+		</property>
+	</bean>
+    --><!-- Production datasource -->
 
     <!-- Spring Transaction Manager -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -34,7 +49,9 @@
 
     <!-- SqlMapClient Configuration -->
 	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-		<property name="configLocation" value="classpath:resources/common/ibatis/SqlMapConfig.xml"/>
+		<property name="configLocation">
+			<value>/WEB-INF/src/resources/common/ibatis/SqlMapConfig.xml</value>
+		</property>
 		<property name="dataSource">
 			<ref bean="$mediAppDataSource{mediApp.dataSourceBeanName}"/>
 		</property>
@@ -42,10 +59,8 @@
     <!-- SqlMapClient Configuration -->
 
     <!-- Abstract spring bean definition of the mediAppBaseDAOImpl class -->
-	<bean id="mediAppBaseDAOImpl" class="com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl">
-		<property name="sqlMapClientLocal">
-			<ref bean="sqlMapClient" />
-		</property>
+	<bean id="mediAppBaseDAOImpl" class="com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl" >
+		<property name="sqlMapClient"><ref local="sqlMapClient"/></property>
 	</bean>
     <!-- Abstract spring bean definition of the mediAppBaseDAOImpl class -->
 	

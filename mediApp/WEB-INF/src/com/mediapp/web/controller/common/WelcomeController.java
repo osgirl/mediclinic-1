@@ -24,24 +24,24 @@ import com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl;
 
 
 public class WelcomeController extends MediAppBaseController {
-	private MediAppBaseDAOImpl mediAppBaseDAOImpl;
+	//private MediAppBaseDAOImpl mediAppBaseDAOImpl;
 	public ModelAndView onSubmit(Object command) throws ServletException {
         //return new ModelAndView(new RedirectView());
 		return new ModelAndView(getSuccessView());
     }
 	
 	protected Map referenceData(HttpServletRequest request, Object Command, Errors error) throws Exception{
-			mediAppBaseDAOImpl.getObject();
+			//mediAppBaseDAOImpl.getObject();
 		return null;
 		
 	}
 
-	public MediAppBaseDAOImpl getMediAppBaseDAOImpl() {
+/*	public MediAppBaseDAOImpl getMediAppBaseDAOImpl() {
 		return mediAppBaseDAOImpl;
 	}
 
 	public void setMediAppBaseDAOImpl(MediAppBaseDAOImpl mediAppBaseDAOImpl) {
 		this.mediAppBaseDAOImpl = mediAppBaseDAOImpl;
 	}
-
+*/
 }
