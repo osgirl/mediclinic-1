@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	<description>
+		MediApp Common classes Application Context
+	</description>
+
+	<bean id="loginService"	class="com.mediapp.core.common.business.impl.LoginServiceImpl">
+		<property name="commonDAO">
+			<ref bean="commonDAO"/>
+		</property>
+	</bean>
+	<bean id="commonDAO" class="com.mediapp.core.common.dao.impl.CommonDAOImpl" parent = "mediAppBaseDAOImpl">
+	</bean>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+  		<tx:attributes>
+    		<tx:method name="get*" read-only="true"/>
+    		<tx:method name="*" rollback-for="DataAccessException,MediAppBaseException,RuntimeException"/>
+	  </tx:attributes>
+	</tx:advice>
+	<aop:config>
+  		<aop:pointcut id="commonServiceOperation" expression="execution(* com.mediapp.core.common.business.LoginService.*(..))"/>
+  		<aop:advisor advice-ref="txAdvice" pointcut-ref="commonServiceOperation"/>
+	</aop:config>
+</beans>

@@ -13,30 +13,32 @@ import com.mediapp.domain.common.Person;
  */
 public class LoginValidator implements Validator {
 
-    private final Log logger = LogFactory.getLog(getClass());
+	private final Log logger = LogFactory.getLog(getClass());
 
-    public boolean supports(Class clazz) {
-        return clazz.equals(Person.class);
-    }
+	public boolean supports(Class clazz) {
+		return clazz.equals(Person.class);
+	}
 
-    public void validate(Object obj, Errors errors) {
-    	Person person = (Person) obj;
-        if (person == null) {
-            errors.rejectValue("username", "error.login.not-specified", null,
-                    "Value required.");
-        } else {
-            logger.info("Validating user credentials for: "
-                    + person.getUsername());
-            if (person.getUsername().equals("Sukesh") == false) {
-                errors.rejectValue("username", "error.login.invalid-user",
-                        null, "Incorrect Username.");
-            } else {
-                if (person.getPassword().equals("Sukesh") == false) {
-                    errors.rejectValue("password", "error.login.invalid-pass",
-                            null, "Incorrect Password.");
-                }
-            }
+	public void validate(Object obj, Errors errors) {
+		Person person = (Person) obj;
+		if (person == null) {
+			errors.rejectValue("username", "error.login.not-specified", null,
+			"Value required.");
+		} else {
+			logger.info("Validating user credentials for: "
+					+ person.getUsername());
+			if (person.getUsername() == null || person.getUsername().trim().length() == 0) {
+				logger.info(" 1 Validating user credentials for: "
+						+ person.getUsername());
+				errors.rejectValue("username", "error.login.invalid-user",
+						null, "Incorrect Username.");
+			} if (person.getPassword() == null || person.getPassword().trim().length() == 0) {
+				logger.info(" 3 Validating user credentials for: "
+						+ person.getUsername());
+				errors.rejectValue("password", "error.login.invalid-pass",
+						null, "Incorrect Password.");
+			}
+		}
 
-        }
-    }
+	}
 }

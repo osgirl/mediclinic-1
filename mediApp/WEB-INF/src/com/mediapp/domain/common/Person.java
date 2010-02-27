@@ -1,15 +1,33 @@
 package com.mediapp.domain.common;
 
-/**
- * @author A461353
- *
- */
+import java.util.List;
+
+
 public class Person extends MediAppBaseDomain{
-    private String username;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String username;
 
     private String password;
 
-    public String getPassword() {
+    private boolean authenticated;
+    
+    private CodeDecode personType;
+    
+        
+    public CodeDecode getPersonType() {
+		return personType;
+	}
+	
+	public void setPersonType(CodeDecode personType) {
+		this.personType = personType;
+	}
+
+
+	public String getPassword() {
         return password;
     }
 
@@ -23,6 +41,20 @@ public class Person extends MediAppBaseDomain{
 
     public void setUsername(String username) {
         this.username = username;
-
     }
+
+	/**
+	 * @return the authenticated
+	 */
+	public boolean isAuthenticated() {
+		return authenticated;
+	}
+
+	/**
+	 * @param authenticated the authenticated to set
+	 */
+	public void setAuthenticated(boolean authenticated) {
+		this.authenticated = authenticated;
+	}
+    
 }

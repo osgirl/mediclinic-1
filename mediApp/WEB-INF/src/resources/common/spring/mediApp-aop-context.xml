@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+  	<description>MediApp AOP Configuration</description>
+       
+	
+	<aop:config>
+		<!-- Exception Interceptor Configuration -->
+	    <aop:advisor pointcut="execution(* com.mediapp.core..*.*(..))"  					advice-ref="mediAppExceptionInterceptor"/>
+	  
+	 </aop:config>
+	<!--  Spring bean definition for the Exception Interceptor -->
+	<bean id="mediAppExceptionInterceptor" class="com.mediapp.core.common.MediAppExceptionInterceptor"/>
+	
+	<!--  Spring bean definition for the Logging Interceptor -->
+	<!--<bean id="mediAppLoggingInterceptor" class="org.springframework.aop.interceptor.CustomizableTraceInterceptor">
+		<property name="useDynamicLogger" 	value="true" />
+		<property name="enterMessage" 		value="Entering : $[methodName]" />
+		<property name="exitMessage" 		value="Exiting : $[methodName] after time: $[invocationTime]ms" />
+	</bean>
+
+	-->
+	
+</beans>

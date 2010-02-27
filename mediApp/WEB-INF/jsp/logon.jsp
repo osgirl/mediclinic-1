@@ -18,34 +18,18 @@
 						<tr>
 							<td width="33%" align="right">Username: </td>
 							<td width="66%" align="left">
-								<spring:bind path="person.username">
 								<input type="text" 
 								       name="username" 
-								       value="<core:out value="${status.value}"/>"/>		
-								</spring:bind>
+								       value=""/>		
 							</td>
 							
 						</tr>
 						<tr>
-							<td colspan="2" align="center">
-								<spring:hasBindErrors name="person">
-								<font color="red"><core:out value="${status.errorMessage}"/></font>
-								</spring:hasBindErrors>
-							</td>
-						</tr>
-						<tr>
 							<td width="33%" align="right" >Password: </td>
 							<td width="66%" align="left">
-								<spring:bind path="person.password">
 								<input type="password" name="password" />
-								</spring:bind>
 							</td>
-						</tr>
-						<tr>
 							<td colspan="2" align="center">
-								<spring:hasBindErrors name="person">
-								<font color="red"><core:out value="${status.errorMessage}"/></font>
-								</spring:hasBindErrors>
 							</td>
 						</tr>
 						<tr>

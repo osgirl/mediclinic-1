@@ -7,7 +7,9 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			/WEB-INF/src/resources/common/spring/database-context.xml
+			classpath:resources/common/spring/database-context.xml
+			classpath:resources/common/spring/common-context.xml
+			classpath:resources/common/spring/mediApp-aop-context.xml
 		</param-value>
 		<load-on-startup>1</load-on-startup>
 	</context-param>
@@ -33,6 +35,9 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-
+	<taglib>
+  		<taglib-uri>/spring</taglib-uri> 
+  		<taglib-location>/WEB-INF/spring.tld</taglib-location> 
+  	</taglib>
 
 </web-app>

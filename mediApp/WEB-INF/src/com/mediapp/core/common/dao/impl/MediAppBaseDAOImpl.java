@@ -2,6 +2,7 @@ package com.mediapp.core.common.dao.impl;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -35,6 +36,24 @@ public class MediAppBaseDAOImpl extends SqlMapClientDaoSupport{
 		}
 		return obj;
 	}
+	
+	public Object getList(String operationName, Map criteria) {
+		Object obj = null;
+		try {
+			obj = getSqlMapClient().queryForList(operationName,
+					criteria);
+			if (logger.isDebugEnabled())
+				logger.debug((new StringBuilder()).append("Object retrieved [")
+						.append(obj).append("]").toString());
+		} catch (SQLException se) {
+			org.springframework.dao.DataAccessException dae = super
+					.getSqlMapClientTemplate().getExceptionTranslator()
+					.translate("RetrieveObject", operationName, se);
+			throw dae;
+		}
+		return obj;
+	}
+
 	
 	public void testDBConnectivity() {
 		Map < String, Object > inputMap = new HashMap < String, Object > ();

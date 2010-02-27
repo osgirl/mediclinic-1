@@ -59,7 +59,7 @@
     <!-- SqlMapClient Configuration -->
 
     <!-- Abstract spring bean definition of the mediAppBaseDAOImpl class -->
-	<bean id="mediAppBaseDAOImpl" class="com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl" >
+	<bean id="mediAppBaseDAOImpl" class="com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl" abstract="true">
 		<property name="sqlMapClient"><ref local="sqlMapClient"/></property>
 	</bean>
     <!-- Abstract spring bean definition of the mediAppBaseDAOImpl class -->
