@@ -7,7 +7,7 @@
 
 <sqlMap namespace="common">
 	<resultMap class="com.mediapp.domain.common.CodeDecode" id="Person-Type-Map">
-		<result property="personType"  column="code_ctg"/>
+		<result property="codeDecode"  column="code_ctg"/>
 	</resultMap>
 	<parameterMap class="java.util.HashMap" id="Person-Type-Map">
 		<parameter property="Category" />
