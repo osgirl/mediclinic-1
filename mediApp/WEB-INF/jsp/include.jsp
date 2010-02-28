@@ -6,16 +6,16 @@
 <%@ taglib prefix="spring" uri="/spring" %>
 <html>
 <head>
-    <title>Sample</title>
-    <link href="<%=request.getContextPath()%>/css/puremenu.css" rel="stylesheet" type="text/css">
+    <title>mediApp</title>    
     <link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/js/menu.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/mediapp.js"></script>    
 </head>
 <script>
 function fn_target(url){
 	window.location = url;		
 }	
+hide('Menu1');
+hide('Menu2');
 </script>
 <body>
 	<div id="main">
@@ -36,19 +36,37 @@ function fn_target(url){
 					</form>
 			</div>
 		</div>
+<div >
+								<table cellspacing=0 cellpadding=2 border="1" bordercolor="339999">
+									<tr>
+										<td onmouseover="javascript:show('Menu1')" onmouseout="javascript:hide('Menu1')" valign=top class="menu1">Home
+											<div id=Menu1 class="submenu1">
+													<a href="/welcomePage.htm">Home</a><br>
+													<a href="/logon.htm">Login</a>
+											</div>
+										</td>
+										<td onmouseover="javascript:show('Menu2')" onmouseout="javascript:hide('Menu2')" valign=top class="menu2">Login
+											<div id=Menu2 class="submenu2">
+												<a href="/logon.htm">Logon as Patient</a><br>
+												<a href="/logon.htm">Logon as Doctor</a>
+											</div>
+										</td>
+									</tr>
+								</table>
+							
 
-
+</div>
 		<div id="contentHeadLeft">
-			<div id="menu">
-				<ul class="pureCssMenu pureCssMenum" id="nav">
-					<li class="pureCssMenui"><a class="pureCssMenui" href="#" onclick="fn_target('./welcome.htm')">Home</a></li>
-					<li class="pureCssMenui"><a class="pureCssMenui" href="#" onclick="fn_target('./welcome.htm')">Locate a Doctor</a></li>
-					<li class="pureCssMenui"><a class="pureCssMenui" href="#" onclick="fn_target('./logon.htm')">Login</a></li>
-					<li class="pureCssMenui"><a class="pureCssMenui" href="#" onclick="fn_target('./welcome.htm')">Contact Us</a></li>					
-				</ul>
-			</div>
-			
 			<div id="contentHeadRight">
-				<div id="contentHeadCenter"></div>
+				<div id="contentHeadCenter">
+							<div id="menu">
+							
+						</div>				
+				</div>
 			</div>		
 		</div>
+<script type="text/javascript">
+hide('Menu1');
+hide('Menu2');
+
+</script>
