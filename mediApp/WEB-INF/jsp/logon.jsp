@@ -1,5 +1,4 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
-
 		<div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
@@ -8,9 +7,10 @@
 							<div class="entryAlone">
 
 		<form method="post">
-		<table width=500>	
+		<table width=500 align="center">	
 		<tr>
 		<td>	
+		<div id="Login" style="display:block" align="center">
 		<table  border=""  class="login" width=250>
 			<tr>
 				<td align="center" bgcolor="lightblue">Log on</td>
@@ -46,6 +46,7 @@
 				</td>
 			</tr>
 		</table>
+		<br/> Don't have an account yet? 
 		<table  border="" class="login"  width=250>
 			<tr>
 				<td align="center" bgcolor="lightblue">Register Now</td>
@@ -72,7 +73,9 @@
 		</td>
 		</tr>
 		</table>
-		<div id="PatientRegistrationForm" style="display:none">
+		
+	
+		<div id="PatientRegistrationForm" style="display:none" align="center" >
 		<table  border="" id="RegistrationForm"  class="login" width=250>
 			<tr>
 				<td align="center" bgcolor="lightblue">Patient Registration Form</td>
@@ -91,26 +94,8 @@
 							
 						</tr>
 						<tr>
-							<td width="30%" align="right">Password: </td>
-							<td width="70%" align="left">
-								<input type="password" 
-								       name="password" 
-								       value=""/>		
-							</td>
-							
-						</tr>
-						<tr>
-							<td width="30%" align="right">Confirm Password: </td>
-							<td width="70%" align="left">
-								<input type="password" 
-								       name="cPassword" 
-								       value=""/>		
-							</td>
-							
-						</tr>
-						<tr>
 							<td align="center" colspan="2">
-								<input type="submit" alignment="center" value="Register" style="background-color: #bcc6ae; border-top: 2px solid #5f6c4d; border-right: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #5f6c4d; width: 80px; height: 24px; font:bold 15px Trebuchet MS,Tahoma;"/>
+								<input type="button" alignment="center" onClick="fn_showMessage();" value="Register" style="background-color: #bcc6ae; border-top: 2px solid #5f6c4d; border-right: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #5f6c4d; width: 80px; height: 24px; font:bold 15px Trebuchet MS,Tahoma;"/>
 							</td>
 						</tr>
 					</table>
@@ -119,7 +104,7 @@
 			</tr>
 		</table>
 		</div>
-			<div id="DoctorRegistrationForm"  style="display:none">
+			<div id="DoctorRegistrationForm"  style="display:none" align="center">
 		<table  border="" id="RegistrationForm"  class="login" width=250>
 			<tr>
 				<td align="center" bgcolor="lightblue">Doctor Registration Form</td>
@@ -138,24 +123,6 @@
 							
 						</tr>
 						<tr>
-							<td width="30%" align="right">Password: </td>
-							<td width="70%" align="left">
-								<input type="password" 
-								       name="password" 
-								       value=""/>		
-							</td>
-							
-						</tr>
-						<tr>
-							<td width="30%" align="right">Confirm Password: </td>
-							<td width="70%" align="left">
-								<input type="password" 
-								       name="cPassword" 
-								       value=""/>		
-							</td>
-							
-						</tr>
-						<tr>
 							<td width="30%" align="right">Registration Number: </td>
 							<td width="70%" align="left">
 								<input type="text" 
@@ -167,7 +134,7 @@
 
 						<tr>
 							<td align="center" colspan="2">
-								<input type="submit" alignment="center" value="Register" style="background-color: #bcc6ae; border-top: 2px solid #5f6c4d; border-right: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #5f6c4d; width: 80px; height: 24px; font:bold 15px Trebuchet MS,Tahoma;"/>
+								<input type="button" alignment="center" onClick="fn_showMessage();" value="Register" style="background-color: #bcc6ae; border-top: 2px solid #5f6c4d; border-right: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #5f6c4d; width: 80px; height: 24px; font:bold 15px Trebuchet MS,Tahoma;"/>
 							</td>
 						</tr>
 					</table>
@@ -176,7 +143,10 @@
 			</tr>
 		</table>
 		</div>
-		
+		<div id="showMessage" style="display:none" align="center" >
+			Password has been sent to your email ID.
+		</div>
+	</div>	
 	</form>
 						
 							</div>

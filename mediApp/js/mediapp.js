@@ -24,4 +24,8 @@ function fn_hideDoctorRgFrm(){
 	var menuStyle=document.getElementById("DoctorRegistrationForm").style; 
 	menuStyle.display="none";
 }
+function fn_showMessage(){
+	var menuStyle=document.getElementById("showMessage").style; 
+	menuStyle.display="block";
 
+}
