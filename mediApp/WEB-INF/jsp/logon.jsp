@@ -6,7 +6,7 @@
 						<div id="entries">
 							<div class="entryAlone">
 
-		<form method="post">
+		<form name="logon" id="logon" method="post">
 		<table width=500 align="center">	
 		<tr>
 		<td>	

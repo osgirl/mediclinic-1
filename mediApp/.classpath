@@ -49,5 +49,14 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/aspectjweaver.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/cglib-nodep-2.1_3.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/spring.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/activation.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/dsn.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/imap.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/mail.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/mailapi.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/pop3.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/smtp.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/velocity-1.6.3-dep.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/velocity-1.6.3.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>

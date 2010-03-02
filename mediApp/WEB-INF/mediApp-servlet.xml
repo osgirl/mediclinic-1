@@ -24,6 +24,10 @@
         <property name="loginService">
 			<ref bean="loginService"/>
 		</property>
+		<property name="sendeMail">
+			<ref bean="sendeMail"/>
+		</property>
+		
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -73,4 +77,34 @@
 		</property>
 	</bean>
 <!-- Generic Exception Handler  -->
+   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+   		<property name="host" value="smtp.gmail.com" />
+   		<property name="port" value="465" />
+		<property name="protocol" value="smtps" />
+		<property name="username" value="padmaraj.m@gmail.com"/>
+		<property name="password" value="mh12ac830"/>
+		<property name="javaMailProperties">
+		<props>
+			<prop key="mail.smtps.auth">true</prop>
+			<prop key="mail.smtps.starttls.enable">true</prop>
+			<prop key="mail.smtps.debug">true</prop>
+		</props>
+		</property>
+
+   </bean>
+
+   <bean id="sendeMail" class="com.mediapp.core.common.business.impl.ScheduleEMail">
+      <property name="mailSender" ref="mailSender"/>
+      <property name="velocityEngine" ref="velocityEngine"/>
+   </bean>
+   
+   <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+      <property name="velocityProperties">
+         <value>
+            resource.loader=class
+            class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+         </value>
+      </property>
+   </bean>
+
 </beans>

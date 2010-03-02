@@ -19,6 +19,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mediapp.core.common.business.LoginService;
+import com.mediapp.core.common.business.impl.ScheduleEMail;
 import com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.LogonDomain;
@@ -30,7 +31,23 @@ public class LoginController extends MediAppBaseController  {
 	 
 	private final Log logger = LogFactory.getLog(getClass());
 	LoginService loginService;
+	ScheduleEMail sendeMail;
+	public ScheduleEMail getSendeMail() {
+		return sendeMail;
+	}
+	public void setSendeMail(ScheduleEMail sendeMail) {
+		this.sendeMail = sendeMail;
+	}
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
+		System.out.println("request"+request.getParameter("emailID"));
+		if (null !=request ){
+			System.out.println("request"+request.getParameter("emailID"));
+			String eMailID = request.getParameter("emailID");			
+			if (eMailID!=null){
+				sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
+				return new ModelAndView(getFormView());
+			}
+		}
 		Person person = loginService.authenticate((Person)command);
 		if (!person.isAuthenticated()) {
 			 /*errors.rejectValue("password", "error.login.invalid",

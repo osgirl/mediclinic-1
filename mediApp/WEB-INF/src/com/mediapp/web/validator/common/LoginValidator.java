@@ -7,10 +7,7 @@ import org.springframework.validation.Validator;
 
 import com.mediapp.domain.common.Person;
 
-/**
- * @author A461353
- *
- */
+
 public class LoginValidator implements Validator {
 
 	private final Log logger = LogFactory.getLog(getClass());

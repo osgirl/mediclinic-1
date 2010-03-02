@@ -41,7 +41,7 @@ hide('Menu2');
 								<table cellspacing=0 cellpadding=2 border="1" bordercolor="339999">
 									<tr>
 										<td onmouseover="javascript:show('Menu1')" onmouseout="javascript:hide('Menu1')" valign=top class="menu1">Home
-											<div id=Menu1 class="submenu1">
+											<div id=Menu1 class="submenu1" >
 													<a href="/welcomePage.htm">Home</a><br>
 													<a href="/logon.htm">Login</a>
 											</div>

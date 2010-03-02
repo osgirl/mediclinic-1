@@ -27,5 +27,6 @@ function fn_hideDoctorRgFrm(){
 function fn_showMessage(){
 	var menuStyle=document.getElementById("showMessage").style; 
 	menuStyle.display="block";
+	document.forms["logon"].submit();
 
 }

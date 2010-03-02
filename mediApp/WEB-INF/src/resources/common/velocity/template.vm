@@ -1,0 +1,10 @@
+<html>
+<body>
+<h3>Hi ${user.userName}!</h3>
+
+<div>
+   Thank you for registering at mediapp.com. Please use the following passowrd to logon.
+</div>
+</body>
+
+</html>

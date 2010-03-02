@@ -7,4 +7,6 @@ public interface CommonWebConstants {
 	String LOGIN_URL = "/logon.htm";
 	
 	String WELCOMEPAGE_URL = "/welcomePage.htm";
+	
+	String REG_EMAIL_TYPE = "registration";
 }
