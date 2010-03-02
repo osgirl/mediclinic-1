@@ -21,45 +21,34 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mediapp.core.common.business.LoginService;
 import com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl;
 import com.mediapp.domain.common.Person;
+import com.mediapp.domain.common.LogonDomain;
 import com.mediapp.web.constants.common.CommonWebConstants;
 import com.mediapp.web.util.common.CommonWebUtil;
 
 
 public class LoginController extends MediAppBaseController  {
 	 
-	MediAppBaseDAOImpl dao;
+	private final Log logger = LogFactory.getLog(getClass());
 	LoginService loginService;
-	
-	public LoginService getLoginService() {
-		return loginService;
-	}
-	public void setLoginService(LoginService loginService) {
-		this.loginService = loginService;
-	}
-	public Map referenceData(HttpServletRequest request,Object command,Errors errors){
-		Person person = loginService.getPersonType();
-		Map<String,Person> logon =  new HashMap < String, Person > () ;
-		logon.put("personType",person );
-		System.out.println("personType"+person.toString());
-		return logon;
-		
-	}
-	public ModelAndView onSubmit(Object command) throws ServletException {
-        //return new ModelAndView(new RedirectView());
+	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
+		Person person = loginService.authenticate((Person)command);
+		if (!person.isAuthenticated()) {
+			 /*errors.rejectValue("password", "error.login.invalid",
+                     null, "Invalid login");*/
+			List<String> errorList = new ArrayList<String>();
+			errorList.add("error.login.invalid");
+			CommonWebUtil.addErrorMessagesInReq(request, errorList);
+			 logger.info(" Login failed.");
+			return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
+		} else {
+			CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);
+		}
 		return new ModelAndView(getSuccessView());
     }
 	/**
-	 * @param dao the dao to set
+	 * @param loginService the loginService to set
 	 */
-/*	public void setDao(MediAppBaseDAOImpl dao) {
-//		this.dao = dao;
-//		dao.testDBConnectivity();
-	}
-	*/
-	public MediAppBaseDAOImpl getDao() {
-		return dao;
-	}
-	public void setDao(MediAppBaseDAOImpl dao) {
-		this.dao = dao;
+	public void setLoginService(LoginService loginService) {
+		this.loginService = loginService;
 	}
 }

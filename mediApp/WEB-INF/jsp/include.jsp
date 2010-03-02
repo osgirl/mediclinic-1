@@ -1,9 +1,9 @@
 <%@ page session="false"%>
 
-<%@ taglib prefix="core" uri="http://java.sun.com/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>    
 <%@ taglib prefix="str" uri="http://jakarta.apache.org/taglibs/string-1.1" %>
-<%@ taglib prefix="spring" uri="/spring" %>
 <html>
 <head>
     <title>mediApp</title>    
@@ -32,7 +32,7 @@ hide('Menu2');
 						<p>
 						<label id="searchlabel" for="searchfield">Search:</label>
 						<input id="searchfield" type="text" value="" name="query"/>
-						<input id="searchimage" type="image" title="Click here to search this website" alt="Search" value="submit" src="http://www.developers-blog.org/resources/default/asual-search.jpg"/>
+						<input id="searchimage" type="image" title="Click here to search this website" alt="Search" value="submit" src="<%=request.getContextPath()%>/images/asual-search.jpg"/>
 						</p>
 					</form>
 			</div>

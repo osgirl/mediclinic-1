@@ -22,20 +22,38 @@
 						<tr>
 							<td width="33%" align="right">Username: </td>
 							<td width="66%" align="left">
-								<input type="text" 
-								       name="username" 
-								       value=""/>		
+								<spring:bind path="person.username">
+									<input type="text" name="username"    value="<c:out value="${status.value}"/>"/>		
+								</spring:bind>
 							</td>
 							
 						</tr>
 						<tr>
+							<td colspan="2" align="center">
+								<spring:bind	path="person.username">
+										<font color="red"><c:out value="${status.errorMessage}" /></font>
+								</spring:bind>
+							</td>
+						</tr>
+						
+						<tr>
 							<td width="33%" align="right" >Password: </td>
 							<td width="66%" align="left">
-								<input type="password" name="password" />
+								<spring:bind	path="person.password">
+									<input type="password" name="password" />
+								</spring:bind>
 							</td>
 							<td colspan="2" align="center">
 							</td>
 						</tr>
+						<tr>
+							<td colspan="2" align="center">
+								<spring:bind	path="person.password">
+									<font color="red"><c:out value="${status.errorMessage}" /></font>
+								</spring:bind>
+							</td>
+						</tr>
+						
 						<tr>
 							<td align="center" colspan="2">
 								<input type="submit" alignment="center" value="Logon" style="background-color: #bcc6ae; border-top: 2px solid #5f6c4d; border-right: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #5f6c4d; width: 80px; height: 24px; font:bold 15px Trebuchet MS,Tahoma;"/>

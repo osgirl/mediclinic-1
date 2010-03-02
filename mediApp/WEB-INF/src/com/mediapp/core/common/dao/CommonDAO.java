@@ -17,6 +17,4 @@ public interface CommonDAO {
 	 */
 	public Person getPersonDetails(Person person) throws DataAccessException;
 
-	public Person getPersonType() throws DataAccessException;
-
 }

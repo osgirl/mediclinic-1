@@ -3,8 +3,6 @@
  */
 package com.mediapp.core.common.business;
 
-import java.util.List;
-
 import com.mediapp.domain.common.Person;
 
 /**
@@ -21,5 +19,4 @@ public interface LoginService {
 	 */
 	public Person authenticate(Person person);
 
-	public Person getPersonType();
 }

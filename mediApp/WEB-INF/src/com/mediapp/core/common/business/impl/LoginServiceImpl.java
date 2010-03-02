@@ -1,7 +1,5 @@
 package com.mediapp.core.common.business.impl;
 
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -42,9 +40,4 @@ public class LoginServiceImpl implements LoginService {
 		this.commonDAO = commonDAO;
 	}
 	
-	public Person getPersonType(){
-		Person person = commonDAO.getPersonType();
-		System.out.println("Service"+ commonDAO.getPersonType());
-		return person;
-	}
 }
