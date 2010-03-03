@@ -60,8 +60,8 @@
 													<tr>
 														<td >Gender: </td>
 														<td >
-															<input type="checkbox" name="username"    value=""/> Male		
-															<input type="checkbox" name="username"    value=""/> Female		
+															<input type="radio" name="username"    value=""/> Male		
+															<input type="radio" name="username"    value=""/> Female		
 														</td>
 													</tr>
 													<tr>
@@ -79,25 +79,34 @@
 													<tr>
 														<td >Locality: </td>
 														<td >
-															<input type="text" name="username"    value=""/>		
+															<select>
+																<option>-Select-</option>
+															</select>
 														</td>
 													</tr>
 													<tr>
 														<td >City: </td>
 														<td >
-															<input type="text" name="username"    value=""/>		
+															<select>
+																<option>-Select-</option>
+															</select>
 														</td>
 													</tr>
 													<tr>
 														<td >State: </td>
 														<td >
-															<input type="text" name="username"    value=""/>		
+															<select>
+																<option>-Select-</option>
+															</select>
+
 														</td>
 													</tr>
 													<tr>
 														<td >Country: </td>
 														<td >
-															<input type="text" name="username"    value=""/>		
+															<select>
+																<option>-Select-</option>
+															</select>
 														</td>
 													</tr>
 													<tr>
