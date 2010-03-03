@@ -774,3 +774,67 @@ table.login td {
 	top:20;
 	width:200;
 }
+table.layout {
+	border-width: 2px 2px 2px 2px;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: blue blue blue blue;
+	border-collapse: separate;
+}
+table.layout th {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	-moz-border-radius: 3px 3px 3px 3px;
+}
+table.layout td {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	-moz-border-radius: 3px 3px 3px 3px;
+}
+table.layout {
+	border-width: 2px 2px 2px 2px;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: blue blue blue blue;
+	border-collapse: separate;
+}
+table.layout th {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	-moz-border-radius: 3px 3px 3px 3px;
+}
+table.layout td {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	-moz-border-radius: 3px 3px 3px 3px;
+}
+
+input.bsubmit {
+	background-color: #bcc6ae;
+	border-top: 2px solid #5f6c4d; 
+	border-right: 2px solid #000000; 
+	border-bottom: 2px solid #000000; 
+	border-left: 2px solid #5f6c4d; 
+	height: 24px; 
+	font:bold 15px Trebuchet MS,Tahoma;
+}
+
+input.gsubmit {
+	background-color: #E0CCFF;
+	border-top: 2px solid #5f6c4d; 
+	border-right: 2px solid #000000; 
+	border-bottom: 2px solid #000000; 
+	border-left: 2px solid #5f6c4d; 
+	width: 200px; 
+	height: 35px; 
+	cursor:pointer;
+	font:bold 18px Trebuchet MS,Tahoma;
+}

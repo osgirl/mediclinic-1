@@ -2,6 +2,8 @@ package com.mediapp.domain.common;
 
 import java.util.List;
 
+import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
+
 
 public class Person extends MediAppBaseDomain{
     /**
@@ -12,6 +14,8 @@ public class Person extends MediAppBaseDomain{
 	private String username;
 
     private String password;
+    
+    private String emailID;
 
     private boolean authenticated;
     
@@ -55,6 +59,14 @@ public class Person extends MediAppBaseDomain{
 	 */
 	public void setAuthenticated(boolean authenticated) {
 		this.authenticated = authenticated;
+	}
+
+	public String getEmailID() {
+		return emailID;
+	}
+
+	public void setEmailID(String emailID) {
+		this.emailID = emailID;
 	}
     
 }

@@ -33,9 +33,10 @@ public class ScheduleEMail {
 	            public void prepare(MimeMessage mimeMessage) throws Exception {
 	            	Map model = new HashMap();
 	            	model.put("email.sender", "padmaraj");
+	            	//model.put("email.sender", "a459740");
 	            	model.put("email.user", emailTo);
 	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-	               message.setTo("padmaraj.m@gmail.com");
+	               message.setTo(emailTo);
 	               //message.setFrom("a459740@fidelity.com");
 	               if(emailType==CommonCoreConstants.REG_EMAIL_TYPE){
 		               message.setSubject("Hi");

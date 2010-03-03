@@ -56,7 +56,7 @@
 						
 						<tr>
 							<td align="center" colspan="2">
-								<input type="submit" alignment="center" value="Logon" style="background-color: #bcc6ae; border-top: 2px solid #5f6c4d; border-right: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #5f6c4d; width: 80px; height: 24px; font:bold 15px Trebuchet MS,Tahoma;"/>
+								<input type="submit"  alignment="center" value="Logon" class="bsubmit"  width="75"/>
 							</td>
 						</tr>
 					</table>
@@ -75,12 +75,12 @@
 						
 						<tr>
 							<td align="center" colspan="5">
-								<input type="button" alignment="center" onClick="fn_showPatientRgFrm()" value="Patient Registration" style="background-color: #bcc6ae; border-top: 2px solid #5f6c4d; border-right: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #5f6c4d; width: 200px; height: 24px; font:bold 15px Trebuchet MS,Tahoma;"/>
+								<input type="button" class="bsubmit" alignment="center" onClick="fn_showPatientRgFrm()" value="Patient Registration" />
 							</td>
 						</tr>
 						<tr>
 							<td align="center" colspan="2">
-								<input type="button" alignment="center" value="Doctor Registration" onclick="fn_showDoctorRgFrm()" style="background-color: #bcc6ae; border-top: 2px solid #5f6c4d; border-right: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #5f6c4d; width: 200px; height: 24px; font:bold 15px Trebuchet MS,Tahoma;"/>
+								<input type="button" class="bsubmit" alignment="center" value="Doctor Registration" onclick="fn_showDoctorRgFrm()" />
 							</td>							
 						</tr>
 					</table>
@@ -105,15 +105,15 @@
 						<tr>
 							<td width="30%" align="right">Email: </td>
 							<td width="70%" align="left">
-								<input type="text" 
-								       name="emailID" 
-								       value=""/>		
+							<spring:bind path="person.username">
+								<input type="text" name="emailID" value="<c:out value="${status.value}"/>"/>		
+							</spring:bind>
 							</td>
 							
 						</tr>
 						<tr>
 							<td align="center" colspan="2">
-								<input type="button" alignment="center" onClick="fn_showMessage();" value="Register" style="background-color: #bcc6ae; border-top: 2px solid #5f6c4d; border-right: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #5f6c4d; width: 80px; height: 24px; font:bold 15px Trebuchet MS,Tahoma;"/>
+								<input type="button" alignment="center" class="bsubmit" onClick="fn_showMessage();" value="Register" />
 							</td>
 						</tr>
 					</table>
@@ -134,9 +134,9 @@
 						<tr>
 							<td width="30%" align="right">Email: </td>
 							<td width="70%" align="left">
-								<input type="text" 
-								       name="emailID" 
-								       value=""/>		
+							<spring:bind path="person.username">
+								<input type="text" name="emailID" value="<c:out value="${status.value}"/>"/>		
+							</spring:bind>
 							</td>
 							
 						</tr>
@@ -152,7 +152,7 @@
 
 						<tr>
 							<td align="center" colspan="2">
-								<input type="button" alignment="center" onClick="fn_showMessage();" value="Register" style="background-color: #bcc6ae; border-top: 2px solid #5f6c4d; border-right: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #5f6c4d; width: 80px; height: 24px; font:bold 15px Trebuchet MS,Tahoma;"/>
+								<input type="button" alignment="center" class="bsubmit" onClick="fn_showMessage();" value="Register" />
 							</td>
 						</tr>
 					</table>

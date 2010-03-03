@@ -38,12 +38,11 @@ public class LoginController extends MediAppBaseController  {
 	public void setSendeMail(ScheduleEMail sendeMail) {
 		this.sendeMail = sendeMail;
 	}
-	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
-		System.out.println("request"+request.getParameter("emailID"));
-		if (null !=request ){
-			System.out.println("request"+request.getParameter("emailID"));
+	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
+		if (null !=request ){			
 			String eMailID = request.getParameter("emailID");			
-			if (eMailID!=null){
+			if (eMailID!=""){
+				System.out.println("request"+eMailID);
 				sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
 				return new ModelAndView(getFormView());
 			}

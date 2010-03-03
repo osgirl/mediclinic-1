@@ -27,8 +27,17 @@
 		<property name="sendeMail">
 			<ref bean="sendeMail"/>
 		</property>
-		
     </bean>
+
+	<bean id="personalProfile" class="com.mediapp.web.controller.common.PersonalProfileController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>person</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="validator"><ref bean="logonValidator"/></property>
+        <property name="formView"><value>personalProfile</value></property>
+        <property name="successView"><value>personalProfile</value></property>
+	</bean>
+
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename"><value>messages</value></property>
@@ -59,6 +68,9 @@
 				<entry key="/welcomeDoc.htm">
 					<ref bean="docWelcomeController" />
 				</entry>
+				<entry key="/personalProfile.htm">
+					<ref bean="personalProfile" />
+				</entry>
 				
 			</map>
 		</property>
@@ -77,7 +89,7 @@
 		</property>
 	</bean>
 <!-- Generic Exception Handler  -->
-   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+<!--    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
    		<property name="host" value="smtp.gmail.com" />
    		<property name="port" value="465" />
 		<property name="protocol" value="smtps" />
@@ -91,6 +103,11 @@
 		</props>
 		</property>
 
+   </bean>
+-->
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+   		<property name="host" value="MSGBOSCLN2WIN.DMN1.FMR.COM" />
    </bean>
 
    <bean id="sendeMail" class="com.mediapp.core.common.business.impl.ScheduleEMail">
