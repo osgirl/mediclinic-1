@@ -89,7 +89,7 @@
 		</property>
 	</bean>
 <!-- Generic Exception Handler  -->
-<!--    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
    		<property name="host" value="smtp.gmail.com" />
    		<property name="port" value="465" />
 		<property name="protocol" value="smtps" />
@@ -104,12 +104,13 @@
 		</property>
 
    </bean>
--->
 
+
+<!-- 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
    		<property name="host" value="MSGBOSCLN2WIN.DMN1.FMR.COM" />
    </bean>
-
+ -->
    <bean id="sendeMail" class="com.mediapp.core.common.business.impl.ScheduleEMail">
       <property name="mailSender" ref="mailSender"/>
       <property name="velocityEngine" ref="velocityEngine"/>
