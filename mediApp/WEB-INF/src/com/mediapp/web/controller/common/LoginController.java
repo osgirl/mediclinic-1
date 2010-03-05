@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mediapp.core.common.business.LoginService;
 import com.mediapp.core.common.business.impl.ScheduleEMail;
 import com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl;
+import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.LogonDomain;
 import com.mediapp.web.constants.common.CommonWebConstants;
@@ -38,16 +39,47 @@ public class LoginController extends MediAppBaseController  {
 	public void setSendeMail(ScheduleEMail sendeMail) {
 		this.sendeMail = sendeMail;
 	}
+
+	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)
+	throws Exception {
+		Person logon = (Person) command;
+		List <CodeDecode> logonPersonType = loginService.getPersonType();
+		if (request.getSession().getAttribute("logonCriteria") == null) {
+			request.getSession().setAttribute("logonCriteria", logonPersonType);
+		}
+
+		Map < String , List > logonMap = new HashMap < String , List > ();
+		logonMap.put("logonCriteria", logonPersonType);
+
+		
+		return logonMap;
+	}
+	
+	
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
+		Person person = loginService.authenticate((Person)command);
 		if (null !=request ){			
 			String eMailID = request.getParameter("emailID");			
-			if (eMailID!=""){
-				System.out.println("request"+eMailID);
-				sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
-				return new ModelAndView(getFormView());
+			if (eMailID!=""){				
+				boolean state =loginService.addNewMember(person);
+				if(state){
+					sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
+					List<String> errorList = new ArrayList<String>();
+					errorList.add("error.register.success");
+					CommonWebUtil.addErrorMessagesInReq(request, errorList);
+					logger.info(" Login sucess!");
+					
+				}else{
+					List<String> errorList = new ArrayList<String>();
+					errorList.add("error.register.failed");
+					CommonWebUtil.addErrorMessagesInReq(request, errorList);
+					logger.info(" Registeration failed.");
+					
+				}
+				return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
 			}
 		}
-		Person person = loginService.authenticate((Person)command);
+		
 		if (!person.isAuthenticated()) {
 			 /*errors.rejectValue("password", "error.login.invalid",
                      null, "Invalid login");*/

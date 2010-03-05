@@ -53,6 +53,16 @@
 								</spring:bind>
 							</td>
 						</tr>
+						<tr>
+						<td width="33%" align="right">Type: </td>
+							<td width="66%" align="left">
+								<select id="PersonType" name="PersonType" style="WIDTH: 150px">
+									<c:forEach items="${logonCriteria}" var="data">
+										<option value='${data.codeDecode}' >${data.codeDecode}</option>
+									</c:forEach>
+								</select>
+							</td>
+						</tr>
 						
 						<tr>
 							<td align="center" colspan="2">
@@ -105,7 +115,7 @@
 						<tr>
 							<td width="30%" align="right">Email: </td>
 							<td width="70%" align="left">
-							<spring:bind path="person.username">
+							<spring:bind path="person.emailID">
 								<input type="text" name="emailID" value="<c:out value="${status.value}"/>"/>		
 							</spring:bind>
 							</td>
@@ -134,7 +144,7 @@
 						<tr>
 							<td width="30%" align="right">Email: </td>
 							<td width="70%" align="left">
-							<spring:bind path="person.username">
+							<spring:bind path="person.emailID">
 								<input type="text" name="emailID" value="<c:out value="${status.value}"/>"/>		
 							</spring:bind>
 							</td>

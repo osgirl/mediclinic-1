@@ -6,14 +6,12 @@
 	
 
 <sqlMap namespace="common">
-	<resultMap class="com.mediapp.domain.common.CodeDecode" id="Person-Type-Map">
-		<result property="codeDecode"  column="code_ctg"/>
-	</resultMap>
-	<parameterMap class="java.util.HashMap" id="Person-Type-Map">
-		<parameter property="Category" />
-	</parameterMap>
-	<select id="getPersonType" parameterMap="Person-Type-Map" resultMap="Person-Type-Map">
-           SELECT code_ctg FROM code_decode where code_ctg = ?
+	 <parameterMap id="Person-Type-Map"   class="java.util.HashMap">
+	    <parameter property="Category"    		javaType="java.lang.String"    mode="IN"/>
+	 </parameterMap>
+
+	<select id="getPersonType" parameterMap="Person-Type-Map" resultClass="java.lang.String">
+           SELECT code_val FROM code_decode where code_ctg = ?
  	</select>
 	
 </sqlMap>

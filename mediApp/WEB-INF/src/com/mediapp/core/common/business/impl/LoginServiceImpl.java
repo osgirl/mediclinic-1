@@ -1,10 +1,14 @@
 package com.mediapp.core.common.business.impl;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.dao.DataAccessException;
 
 import com.mediapp.core.common.business.LoginService;
 import com.mediapp.core.common.dao.CommonDAO;
+import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
 
 
@@ -40,4 +44,12 @@ public class LoginServiceImpl implements LoginService {
 		this.commonDAO = commonDAO;
 	}
 	
+	public List <CodeDecode> getPersonType() {
+		return commonDAO.getPersonType();
+	}
+@Override
+	public boolean addNewMember(Person person) {
+	// TODO Auto-generated method stub
+	return false;
+}
 }

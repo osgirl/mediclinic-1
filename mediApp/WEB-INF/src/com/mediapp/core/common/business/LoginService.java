@@ -3,12 +3,13 @@
  */
 package com.mediapp.core.common.business;
 
+import java.util.List;
+
+import org.springframework.dao.DataAccessException;
+
+import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
 
-/**
- * @author A461353
- *
- */
 public interface LoginService {
 	
 	/**
@@ -18,5 +19,9 @@ public interface LoginService {
 	 * @return
 	 */
 	public Person authenticate(Person person);
+	
+	public List <CodeDecode> getPersonType() ;
+	
+	public boolean addNewMember(Person person);
 
 }

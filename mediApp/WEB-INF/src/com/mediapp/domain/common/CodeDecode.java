@@ -1,6 +1,5 @@
 package com.mediapp.domain.common;
 
-import java.util.ArrayList;
 
 
 public class CodeDecode extends MediAppBaseDomain{
@@ -9,7 +8,7 @@ public class CodeDecode extends MediAppBaseDomain{
 	
 	private String codeCategory;
 	
-	private ArrayList<String>  codeDecode[][];
+	private String  codeDecode;
 
 	public String getCodeCategory() {
 		return codeCategory;
@@ -19,11 +18,12 @@ public class CodeDecode extends MediAppBaseDomain{
 		this.codeCategory = codeCategory;
 	}
 
-	public ArrayList<String>[][] getCodeDecode() {
+	public String getCodeDecode() {
 		return codeDecode;
 	}
+	
 
-	public void setCodeDecode(ArrayList<String>[][] codeDecode) {
+	public void setCodeDecode(String codeDecode) {
 		this.codeDecode = codeDecode;
 	}
 	

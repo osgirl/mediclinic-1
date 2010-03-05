@@ -3,7 +3,9 @@
  */
 package com.mediapp.core.common.dao.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
@@ -20,21 +22,28 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return null;
 	}
 
-	public Person getPersonType() throws DataAccessException {
+	public List <CodeDecode> getPersonType() throws DataAccessException {
 		Person person = null;		
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("Category", "PERSON_TY");
+		List <CodeDecode> CodeValueList =  new ArrayList() ;
 		try{
-			CodeDecode codeDecode = null;
-			codeDecode= (CodeDecode) getList("common.getPersonType",criteria );
-			person.setPersonType(codeDecode);
-			System.out.println("DAO"+ person);
-		
+			List <String>codeValuesString= (ArrayList<String>) getList("common.getPersonType",criteria );
+			for(String eachCodeValue : codeValuesString){
+				CodeDecode codeValue = new CodeDecode();
+				codeValue.setCodeDecode(eachCodeValue);
+				CodeValueList.add(codeValue);
+			}
 		}catch(DataAccessException se){
 			System.out.println(se.toString());
+			System.err.println("stacktrace"+se);
 		}
-		return person;
+		return CodeValueList;
 	}
 
-	
+	@Override
+	public boolean addNewMember(Person person) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
