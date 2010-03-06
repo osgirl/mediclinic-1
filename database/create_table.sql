@@ -34,16 +34,18 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Person` (
   `middle_name` VARCHAR(45) NULL ,
   `idAddress` INT NULL ,
   `date_of_birth` DATE NULL ,
-  `Gender` CHAR NULL ,
+  `Gender` VARCHAR(1) NULL ,
   `landline_phone_number` INT NULL ,
   `mobile_phone_number` INT NULL ,
   `email_Address` VARCHAR(45) NULL ,
   `password` VARCHAR(45) NULL ,
-  `status_of_account` CHAR NULL ,
+  `status_of_account` VARCHAR(1) NULL ,
   `hint_question` VARCHAR(100) NULL ,
   `hint_answer` VARCHAR(100) NULL ,
+  `person_type` VARCHAR(45) NULL ,
   PRIMARY KEY (`idPerson`) ,
   INDEX `idAddress` (`idAddress` ASC) ,
+  UNIQUE INDEX `email_Address_UNIQUE` (`email_Address` ASC) ,
   CONSTRAINT `idAddress`
     FOREIGN KEY (`idAddress` )
     REFERENCES `mediapp`.`Address` (`idAddress` )
@@ -199,4 +201,3 @@ insert into `mediapp`.`Code_Decode` (`idCode_Decode`, `code_ctg`, `code_val`, `c
 insert into `mediapp`.`Code_Decode` (`idCode_Decode`, `code_ctg`, `code_val`, `code_desc`) values (2, 'PERSON_TY', 'Patient', 'patient');
 
 COMMIT;
-
