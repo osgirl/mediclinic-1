@@ -1,5 +1,6 @@
 package com.mediapp.domain.common;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
@@ -21,8 +22,123 @@ public class Person extends MediAppBaseDomain{
     
     private CodeDecode personType;
     
-        
-    public CodeDecode getPersonType() {
+    private String personTypeString;
+    
+    private String accountType;
+    
+    private final String key = "goodLord";
+    
+    private int idPerson;
+    
+    private String firstName;
+    
+    private String middleInitial;
+    
+    private String lastName;
+    
+    private Date dateOfBirth;
+    
+    private String gender;
+    
+    private Integer landlinePhoneNumber;
+    
+    private Integer cellPhoneNumber;
+    
+    private String accountStatus;
+    
+    public int getIdPerson() {
+		return idPerson;
+	}
+
+	public void setIdPerson(int idPerson) {
+		this.idPerson = idPerson;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getMiddleInitial() {
+		return middleInitial;
+	}
+
+	public void setMiddleInitial(String middleInitial) {
+		this.middleInitial = middleInitial;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Integer getLandlinePhoneNumber() {
+		return landlinePhoneNumber;
+	}
+
+	public void setLandlinePhoneNumber(Integer landlinePhoneNumber) {
+		this.landlinePhoneNumber = landlinePhoneNumber;
+	}
+
+	public Integer getCellPhoneNumber() {
+		return cellPhoneNumber;
+	}
+
+	public void setCellPhoneNumber(Integer cellPhoneNumber) {
+		this.cellPhoneNumber = cellPhoneNumber;
+	}
+
+	public String getAccountStatus() {
+		return accountStatus;
+	}
+
+	public void setAccountStatus(String accountStatus) {
+		this.accountStatus = accountStatus;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public String getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+
+	public String getPersonTypeString() {
+		return personTypeString;
+	}
+
+	public void setPersonTypeString(String personTypeString) {
+		this.personTypeString = personTypeString;
+	}
+
+	public CodeDecode getPersonType() {
 		return personType;
 	}
 	

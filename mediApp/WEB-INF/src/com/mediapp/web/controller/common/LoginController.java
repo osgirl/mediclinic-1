@@ -58,8 +58,7 @@ public class LoginController extends MediAppBaseController  {
 		if (null !=request ){	
 			String eMailID = request.getParameter("emailID");
 			person.setEmailID(eMailID);
-			String personType = request.getParameter("personType");
-			System.out.println("persontype"+personType);
+			String personType = request.getParameter("hPersonType");			
 			List<String> errorList = new ArrayList<String>();			
 			if (eMailID!=""){		
 				errorList = loginService.checkIfeMailExists(person);
@@ -67,7 +66,6 @@ public class LoginController extends MediAppBaseController  {
 					CodeDecode personCode = new CodeDecode();
 					personCode.setCodeDecode(personType);
 					person.setPersonType(personCode);
-					System.out.println("persontype"+person.getPersonType());
 					boolean state =loginService.addNewMember(person);
 					if(state){
 						sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
@@ -80,10 +78,11 @@ public class LoginController extends MediAppBaseController  {
 						logger.info(" Registeration failed.");
 					}
 				}
-				return new ModelAndView();
+				return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
 			}
 		}
-
+		//	System.out.println("hi"+person.isAuthenticated());
+		//	Person dbDetails = loginService.authenticate(person);
 		if (!person.isAuthenticated()) {
 			 /*errors.rejectValue("password", "error.login.invalid",
                      null, "Invalid login");*/
@@ -102,5 +101,10 @@ public class LoginController extends MediAppBaseController  {
 	 */
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
+	}
+	protected void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
+		Person logon = (Person) command;
+		String personType = request.getParameter("hPersonType");			
+		logon.setPersonTypeString(personType);
 	}
 }

@@ -20,20 +20,20 @@ public class LoginServiceImpl implements LoginService {
 	private CommonDAO commonDAO;
 	
 	public Person authenticate(Person person) {
-		
-		Person dbDetails = commonDAO.getPersonDetails(person);
-		if(dbDetails != null ) {
-			dbDetails.setAuthenticated(true);
-		} else {
-			dbDetails = person;
-			if (person.getUsername().equals("Sukesh")) {
+		System.out.println("dbpassword"+person.getEmailID());
+		if (person.getEmailID() == ""){
+			Person dbDetails = commonDAO.getPersonDetails(person);
+			if(dbDetails.getPassword().equals(person.getPassword())) {
 				dbDetails.setAuthenticated(true);
+				person.setAuthenticated(true);				
 			} else {
+				//dbDetails = person;
 				dbDetails.setAuthenticated(false);	
 			}
-		}
-		if (logger.isInfoEnabled()) {
-			logger.info("isAuthenticated : User " + person.getUsername() + " is " + person.isAuthenticated());
+			if (logger.isInfoEnabled()) {
+				logger.info("isAuthenticated : User " + person.getUsername() + " is " + person.isAuthenticated());
+			}
+			return dbDetails;
 		}
 		return person;
 	}

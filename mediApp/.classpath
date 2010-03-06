@@ -58,5 +58,6 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/smtp.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/velocity-1.6.3-dep.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/velocity-1.6.3.jar"/>
+	<classpathentry kind="src" output="work" path="work"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>

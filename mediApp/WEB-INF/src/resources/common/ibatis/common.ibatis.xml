@@ -7,6 +7,38 @@
 
 <sqlMap namespace="common">
 
+	 <parameterMap id="Person-Details-Map"   class="java.util.HashMap">
+	    <parameter property="Key"    	 		javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="Username"  		javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="PersonType"   		javaType="java.lang.String"    mode="IN"/>	    
+	 </parameterMap>
+	 
+	 <resultMap class="com.mediapp.domain.common.Person" id="Person-Details-Result-Map">
+	 	<result property="idPerson" column="idPerson"/>
+	 	<result property="firstName" column="first_name"/>
+	 	<result property="lastName" column="last_name"/>
+	 	<result property="middleInitial" column="middle_name"/>
+	 	<result property="dateOfBirth" column="date_of_birth"/>
+	 	<result property="gender" column="Gender"/>
+	 	<result property="landlinePhoneNumber" column="landline_phone_number"/>
+	 	<result property="cellPhoneNumber" column="mobile_phone_number"/>
+	 	<result property="emailID" column="email_address"/>
+	 	<result property="accountStatus" column="status_of_account"/>
+	 	<result property="personTypeString" column="person_type"/>
+	 	<result property="password" column="ePassword"/>
+	 </resultMap>
+
+	<select id="authenticateUser" parameterMap="Person-Details-Map" resultMap="Person-Details-Result-Map">
+           SELECT idPerson,first_name,last_name,middle_name,
+           date_of_birth, Gender, landline_phone_number, mobile_phone_number,
+           email_address, status_of_account, person_type, AES_DECRYPT(password,?) as ePassword 
+           FROM person where 
+		   email_address = ? and
+		   person_type = ?;
+		   
+ 	</select>
+
+
 	 <parameterMap id="Person-Type-Map"   class="java.util.HashMap">
 	    <parameter property="Category"    		javaType="java.lang.String"    mode="IN"/>
 	 </parameterMap>
@@ -27,7 +59,7 @@
 
 
 	<insert id="insertNewPerson">
-		INSERT INTO person (email_Address ) VALUES (#emailID#)
+		INSERT INTO person (email_Address,status_of_account,person_type,password ) VALUES (#emailID#,'T',#personTypeString#,AES_ENCRYPT(#password#,#key#) )
 	</insert>
 	
 </sqlMap>

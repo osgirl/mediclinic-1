@@ -15,8 +15,12 @@ import com.mediapp.domain.common.Person;
 public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
 	public Person getPersonDetails(Person person) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String,String> criteria =  new HashMap < String, String > () ;
+		criteria.put("Key", person.getKey());
+		criteria.put("Username", person.getUsername());
+		criteria.put("PersonType", person.getPersonTypeString());		
+		return (Person) getObject("common.authenticateUser", criteria);
+		
 	}
 
 	public List <CodeDecode> getPersonType() throws DataAccessException {
@@ -48,7 +52,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return countOfeMail.intValue();
 	}
 	
-	public boolean addNewMember(Person person) throws DataAccessException {		
+	public boolean addNewMember(Person person) throws DataAccessException {
+			person.setPersonTypeString(person.getPersonType().getCodeDecode());
+			person.setPassword("mediApp");			
 			insertObject("common.insertNewPerson",person );
 
 		return true;

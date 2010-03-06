@@ -7,6 +7,7 @@
 							<div class="entryAlone">
 
 		<form name="logon" id="logon" method="post">
+		<input type="hidden" name="hPersonType"></input>
 		<table width=500 align="center">	
 		<tr>
 		<td>	
@@ -56,6 +57,7 @@
 						<tr>
 						<td width="33%" align="right">Type: </td>
 							<td width="66%" align="left">
+							
 								<select id="PersonType" name="PersonType" style="WIDTH: 150px">
 									<c:forEach items="${logonCriteria}" var="data">
 										<option value='${data.codeDecode}' >${data.codeDecode}</option>
@@ -66,7 +68,7 @@
 						
 						<tr>
 							<td align="center" colspan="2">
-								<input type="submit"  alignment="center" value="Logon" class="bsubmit"  width="75"/>
+								<input type="button" onClick="javascript:fn_submitLogin();" alignment="center" value="Logon" class="bsubmit"  width="75"/>
 							</td>
 						</tr>
 					</table>
@@ -85,12 +87,12 @@
 						
 						<tr>
 							<td align="center" colspan="5">
-								<input type="button" class="bsubmit" alignment="center" onClick="fn_showPatientRgFrm()" value="Patient Registration" />
+								<input type="button" class="bsubmit" alignment="center" onClick="javascript:fn_showPatientRgFrm();" value="Patient Registration" />
 							</td>
 						</tr>
 						<tr>
 							<td align="center" colspan="2">
-								<input type="button" class="bsubmit" alignment="center" value="Doctor Registration" onclick="fn_showDoctorRgFrm()" />
+								<input type="button" class="bsubmit" alignment="center" value="Doctor Registration" onClick="javascript:fn_showDoctorRgFrm();" />
 							</td>							
 						</tr>
 					</table>
@@ -122,7 +124,7 @@
 						</tr>
 						<tr>
 							<td align="center" colspan="2">
-								<input type="button" alignment="center" class="bsubmit" onClick="fn_showMessage();" value="Register" />
+								<input type="button" alignment="center" class="bsubmit" onClick="javascript:fn_showMessage();" value="Register" />
 							</td>
 						</tr>
 					</table>
