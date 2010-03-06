@@ -55,12 +55,19 @@ public class LoginController extends MediAppBaseController  {
 	
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
 		Person person = loginService.authenticate((Person)command);
-		if (null !=request ){			
-			String eMailID = request.getParameter("emailID");			
-			List<String> errorList = new ArrayList<String>();
+		if (null !=request ){	
+			String eMailID = request.getParameter("emailID");
+			person.setEmailID(eMailID);
+			String personType = request.getParameter("personType");
+			System.out.println("persontype"+personType);
+			List<String> errorList = new ArrayList<String>();			
 			if (eMailID!=""){		
 				errorList = loginService.checkIfeMailExists(person);
 				if (errorList.size()==0){
+					CodeDecode personCode = new CodeDecode();
+					personCode.setCodeDecode(personType);
+					person.setPersonType(personCode);
+					System.out.println("persontype"+person.getPersonType());
 					boolean state =loginService.addNewMember(person);
 					if(state){
 						sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
@@ -73,10 +80,10 @@ public class LoginController extends MediAppBaseController  {
 						logger.info(" Registeration failed.");
 					}
 				}
-				return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
+				return new ModelAndView();
 			}
 		}
-		
+
 		if (!person.isAuthenticated()) {
 			 /*errors.rejectValue("password", "error.login.invalid",
                      null, "Invalid login");*/

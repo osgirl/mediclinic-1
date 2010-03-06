@@ -102,11 +102,10 @@
 		</tr>
 		</table>
 		
-	
-		<div id="PatientRegistrationForm" style="display:none" align="center" >
+		<div id="RegistrationForm" style="display:none" align="center" >
 		<table  border="" id="RegistrationForm"  class="login" width=250>
 			<tr>
-				<td align="center" bgcolor="lightblue">Patient Registration Form</td>
+				<td align="center" bgcolor="lightblue">Registration Form</td>
 			</tr>
 			<tr>
 				<td>
@@ -132,49 +131,7 @@
 			</tr>
 		</table>
 		</div>
-			<div id="DoctorRegistrationForm"  style="display:none" align="center">
-		<table  border="" id="RegistrationForm"  class="login" width=250>
-			<tr>
-				<td align="center" bgcolor="lightblue">Doctor Registration Form</td>
-			</tr>
-			<tr>
-				<td>
-					<table border="0" width="100%" >						
-						
-						<tr>
-							<td width="30%" align="right">Email: </td>
-							<td width="70%" align="left">
-							<spring:bind path="person.emailID">
-								<input type="text" name="emailID" value="<c:out value="${status.value}"/>"/>		
-							</spring:bind>
-							</td>
-							
-						</tr>
-						<tr>
-							<td width="30%" align="right">Registration Number: </td>
-							<td width="70%" align="left">
-								<input type="text" 
-								       name="registrationNumber" 
-								       value=""/>		
-							</td>
-							
-						</tr>
 
-						<tr>
-							<td align="center" colspan="2">
-								<input type="button" alignment="center" class="bsubmit" onClick="fn_showMessage();" value="Register" />
-							</td>
-						</tr>
-					</table>
-					
-				</td>
-			</tr>
-		</table>
-		</div>
-		<div id="showMessage" style="display:none" align="center" >
-			Password has been sent to your email ID.
-		</div>
-	</div>	
 	</form>
 						
 							</div>

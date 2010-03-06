@@ -17,13 +17,13 @@ public class LoginValidator implements Validator {
 	}
 
 	public void validate(Object obj, Errors errors) {
-		Person person = (Person) obj;
-		if (person == null ) {		
+		Person person = (Person) obj;		
+		if (person == null ) {	
 			errors.rejectValue("username", "error.login.not-specified", null,
 			"Value required.");
 			
 		} else {
-			if (person.getEmailID()==null){
+			if (person.getEmailID()==""){
 				logger.info("Validating user credentials for: "
 					+ person.getUsername());
 				if (person.getUsername() == null || person.getUsername().trim().length() == 0) {
@@ -38,7 +38,6 @@ public class LoginValidator implements Validator {
 						null, "Incorrect Password.");
 				}
 			}
-		}
-
+		}		
 	}
 }

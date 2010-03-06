@@ -11,13 +11,6 @@
     <link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/mediapp.js"></script>    
 </head>
-<script>
-function fn_target(url){
-	window.location = url;		
-}	
-hide('Menu1');
-hide('Menu2');
-</script>
 <body>
 	<div id="main">
 		<div id="header">
