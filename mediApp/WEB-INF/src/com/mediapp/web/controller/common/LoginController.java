@@ -63,7 +63,7 @@ public class LoginController extends MediAppBaseController  {
 				if (errorList.size()==0){
 					boolean state =loginService.addNewMember(person);
 					if(state){
-			//			sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
+						sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
 						errorList.add("error.register.success");
 						CommonWebUtil.addErrorMessagesInReq(request, errorList);
 						logger.info(" Login sucess!");					
