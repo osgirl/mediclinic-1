@@ -11,7 +11,7 @@ CREATE SCHEMA IF NOT EXISTS `mediapp` DEFAULT CHARACTER SET latin1 COLLATE latin
 DROP TABLE IF EXISTS `mediapp`.`Address` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`Address` (
-  `idAddress` INT NOT NULL ,
+  `idAddress` INT NOT NULL AUTO_INCREMENT ,
   `address1` VARCHAR(100) NULL ,
   `address2` VARCHAR(100) NULL ,
   `Locality` VARCHAR(100) NULL ,
@@ -28,7 +28,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mediapp`.`Person` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`Person` (
-  `idPerson` INT NOT NULL ,
+  `idPerson` INT NOT NULL AUTO_INCREMENT ,
   `first_name` VARCHAR(45) NULL ,
   `last_name` VARCHAR(45) NULL ,
   `middle_name` VARCHAR(45) NULL ,
@@ -58,7 +58,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mediapp`.`Patient_details` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`Patient_details` (
-  `idPatient_details` INT NOT NULL ,
+  `idPatient_details` INT NOT NULL AUTO_INCREMENT ,
   `idPerson` INT NULL ,
   `idPastHistory` INT NULL ,
   PRIMARY KEY (`idPatient_details`) ,
@@ -78,7 +78,7 @@ COMMENT = 'patient details';
 DROP TABLE IF EXISTS `mediapp`.`doctor_details` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`doctor_details` (
-  `idDoctor_details` INT NOT NULL ,
+  `idDoctor_details` INT NOT NULL AUTO_INCREMENT ,
   `idPerson` INT NULL ,
   `idSpecialization` INT NULL ,
   PRIMARY KEY (`idDoctor_details`) ,
@@ -98,7 +98,7 @@ COMMENT = 'doctor details';
 DROP TABLE IF EXISTS `mediapp`.`Diagnosis` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`Diagnosis` (
-  `idDiagnosis` INT NOT NULL ,
+  `idDiagnosis` INT NOT NULL AUTO_INCREMENT ,
   `idAppointment` INT NULL ,
   `ICD_code` VARCHAR(45) NULL ,
   `Prescription` VARCHAR(45) NULL ,
@@ -127,7 +127,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mediapp`.`Appointment_History` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`Appointment_History` (
-  `idAppointment_History` INT NOT NULL ,
+  `idAppointment_History` INT NOT NULL AUTO_INCREMENT ,
   `idPatient_details` INT NULL ,
   `idDoctor_details` INT NULL ,
   `date_of_appointment` DATETIME NULL ,
@@ -178,7 +178,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mediapp`.`Tests` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`Tests` (
-  `idTests` INT NOT NULL ,
+  `idTests` INT NOT NULL AUTO_INCREMENT ,
   `suggested_Test` INT NULL ,
   `test_Result_Value` VARCHAR(45) NULL ,
   `test_Result_Unit` VARCHAR(45) NULL ,
