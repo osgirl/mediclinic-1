@@ -6,6 +6,23 @@ DROP SCHEMA IF EXISTS `mediapp` ;
 CREATE SCHEMA IF NOT EXISTS `mediapp` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 
 -- -----------------------------------------------------
+-- Table `mediapp`.`Address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`Address` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`Address` (
+  `idAddress` INT NOT NULL ,
+  `address1` VARCHAR(100) NULL ,
+  `address2` VARCHAR(100) NULL ,
+  `Locality` VARCHAR(100) NULL ,
+  `City` VARCHAR(45) NULL ,
+  `State` VARCHAR(45) NULL ,
+  `Country` VARCHAR(45) NULL ,
+  PRIMARY KEY (`idAddress`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `mediapp`.`Person`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mediapp`.`Person` ;
@@ -15,7 +32,23 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Person` (
   `first_name` VARCHAR(45) NULL ,
   `last_name` VARCHAR(45) NULL ,
   `middle_name` VARCHAR(45) NULL ,
-  PRIMARY KEY (`idPerson`) )
+  `idAddress` INT NULL ,
+  `date_of_birth` DATE NULL ,
+  `Gender` CHAR NULL ,
+  `landline_phone_number` INT NULL ,
+  `mobile_phone_number` INT NULL ,
+  `email_Address` VARCHAR(45) NULL ,
+  `password` VARCHAR(45) NULL ,
+  `status_of_account` CHAR NULL ,
+  `hint_question` VARCHAR(100) NULL ,
+  `hint_answer` VARCHAR(100) NULL ,
+  PRIMARY KEY (`idPerson`) ,
+  INDEX `idAddress` (`idAddress` ASC) ,
+  CONSTRAINT `idAddress`
+    FOREIGN KEY (`idAddress` )
+    REFERENCES `mediapp`.`Address` (`idAddress` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -49,7 +82,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`doctor_details` (
   `idPerson` INT NULL ,
   `idSpecialization` INT NULL ,
   PRIMARY KEY (`idDoctor_details`) ,
-  INDEX `idPerson` (`idPerson` ASC) ,
+  INDEX `idPerson1` (`idPerson` ASC) ,
   CONSTRAINT `idPerson1`
     FOREIGN KEY (`idPerson` )
     REFERENCES `mediapp`.`Person` (`idPerson` )
@@ -76,6 +109,8 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Diagnosis` (
   `follow_up_id` INT NULL ,
   `reference_doctor_id` INT NULL ,
   `share_status` CHAR NULL ,
+  `allergy` VARCHAR(100) NULL ,
+  `idTests` INT NULL ,
   PRIMARY KEY (`idDiagnosis`) ,
   INDEX `idAppointment` (`idAppointment` ASC) ,
   CONSTRAINT `idAppointment`
@@ -95,8 +130,11 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Appointment_History` (
   `idAppointment_History` INT NOT NULL ,
   `idPatient_details` INT NULL ,
   `idDoctor_details` INT NULL ,
-  `date_of_appointment` DATE NULL ,
+  `date_of_appointment` DATETIME NULL ,
   `idDiagnosis` INT NULL ,
+  `appointment_set_by` VARCHAR(100) NULL ,
+  `appointment_confirmation` CHAR NULL ,
+  `proposed_reschedule_date` DATETIME NULL ,
   PRIMARY KEY (`idAppointment_History`) ,
   INDEX `idPatient` (`idPatient_details` ASC) ,
   INDEX `idDoctor` (`idDoctor_details` ASC) ,
@@ -134,7 +172,31 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Code_Decode` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `mediapp`.`Tests`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`Tests` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`Tests` (
+  `idTests` INT NOT NULL ,
+  `suggested_Test` INT NULL ,
+  `test_Result_Value` VARCHAR(45) NULL ,
+  `test_Result_Unit` VARCHAR(45) NULL ,
+  PRIMARY KEY (`idTests`) )
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `mediapp`.`Code_Decode`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+insert into `mediapp`.`Code_Decode` (`idCode_Decode`, `code_ctg`, `code_val`, `code_desc`) values (1, 'PERSON_TY', 'Doctor', 'doctor');
+insert into `mediapp`.`Code_Decode` (`idCode_Decode`, `code_ctg`, `code_val`, `code_desc`) values (2, 'PERSON_TY', 'Patient', 'patient');
+
+COMMIT;
+
