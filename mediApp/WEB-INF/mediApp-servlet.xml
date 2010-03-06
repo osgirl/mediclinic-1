@@ -20,7 +20,7 @@
         <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
         <property name="validator"><ref bean="logonValidator"/></property>
         <property name="formView"><value>logon</value></property>
-        <property name="successView"><value>welcomeDoc</value></property>
+        <property name="successView"><value>personalProfile</value></property>
         <property name="loginService">
 			<ref bean="loginService"/>
 		</property>

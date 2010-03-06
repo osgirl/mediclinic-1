@@ -91,7 +91,7 @@ public class LoginController extends MediAppBaseController  {
 			CommonWebUtil.addErrorMessagesInReq(request, errorList);
 			 logger.info(" Login failed.");
 			return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
-		} else {
+		} else {			
 			CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);
 		}
 		return new ModelAndView(getSuccessView());

@@ -6,7 +6,7 @@
 					<div id="contentSingleEntry" style="">
 						<div id="entries">
 							<div class="entryAlone">
-								<form name="profile" id="profile" method="post">
+								<form:form name="profile" id="profile" method="post" commandName="Person">
 									<table width=800  border="1" class="layout"  >	
 										<tr>
 											<td>	
@@ -32,11 +32,14 @@
 														</td>
 													</tr>
 												</table>
-												<table  border="0" >	
+												<table  border="0" >												
+													
 													<tr>
 														<td >First Name: </td>
 														<td >
-															<input type="text" name="username"    value=""/>		
+															
+															<input type="text" name="firstName"    value="${username}" />
+		
 														</td>
 													</tr>
 													<tr>
@@ -130,7 +133,7 @@
 											</td>
 										</tr>	
 									</table>
-								</form>
+								</form:form>
 	
 							</div>
 						</div>

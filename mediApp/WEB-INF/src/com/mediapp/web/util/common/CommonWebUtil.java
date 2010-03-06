@@ -33,6 +33,7 @@ public class CommonWebUtil {
 
 		HttpSession session = request.getSession(false);
 		if (null != session && null != attributeValue) {
+			Person person = (Person) attributeValue;
 			session.setAttribute(attributeName, attributeValue);
 		}
 
