@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.mediapp.core.common.dao.impl;
 
 import java.util.ArrayList;
@@ -41,9 +38,19 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return CodeValueList;
 	}
 
-	@Override
-	public boolean addNewMember(Person person) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return false;
+	public int checkIfeMailExists(Person person)  throws DataAccessException {
+
+		Map<String,String> criteria =  new HashMap < String, String > () ;
+		criteria.put("emailID", person.getEmailID());
+		Integer countOfeMail = null;
+		countOfeMail = (Integer) getObject("common.checkeMailExists",criteria );
+		
+		return countOfeMail.intValue();
+	}
+	
+	public boolean addNewMember(Person person) throws DataAccessException {		
+			insertObject("common.insertNewPerson",person );
+
+		return true;
 	}
 }

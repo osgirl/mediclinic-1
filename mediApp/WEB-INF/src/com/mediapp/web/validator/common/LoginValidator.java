@@ -18,22 +18,25 @@ public class LoginValidator implements Validator {
 
 	public void validate(Object obj, Errors errors) {
 		Person person = (Person) obj;
-		if (person == null) {
+		if (person == null ) {		
 			errors.rejectValue("username", "error.login.not-specified", null,
 			"Value required.");
+			
 		} else {
-			logger.info("Validating user credentials for: "
+			if (person.getEmailID()==null){
+				logger.info("Validating user credentials for: "
 					+ person.getUsername());
-			if (person.getUsername() == null || person.getUsername().trim().length() == 0) {
-				logger.info(" 1 Validating user credentials for: "
+				if (person.getUsername() == null || person.getUsername().trim().length() == 0) {
+					logger.info(" 1 Validating user credentials for: "
 						+ person.getUsername());
-				errors.rejectValue("username", "error.login.invalid-user",
+					errors.rejectValue("username", "error.login.invalid-user",
 						null, "Incorrect Username.");
-			} if (person.getPassword() == null || person.getPassword().trim().length() == 0) {
-				logger.info(" 3 Validating user credentials for: "
+				} if (person.getPassword() == null || person.getPassword().trim().length() == 0) {
+					logger.info(" 3 Validating user credentials for: "
 						+ person.getUsername());
-				errors.rejectValue("password", "error.login.invalid-pass",
+					errors.rejectValue("password", "error.login.invalid-pass",
 						null, "Incorrect Password.");
+				}
 			}
 		}
 

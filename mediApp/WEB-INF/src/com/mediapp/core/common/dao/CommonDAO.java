@@ -20,4 +20,5 @@ public interface CommonDAO {
 	
 	public boolean addNewMember(Person person) throws DataAccessException;
 
+	public int checkIfeMailExists(Person person)  throws DataAccessException;
 }

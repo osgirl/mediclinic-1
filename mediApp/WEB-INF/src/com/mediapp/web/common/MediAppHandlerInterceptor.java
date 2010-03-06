@@ -42,7 +42,7 @@ public class MediAppHandlerInterceptor extends HandlerInterceptorAdapter {
 		String requestURI = "";
 		requestURI = request.getRequestURI();
 		boolean result = true;
-		if (!requestURI.equals(CommonWebConstants.LOGIN_URL) && !requestURI.equals(CommonWebConstants.WELCOMEPAGE_URL)) {
+		if (!requestURI.equals(CommonWebConstants.LOGIN_URL) && !requestURI.equals(CommonWebConstants.WELCOMEPAGE_URL  )) {
 			result = CommonWebUtil.getUser(request).isAuthenticated();
 		}
 		logger.info("requestURI = " + requestURI + " result = " + result);

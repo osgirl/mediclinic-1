@@ -24,4 +24,5 @@ public interface LoginService {
 	
 	public boolean addNewMember(Person person);
 
+	public List<String> checkIfeMailExists(Person person);
 }

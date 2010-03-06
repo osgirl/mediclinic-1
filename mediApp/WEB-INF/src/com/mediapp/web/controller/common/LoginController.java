@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.mediapp.web.controller.common;
 
 import java.util.ArrayList;
@@ -60,21 +57,21 @@ public class LoginController extends MediAppBaseController  {
 		Person person = loginService.authenticate((Person)command);
 		if (null !=request ){			
 			String eMailID = request.getParameter("emailID");			
-			if (eMailID!=""){				
-				boolean state =loginService.addNewMember(person);
-				if(state){
-					sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
-					List<String> errorList = new ArrayList<String>();
-					errorList.add("error.register.success");
-					CommonWebUtil.addErrorMessagesInReq(request, errorList);
-					logger.info(" Login sucess!");
-					
-				}else{
-					List<String> errorList = new ArrayList<String>();
-					errorList.add("error.register.failed");
-					CommonWebUtil.addErrorMessagesInReq(request, errorList);
-					logger.info(" Registeration failed.");
-					
+			List<String> errorList = new ArrayList<String>();
+			if (eMailID!=""){		
+				errorList = loginService.checkIfeMailExists(person);
+				if (errorList.size()==0){
+					boolean state =loginService.addNewMember(person);
+					if(state){
+			//			sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
+						errorList.add("error.register.success");
+						CommonWebUtil.addErrorMessagesInReq(request, errorList);
+						logger.info(" Login sucess!");					
+					}else{
+						errorList.add("error.register.failed");
+						CommonWebUtil.addErrorMessagesInReq(request, errorList);
+						logger.info(" Registeration failed.");
+					}
 				}
 				return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
 			}

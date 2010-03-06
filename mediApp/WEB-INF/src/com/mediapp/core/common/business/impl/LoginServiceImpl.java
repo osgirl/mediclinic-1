@@ -1,5 +1,6 @@
 package com.mediapp.core.common.business.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -48,8 +49,17 @@ public class LoginServiceImpl implements LoginService {
 		return commonDAO.getPersonType();
 	}
 @Override
-	public boolean addNewMember(Person person) {
-	// TODO Auto-generated method stub
-	return false;
-}
+	public boolean addNewMember(Person person) {		
+		return commonDAO.addNewMember(person);
+	}
+
+	public List<String> checkIfeMailExists(Person person){
+		int countOfEmails = commonDAO.checkIfeMailExists(person);
+		List<String> errorList = new ArrayList<String>();		
+		if(countOfEmails > 0){
+			errorList.add("error.account.exists");
+			
+		}
+		return errorList;
+	}
 }

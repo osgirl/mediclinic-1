@@ -6,6 +6,7 @@
 	
 
 <sqlMap namespace="common">
+
 	 <parameterMap id="Person-Type-Map"   class="java.util.HashMap">
 	    <parameter property="Category"    		javaType="java.lang.String"    mode="IN"/>
 	 </parameterMap>
@@ -13,5 +14,20 @@
 	<select id="getPersonType" parameterMap="Person-Type-Map" resultClass="java.lang.String">
            SELECT code_val FROM code_decode where code_ctg = ?
  	</select>
+	
+
+	 <parameterMap id="eMail-Exists-Map"   class="java.util.HashMap">
+	    <parameter property="emailID"    		javaType="java.lang.String"    mode="IN"/>
+	 </parameterMap>
+
+
+	<select id="checkeMailExists" parameterMap="eMail-Exists-Map" resultClass="java.lang.Integer">
+           SELECT count(email_Address) FROM person where email_Address = ?
+ 	</select>
+
+
+	<insert id="insertNewPerson">
+		INSERT INTO person (email_Address ) VALUES (#emailID#)
+	</insert>
 	
 </sqlMap>
