@@ -94,7 +94,7 @@ public class LoginController extends MediAppBaseController  {
 		} else {			
 			CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);
 		}
-		return new ModelAndView(getSuccessView());
+		return new ModelAndView("redirect:/personalProfile.htm",CommonWebConstants.USER_ID, person);
     }
 	/**
 	 * @param loginService the loginService to set

@@ -46,9 +46,19 @@ public class PersonalProfileController extends MediAppBaseController  {
 		return logonMap;
 	}
 	
-	/*protected Object formBackingObject(HttpServletRequest request) throws Exception {
+	
+	
+/*protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		Person person = (Person) CommonWebUtil.getSessionAttribute(request, CommonWebConstants.USER_ID);
 		System.out.println("person"+person.getFirstName());
 		return person;
 	} */
+	
+	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
+		Person person = (Person)command;
+		System.out.println("hey");
+		return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
+	}
+		
+	
 }

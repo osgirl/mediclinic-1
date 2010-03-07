@@ -43,7 +43,7 @@ public class MediApplBaseExceptionResolver extends SimpleMappingExceptionResolve
 		List<String> errorList = new ArrayList<String>();
 		errorList.add(ex.getMessage());
 		CommonWebUtil.addErrorMessagesInReq(request, errorList);
-		return new ModelAndView("logon",CommonWebConstants.USER_ID, CommonWebUtil.getUser(request));
+		return new ModelAndView("redirect:/logon.htm",CommonWebConstants.USER_ID, CommonWebUtil.getUser(request));
 	}
 
 }

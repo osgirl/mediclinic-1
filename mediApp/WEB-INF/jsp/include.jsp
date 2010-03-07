@@ -4,7 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>    
 <%@ taglib prefix="str" uri="http://jakarta.apache.org/taglibs/string-1.1" %>
-<html>
+
+<%@page import="com.mediapp.domain.common.Person"%><html>
 <head>
     <title>mediApp</title>    
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
@@ -48,10 +49,16 @@
 									</tr>
 								</table>
 							
-
+								<div align="right">
+								Welcome 								
+								<%Person p = (Person)request.getSession().getAttribute("person");%>
+								<%= p.getUsername() %> 
+								
+								</div>
 </div>
 		<div id="contentHeadLeft">
 			<div id="contentHeadRight">
+				
 				<div id="contentHeadCenter">
 							<div id="menu">
 							

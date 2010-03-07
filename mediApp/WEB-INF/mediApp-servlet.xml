@@ -7,7 +7,6 @@
         <property name="sessionForm"><value>true</value></property>
         <property name="commandName"><value>person</value></property>
         <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
-        <property name="validator"><ref bean="logonValidator"/></property>
         <property name="formView"><value>welcomePage</value></property>
         <property name="successView"><value>welcomePage</value></property>
 	</bean>
@@ -29,11 +28,10 @@
 		</property>
     </bean>
 
-	<bean id="personalProfile" class="com.mediapp.web.controller.common.PersonalProfileController">
+	<bean id="personalProfileForm" class="com.mediapp.web.controller.common.PersonalProfileController">
         <property name="sessionForm"><value>true</value></property>
         <property name="commandName"><value>person</value></property>
         <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
-        <property name="validator"><ref bean="logonValidator"/></property>
         <property name="formView"><value>personalProfile</value></property>
         <property name="successView"><value>personalProfile</value></property>
 	</bean>
@@ -69,7 +67,7 @@
 					<ref bean="docWelcomeController" />
 				</entry>
 				<entry key="/personalProfile.htm">
-					<ref bean="personalProfile" />
+					<ref bean="personalProfileForm" />
 				</entry>
 				
 			</map>

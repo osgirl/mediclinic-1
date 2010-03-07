@@ -1,13 +1,14 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 
-		<div id="contentBodyLeft">
+		
+<%@page import="com.mediapp.domain.common.Person"%><div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
 					<div id="contentSingleEntry" style="">
 						<div id="entries">
 							<div class="entryAlone">
-								<form:form name="profile" id="profile" method="post" commandName="Person">
-									<table width=800  border="1" class="layout"  >	
+								<form name="profile" id="profile" method="post" >
+									<table width=700  border="1" class="layout"  >	
 										<tr>
 											<td>	
 												<table width=200 align="left"  border="1" class="layout" >	
@@ -37,27 +38,33 @@
 													<tr>
 														<td >First Name: </td>
 														<td >
-															
-															<input type="text" name="firstName"    value="${username}" />
-		
+															<spring:bind path="person.firstName">																															
+																<input type="text"  name="firstName"    value="<c:out value="${person.firstName}" />"  />
+															</spring:bind>
 														</td>
 													</tr>
 													<tr>
 														<td >Middle Initials: </td>
 														<td >
-															<input type="text" name="username"    value=""/>		
+															<spring:bind path="person.middleInitial">
+																<input type="text" name="middleInitial"    value="<c:out value="${person.middleInitial}" />"/>
+															</spring:bind>		
 														</td>
 													</tr>
 													<tr>
 														<td >Last Name: </td>
 														<td >
-															<input type="text" name="username"    value=""/>		
+															<spring:bind path="person.lastName">
+																<input type="text" name="lastName"    value="<c:out value="${person.lastName}" />"/>
+															</spring:bind>		
 														</td>
 													</tr>
 													<tr>
 														<td >Date of Birth: </td>
 														<td >
-															<input type="text" name="username"    value=""/>		
+															<spring:bind path="person.dateOfBirth">
+																<input type="text" name="dateOfBirth"    value="<c:out value="${person.dateOfBirth}" />"/>
+															</spring:bind>		
 														</td>
 													</tr>
 													<tr>
@@ -133,7 +140,7 @@
 											</td>
 										</tr>	
 									</table>
-								</form:form>
+								</form>
 	
 							</div>
 						</div>
