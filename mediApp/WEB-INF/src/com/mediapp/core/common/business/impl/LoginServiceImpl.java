@@ -11,6 +11,7 @@ import com.mediapp.core.common.business.LoginService;
 import com.mediapp.core.common.dao.CommonDAO;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
+import com.mediapp.web.constants.common.CommonWebConstants;
 
 
 public class LoginServiceImpl implements LoginService {
@@ -55,6 +56,11 @@ public class LoginServiceImpl implements LoginService {
 	public boolean addNewMember(Person person) {		
 		return commonDAO.addNewMember(person);
 	}
+
+	public boolean updateProfile(Person person) {		
+	return commonDAO.updateProfile(person);
+}
+
 
 	public List<String> checkIfeMailExists(Person person){
 		int countOfEmails = commonDAO.checkIfeMailExists(person);

@@ -92,6 +92,25 @@ public class MediAppBaseDAOImpl extends SqlMapClientDaoSupport{
 		return obj;
 	}
 	
+	public Object updateObject(String operationName, Object criteria) {
+		Object obj = null;
+		try {
+			
+			obj = getSqlMapClient().update(operationName,
+					criteria);
+			if (logger.isDebugEnabled())
+				logger.debug((new StringBuilder()).append("Object updated [")
+						.append(obj).append("]").toString());
+		} catch (SQLException se) {
+			org.springframework.dao.DataAccessException dae = super
+					.getSqlMapClientTemplate().getExceptionTranslator()
+					.translate("RetrieveObject", operationName, se);
+			throw dae;
+		}
+		return obj;
+	}
+
+	
 	public void testDBConnectivity() {
 		Map < String, Object > inputMap = new HashMap < String, Object > ();
 		Object obj = getObject("common.getCount", inputMap);

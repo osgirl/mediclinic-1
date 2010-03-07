@@ -59,4 +59,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
 		return true;
 	}
+	
+	public boolean updateProfile(Person person)throws DataAccessException{
+		updateObject("common.updateProfile", person);
+		return true;
+	}
 }

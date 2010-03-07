@@ -19,6 +19,8 @@ public interface CommonDAO {
 	public List <CodeDecode> getPersonType() throws DataAccessException;
 	
 	public boolean addNewMember(Person person) throws DataAccessException;
+	
+	public boolean updateProfile(Person person)throws DataAccessException;
 
 	public int checkIfeMailExists(Person person)  throws DataAccessException;
 }

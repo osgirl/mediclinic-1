@@ -7,14 +7,14 @@
 					<div id="contentSingleEntry" style="">
 						<div id="entries">
 							<div class="entryAlone">
-								<form name="profile" id="profile" method="post" >
+								<form name="profile" id="personalProfile" method="post" >
 									<table width=700  border="1" class="layout"  >	
 										<tr>
 											<td>	
 												<table width=200 align="left"  border="1" class="layout" >	
 													<tr>
 														<td>
-															<input type="button" onClick="javascript:fn_nextURL("/personalProfile.htm");" alignment="center" value="Personal Details" class="gsubmit"    />
+															<input type="button" onClick="javascript:fn_nextURL('/personalProfile.htm');" alignment="center" value="Personal Details" class="gsubmit"    />
 														</td>
 													</tr>
 													<tr>
@@ -62,9 +62,7 @@
 													<tr>
 														<td >Date of Birth: </td>
 														<td >
-															<spring:bind path="person.dateOfBirth">
-																<input type="text" name="dateOfBirth"    value="<c:out value="${person.dateOfBirth}" />"/>
-															</spring:bind>		
+																<input type="text" name="dateOOfBirth"    value="26-Feb-2009" readonly="readonly"/>
 														</td>
 													</tr>
 													<tr>

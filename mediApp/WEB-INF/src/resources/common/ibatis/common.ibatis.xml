@@ -62,4 +62,13 @@
 		INSERT INTO person (email_Address,status_of_account,person_type,password ) VALUES (#emailID#,'T',#personTypeString#,AES_ENCRYPT(#password#,#key#) )
 	</insert>
 	
+	<update id="updateProfile" >
+		UPDATE person set first_name=#firstName#
+		where email_address=#emailID#
+		and person_type=#personTypeString#	
+	</update>
+	
+	 	
+	
+	
 </sqlMap>
