@@ -56,7 +56,7 @@ public class PersonalProfileController extends MediAppBaseController  {
 	
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		Person person = (Person)command;
-		System.out.println("hey");
+		System.out.println("hey"+person.getFirstName());
 		return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
 	}
 		

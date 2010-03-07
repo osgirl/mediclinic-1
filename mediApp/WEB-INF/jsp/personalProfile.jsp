@@ -14,22 +14,22 @@
 												<table width=200 align="left"  border="1" class="layout" >	
 													<tr>
 														<td>
-															<input type="submit"  alignment="center" value="Personal Details" class="gsubmit"    />
+															<input type="button" onClick="javascript:fn_nextURL("/personalProfile.htm");" alignment="center" value="Personal Details" class="gsubmit"    />
 														</td>
 													</tr>
 													<tr>
 														<td>
-															<input type="submit"  alignment="center" value="Past History" class="gsubmit"  />
+															<input type="button"  alignment="center" value="Past History" class="gsubmit"  />
 														</td>
 													</tr>
 													<tr>
 														<td>															
-															<input type="submit"  alignment="center" value="Make an Appointment" class="gsubmit"  />
+															<input type="button"  alignment="center" value="Make an Appointment" class="gsubmit"  />
 														</td>
 													</tr>
 													<tr>
 														<td>
-															<input type="submit"  alignment="center" value="Reschedule" class="gsubmit"  />																																												
+															<input type="button"  alignment="center" value="Reschedule" class="gsubmit"  />																																												
 														</td>
 													</tr>
 												</table>

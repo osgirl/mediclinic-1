@@ -49,10 +49,12 @@
 									</tr>
 								</table>
 							
-								<div align="right">
-								Welcome 								
-								<%Person p = (Person)request.getSession().getAttribute("person");%>
-								<%= p.getUsername() %> 
+								<div align="right">																
+								<%Person p = (Person)request.getSession().getAttribute("person");
+									if (p != null){
+										out.print("Welcome " + p.getUsername());
+									}
+								%>
 								
 								</div>
 </div>
