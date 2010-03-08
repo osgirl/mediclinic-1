@@ -7,7 +7,7 @@
 							<div class="entryAlone">
 
 		<form name="logon" id="logon" method="post">
-		<input type="hidden" name="hPersonType"></input>
+		<input type="hidden" id="hPersonType" name="hPersonType"></input>
 		<table width=500 align="center">	
 		<tr>
 		<td>	

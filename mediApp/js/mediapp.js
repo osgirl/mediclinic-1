@@ -38,8 +38,13 @@ function fn_showMessage(){
 	document.forms["logon"].submit();
 }
 function fn_submitLogin(){
-	var indexValue = document.all("PersonType").selectedIndex;
-	document.getElementById("hPersonType").value=document.all("PersonType")[indexValue].value;
+	var indexValue = document.getElementById('PersonType').selectedIndex;
+	//alert(document.getElementById('PersonType').options[indexValue].text);
+	document.getElementById('hPersonType').value=document.getElementById('PersonType').options[indexValue].text;
 	//alert(document.getElementById("hPersonType").value);
+	document.forms["logon"].submit();
+}
+function fn_nextURL(URL){
+	window.location = URL;
 	document.forms["logon"].submit();
 }

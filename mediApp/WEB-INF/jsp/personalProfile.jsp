@@ -7,11 +7,11 @@
 					<div id="contentSingleEntry" style="">
 						<div id="entries">
 							<div class="entryAlone">
-								<form name="profile" id="personalProfile" method="post" >
+								<form name="personalProfile" id="personalProfile" method="post" >
 									<table width=700  border="1" class="layout"  >	
 										<tr>
 											<td>	
-												<table width=200 align="left"  border="1" class="layout" >	
+												<table width=100 align="left"  border="1" class="layout" >	
 													<tr>
 														<td>
 															<input type="button" onClick="javascript:fn_nextURL('/personalProfile.htm');" alignment="center" value="Personal Details" class="gsubmit"    />
@@ -24,7 +24,7 @@
 													</tr>
 													<tr>
 														<td>															
-															<input type="button"  alignment="center" value="Make an Appointment" class="gsubmit"  />
+															<input type="button"  alignment="center" value="Take Appointment" class="gsubmit"  />
 														</td>
 													</tr>
 													<tr>
@@ -32,9 +32,70 @@
 															<input type="button"  alignment="center" value="Reschedule" class="gsubmit"  />																																												
 														</td>
 													</tr>
+													<tr></tr>
+														<tr>
+															<td align="center" bgcolor="lightblue">Search</td>
+														</tr>
+														<tr>
+															<td>Doctor Name: </td>
+														</tr>
+														<tr>
+															<td >
+																<input type="text"  name="firstName"    value=""  />
+															</td>
+														</tr>
+														<tr>
+															<td>Speciality:</td>
+														</tr>
+														<tr>
+															<td >
+															<select >
+																<option>-Select-</option>
+															</select>
+
+															</td>
+														</tr>
+
+													<tr>
+														<td >Date: </td>
+													</tr>
+													<tr>
+														<td >																
+																<input type="text" name="aDate"  />
+																	<script language="JavaScript">
+																		new tcal ({
+																			// form name
+																			'formname': 'personalProfile',
+																			// input name
+																			'controlname': 'aDate'
+																			});
+																	</script>
+																
+														</td>
+													</tr>
+													<tr>
+														<td >Locality: </td>
+													</tr>
+													<tr>
+														<td >
+															<input type="text"  name="firstName"    value=""  />														
+														</td>
+													</tr>
+													<tr>
+														<td align="center" colspan="2">
+															<input type="submit"  alignment="center" value="Search" class="bsubmit"  width="75"/>
+														</td>
+													</tr>
+														
+														
 												</table>
-												<table  border="0" >												
-													
+
+												<div id="Personal Details"  style="display:block" align="center">
+												<table  border=""  class="login" width=450>
+													<tr bgcolor="lightblue">
+														Personal Details
+													</tr>
+												
 													<tr>
 														<td >First Name: </td>
 														<td >
@@ -61,8 +122,17 @@
 													</tr>
 													<tr>
 														<td >Date of Birth: </td>
-														<td >
-																<input type="text" name="dateOOfBirth"    value="26-Feb-2009" readonly="readonly"/>
+														<td >																
+																<input type="text" name="dateOOfBirth" />
+																	<script language="JavaScript">
+																		new tcal ({
+																			// form name
+																			'formname': 'personalProfile',
+																			// input name
+																			'controlname': 'dateOOfBirth'
+																			});
+																	</script>
+																
 														</td>
 													</tr>
 													<tr>
@@ -135,9 +205,12 @@
 														</td>
 													</tr>
 												</table>
+												</div>
 											</td>
+																						
 										</tr>	
 									</table>
+									
 								</form>
 	
 							</div>
