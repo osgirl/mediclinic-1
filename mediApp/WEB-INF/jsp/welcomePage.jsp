@@ -1,6 +1,23 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 
-		
+<script>
+function ajaxCall(){
+	new Ajax.Request('/appointmentPopUp.htm',
+			{
+			 method:'get',
+			 onSuccess: function(transport){
+			   var response = transport.responseText || "no response text";
+			   alert("Success! \n\n" + response);
+			   alert(document.getElementById('test1').InnerHTML);
+			   document.getElementById('test1').InnerHTML="hey";
+			   alert();
+			   },
+			 onFailure: function(){ alert('Something went wrong...') }
+			});
+
+}
+
+</script>		
 <%@page import="com.mediapp.domain.common.Person"%><div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
@@ -95,7 +112,7 @@
 													<tr>hi</tr>
 													<tr>
 															<td width="10" bgcolor="lightblue">9:00 AM </td>
-															<td width="300" bgcolor="lightblue">hi</td>
+															<td width="300" bgcolor="lightblue" ><a onclick="javascript:ajaxCall();">hi</a><span id="test1">hi</span></td>
 													</tr>
 													
 											</table>

@@ -12,6 +12,7 @@
     <link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/mediapp.js"></script>    
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar_us.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/calendar.css">
 
 </head>

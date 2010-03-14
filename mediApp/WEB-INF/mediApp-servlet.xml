@@ -41,6 +41,15 @@
 	</bean>
 
 
+	<bean id="takeAppointmentForm" class="com.mediapp.web.controller.common.TakeAppointmentController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>person</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="formView"><value>takeAppointment</value></property>
+        <property name="successView"><value>takeAppointment</value></property>
+	</bean>
+
+
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename"><value>messages</value></property>
     </bean>
@@ -72,6 +81,9 @@
 				</entry>
 				<entry key="/personalProfile.htm">
 					<ref bean="personalProfileForm" />
+				</entry>
+				<entry key="/takeAppointment.htm">
+					<ref bean="takeAppointmentForm" />
 				</entry>
 				
 			</map>

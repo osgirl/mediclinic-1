@@ -24,7 +24,7 @@
 													</tr>
 													<tr>
 														<td>															
-															<input type="button"  alignment="center" value="Take Appointment" class="gsubmit"  />
+															<input type="button"  onClick="javascript:fn_nextURL('/takeAppointment.htm');" alignment="center" value="Take Appointment" class="gsubmit"  />
 														</td>
 													</tr>
 													<tr>

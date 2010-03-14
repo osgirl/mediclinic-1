@@ -838,3 +838,48 @@ input.gsubmit {
 	cursor:pointer;
 	font:bold 18px Trebuchet MS,Tahoma;
 }
+
+table.appointment {
+	border-width: 2px 2px 2px 2px;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: blue blue blue blue;
+	border-collapse: separate;
+	font-size:1px;
+}
+table.appointment th {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	-moz-border-radius: 3px 3px 3px 3px;
+}
+table.appointment td {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	-moz-border-radius: 3px 3px 3px 3px;
+}
+table.appointment {
+	border-width: 2px 2px 2px 2px;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: blue blue blue blue;
+	border-collapse: separate;
+}
+table.appointment th {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	-moz-border-radius: 3px 3px 3px 3px;
+}
+table.appointment td {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	-moz-border-radius: 3px 3px 3px 3px;
+	font-size:9px;
+}
