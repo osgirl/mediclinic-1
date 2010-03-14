@@ -143,12 +143,12 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Appointment_History` (
   INDEX `idDiagnosis` (`idDiagnosis` ASC) ,
   CONSTRAINT `idPatient`
     FOREIGN KEY (`idPatient_details` )
-    REFERENCES `mediapp`.`Patient_details` (`idPatient_details` )
+    REFERENCES `mediapp`.`Person` (`idPerson` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `idDoctor`
     FOREIGN KEY (`idDoctor_details` )
-    REFERENCES `mediapp`.`doctor_details` (`idDoctor_details` )
+    REFERENCES `mediapp`.`Person` (`idPerson` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `idDiagnosis`
