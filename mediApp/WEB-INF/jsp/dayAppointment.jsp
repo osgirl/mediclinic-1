@@ -10,7 +10,7 @@ function ajaxCall(){
 			  // document.getElementId('test1').style="display:block";
 //			   alert(document.getElementById('test1'));
 			   document.getElementById('test1').InnerHTML="hey";
-			   alert(document.getElementById('test1').InnerHTML);
+//			   alert(document.getElementById('test1').InnerHTML);
 			   },
 			 onFailure: function(){ alert('Something went wrong...') }
 			});
