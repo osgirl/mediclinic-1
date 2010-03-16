@@ -32,17 +32,10 @@ public class PersonalProfileController extends MediAppBaseController  {
 	}
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)throws Exception {
 		//Person person = (Person) command;
-		System.out.println("hi");
 		Map < String , Object > logonMap = new HashMap < String , Object > ();
 		Person person = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
-		System.out.println("person2"+person.getPersonTypeString());
-		System.out.println("person2"+person.getUsername());		
-
 		//Person person = loginService.authenticate(person)
 		logonMap.put("person", person );
-		
-
-		
 		return logonMap;
 	}
 	

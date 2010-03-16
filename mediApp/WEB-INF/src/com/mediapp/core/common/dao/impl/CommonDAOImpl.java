@@ -61,6 +61,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	}
 	
 	public boolean updateProfile(Person person)throws DataAccessException{
+		System.out.println("*********** Person Email Id is --> " + person.getEmailID());
 		updateObject("common.updateProfile", person);
 		return true;
 	}

@@ -31,11 +31,11 @@
 	<select id="authenticateUser" parameterMap="Person-Details-Map" resultMap="Person-Details-Result-Map">
            SELECT idPerson,first_name,last_name,middle_name,
            date_of_birth, Gender, landline_phone_number, mobile_phone_number,
-           email_address, status_of_account, person_type, AES_DECRYPT(password,?) as ePassword 
+           email_address, status_of_account, person_type, AES_DECRYPT(password,?) as ePassword,
+           address1, address2, locality, city, state, country
            FROM person where 
 		   email_address = ? and
-		   person_type = ?;
-		   
+		   person_type = ?;		   
  	</select>
 
 
