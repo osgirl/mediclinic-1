@@ -1,13 +1,4 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
-<script language="JavaScript" for=window event=onload>
-<!-- Begin
-var dCurDate = new Date();
-takeAppointment.tbSelMonth.options[dCurDate.getMonth()].selected = true;
-for (i = 0; i < takeAppointment.tbSelYear.length; i++)
-if (takeAppointment.tbSelYear.options[i].value == dCurDate.getFullYear())
-	takeAppointment.tbSelYear.options[i].selected = true;
-//  End -->
-</script>
 
 
 		
@@ -43,8 +34,12 @@ if (takeAppointment.tbSelYear.options[i].value == dCurDate.getFullYear())
 														</td>
 													</tr>
 													<tr>
-														<td >										
-<select name="tbSelMonth" onchange='fUpdateCal(takeAppointment.tbSelYear.value, takeAppointment.tbSelMonth.value)'>
+														<td >
+														<input type="hidden" name="calSelectedDate" value="">
+														<input type="hidden" name="selectedDate" value="">
+														<input type="hidden" name="selectedMonth" value="">
+														<input type="hidden" name="selectedYear" value="">																								
+<select name="tbSelMonth" id="tbSelMonth" onchange='fUpdateCal(takeAppointment.tbSelYear.value, takeAppointment.tbSelMonth.value)'>
 <option value="1">January</option>
 <option value="2">February</option>
 <option value="3">March</option>
@@ -59,19 +54,26 @@ if (takeAppointment.tbSelYear.options[i].value == dCurDate.getFullYear())
 <option value="12">December</option>
 </select>
   
-<select name="tbSelYear" onchange='fUpdateCal(takeAppointment.tbSelYear.value, takeAppointment.tbSelMonth.value)'>
-<option value="1998">1998</option>
-<option value="1999">1999</option>
-<option value="2000">2000</option>
-<option value="2001">2001</option>
-<option value="2002">2002</option>
-<option value="2003">2003</option>
-<option value="2004">2004</option>
+<select name="tbSelYear" id="tbSelYear" onchange='fUpdateCal(takeAppointment.tbSelYear.value, takeAppointment.tbSelMonth.value)'>
+<option value="2008">2008</option>
+<option value="2009">2009</option>
+<option value="2010">2010</option>
+<option value="2011">2011</option>
 </select>
 </td>
 </tr>
 <tr>
 <td>
+<script language="JavaScript" for=window event=onload>
+<!-- Begin
+var dCurDate = new Date();
+takeAppointment.tbSelMonth.options[dCurDate.getMonth()].selected = true;
+for (i = 0; i < takeAppointment.tbSelYear.length; i++)
+if (takeAppointment.tbSelYear.options[i].value == dCurDate.getFullYear())
+	takeAppointment.tbSelYear.options[i].selected = true;
+//  End -->
+</script>
+
 <script language="JavaScript">
 var dCurDate = new Date();
 fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 1);

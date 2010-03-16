@@ -82,6 +82,11 @@ myElement.bgColor = "#c0c0c0";
 objPrevElement.bgColor = "";
 document.all.calSelectedDate.value = parseInt(myElement.children["calDateText"].innerText);
 objPrevElement = myElement;
+//alert(myElement.children["calDateText"].innerText);
+document.all("selectedDate").value = myElement.children["calDateText"].innerText;
+document.all("selectedMonth").value =document.all("tbSelMonth").value;
+document.all("selectedYear").value =document.all("tbSelYear").value;
+window.location.href = "/dayAppointment.htm?selectedDate="+myElement.children["calDateText"].innerText+"&selectedMpnth="+document.all("tbSelMonth").value+"&selectedYear="+document.all("tbSelYear").value; 
       }
    }
 }

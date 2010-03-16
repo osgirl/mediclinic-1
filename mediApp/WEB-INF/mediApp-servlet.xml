@@ -49,6 +49,21 @@
         <property name="successView"><value>takeAppointment</value></property>
 	</bean>
 
+	<bean id="dayAppointmentForm" class="com.mediapp.web.controller.common.DayAppointmentController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>person</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="formView"><value>dayAppointment</value></property>
+        <property name="successView"><value>dayAppointment</value></property>
+	</bean>
+
+	<bean id="appointmentPopUpForm" class="com.mediapp.web.controller.common.AppointmentPopUpController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>person</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="formView"><value>appointmentPopUp</value></property>
+        <property name="successView"><value>appointmentPopUp</value></property>
+	</bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename"><value>messages</value></property>
@@ -84,6 +99,12 @@
 				</entry>
 				<entry key="/takeAppointment.htm">
 					<ref bean="takeAppointmentForm" />
+				</entry>
+				<entry key="/dayAppointment.htm">
+					<ref bean="dayAppointmentForm" />
+				</entry>
+				<entry key="appointmentPopUp.htm">
+					<ref bean="appointmentPopUpForm" />
 				</entry>
 				
 			</map>
