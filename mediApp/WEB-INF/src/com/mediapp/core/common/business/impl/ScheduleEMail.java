@@ -1,5 +1,8 @@
 package com.mediapp.core.common.business.impl;
 import org.apache.commons.logging.LogFactory;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,6 +13,9 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 import com.mediapp.core.common.constants.CommonCoreConstants;
 
 import javax.mail.internet.MimeMessage;
+
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,13 +39,12 @@ public class ScheduleEMail {
 	            public void prepare(MimeMessage mimeMessage) throws Exception {
 	            	Map model = new HashMap();
 	            	model.put("email.sender", "padmaraj");
-	            	//model.put("email.sender", "a459740");
 	            	model.put("email.user", emailTo);
+	            	model.put("password", "mediApp");
 	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 	               message.setTo(emailTo);
-	               //message.setFrom("a459740@fidelity.com");
 	               if(emailType==CommonCoreConstants.REG_EMAIL_TYPE){
-		               message.setSubject("Hi");
+		               message.setSubject("Welcome to MediApp");
 		               String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/resources/common/velocity/template.vm", model);
 		               message.setText(body, true);	            	   
 	               }
