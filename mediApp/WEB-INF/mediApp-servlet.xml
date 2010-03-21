@@ -12,7 +12,11 @@
 	</bean>
 
           
-    <bean id="logonValidator" class="com.mediapp.web.validator.common.LoginValidator"/>
+    <bean id="logonValidator" class="com.mediapp.web.validator.common.LoginValidator">
+        <property name="loginService">
+			<ref bean="loginService"/>
+		</property>
+    </bean>
 	<bean id="logonForm" class="com.mediapp.web.controller.common.LoginController">
         <property name="sessionForm"><value>true</value></property>
         <property name="commandName"><value>person</value></property>

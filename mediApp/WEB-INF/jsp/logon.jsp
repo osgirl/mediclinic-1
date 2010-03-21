@@ -82,6 +82,13 @@
 				<td align="center" bgcolor="lightblue">Register Now</td>
 			</tr>
 			<tr>
+				<td colspan="2" align="center">
+					<spring:bind	path="person.emailID">
+						<font color="red"><c:out value="${status.errorMessage}" /></font>
+					</spring:bind>
+				</td>
+			</tr>
+			<tr>
 				<td>
 					<table border="0" width="100%" >						
 						
@@ -133,7 +140,6 @@
 			</tr>
 		</table>
 		</div>
-
 	</form>
 						
 							</div>

@@ -13,6 +13,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mediapp.core.common.business.LoginService;
@@ -59,41 +60,23 @@ public class LoginController extends MediAppBaseController  {
 			String eMailID = request.getParameter("emailID");
 			person.setEmailID(eMailID);
 			String personType = request.getParameter("hPersonType");			
-			List<String> errorList = new ArrayList<String>();			
+			String SuccessMessage = "You have been registered. An email has been sent with password";			
 			if (eMailID!=""){		
-				errorList = loginService.checkIfeMailExists(person);
-				if (errorList.size()==0){
 					CodeDecode personCode = new CodeDecode();
 					personCode.setCodeDecode(personType);
 					person.setPersonType(personCode);
 					boolean state =loginService.addNewMember(person);
 					if(state){
 						sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
-						errorList.add("error.register.success");
-						CommonWebUtil.addErrorMessagesInReq(request, errorList);
+					//	errorList.add("error.register.success");
+						request.setAttribute("SuccessMessage", SuccessMessage);
+						//CommonWebUtil.addErrorMessagesInReq(request, errorList);
 						logger.info(" Login sucess!");					
-					}else{
-						errorList.add("error.register.failed");
-						CommonWebUtil.addErrorMessagesInReq(request, errorList);
-						logger.info(" Registeration failed.");
-					}
 				}
-				return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
+				return new ModelAndView("redirect:/logon.htm",CommonWebConstants.USER_ID, person);
 			}
 		}
-		//	System.out.println("hi"+person.isAuthenticated());
-		//	Person dbDetails = loginService.authenticate(person);
-		if (!person.isAuthenticated()) {
-			 /*errors.rejectValue("password", "error.login.invalid",
-                     null, "Invalid login");*/
-			List<String> errorList = new ArrayList<String>();
-			errorList.add("error.login.invalid");
-			CommonWebUtil.addErrorMessagesInReq(request, errorList);
-			 logger.info(" Login failed.");
-			return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
-		} else {			
-			CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);
-		}
+		CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);
 		return new ModelAndView("redirect:/personalProfile.htm",CommonWebConstants.USER_ID, person);
     }
 	/**

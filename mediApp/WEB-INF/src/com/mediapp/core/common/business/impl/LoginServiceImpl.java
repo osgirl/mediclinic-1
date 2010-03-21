@@ -22,17 +22,21 @@ public class LoginServiceImpl implements LoginService {
 	
 	public Person authenticate(Person person) {		
 		if (person.getEmailID() == ""){
-			Person dbDetails = commonDAO.getPersonDetails(person);	
-			person = dbDetails;
-			if(dbDetails.getPassword().equals(person.getPassword())) {
-				dbDetails.setAuthenticated(true);
-				person.setAuthenticated(true);	
-				person.setEmailID(dbDetails.getEmailID());
-				person.setUsername(dbDetails.getEmailID());
-				person.setPersonTypeString(dbDetails.getPersonTypeString());
-			} else {
+			Person dbDetails = commonDAO.getPersonDetails(person);
+			if (dbDetails !=null){
+				if(dbDetails.getPassword().equals(person.getPassword())) {
+					dbDetails.setAuthenticated(true);
+					person.setAuthenticated(true);	
+					person.setEmailID(dbDetails.getEmailID());
+					person.setUsername(dbDetails.getEmailID());
+					person.setPersonTypeString(dbDetails.getPersonTypeString());
+				} else {
 				//dbDetails = person;
-				dbDetails.setAuthenticated(false);	
+					dbDetails.setAuthenticated(false);	
+				}
+			}else{
+				dbDetails = new Person();
+				dbDetails.setAuthenticated(false);
 			}
 			if (logger.isInfoEnabled()) {
 				logger.info("isAuthenticated : User " + person.getUsername() + " is " + person.isAuthenticated());
