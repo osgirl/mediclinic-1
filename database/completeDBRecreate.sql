@@ -222,18 +222,23 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`holiday_calendar` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `mediapp`.`icd_code_10`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`icd_code_10` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`icd_code_10` (
+  `idicd_code_10` INT NOT NULL AUTO_INCREMENT ,
+  `icd_10_code` VARCHAR(45) NULL ,
+  `ccs_category` VARCHAR(10) NULL ,
+  `ccs_label` VARCHAR(200) NULL ,
+  `icd_10_label` VARCHAR(1000) NULL ,
+  PRIMARY KEY (`idicd_code_10`) ,
+  UNIQUE INDEX `idicd_code_10_UNIQUE` (`idicd_code_10` ASC) )
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
--- -----------------------------------------------------
--- Data for table `mediapp`.`Code_Decode`
--- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-insert into `mediapp`.`Code_Decode` (`idCode_Decode`, `code_ctg`, `code_val`, `code_desc`) values (1, 'PERSON_TY', 'Doctor', 'doctor');
-insert into `mediapp`.`Code_Decode` (`idCode_Decode`, `code_ctg`, `code_val`, `code_desc`) values (2, 'PERSON_TY', 'Patient', 'patient');
-insert into `mediapp`.`Code_Decode` (`idCode_Decode`, `code_ctg`, `code_val`, `code_desc`) values (3, 'APP_STRT_TIME', '9:00 AM', 'Appointment can be taken only after this time');
-insert into `mediapp`.`Code_Decode` (`idCode_Decode`, `code_ctg`, `code_val`, `code_desc`) values (4, 'APP_STRT_TIME', '5:00 PM', 'Appointment can be taken till this time');
-
-COMMIT;

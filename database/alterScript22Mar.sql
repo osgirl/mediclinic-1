@@ -19,6 +19,18 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_swedish_ci;
 
+CREATE  TABLE IF NOT EXISTS `mediapp`.`icd_code_10` (
+  `idicd_code_10` INT(11) NOT NULL AUTO_INCREMENT ,
+  `icd_10_code` VARCHAR(45) NULL DEFAULT NULL ,
+  `ccs_category` VARCHAR(10) NULL DEFAULT NULL ,
+  `ccs_label` VARCHAR(200) NULL DEFAULT NULL ,
+  `icd_10_label` VARCHAR(1000) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idicd_code_10`) ,
+  UNIQUE INDEX `idicd_code_10_UNIQUE` (`idicd_code_10` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1
+COLLATE = latin1_swedish_ci;
+
 ALTER TABLE `mediapp`.`Diagnosis` DROP COLUMN `follow_up_date` , DROP COLUMN `follow_up_id` , DROP COLUMN `follow_up_status` , DROP COLUMN `reference_doctor_id` , DROP COLUMN `share_status` ;
 
 ALTER TABLE `mediapp`.`Patient_details` COMMENT = 'patient details' ;
@@ -33,8 +45,9 @@ ALTER TABLE `mediapp`.`Appointment_History` ADD COLUMN `follow_up_date` DATETIME
   ON UPDATE NO ACTION
 , ADD INDEX `idReferenceDoctor` (`reference_doctor_id` ASC) ;
 
-ALTER TABLE `mediapp`.`Code_Decode` CHANGE COLUMN `code_val` `code_val` VARCHAR(200) NULL DEFAULT NULL  , CHANGE COLUMN `code_desc` `code_desc` VARCHAR(4000) NULL DEFAULT NULL  ; 
+ALTER TABLE `mediapp`.`Code_Decode` CHANGE COLUMN `code_val` `code_val` VARCHAR(200) NULL DEFAULT NULL  , CHANGE COLUMN `code_desc` `code_desc` VARCHAR(4000) NULL DEFAULT NULL  ;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
