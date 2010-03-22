@@ -22,15 +22,9 @@
 														<td>
 															<input type="button"  alignment="center" value="Past History" class="gsubmit"  />
 														</td>
-													</tr>
-													<tr>
-														<td>															
-															<input type="button"  onClick="javascript:fn_nextURL('/takeAppointment.htm');" alignment="center" value="Take Appointment" class="gsubmit"  />
-														</td>
-													</tr>
 													<tr>
 														<td>
-															<input type="button"  alignment="center" value="Reschedule" class="gsubmit"  />																																												
+															<input type="button"  alignment="center" value="Upload Documents" class="gsubmit"  />																																												
 														</td>
 													</tr>
 													<tr>

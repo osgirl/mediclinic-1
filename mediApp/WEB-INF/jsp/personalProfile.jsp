@@ -14,24 +14,20 @@
 												<table width=100 align="left"  border="1" class="layout" >	
 													<tr>
 														<td>
-															<input type="button" onClick="javascript:fn_nextURL('/personalProfile.htm');" alignment="center" value="Personal Details" class="gsubmit"    />
-														</td>
-													</tr>
-													<tr>
-														<td>
 															<input type="button"  alignment="center" value="Past History" class="gsubmit"  />
 														</td>
 													</tr>
 													<tr>
 														<td>															
-															<input type="button"  onClick="javascript:fn_nextURL('/takeAppointment.htm');" alignment="center" value="Take Appointment" class="gsubmit"  />
+															<input type="button"  onClick="javascript:fn_nextURL('/takeAppointment.htm');" alignment="center" value="My Appointments" class="gsubmit"  />
 														</td>
 													</tr>
 													<tr>
 														<td>
-															<input type="button"  alignment="center" value="Reschedule" class="gsubmit"  />																																												
+															<input type="button"  alignment="center" value="Upload Documents" class="gsubmit"  />																																												
 														</td>
 													</tr>
+													
 													<tr></tr>
 														<tr>
 															<td align="center" bgcolor="lightblue">Search</td>
@@ -122,8 +118,7 @@
 													</tr>
 													<tr>
 														<td >Date of Birth: </td>
-														<td >
-														<spring:bind path="person.dateOfBirth">																
+														<td >																
 																<input type="text" name="dateOOfBirth" />
 																	<script language="JavaScript">
 																		new tcal ({
@@ -133,94 +128,71 @@
 																			'controlname': 'dateOOfBirth'
 																			});
 																	</script>
-														</spring:bind>
+																
 														</td>
 													</tr>
 													<tr>
 														<td >Gender: </td>
 														<td >
-														<spring:bind path="person.gender">
-															<input type="radio" name="gender"/> Male		
-															<input type="radio" name="gender"/> Female
-														</spring:bind>		
+															<input type="radio" name="username"    value=""/> Male		
+															<input type="radio" name="username"    value=""/> Female		
 														</td>
 													</tr>
 													<tr>
 														<td >Address1 : </td>
 														<td >
-														<spring:bind path="person.address1">
-															<input type="text" name="address1"/>	
-														</spring:bind>	
+															<input type="text" name="username"    value=""/>		
 														</td>
 													</tr>
 													<tr>
 														<td >Address 2: </td>
 														<td >
-														<spring:bind path="person.address2">
-															<input type="text" name="address2"/>
-														</spring:bind>		
+															<input type="text" name="username"    value=""/>		
 														</td>
 													</tr>
 													<tr>
 														<td >Locality: </td>
 														<td >
-														<spring:bind path="person.locality">
-															<select name="locality">
+															<select>
 																<option>-Select-</option>
-																<option>Electronic City</option>
-																<option>M G Road</option>
-																<option>BTM Layout</option>
 															</select>
-														</spring:bind>
 														</td>
 													</tr>
 													<tr>
 														<td >City: </td>
 														<td >
-														<spring:bind path="person.city">
-															<select name="city">
+															<select>
 																<option>-Select-</option>
-																<option>Bengalooru</option>
 															</select>
-														</spring:bind>
 														</td>
 													</tr>
 													<tr>
 														<td >State: </td>
 														<td >
-															<spring:bind path="person.state">
-															<select name="state">
+															<select>
 																<option>-Select-</option>
-																<option>Karanataka</option>
 															</select>
-														</spring:bind>
+
 														</td>
 													</tr>
 													<tr>
 														<td >Country: </td>
-														<td>
-														<spring:bind path="person.country">
-															<select name="country">
+														<td >
+															<select>
 																<option>-Select-</option>
-																<option>Karanataka</option>
 															</select>
-														</spring:bind>
-													</td>
+														</td>
 													</tr>
 													<tr>
 														<td >Phone Number(Landline): </td>
 														<td >
-														<spring:bind path="person.landlinePhoneNumber">
-															<input type="text" name="landlinePhoneNumber"    value=""/>
-														</spring:bind>		
+															<input type="text" name="username"    value=""/>		
 														</td>
 													</tr>
 													<tr>
 														<td >Cell Number: </td>
 														<td >
-														<spring:bind path="person.cellPhoneNumber">
-															<input type="text" name="cellPhoneNumber"    value=""/>
-														</spring:bind>		
+															<input type="text" name="username"    value=""/>		
 														</td>
 													</tr>
 													<tr>
