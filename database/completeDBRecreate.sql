@@ -180,8 +180,8 @@ DROP TABLE IF EXISTS `mediapp`.`Code_Decode` ;
 CREATE  TABLE IF NOT EXISTS `mediapp`.`Code_Decode` (
   `idCode_Decode` INT NOT NULL ,
   `code_ctg` VARCHAR(45) NULL ,
-  `code_val` VARCHAR(10) NULL ,
-  `code_desc` VARCHAR(100) NULL ,
+  `code_val` VARCHAR(200) NULL ,
+  `code_desc` VARCHAR(4000) NULL ,
   PRIMARY KEY (`idCode_Decode`) ,
   UNIQUE INDEX `idCode_Decode_UNIQUE` (`idCode_Decode` ASC) )
 ENGINE = InnoDB;
