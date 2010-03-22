@@ -1,13 +1,17 @@
 package com.mediapp.domain.common;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
+
 
 public class Appointment extends MediAppBaseDomain{
 	private static final long serialVersionUID = 3L;
 	
 	private int appointmentID;
 	
-	private Date dateTimeOfAppointment; 
+	private Date dateOfAppointment;
+	
+	private Time timeOfAppointment;
 	
 	private String comments;
 	
@@ -20,7 +24,9 @@ public class Appointment extends MediAppBaseDomain{
 	private String confirmedIndicator;
 	
 	
-	private Date newDateTimeProposed;
+	private Date newDateProposed;
+	
+	private Time newTimeProposed;
 	
 	private Date followUpDate;
 	
@@ -40,14 +46,6 @@ public class Appointment extends MediAppBaseDomain{
 
 	public void setConfirmedIndicator(String confirmedIndicator) {
 		this.confirmedIndicator = confirmedIndicator;
-	}
-
-	public Date getNewDateTimeProposed() {
-		return newDateTimeProposed;
-	}
-
-	public void setNewDateTimeProposed(Date newDateTimeProposed) {
-		this.newDateTimeProposed = newDateTimeProposed;
 	}
 
 	public Date getFollowUpDate() {
@@ -74,13 +72,6 @@ public class Appointment extends MediAppBaseDomain{
 		this.appointmentID = appointmentID;
 	}
 
-	public Date getDateTimeOfAppointment() {
-		return dateTimeOfAppointment;
-	}
-
-	public void setDateTimeOfAppointment(Date dateTimeOfAppointment) {
-		this.dateTimeOfAppointment = dateTimeOfAppointment;
-	}
 
 	public String getComments() {
 		return comments;
@@ -104,6 +95,39 @@ public class Appointment extends MediAppBaseDomain{
 
 	public void setDoctorID(int doctorID) {
 		this.doctorID = doctorID;
+	}
+
+	public void setDateOfAppointment(Date dateOfAppointment) {
+		this.dateOfAppointment = dateOfAppointment;
+	}
+
+	public Date getDateOfAppointment() {
+		return dateOfAppointment;
 	}	
-	
+
+	public Time getTimeOfAppointment() {
+		return timeOfAppointment;
+	}
+
+	public void setTimeOfAppointment(Time timeOfAppointment) {
+		this.timeOfAppointment = timeOfAppointment;
+	}
+
+	public void setNewDateProposed(Date newDateProposed) {
+		this.newDateProposed = newDateProposed;
+	}
+
+	public Date getNewDateProposed() {
+		return newDateProposed;
+	}
+
+	public void setNewTimeProposed(Time newTimeProposed) {
+		this.newTimeProposed = newTimeProposed;
+	}
+
+	public Time getNewTimeProposed() {
+		return newTimeProposed;
+	}
+
+
 }
