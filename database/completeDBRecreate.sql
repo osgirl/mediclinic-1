@@ -6,23 +6,6 @@ DROP SCHEMA IF EXISTS `mediapp` ;
 CREATE SCHEMA IF NOT EXISTS `mediapp` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 
 -- -----------------------------------------------------
--- Table `mediapp`.`Address`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mediapp`.`Address` ;
-
-CREATE  TABLE IF NOT EXISTS `mediapp`.`Address` (
-  `idAddress` INT NOT NULL AUTO_INCREMENT ,
-  `address1` VARCHAR(100) NULL ,
-  `address2` VARCHAR(100) NULL ,
-  `Locality` VARCHAR(100) NULL ,
-  `City` VARCHAR(45) NULL ,
-  `State` VARCHAR(45) NULL ,
-  `Country` VARCHAR(45) NULL ,
-  PRIMARY KEY (`idAddress`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `mediapp`.`Person`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mediapp`.`Person` ;
@@ -32,7 +15,6 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Person` (
   `first_name` VARCHAR(45) NULL ,
   `last_name` VARCHAR(45) NULL ,
   `middle_name` VARCHAR(45) NULL ,
-  `idAddress` INT NULL ,
   `date_of_birth` DATE NULL ,
   `Gender` VARCHAR(1) NULL ,
   `landline_phone_number` INT NULL ,
@@ -44,13 +26,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Person` (
   `hint_answer` VARCHAR(100) NULL ,
   `person_type` VARCHAR(45) NULL ,
   PRIMARY KEY (`idPerson`) ,
-  INDEX `idAddress` (`idAddress` ASC) ,
-  UNIQUE INDEX `email_Address_UNIQUE` (`email_Address` ASC) ,
-  CONSTRAINT `idAddress`
-    FOREIGN KEY (`idAddress` )
-    REFERENCES `mediapp`.`Address` (`idAddress` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `email_Address_UNIQUE` (`email_Address` ASC) )
 ENGINE = InnoDB;
 
 
@@ -188,6 +164,30 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `mediapp`.`Address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`Address` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`Address` (
+  `idAddress` INT NOT NULL AUTO_INCREMENT ,
+  `address1` VARCHAR(100) NULL ,
+  `address2` VARCHAR(100) NULL ,
+  `Locality` VARCHAR(100) NULL ,
+  `City` VARCHAR(45) NULL ,
+  `State` VARCHAR(45) NULL ,
+  `Country` VARCHAR(45) NULL ,
+  `personID` INT NULL ,
+  PRIMARY KEY (`idAddress`) ,
+  INDEX `personID` (`personID` ASC) ,
+  CONSTRAINT `personID`
+    FOREIGN KEY (`personID` )
+    REFERENCES `mediapp`.`Person` (`idPerson` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `mediapp`.`Tests`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mediapp`.`Tests` ;
@@ -237,6 +237,112 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`icd_code_10` (
   UNIQUE INDEX `idicd_code_10_UNIQUE` (`idicd_code_10` ASC) )
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`schedule_job`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`schedule_job` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`schedule_job` (
+  `idschedule_job` INT NOT NULL AUTO_INCREMENT ,
+  `action` VARCHAR(100) NULL ,
+  `comments` VARCHAR(4500) NULL ,
+  PRIMARY KEY (`idschedule_job`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`job_inputs`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`job_inputs` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`job_inputs` (
+  `idjob_inputs` INT NOT NULL ,
+  `idschedule_job` INT NULL ,
+  `input_parmeter_name` VARCHAR(100) NULL ,
+  `input_paramenter_id` VARCHAR(100) NULL ,
+  PRIMARY KEY (`idjob_inputs`) ,
+  INDEX `idScheduleJob` (`idschedule_job` ASC) ,
+  CONSTRAINT `idScheduleJob`
+    FOREIGN KEY (`idschedule_job` )
+    REFERENCES `mediapp`.`schedule_job` (`idschedule_job` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`sequence_data`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`sequence_data` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`sequence_data` (
+  `sequence_name` VARCHAR(100) NOT NULL ,
+  `sequence_increment` INT NULL ,
+  `sequence_min_value` INT NULL ,
+  `sequence_max_value` INT NULL ,
+  `sequence_cur_value` INT NULL ,
+  `sequence_cycle` TINYINT(1) NULL ,
+  PRIMARY KEY (`sequence_name`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- function nextval
+-- -----------------------------------------------------
+
+DELIMITER $$
+DROP function IF EXISTS `mediapp`.`nextval` $$
+ CREATE FUNCTION `nextval` (`seq_name` varchar(100)) 
+ RETURNS bigint(20) NOT DETERMINISTIC 
+ BEGIN    
+ DECLARE cur_val bigint(20);
+ SELECT
+ sequence_cur_value INTO cur_val     
+ FROM        
+ mediapp.sequence_data     
+ WHERE        
+ sequence_name = seq_name;    
+ IF cur_val IS NOT NULL THEN        
+ UPDATE            
+ mediapp.sequence_data         
+ SET            
+ sequence_cur_value = IF (                 
+ (sequence_cur_value + sequence_increment) > sequence_max_value,                 
+ IF (                     
+ sequence_cycle = TRUE,                     
+ sequence_min_value,                     
+ NULL                
+ ),                 
+ sequence_cur_value + sequence_increment             
+ )         
+ WHERE            
+ sequence_name = seq_name         
+ ;     
+ END IF; 
+ RETURN cur_val; 
+ END;
+$$
+
+-- -----------------------------------------------------
+-- function currval
+-- -----------------------------------------------------
+DROP function IF EXISTS `mediapp`.`currval` $$
+ CREATE FUNCTION `currval` (`seq_name` varchar(100)) 
+ RETURNS bigint(20) NOT DETERMINISTIC 
+ BEGIN    
+ DECLARE cur_val bigint(20);
+  SELECT
+ sequence_cur_value INTO cur_val     
+ FROM        
+ mediapp.sequence_data     
+ WHERE        
+ sequence_name = seq_name;    
+ RETURN cur_val; 
+ END;
+$$
+
+DELIMITER ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
