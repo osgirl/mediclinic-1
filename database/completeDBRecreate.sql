@@ -213,8 +213,8 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`holiday_calendar` (
   `start_time` TIME NULL ,
   `end_time` TIME NULL ,
   PRIMARY KEY (`idholiday_calendar`) ,
-  INDEX `personID` (`idPerson` ASC) ,
-  CONSTRAINT `personID`
+  INDEX `hcpersonID` (`idPerson` ASC) ,
+  CONSTRAINT `hcpersonID`
     FOREIGN KEY (`idPerson` )
     REFERENCES `mediapp`.`Person` (`idPerson` )
     ON DELETE NO ACTION
@@ -261,6 +261,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`job_inputs` (
   `idschedule_job` INT NULL ,
   `input_parmeter_name` VARCHAR(100) NULL ,
   `input_paramenter_id` VARCHAR(100) NULL ,
+  `process_indicator` VARCHAR(45) NULL DEFAULT 'N' ,
   PRIMARY KEY (`idjob_inputs`) ,
   INDEX `idScheduleJob` (`idschedule_job` ASC) ,
   CONSTRAINT `idScheduleJob`
@@ -278,11 +279,11 @@ DROP TABLE IF EXISTS `mediapp`.`sequence_data` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`sequence_data` (
   `sequence_name` VARCHAR(100) NOT NULL ,
-  `sequence_increment` INT NULL ,
-  `sequence_min_value` INT NULL ,
-  `sequence_max_value` INT NULL ,
-  `sequence_cur_value` INT NULL ,
-  `sequence_cycle` TINYINT(1) NULL ,
+  `sequence_increment` INT(11) NOT NULL DEFAULT 1 ,
+  `sequence_min_value` INT(11) NOT NULL DEFAULT 1 ,
+  `sequence_max_value` BIGINT(20) NOT NULL DEFAULT 100000000 ,
+  `sequence_cur_value` BIGINT(20) NOT NULL DEFAULT 1 ,
+  `sequence_cycle` TINYINT(1) NOT NULL DEFAULT FALSE ,
   PRIMARY KEY (`sequence_name`) )
 ENGINE = InnoDB;
 
@@ -293,11 +294,11 @@ ENGINE = InnoDB;
 
 DELIMITER $$
 DROP function IF EXISTS `mediapp`.`nextval` $$
- CREATE FUNCTION `nextval` (`seq_name` varchar(100)) 
+ CREATE FUNCTION `mediapp`.`nextval` (`seq_name` varchar(100)) 
  RETURNS bigint(20) NOT DETERMINISTIC 
  BEGIN    
  DECLARE cur_val bigint(20);
- SELECT
+  SELECT
  sequence_cur_value INTO cur_val     
  FROM        
  mediapp.sequence_data     
@@ -320,15 +321,21 @@ DROP function IF EXISTS `mediapp`.`nextval` $$
  sequence_name = seq_name         
  ;     
  END IF; 
+  SELECT
+ sequence_cur_value INTO cur_val     
+ FROM        
+ mediapp.sequence_data     
+ WHERE        
+ sequence_name = seq_name;  
  RETURN cur_val; 
  END;
-$$
+ $$
 
 -- -----------------------------------------------------
 -- function currval
 -- -----------------------------------------------------
 DROP function IF EXISTS `mediapp`.`currval` $$
- CREATE FUNCTION `currval` (`seq_name` varchar(100)) 
+ CREATE FUNCTION `mediapp`.`currval` (`seq_name` varchar(100)) 
  RETURNS bigint(20) NOT DETERMINISTIC 
  BEGIN    
  DECLARE cur_val bigint(20);
