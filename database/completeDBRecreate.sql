@@ -11,7 +11,7 @@ CREATE SCHEMA IF NOT EXISTS `mediapp` DEFAULT CHARACTER SET latin1 COLLATE latin
 DROP TABLE IF EXISTS `mediapp`.`Person` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`Person` (
-  `idPerson` INT NOT NULL AUTO_INCREMENT ,
+  `idPerson` INT NOT NULL ,
   `first_name` VARCHAR(45) NULL ,
   `last_name` VARCHAR(45) NULL ,
   `middle_name` VARCHAR(45) NULL ,
