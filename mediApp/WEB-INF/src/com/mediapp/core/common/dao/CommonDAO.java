@@ -23,4 +23,6 @@ public interface CommonDAO {
 	public boolean updateProfile(Person person)throws DataAccessException;
 
 	public int checkIfeMailExists(Person person)  throws DataAccessException;
+	
+	public boolean insertAddress(Person person) throws DataAccessException;
 }

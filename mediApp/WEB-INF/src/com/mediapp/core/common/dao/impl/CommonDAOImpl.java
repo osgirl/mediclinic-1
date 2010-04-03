@@ -18,9 +18,8 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("Key", person.getKey());
 		criteria.put("Username", person.getUsername());
-		criteria.put("PersonType", person.getPersonTypeString());		
+		criteria.put("PersonType", person.getPersonTypeString());
 		return (Person) getObject("common.authenticateUser", criteria);
-		
 	}
 
 	public List <CodeDecode> getPersonType() throws DataAccessException {
@@ -56,13 +55,20 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			person.setPersonTypeString(person.getPersonType().getCodeDecode());
 			person.setPassword("mediApp");			
 			insertObject("common.insertNewPerson",person );
-
-		return true;
+			return true;
+	}
+	
+	public int getMaxPersonId() throws DataAccessException {
+		return (Integer) getObject("common.maxPersonId", null);
 	}
 	
 	public boolean updateProfile(Person person)throws DataAccessException{
-		System.out.println("*********** Person Email Id is --> " + person.getEmailID());
-		updateObject("common.updateProfile", person);
+ 		updateObject("common.updateProfile", person);
+		return true;
+	}
+	
+	public boolean insertAddress(Person person)throws DataAccessException{
+		updateObject("common.insertAddress", person);
 		return true;
 	}
 }

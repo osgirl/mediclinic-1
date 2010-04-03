@@ -28,7 +28,7 @@
 	  </tx:attributes>
 	</tx:advice>
 	<aop:config>
-  		<aop:pointcut id="commonServiceOperation" expression="execution(* com.mediapp.core.common.business.LoginService.*(..))"/>
-  		<aop:advisor advice-ref="txAdvice" pointcut-ref="commonServiceOperation"/>
+  		<aop:pointcut id="commonDAOOperation" expression="execution(* com.mediapp.core.common.dao.CommonDAO.*(..))"/>
+  		<aop:advisor advice-ref="txAdvice" pointcut-ref="commonDAOOperation"/>
 	</aop:config>
 </beans>

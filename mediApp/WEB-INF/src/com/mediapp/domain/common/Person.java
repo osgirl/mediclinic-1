@@ -38,71 +38,38 @@ public class Person extends MediAppBaseDomain{
     
     private String gender;
     
-    private Integer landlinePhoneNumber;
+    private String landlinePhoneNumber;
     
-    private Integer cellPhoneNumber;
+    private String cellPhoneNumber;
     
-    private String accountStatus;
+    public String getLandlinePhoneNumber() {
+		return landlinePhoneNumber;
+	}
+
+	public void setLandlinePhoneNumber(String landlinePhoneNumber) {
+		this.landlinePhoneNumber = landlinePhoneNumber;
+	}
+
+	public String getCellPhoneNumber() {
+		return cellPhoneNumber;
+	}
+
+	public void setCellPhoneNumber(String cellPhoneNumber) {
+		this.cellPhoneNumber = cellPhoneNumber;
+	}
+
+	private String accountStatus;
     
-   private String address1;
-   
-   private String address2;
-   
-   private String locality;
-   
-   private String city;
-   
-   private String state;
-   
-   private String country;
+    private Address address;
+    
 
-	public String getAddress1() {
-	return address1;
-}
+	public Address getAddress() {
+		return address;
+	}
 
-public void setAddress1(String address1) {
-	this.address1 = address1;
-}
-
-public String getAddress2() {
-	return address2;
-}
-
-public void setAddress2(String address2) {
-	this.address2 = address2;
-}
-
-public String getLocality() {
-	return locality;
-}
-
-public void setLocality(String locality) {
-	this.locality = locality;
-}
-
-public String getCity() {
-	return city;
-}
-
-public void setCity(String city) {
-	this.city = city;
-}
-
-public String getState() {
-	return state;
-}
-
-public void setState(String state) {
-	this.state = state;
-}
-
-public String getCountry() {
-	return country;
-}
-
-public void setCountry(String country) {
-	this.country = country;
-}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 	public int getIdPerson() {
 		return idPerson;
@@ -150,22 +117,6 @@ public void setCountry(String country) {
 
 	public void setGender(String gender) {
 		this.gender = gender;
-	}
-
-	public Integer getLandlinePhoneNumber() {
-		return landlinePhoneNumber;
-	}
-
-	public void setLandlinePhoneNumber(Integer landlinePhoneNumber) {
-		this.landlinePhoneNumber = landlinePhoneNumber;
-	}
-
-	public Integer getCellPhoneNumber() {
-		return cellPhoneNumber;
-	}
-
-	public void setCellPhoneNumber(Integer cellPhoneNumber) {
-		this.cellPhoneNumber = cellPhoneNumber;
 	}
 
 	public String getAccountStatus() {
