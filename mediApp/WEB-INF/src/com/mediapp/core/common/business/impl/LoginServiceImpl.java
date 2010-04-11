@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.mediapp.core.common.business.LoginService;
+import com.mediapp.core.common.constants.CommonCoreConstants;
 import com.mediapp.core.common.dao.CommonDAO;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
@@ -76,4 +77,9 @@ public class LoginServiceImpl implements LoginService {
 		}
 		return errorList;
 	}
+	
+	public List <CodeDecode> getSpecialities() {
+		return commonDAO.getCodeValue(CommonCoreConstants.SPECIALITY);
+	}
+
 }

@@ -35,67 +35,16 @@
 														</td>
 													</tr>
 													<tr>
+														<td>															
+															<input type="button"  onClick="javascript:fn_nextURL('/searchDoctor.htm');" alignment="center" value="Search Doctor" class="gsubmit"  />
+														</td>
+													</tr>
+													<tr>
 														<td>
 															<input type="button"  alignment="center" value="Upload Documents" class="gsubmit"  />																																												
 														</td>
 													</tr>
 													
-													<tr></tr>
-														<tr>
-															<td align="center" bgcolor="lightblue">Search</td>
-														</tr>
-														<tr>
-															<td>Doctor Name: </td>
-														</tr>
-														<tr>
-															<td >
-																<input type="text"  name="docFirstName"    value=""  />
-															</td>
-														</tr>
-														<tr>
-															<td>Speciality:</td>
-														</tr>
-														<tr>
-															<td >
-															<select >
-																<option>-Select-</option>
-															</select>
-
-															</td>
-														</tr>
-
-													<tr>
-														<td >Date: </td>
-													</tr>
-													<tr>
-														<td >																
-																<input type="text" name="aDate"  />
-																	<script language="JavaScript">
-																		new tcal ({
-																			// form name
-																			'formname': 'personalProfile',
-																			// input name
-																			'controlname': 'aDate'
-																			});
-																	</script>
-																
-														</td>
-													</tr>
-													<tr>
-														<td >Locality: </td>
-													</tr>
-													<tr>
-														<td >
-															<input type="text"  name="searchlocality"    value=""  />														
-														</td>
-													</tr>
-													<tr>
-														<td align="center" colspan="2">
-															<input type="submit"  align="middle" value="Search" class="bsubmit"  width="75"/>
-														</td>
-													</tr>
-														
-														
 												</table>
 
 												<div id="Personal Details"  style="display:block" align="center">

@@ -44,6 +44,17 @@
         
 	</bean>
 
+	<bean id="searchDoctor" class="com.mediapp.web.controller.common.SearchDoctorController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>person</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="formView"><value>searchDoctor</value></property>
+        <property name="successView"><value>searchDoctor</value></property>
+        <property name="loginService">
+			<ref bean="loginService"/>
+		</property>
+
+	</bean>
 
 	<bean id="takeAppointmentForm" class="com.mediapp.web.controller.common.TakeAppointmentController">
         <property name="sessionForm"><value>true</value></property>
@@ -109,6 +120,9 @@
 				</entry>
 				<entry key="appointmentPopUp.htm">
 					<ref bean="appointmentPopUpForm" />
+				</entry>
+				<entry key="searchDoctor.htm">
+					<ref bean="searchDoctor" />
 				</entry>
 				
 			</map>

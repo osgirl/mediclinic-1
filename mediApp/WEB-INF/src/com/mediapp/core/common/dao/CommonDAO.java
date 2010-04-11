@@ -6,6 +6,8 @@ import org.springframework.dao.DataAccessException;
 
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
+import com.mediapp.domain.common.SearchCriteria;
+import com.mediapp.domain.common.SearchResult;
 
 public interface CommonDAO {
 	
@@ -25,4 +27,9 @@ public interface CommonDAO {
 	public int checkIfeMailExists(Person person)  throws DataAccessException;
 	
 	public boolean insertAddress(Person person) throws DataAccessException;
+	
+	public List <CodeDecode> getCodeValue(String codeCategory) throws DataAccessException;
+
+	public List <SearchResult> getDoctors(SearchCriteria searchCriteria) throws DataAccessException;
+
 }

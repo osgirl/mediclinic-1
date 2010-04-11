@@ -1,5 +1,6 @@
 package com.mediapp.web.controller.common;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,9 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,8 +58,23 @@ public class AppointmentPopUpController extends MediAppBaseController  {
 	
 	
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
-		Person person = loginService.authenticate((Person)command);
-		return new ModelAndView("redirect:/personalProfile.htm",CommonWebConstants.USER_ID, person);
+	//	Person person = loginService.authenticate((Person)command);
+		try{
+			response.flushBuffer();
+			response.setContentType("text/html; charset=UTF-8");
+		    PrintWriter out = new PrintWriter(new OutputStreamWriter(response.getOutputStream(), "UTF8"), true);
+		    out.write("{\n");
+		    out.write(" query:'Li',\n");
+		    out.write(" suggestions:['Liberia','Libyan Arab Jamahiriya','Liechtenstein','Lithuania'],\n");
+		    out.write(" data:['LR','LY','LI','LT']\n");
+		    out.write("}\n");
+		    out.flush();		    
+		}catch (IOException e){
+			System.out.println("AppointmentPopUpController.onSubmit()");
+		}
+		
+		
+		return new ModelAndView(getSuccessView());
     }
 	/**
 	 * @param loginService the loginService to set
