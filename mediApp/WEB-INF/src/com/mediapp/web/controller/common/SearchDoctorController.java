@@ -1,5 +1,6 @@
 package com.mediapp.web.controller.common;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +53,11 @@ public class SearchDoctorController  extends MediAppBaseController  {
 	}
 
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
-		SearchCriteria searchCriteria = ((SearchCriteria)command);
+		SearchCriteria searchCriteria = new SearchCriteria();
+		searchCriteria.setSpeciality((String)request.getSession().getAttribute("hSpeciality"));
+		searchCriteria.setLocality((String)request.getSession().getAttribute("hLocality"));
+		searchCriteria.setDoctorName((String)request.getSession().getAttribute("hDoctorname"));
+		searchCriteria.setDateOfAppointment((Date)request.getSession().getAttribute("hDateOfAppointment"));
 		List <SearchResult> searchResults = commonService.getDoctors(searchCriteria);
 		return new ModelAndView(getSuccessView(),CommonWebConstants.SEARCH_RESULTS, searchResults);
     }

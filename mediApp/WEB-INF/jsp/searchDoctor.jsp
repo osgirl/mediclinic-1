@@ -36,6 +36,7 @@
 															Search Doctor
 														<tr>
 															<td >Doctor Name:</td>
+															<input type="hidden" id="hDoctorname" name="hSpeciality"></input>
 															<td>	<input type="text" name="doctorname"  />	
 															</td>
 														</tr>
