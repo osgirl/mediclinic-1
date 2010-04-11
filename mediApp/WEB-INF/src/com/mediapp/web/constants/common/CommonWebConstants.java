@@ -9,4 +9,8 @@ public interface CommonWebConstants {
 	String WELCOMEPAGE_URL = "/welcomePage.htm";
 	
 	String REG_EMAIL_TYPE = "registration";
+	
+	String CODE_CATEGORY = "codeCategory";
+	
+	String CODE_QUERY = "query";
 }

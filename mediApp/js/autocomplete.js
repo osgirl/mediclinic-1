@@ -8,7 +8,8 @@
  *
  */
 
-var Autocomplete = function(el, options){
+var Autocomplete = function(el, options,codeCategory){
+  this.codeCategory = codeCategory;
   this.el = $(el);
   this.id = this.el.identify();
   this.el.setAttribute('autocomplete','off');
@@ -182,11 +183,11 @@ Autocomplete.prototype = {
       this.suggestions = cr.suggestions;
       this.data = cr.data;
       this.suggest();
-    } else if (!this.isBadQuery(this.currentValue)) {    	
+    } else if (!this.isBadQuery(this.currentValue)) {
       new Ajax.Request(this.serviceUrl, {
-        parameters: { query: this.currentValue },
+        parameters: { query:this.currentValue , codeCategory:this.codeCategory},
         onComplete: this.processResponse.bind(this),
-        method: 'post'
+        method: 'post'        
       });
       this.suggest();
     }

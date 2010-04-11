@@ -32,4 +32,7 @@ public interface CommonDAO {
 
 	public List <SearchResult> getDoctors(SearchCriteria searchCriteria) throws DataAccessException;
 
+	public List <CodeDecode> getAutoComplete(String codeCategory,String code) throws DataAccessException;
+
+	
 }

@@ -78,6 +78,10 @@
         <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
         <property name="formView"><value>appointmentPopUp</value></property>
         <property name="successView"><value>appointmentPopUp</value></property>
+        <property name="commonService">
+			<ref bean="commonService"/>
+		</property>
+        
 	</bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

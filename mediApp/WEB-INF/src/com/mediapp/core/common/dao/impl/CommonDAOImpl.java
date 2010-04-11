@@ -100,8 +100,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("FirstName", searchCriteria.getDoctorName());
 		criteria.put("Speciality", searchCriteria.getSpeciality());
-		criteria.put("Locality", searchCriteria.getLocality());
-		criteria.put("FirstName", searchCriteria.getDoctorName());
+		criteria.put("Locality", searchCriteria.getLocality());		
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(searchCriteria.getDateOfAppointment());
 		int dayOfWeek = cal.getFirstDayOfWeek();
@@ -151,5 +150,16 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return searchResultList;
 	}
 	
+	public List <CodeDecode> getAutoComplete(String codeCategory,String code) throws DataAccessException {
+		Person person = null;		
+		Map<String,String> criteria =  new HashMap < String, String > () ;
+		criteria.put("Category", codeCategory);
+		String codeLike = "%"+code+"%";
+		criteria.put("Code", codeLike);
+		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.autoComplete",criteria );	
+		return codeValueList;
+	}
 
+	
+	
 }

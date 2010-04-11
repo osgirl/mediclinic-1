@@ -76,7 +76,7 @@
 															<input type="hidden" id="hLocality" name="hLocality"></input>
 															<input type="text" name="locality" id="locality" />		
 															<script type="text/javascript">
-																new Autocomplete('locality', { serviceUrl:'/appointmentPopUp.htm' });
+																new Autocomplete('locality', { serviceUrl:'/appointmentPopUp.htm' },'PERSON_TY');
 															</script>
 	
 														</td>

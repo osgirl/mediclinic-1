@@ -18,6 +18,13 @@
 			<ref bean="commonDAO"/>
 		</property>
 	</bean>
+	
+	<bean id="commonService"	class="com.mediapp.core.common.business.impl.CommonServiceImpl">
+		<property name="commonDAO">
+			<ref bean="commonDAO"/>
+		</property>
+	</bean>
+	
 	<bean id="commonDAO" class="com.mediapp.core.common.dao.impl.CommonDAOImpl" parent = "mediAppBaseDAOImpl">
 	</bean>
 	

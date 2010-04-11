@@ -19,7 +19,9 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mediapp.core.common.business.CommonService;
 import com.mediapp.core.common.business.LoginService;
+import com.mediapp.core.common.business.impl.CommonServiceImpl;
 import com.mediapp.core.common.business.impl.ScheduleEMail;
 import com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl;
 import com.mediapp.domain.common.CodeDecode;
@@ -32,14 +34,13 @@ import com.mediapp.web.util.common.CommonWebUtil;
 public class AppointmentPopUpController extends MediAppBaseController  {
 	 
 	private final Log logger = LogFactory.getLog(getClass());
-	LoginService loginService;
-	ScheduleEMail sendeMail;
-	public ScheduleEMail getSendeMail() {
-		return sendeMail;
+
+	CommonService commonService;
+	
+	public void setCommonService(CommonService commonService) {
+		this.commonService = commonService;
 	}
-	public void setSendeMail(ScheduleEMail sendeMail) {
-		this.sendeMail = sendeMail;
-	}
+
 
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)
 	throws Exception {
@@ -57,16 +58,40 @@ public class AppointmentPopUpController extends MediAppBaseController  {
 	}
 	
 	
-	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
+	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws IOException{		
 	//	Person person = loginService.authenticate((Person)command);
+		String codeCategory =  (String) request.getParameter(CommonWebConstants.CODE_CATEGORY);
+		String code =  (String) request.getParameter(CommonWebConstants.CODE_QUERY);
+		System.out.println("code is "+ request.getParameter("codeCategory"));
+		List <CodeDecode> codes = commonService.getAutoComplete(codeCategory, code);
 		try{
 			response.flushBuffer();
 			response.setContentType("text/html; charset=UTF-8");
 		    PrintWriter out = new PrintWriter(new OutputStreamWriter(response.getOutputStream(), "UTF8"), true);
 		    out.write("{\n");
-		    out.write(" query:'Li',\n");
-		    out.write(" suggestions:['Liberia','Libyan Arab Jamahiriya','Liechtenstein','Lithuania'],\n");
-		    out.write(" data:['LR','LY','LI','LT']\n");
+		    out.write(" query:'"+code+"',\n");
+		    StringBuffer suggestions = new StringBuffer();
+		    suggestions.append( "suggestions:['");
+		    StringBuffer data = new StringBuffer();
+		    data.append("data:['");
+			for(CodeDecode eachCodeValue : codes){
+				suggestions.append(eachCodeValue.getCodeDescription());
+				data.append(eachCodeValue.getCodeDecode());
+				suggestions.append("','");
+				data.append("','");
+			}
+			int poss = suggestions.lastIndexOf("','");
+			suggestions.replace(poss, poss+3, "'],");
+			suggestions.append("\n");
+			int posd = data.lastIndexOf("','");
+			data.replace(posd, posd+3, "']");
+			data.append("\n");
+		    //out.write(" suggestions:['Liberia','Libyan Arab Jamahiriya','Liechtenstein','Lithuania'],\n");
+		    //out.write(" data:['LR','LY','LI','LT']\n");
+			String suggestString = suggestions.toString();
+			String dataString = data.toString();
+			out.write(suggestString);
+			out.write(dataString);			
 		    out.write("}\n");
 		    out.flush();		    
 		}catch (IOException e){
@@ -74,14 +99,11 @@ public class AppointmentPopUpController extends MediAppBaseController  {
 		}
 		
 		
-		return new ModelAndView(getSuccessView());
+		return new ModelAndView("redirect:/appointmentPopUp.htm");
     }
 	/**
 	 * @param loginService the loginService to set
 	 */
-	public void setLoginService(LoginService loginService) {
-		this.loginService = loginService;
-	}
 	protected void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
 		Person logon = (Person) command;
 		String personType = request.getParameter("hPersonType");			

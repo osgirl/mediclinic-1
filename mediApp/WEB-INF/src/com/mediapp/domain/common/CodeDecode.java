@@ -9,6 +9,16 @@ public class CodeDecode extends MediAppBaseDomain{
 	private String codeCategory;
 	
 	private String  codeDecode;
+	
+	private String  codeDescription;
+
+	public String getCodeDescription() {
+		return codeDescription;
+	}
+
+	public void setCodeDescription(String codeDescription) {
+		this.codeDescription = codeDescription;
+	}
 
 	public String getCodeCategory() {
 		return codeCategory;

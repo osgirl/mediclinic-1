@@ -81,6 +81,77 @@
 			insert into address (address1, address2, locality, city, state, country, personID) values
 			(#address.address1#, #address.address2#, #address.locality#, #address.city#, #address.state#, #address.country#, currval('seq_person_id'));
 	</insert>
+
+ 	<resultMap class="com.mediapp.domain.common.CodeDecode" id="Auto-Complete-Result-Map">
+	 	<result property="codeDecode" column="code_val"/>
+	 	<result property="codeDescription" column="code_desc"/>
+	</resultMap>
 	 	
-	
+	<parameterMap id="Auto-Complete-Map"   class="java.util.HashMap">
+		<parameter property="Category"    	javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="Code"    		javaType="java.lang.String"    mode="IN"/>
+	</parameterMap>
+
+	<select id="autoComplete" parameterMap="Auto-Complete-Map" resultMap="Auto-Complete-Result-Map">
+           SELECT code_val,code_desc FROM code_decode where code_ctg = ? and code_val like ?
+ 	</select>
+ 	
+ 	<resultMap class="com.mediapp.domain.common.SearchResult" id="Search-Result-Map">
+	 	<result property="doctorFirstName" column="first_name"/>
+	 	<result property="doctorMiddleName" column="middle_name"/>
+	 	<result property="doctorLastName" column="last_name"/>
+	 	<result property="address1" column="address1"/>
+	 	<result property="address2" column="address2"/>
+	 	<result property="locality" column="Locality"/>
+	 	<result property="city" column="City"/>
+	 	<result property="state" column="State"/>
+	 	<result property="country" column="Country"/>
+	 	<result property="workStartTime" column="work_start_time"/>
+	 	<result property="workEndTime" column="work_end_time"/>
+	 	<result property="mondayWorking" column="monday_working"/>
+	 	<result property="tuesdayWorking" column="tuesday_working"/>
+	 	<result property="wednesdayWorking" column="wednesday_working"/>
+	 	<result property="thursdayWorking" column="thursday_working"/>
+	 	<result property="fridayWorking" column="friday_working"/>
+	 	<result property="saturdayWorking" column="saturday_working"/>
+	 	<result property="sundayWorking" column="sunday_working"/>	 	
+	</resultMap>
+	 	
+	<parameterMap id="Search-Input-Map"   class="java.util.HashMap">
+		<parameter property="MondayWorking"    	javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="TuesdayWorking"    javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="WednesdayWorking"  javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="ThursdayWorking"   javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="FridayWorking"    	javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="SaturdayWorking"   javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="SundayWorking"    	javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="Locality"    		javaType="java.lang.String"    mode="IN"/>
+	</parameterMap>
+
+	<select id="autoComplete" parameterMap="Search-Input-Map" resultMap="Search-Result-Map">
+			select p.first_name,p.last_name, p.middle_name,
+			dd.work_start_time, dd.work_end_time,
+			monday_working, tuesday_working,
+			wednesday_working, thursday_working,
+			friday_working, saturday_working,
+			sunday_working, address1,address2, Locality, City,State,Country
+			from 
+			person p,
+			doctor_details dd,
+			address a
+			where p.idPerson = dd.idPerson
+			and p.idPerson = a.personID			
+			and (
+			     (dd.monday_working = ? and tuesday_working != '' and wednesday_working !='' and thursday_working !='' and friday_working !='' and saturday_working !='' and sunday_working !='')
+			or   (dd.monday_working != ''  and tuesday_working = ?  and wednesday_working !='' and thursday_working !='' and friday_working !='' and saturday_working !='' and sunday_working !='')
+			or   (dd.monday_working != ''  and tuesday_working !=''  and wednesday_working =? and thursday_working !='' and friday_working !='' and saturday_working !='' and sunday_working !='')
+			or   (dd.monday_working != ''  and tuesday_working !=''  and wednesday_working !='' and thursday_working =? and friday_working !='' and saturday_working !='' and sunday_working !='')
+			or   (dd.monday_working != ''  and tuesday_working !=''  and wednesday_working !='' and thursday_working !='' and friday_working =? and saturday_working !='' and sunday_working !='')
+			or   (dd.monday_working != ''  and tuesday_working !=''  and wednesday_working !='' and thursday_working !='' and friday_working !='' and saturday_working =? and sunday_working !='')
+			or   (dd.monday_working != ''  and tuesday_working !=''  and wednesday_working !='' and thursday_working !='' and friday_working !='' and saturday_working !='' and sunday_working =?)
+			)
+			and Locality like ?
+           
+ 	</select>
+ 	
 </sqlMap>
