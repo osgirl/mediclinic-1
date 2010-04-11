@@ -13,4 +13,6 @@ public interface CommonWebConstants {
 	String CODE_CATEGORY = "codeCategory";
 	
 	String CODE_QUERY = "query";
+	
+	String SEARCH_RESULTS = "searchResults";
 }

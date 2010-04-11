@@ -128,7 +128,7 @@
 	    <parameter property="Locality"    		javaType="java.lang.String"    mode="IN"/>
 	</parameterMap>
 
-	<select id="autoComplete" parameterMap="Search-Input-Map" resultMap="Search-Result-Map">
+	<select id="searchDoctor" parameterMap="Search-Input-Map" resultMap="Search-Result-Map">
 			select p.first_name,p.last_name, p.middle_name,
 			dd.work_start_time, dd.work_end_time,
 			monday_working, tuesday_working,

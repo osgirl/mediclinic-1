@@ -5,17 +5,32 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.mediapp.core.common.business.CommonService;
 import com.mediapp.core.common.business.LoginService;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
+import com.mediapp.domain.common.SearchResult;
 import com.mediapp.web.constants.common.CommonWebConstants;
+import com.mediapp.web.util.common.CommonWebUtil;
 
 public class SearchDoctorController  extends MediAppBaseController  {
 	LoginService loginService;
+	
+	CommonService commonService;
+	
+	public CommonService getCommonService() {
+		return commonService;
+	}
+	public void setCommonService(CommonService commonService) {
+		this.commonService = commonService;
+	}
 	public LoginService getLoginService() {
 		return loginService;
 	}
@@ -36,5 +51,10 @@ public class SearchDoctorController  extends MediAppBaseController  {
 		return logonMap;
 	}
 
+	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
+		SearchCriteria searchCriteria = ((SearchCriteria)command);
+		List <SearchResult> searchResults = commonService.getDoctors(searchCriteria);
+		return new ModelAndView(getSuccessView(),CommonWebConstants.SEARCH_RESULTS, searchResults);
+    }
 
 }

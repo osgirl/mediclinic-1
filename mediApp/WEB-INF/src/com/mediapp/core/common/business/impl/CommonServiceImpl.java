@@ -9,6 +9,8 @@ import com.mediapp.core.common.business.CommonService;
 import com.mediapp.core.common.constants.CommonCoreConstants;
 import com.mediapp.core.common.dao.CommonDAO;
 import com.mediapp.domain.common.CodeDecode;
+import com.mediapp.domain.common.SearchCriteria;
+import com.mediapp.domain.common.SearchResult;
 
 public class CommonServiceImpl implements CommonService{
 
@@ -27,5 +29,9 @@ public class CommonServiceImpl implements CommonService{
 
 	public void setCommonDAO(CommonDAO commonDAO) {
 		this.commonDAO = commonDAO;
+	}
+	
+	public List <SearchResult> getDoctors(SearchCriteria searchCriteria){
+		return commonDAO.getDoctors(searchCriteria);
 	}
 }
