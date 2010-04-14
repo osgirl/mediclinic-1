@@ -45,8 +45,12 @@ function fn_submitLogin(){
 	document.forms["logon"].submit();
 }
 function fn_nextURL(URL){
-	window.location = URL;
-	document.forms["logon"].submit();
+	window.location.href = URL;
+	//document.forms["logon"].submit();
+}
+
+function fn_searchDoctor(){
+	document.forms["searchDoctor"].submit();
 }
 //calendar
 var dDate = new Date();

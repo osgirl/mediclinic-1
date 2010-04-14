@@ -54,8 +54,8 @@
 
 	<bean id="searchDoctor" class="com.mediapp.web.controller.common.SearchDoctorController">
         <property name="sessionForm"><value>true</value></property>
-        <property name="commandName"><value>person</value></property>
-        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="commandName"><value>doctorSearch</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.DoctorSearch</value></property>
         <property name="formView"><value>searchDoctor</value></property>
         <property name="successView"><value>searchDoctor</value></property>
         <property name="loginService">

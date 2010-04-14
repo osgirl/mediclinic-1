@@ -41,7 +41,7 @@
 													</tr>
 													<tr>
 														<td>
-															<input type="button"  alignment="center" value="Upload Documents" class="gsubmit"  />																																												
+															<input type="button"  onClick="javascript:fn_nextURL('/searchDoctor.htm');" alignment="center" value="Upload Documents" class="gsubmit"  />																																												
 														</td>
 													</tr>
 													

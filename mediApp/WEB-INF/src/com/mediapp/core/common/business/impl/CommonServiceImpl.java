@@ -36,11 +36,13 @@ public class CommonServiceImpl implements CommonService{
 	}
 	
 	public List <SearchResult> getDoctors(SearchCriteria searchCriteria){
+/*
 		if (searchCriteria.getDateOfAppointment() == null){
 			GregorianCalendar calendar = new GregorianCalendar();
 			Date now = calendar.getTime();
 			searchCriteria.setDateOfAppointment(now);			
 		}
+*/
 		return commonDAO.getDoctors(searchCriteria);
 	}
 }

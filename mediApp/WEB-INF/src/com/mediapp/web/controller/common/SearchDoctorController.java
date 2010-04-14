@@ -1,5 +1,6 @@
 package com.mediapp.web.controller.common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,16 +35,23 @@ public class SearchDoctorController  extends MediAppBaseController  {
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)throws Exception {
 		//Person person = (Person) command;
 		Map < String , Object > logonMap = new HashMap < String , Object > ();
-		List <CodeDecode> speciality = loginService.getSpecialities();
+	/*	List <CodeDecode> speciality = loginService.getSpecialities();
 		if (request.getSession().getAttribute("speciality") == null) {
 			request.getSession().setAttribute("speciality", speciality);
 		}		
 		logonMap.put("speciality", speciality);
+	*/
+		DoctorSearch doctorSearch = new DoctorSearch();
+		doctorSearch.setSearchCriteria(new SearchCriteria());
+		List <SearchResult> searchResult = new ArrayList<SearchResult>();
+		searchResult.add(new SearchResult());
+		doctorSearch.setSearchResult(searchResult);
+		logonMap.put(CommonWebConstants.DOCTOR_SEARCH, doctorSearch);
 		return logonMap;
 	}
 	
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
-		DoctorSearch doctorSearch =  (DoctorSearch) command;
+		DoctorSearch doctorSearch =  (DoctorSearch) command;		
 		SearchCriteria searchCriteria =doctorSearch.getSearchCriteria();
 		doctorSearch.setSearchResult(commonService.getDoctors(searchCriteria));		
 		return new ModelAndView(getSuccessView(),CommonWebConstants.DOCTOR_SEARCH, doctorSearch);
