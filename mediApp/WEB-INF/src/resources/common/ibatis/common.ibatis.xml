@@ -19,7 +19,7 @@
 	 	<result property="lastName" column="last_name"/>
 	 	<result property="middleInitial" column="middle_name"/>
 	 	<result property="dateOfBirth" column="date_of_birth"/>
-	 	<result property="gender" column="Gender"/>
+	 	<result property="gender" column="gender"/>
 	 	<result property="landlinePhoneNumber" column="landline_phone_number"/>
 	 	<result property="cellPhoneNumber" column="mobile_phone_number"/>
 	 	<result property="emailID" column="email_address"/>
@@ -72,14 +72,15 @@
 	
 	<update id="updateProfile" >
 		UPDATE person set first_name=#firstName#,last_name=#lastName#,middle_name=#middleInitial#,
-		date_of_birth=#dateOfBirth#,gender=#gender#,landline_phone_number=#landlinePhoneNumber#,mobile_phone_number=#cellPhoneNumber#
+		date_of_birth=date_format(#dateOfBirth#, '%y-%m-%d'),gender=#gender#,landline_phone_number=#landlinePhoneNumber#,mobile_phone_number=#cellPhoneNumber#
 		where email_address=#username#
 		and person_type=#personTypeString#	
 	</update>
 	
 	<insert id="insertAddress" >
 			insert into address (address1, address2, locality, city, state, country, personID) values
-			(#address.address1#, #address.address2#, #address.locality#, #address.city#, #address.state#, #address.country#, currval('seq_person_id'));
+			(#address.address1#, #address.address2#, #address.locality#, #address.city#, #address.state#, #address.country#, currval('seq_person_id'))
+			ON DUPLICATE KEY UPDATE updated = updated + 1;
 	</insert>
 
  	<resultMap class="com.mediapp.domain.common.CodeDecode" id="Auto-Complete-Result-Map">

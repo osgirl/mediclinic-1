@@ -39,9 +39,12 @@ public class PersonalProfileController extends MediAppBaseController  {
 		this.loginService = loginService;
 	}
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)throws Exception {
-		//Person person = (Person) command;
+		Person person = (Person) command;
 		Map < String , Object > logonMap = new HashMap < String , Object > ();
-		Person person = loginService.authenticate((Person) request.getSession().getAttribute(CommonWebConstants.USER_ID));
+		System.out.println("Object is null " + (null == person));
+		if (null == person.getLastName()) {
+			person = loginService.authenticate((Person) request.getSession().getAttribute(CommonWebConstants.USER_ID));
+		}
 		logonMap.put("person", person );
 		return logonMap;
 	}
@@ -72,6 +75,11 @@ public class PersonalProfileController extends MediAppBaseController  {
 		String city = request.getParameter("city");	
 		String state = request.getParameter("state");	
 		String country = request.getParameter("country");
+		String birthDate = request.getParameter("dateOOfBirth");
+		if(null != birthDate && "" != birthDate) {
+			SimpleDateFormat formatDate = new SimpleDateFormat("MM/dd/yyyy");
+			logon.setDateOfBirth(formatDate.parse(birthDate));
+		}
 		logon.setAddress(new Address());
 		logon.getAddress().setAddress1(address1);
 		logon.getAddress().setAddress2(address2);

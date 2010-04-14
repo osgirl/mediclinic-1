@@ -20,7 +20,7 @@
 									</c:if>
 								</spring:hasBindErrors>
 								
-									<table width=700  border="1" class="layout"  >	
+									<table width=900  border="1" class="layout"  >	
 										<tr>
 											<td>	
 												<table width=100 align="left"  border="1" class="layout" >	
@@ -48,17 +48,19 @@
 												</table>
 
 												<div id="Personal Details"  style="display:block" align="center">
-												<table  border=""  class="login" width=450>
+												<table  border=""  class="login" width=670 cellpadding="200">
 													<tr bgcolor="lightblue">
 														<td>Personal Details</td>
 													</tr>
 												
 													<tr>
-														<td >First Name: </td>
+														<td >First Name: <font color="red">*</font></td>
 														<td >
 															<spring:bind path="person.firstName">																															
 																<input type="text"  name="firstName" value="${person.firstName }"/>
+																<font color="red"><c:out value="${status.errorMessage}" /></font>
 															</spring:bind>
+															
 														</td>
 													</tr>
 													<tr>
@@ -70,7 +72,7 @@
 														</td>
 													</tr>
 													<tr>
-														<td >Last Name: </td>
+														<td >Last Name: <font color="red">*</font></td>
 														<td >
 															<spring:bind path="person.lastName">
 																<input type="text" name="lastName"    value="${person.lastName}"/>
@@ -78,9 +80,9 @@
 														</td>
 													</tr>
 													<tr>
-														<td >Date of Birth: </td>
+														<td >Date of Birth: <font color="red">*</font></td>
 														<td >
-																<input type="text" name="dateOOfBirth"/>
+																<input type="text" name="dateOOfBirth" value='<fmt:formatDate pattern="MM/dd/yyyy" value="${person.dateOfBirth}" />'/>
 																	<script language="JavaScript">
 																		new tcal ({
 																			// form name
@@ -92,12 +94,18 @@
 														</td>
 													</tr>
 													<tr>
-														<td >Gender: </td>
+														<td >Gender: <font color="red">*</font></td>
 														<td >
 														<spring:bind path="person.gender">
-															<input type="radio" name="gender" value="M"/> Male		
+														<input type="hidden" name="personGender" value="${person.gender }"/>
+															<input type="radio" name="gender" value="M" /> Male		
 															<input type="radio" name="gender" value="F"/> Female
-														</spring:bind>		
+														</spring:bind>	
+														<script>
+															function checkGender(gender) {
+																if
+															}
+														</script>	
 														</td>
 													</tr>
 													<tr>
@@ -145,16 +153,76 @@
 														</td>
 													</tr>
 													<tr>
-														<td >Cell Number: </td>
+														<td >Cell Number: <font color="red">*</font></td>
 														<td >
 														<spring:bind path="person.cellPhoneNumber">
 															<input type="text" name="cellPhoneNumber" value="${person.cellPhoneNumber}"/>
 														</spring:bind>		
 														</td>
 													</tr>
+													<c:if test="${'Doctor' == person.personTypeString}">
+													<tr>
+														<td>Specialization:<font color="red">*</font></td>
+														<td>
+															<input type="hidden" id="hSpeciality" name="hSpeciality" />
+															<input type="text" name="speciality" id="speciality" />		
+															<script type="text/javascript">
+																new Autocomplete('speciality', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALITY');
+															</script>
+														</td>
+													</tr>
+													<tr>
+														<td>Availability:<font color="red">*</font></td>
+														<td>
+														<table border="0" width="">
+															<tr>
+															<td><input type="checkbox" name="sundayWorking" value="Y">Sunday</input></td>
+															<td><input type="checkbox" name="mondayWorking" value="Y">Monday</input></td>
+															<td><input type="checkbox" name="tuesdayWorking" value="Y">Tuesday</input></td>
+															</tr>
+															<br>
+															<tr>
+															<td><input type="checkbox" name="wednesdayWorking" value="Y">Wednesday</input></td>
+															<td><input type="checkbox" name="thursdayWorking" value="Y">Thursday</input></td>
+															<td><input type="checkbox" name="fridayWorking" value="Y">Friday</input></td>
+															</tr>
+															</br>
+															<tr>
+															<td><input type="checkbox" name="saturdayWorking" value="Y">Saturday</input></td>
+															</tr>
+														</table>
+														</td>
+													</tr>
+													<tr>
+														<td width="150px">Working Hours:<font color="red">*</font></td>
+														<td width="250px" align="left">Start Time: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															<select name="startTime">
+																<option value="9:00 AM">9:00 AM</option>
+																<option value="10:00 AM">10:00 AM</option>
+																<option value="11:00 AM">11:00 AM</option>
+																<option value="12:00 AM">12:00 AM</option>
+																<option value="4:00 PM">4:00 PM</option>
+																<option value="5:00 PM">5:00 PM</option>
+																<option value="6:00 PM">6:00 PM</option>
+																<option value="9:00 PM">9:00 PM</option>
+															</select>
+														</td>
+														<td align="left" width="250px">End Time: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															<select name="endTime">
+																<option value="10:00 AM">10:00 AM</option>
+																<option value="11:00 AM">11:00 AM</option>
+																<option value="12:00 AM">12:00 AM</option>
+																<option value="4:00 PM">4:00 PM</option>
+																<option value="5:00 PM">5:00 PM</option>
+																<option value="6:00 PM">6:00 PM</option>
+																<option value="9:00 PM">4:00 PM</option>
+															</select>														
+														</td>
+													</tr>
+													</c:if>
 													<tr>
 														<td align="center" colspan="2">
-															<input id="saveProfile" type="submit"  alignment="center" value="Save" class="bsubmit"  width="75"/>
+															<input id="saveProfile" name ="saveProfile" type="submit"  alignment="center" value="Save" class="bsubmit"  width="75"/>
 														</td>
 													</tr>
 												</table>

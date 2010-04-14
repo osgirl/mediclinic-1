@@ -42,7 +42,21 @@ public class Person extends MediAppBaseDomain{
     
     private String cellPhoneNumber;
     
-    public String getLandlinePhoneNumber() {
+    private Doctor doctor;
+    
+    private String accountStatus;
+    
+    private Address address;
+    
+    public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	public String getLandlinePhoneNumber() {
 		return landlinePhoneNumber;
 	}
 
@@ -57,11 +71,6 @@ public class Person extends MediAppBaseDomain{
 	public void setCellPhoneNumber(String cellPhoneNumber) {
 		this.cellPhoneNumber = cellPhoneNumber;
 	}
-
-	private String accountStatus;
-    
-    private Address address;
-    
 
 	public Address getAddress() {
 		return address;
