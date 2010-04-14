@@ -35,20 +35,27 @@
 														<tr bgcolor="lightblue">
 															Search Doctor
 														<tr>
-															<td >Doctor Name:</td>
-															<input type="hidden" id="hDoctorname" name="hSpeciality"></input>
-															<td>	<input type="text" name="doctorname"  />	
+															<td >Doctor First Name:</td>
+															<td>	<input type="text" name="DoctorFirstName"  />	
+															</td>
+														</tr>
+														<tr>
+															<td >Doctor Last Name:</td>
+															<td>	<input type="text" name="DoctorLastName"  />	
+														</td>
+														</tr>
+														<tr>
+															<td >Doctor Middle Initial:</td>
+															<td>	<input type="text" name="DoctorMiddleInitial"  />	
 															</td>
 														</tr>
 														<tr>
 															<td>Speciality:</td>
 																<td>		
-																<input type="hidden" id="hSpeciality" name="hSpeciality"></input>
-																<select id="Speciality" name="Speciality" style="WIDTH: 180px">
-																	<c:forEach items="${speciality}" var="data">
-																		<option value='${data.codeDecode}' >${data.codeDecode}</option>
-																	</c:forEach>
-																</select>
+																<input type="text" name="speciality" id="speciality" />		
+																<script type="text/javascript">
+																	new Autocomplete('speciality', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+																</script>
 															</td>
 														</tr>
 						
@@ -56,7 +63,6 @@
 													<tr>
 														<td width="40%">Date: </td>
 														<td width="40%">
-															<input type="hidden" id="hDateOfAppointment" name="hDateOfAppointment"></input>
 															<input type="text" name="dateOfAppointment"   />		
 														</td>
 														<td width="20%">
@@ -74,7 +80,6 @@
 													<tr>
 														<td >Locality: </td>
 														<td >
-															<input type="hidden" id="hLocality" name="hLocality"></input>
 															<input type="text" name="locality" id="locality" />		
 															<script type="text/javascript">
 																new Autocomplete('locality', { serviceUrl:'/appointmentPopUp.htm' },'PERSON_TY');

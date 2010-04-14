@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>    
 <%@ taglib prefix="str" uri="http://jakarta.apache.org/taglibs/string-1.1" %>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 
 <%@page import="com.mediapp.domain.common.Person"%><html>
 <head>

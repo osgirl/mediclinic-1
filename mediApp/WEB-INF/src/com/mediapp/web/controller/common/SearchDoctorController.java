@@ -1,6 +1,5 @@
 package com.mediapp.web.controller.common;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mediapp.core.common.business.CommonService;
 import com.mediapp.core.common.business.LoginService;
 import com.mediapp.domain.common.CodeDecode;
+import com.mediapp.domain.common.DoctorSearch;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
@@ -23,15 +23,7 @@ import com.mediapp.web.util.common.CommonWebUtil;
 
 public class SearchDoctorController  extends MediAppBaseController  {
 	LoginService loginService;
-	
 	CommonService commonService;
-	
-	public CommonService getCommonService() {
-		return commonService;
-	}
-	public void setCommonService(CommonService commonService) {
-		this.commonService = commonService;
-	}
 	public LoginService getLoginService() {
 		return loginService;
 	}
@@ -42,24 +34,34 @@ public class SearchDoctorController  extends MediAppBaseController  {
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)throws Exception {
 		//Person person = (Person) command;
 		Map < String , Object > logonMap = new HashMap < String , Object > ();
-		Person person = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
 		List <CodeDecode> speciality = loginService.getSpecialities();
 		if (request.getSession().getAttribute("speciality") == null) {
 			request.getSession().setAttribute("speciality", speciality);
-		}
-		SearchCriteria searchCriteria = new SearchCriteria();
+		}		
 		logonMap.put("speciality", speciality);
 		return logonMap;
 	}
-
-	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
-		SearchCriteria searchCriteria = new SearchCriteria();
-		searchCriteria.setSpeciality((String)request.getSession().getAttribute("hSpeciality"));
-		searchCriteria.setLocality((String)request.getSession().getAttribute("hLocality"));
-		searchCriteria.setDoctorName((String)request.getSession().getAttribute("hDoctorname"));
-		searchCriteria.setDateOfAppointment((Date)request.getSession().getAttribute("hDateOfAppointment"));
-		List <SearchResult> searchResults = commonService.getDoctors(searchCriteria);
-		return new ModelAndView(getSuccessView(),CommonWebConstants.SEARCH_RESULTS, searchResults);
+	
+	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
+		DoctorSearch doctorSearch =  (DoctorSearch) command;
+		SearchCriteria searchCriteria =doctorSearch.getSearchCriteria();
+		doctorSearch.setSearchResult(commonService.getDoctors(searchCriteria));		
+		return new ModelAndView(getSuccessView(),CommonWebConstants.DOCTOR_SEARCH, doctorSearch);
     }
+	
+	protected void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
+	}
+
+	public CommonService getCommonService() {
+		return commonService;
+	}
+	public void setCommonService(CommonService commonService) {
+		this.commonService = commonService;
+	}
+
+	
+	
 
 }
+
+

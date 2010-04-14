@@ -15,4 +15,6 @@ public interface CommonWebConstants {
 	String CODE_QUERY = "query";
 	
 	String SEARCH_RESULTS = "searchResults";
+	
+	String DOCTOR_SEARCH = "doctorSearch";
 }

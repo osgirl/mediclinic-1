@@ -7,7 +7,11 @@ public class SearchCriteria  extends MediAppBaseDomain{
 
 	private static final long serialVersionUID = 10L;
 
-	private String doctorName;
+	private String doctorFirstName;
+	
+	private String doctorLastName;
+	
+	private String doctorMiddleInitial;
 	
 	private String speciality;
 	
@@ -15,14 +19,7 @@ public class SearchCriteria  extends MediAppBaseDomain{
 	
 	private String locality;
 
-	public String getDoctorName() {
-		return doctorName;
-	}
-
-	public void setDoctorName(String doctorName) {
-		this.doctorName = doctorName;
-	}
-
+	
 	public String getSpeciality() {
 		return speciality;
 	}
@@ -45,6 +42,30 @@ public class SearchCriteria  extends MediAppBaseDomain{
 
 	public void setLocality(String locality) {
 		this.locality = locality;
+	}
+
+	public String getDoctorFirstName() {
+		return doctorFirstName;
+	}
+
+	public void setDoctorFirstName(String doctorFirstName) {
+		this.doctorFirstName = doctorFirstName;
+	}
+
+	public String getDoctorLastName() {
+		return doctorLastName;
+	}
+
+	public void setDoctorLastName(String doctorLastName) {
+		this.doctorLastName = doctorLastName;
+	}
+
+	public String getDoctorMiddleInitial() {
+		return doctorMiddleInitial;
+	}
+
+	public void setDoctorMiddleInitial(String doctorMiddleInitial) {
+		this.doctorMiddleInitial = doctorMiddleInitial;
 	}
 
 }

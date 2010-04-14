@@ -98,7 +98,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	public List <SearchResult> getDoctors(SearchCriteria searchCriteria) throws DataAccessException{
 		Person person = null;		
 		Map<String,String> criteria =  new HashMap < String, String > () ;
-		criteria.put("FirstName", searchCriteria.getDoctorName());
+		criteria.put("FirstName", searchCriteria.getDoctorFirstName());
+		criteria.put("LastName", searchCriteria.getDoctorLastName());
+		criteria.put("MiddleInitial", searchCriteria.getDoctorMiddleInitial());
 		criteria.put("Speciality", searchCriteria.getSpeciality());
 		criteria.put("Locality", searchCriteria.getLocality());		
 		GregorianCalendar cal = new GregorianCalendar();

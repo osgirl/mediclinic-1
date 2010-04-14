@@ -1,6 +1,10 @@
 package com.mediapp.core.common.business.impl;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,6 +36,11 @@ public class CommonServiceImpl implements CommonService{
 	}
 	
 	public List <SearchResult> getDoctors(SearchCriteria searchCriteria){
+		if (searchCriteria.getDateOfAppointment() == null){
+			GregorianCalendar calendar = new GregorianCalendar();
+			Date now = calendar.getTime();
+			searchCriteria.setDateOfAppointment(now);			
+		}
 		return commonDAO.getDoctors(searchCriteria);
 	}
 }
