@@ -52,6 +52,10 @@ function fn_nextURL(URL){
 function fn_searchDoctor(){
 	document.forms["searchDoctor"].submit();
 }
+
+function fn_dayAppointment(personID){
+	alert(personID);
+}
 //calendar
 var dDate = new Date();
 var dCurMonth = dDate.getMonth();

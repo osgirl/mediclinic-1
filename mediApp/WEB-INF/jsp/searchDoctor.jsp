@@ -112,10 +112,51 @@
 														
 													</table>
 												</div>
+												<spring:bind path="doctorSearch.searchResult">
+													<c:if test='${not empty status.value}'>
+   														<table width=700  border="1" class="layout"  >
+   															<tr>
+   																<td>
+																	<c:forEach var="searchResult" items="${status.value}">
+																		<tr>
+																			<td>
+																				Name: 	<c:out value="${searchResult.doctorFirstName}"/> 
+																						<c:out value="${searchResult.doctorMiddleName}"/> 
+																						<c:out value="${searchResult.doctorLastName}"/>
+																			</td>	
+																			<td><a href="" onClick="javascript:fn_dayAppointment(<c:out value="${searchResult.idPerson}"/>)"> Take Appointment</a>
+																			</td>
+																		</tr>
+																		<tr>																		<tr>
+																			<td>
+																				Address: 	<c:out value="${searchResult.address1}"/> 
+																			</td>	
+																		</tr>															
+																		<tr>																		<tr>
+																			<td>
+																							<c:out value="${searchResult.address2}"/> 
+																			</td>	
+																		</tr>															
+																		<tr>																		<tr>
+																			<td>
+																							<c:out value="${searchResult.locality}"/> 
+																			</td>	
+																		</tr>															
+																		<tr>																		<tr>
+																			<td>
+																							<c:out value="${searchResult.state}"/> 
+																			</td>	
+																		</tr>															
+																	</c:forEach>
+																</td>
+															</tr>
+														</table>
+													</c:if>
+												</spring:bind>
 												
-									</tr>	
+									</tr>
+										
 									</table>
-									
 								</form>
 	
 							</div>

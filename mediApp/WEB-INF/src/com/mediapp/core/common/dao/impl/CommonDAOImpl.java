@@ -97,7 +97,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
 	public List <SearchResult> getDoctors(SearchCriteria searchCriteria) throws DataAccessException{
 		Person person = null;		
-		Map<String,String> criteria =  new HashMap < String, String > () ;
+		Map<String,String> criteria =  new HashMap < String, String > () ;		
 		criteria.put("FirstName", searchCriteria.getDoctorFirstName());
 		criteria.put("LastName", searchCriteria.getDoctorLastName());
 		criteria.put("MiddleInitial", searchCriteria.getDoctorMiddleInitial());
@@ -109,17 +109,17 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		if(CommonCoreConstants.DAY_IS_MONDAY == dayOfWeek){
 			criteria.put("MondayWorking", "Y");
 		}else {
-			criteria.put("MondayWorking", "");
+			criteria.put("MondayWorking", null);
 		}
 		if (CommonCoreConstants.DAY_IS_TUESDAY == dayOfWeek){
 			criteria.put("TuesdayWorking", "Y");
 		}else{
-			criteria.put("TuesdayWorking", "");
+			criteria.put("TuesdayWorking", null);
 		}
 		if (CommonCoreConstants.DAY_IS_WEDNESDAY == dayOfWeek){
 			criteria.put("WednesdayWorking", "Y");
 		}else{
-			criteria.put("WednesdayWorking", "");
+			criteria.put("WednesdayWorking", null);
 		}
 		if (CommonCoreConstants.DAY_IS_THURSDAY == dayOfWeek){
 			criteria.put("ThursdayWorking", "Y");
@@ -129,17 +129,17 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		if (CommonCoreConstants.DAY_IS_FRIDAY == dayOfWeek){
 			criteria.put("FridayWorking", "Y");
 		}else{
-			criteria.put("FridayWorking", "");
+			criteria.put("FridayWorking", null);
 		}
 		if (CommonCoreConstants.DAY_IS_SATURDAY == dayOfWeek){
 						criteria.put("SaturdayWorking", "Y");
 		}else{
-			criteria.put("SaturdayWorking", "");
+			criteria.put("SaturdayWorking", null);
 		}
 		if (CommonCoreConstants.DAY_IS_SUNDAY == dayOfWeek){
 			criteria.put("SundayWorking", "Y");
 		}else{
-			criteria.put("SundayWorking", "");
+			criteria.put("SundayWorking", null);
 		}
 	
 		List <SearchResult> searchResultList =  new ArrayList() ;
