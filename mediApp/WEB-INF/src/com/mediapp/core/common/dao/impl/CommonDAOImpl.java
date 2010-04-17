@@ -1,6 +1,7 @@
 package com.mediapp.core.common.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -105,7 +106,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		criteria.put("Locality", searchCriteria.getLocality());		
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(searchCriteria.getDateOfAppointment());
-		int dayOfWeek = cal.getFirstDayOfWeek();
+		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);		
 		if(CommonCoreConstants.DAY_IS_MONDAY == dayOfWeek){
 			criteria.put("MondayWorking", "Y");
 		}else {
@@ -124,7 +125,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		if (CommonCoreConstants.DAY_IS_THURSDAY == dayOfWeek){
 			criteria.put("ThursdayWorking", "Y");
 		}else{
-			criteria.put("ThursdayWorking", "");
+			criteria.put("ThursdayWorking", null);
 		}
 		if (CommonCoreConstants.DAY_IS_FRIDAY == dayOfWeek){
 			criteria.put("FridayWorking", "Y");

@@ -10,17 +10,18 @@ public interface CommonCoreConstants {
 	 
 	 String SPECIALITY = "SPECIALTITY";
 	 
-	 int DAY_IS_MONDAY = 1;
+	 int DAY_IS_SUNDAY = 1;
 	 
-	 int DAY_IS_TUESDAY = 2;
+	 int DAY_IS_MONDAY = 2;
 	 
-	 int DAY_IS_WEDNESDAY = 3;
+	 int DAY_IS_TUESDAY = 3;
 	 
-	 int DAY_IS_THURSDAY = 4;
+	 int DAY_IS_WEDNESDAY = 4;
 	 
-	 int DAY_IS_FRIDAY = 5;
+	 int DAY_IS_THURSDAY = 5;
 	 
-	 int DAY_IS_SATURDAY = 6;
+	 int DAY_IS_FRIDAY = 6;
 	 
-	 int DAY_IS_SUNDAY = 7;
+	 int DAY_IS_SATURDAY = 7;	 
+	 
 }

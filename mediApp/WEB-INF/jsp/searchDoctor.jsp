@@ -39,7 +39,7 @@
 															
 															<td>
 																<spring:bind path="doctorSearch.searchCriteria.doctorFirstName">
-																	<input type="text" name="DoctorFirstName"   value="<c:out value="${status.value}"/>"/>
+																	<input type="text" name="${status.expression}"  value="<c:out value="${status.value}"/>"/>
 																</spring:bind>																
 															</td>
 														</tr>
@@ -47,7 +47,7 @@
 															<td >Doctor Last Name:</td>
 															<td>
 																<spring:bind path="doctorSearch.searchCriteria.doctorLastName">	
-																	<input type="text" name="DoctorLastName" value="<c:out value="${status.value}"/>" />
+																	<input type="text" name="${status.expression}" value="<c:out value="${status.value}"/>" />
 																</spring:bind>	
 															</td>
 														</tr>
@@ -55,7 +55,7 @@
 															<td >Doctor Middle Initial:</td>
 															<td>
 																<spring:bind path="doctorSearch.searchCriteria.doctorMiddleInitial">
-																	<input type="text" name="DoctorMiddleInitial" value="<c:out value="${status.value}"/>" />
+																	<input type="text" name="${status.expression}" value="<c:out value="${status.value}"/>" />
 																</spring:bind>	
 															</td>
 														</tr>
@@ -63,7 +63,7 @@
 															<td>Speciality:</td>
 																<td>
 																	<spring:bind path="doctorSearch.searchCriteria.speciality">		
-																		<input type="text" name="speciality" id="speciality" />
+																		<input type="text" name="speciality" id="speciality" value="<c:out value="${status.value}"/>"/>
 																	</spring:bind>		
 																<script type="text/javascript">
 																	new Autocomplete('speciality', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
@@ -76,7 +76,7 @@
 														<td width="40%">Date: </td>
 														<td width="40%">
 															<spring:bind path="doctorSearch.searchCriteria.dateOfAppointment">	
-																<input type="text" name="dateOfAppointment"   />
+																<input type="text" name="dateOfAppointment" id="dateOfAppointment"   />
 															</spring:bind>		
 														</td>
 														<td width="20%">
@@ -95,7 +95,7 @@
 														<td >Locality: </td>
 														<td >
 															<spring:bind path="doctorSearch.searchCriteria.locality">	
-																<input type="text" name="locality" id="locality" />
+																<input type="text" name="locality" id="locality" value="<c:out value="${status.value}"/>"/>
 															</spring:bind>		
 															<script type="text/javascript">
 																new Autocomplete('locality', { serviceUrl:'/appointmentPopUp.htm' },'PERSON_TY');
@@ -130,7 +130,11 @@
 																		<tr>																		<tr>
 																			<td>
 																				Address: 	<c:out value="${searchResult.address1}"/> 
-																			</td>	
+																			</td>
+																			<td>
+																				Work Hours: <c:out value="${searchResult.workStartTime}"/> - <c:out value="${searchResult.workEndTime}"/> 
+																			</td>
+																				
 																		</tr>															
 																		<tr>																		<tr>
 																			<td>
