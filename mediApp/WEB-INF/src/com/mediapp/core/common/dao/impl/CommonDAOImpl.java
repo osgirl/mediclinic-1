@@ -1,5 +1,6 @@
 package com.mediapp.core.common.dao.impl;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -11,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 
 import com.mediapp.core.common.constants.CommonCoreConstants;
 import com.mediapp.core.common.dao.CommonDAO;
+import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
@@ -163,6 +165,14 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return codeValueList;
 	}
 
-	
+	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment) throws DataAccessException{
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		criteria.put("PersonID", idPerson);		
+		criteria.put("DateOfAppointment", dateOfAppointment);
+		List <Appointment> appointmentList = (ArrayList<Appointment>) getList("common.dayAppointment",criteria );	
+		return appointmentList;
+		
+		
+	}	
 	
 }

@@ -170,5 +170,37 @@
     		and (middle_name = ? or ifnull(?,'')='')        
             and person_type = 'Doctor' 	
       </select>
+
+ 	<resultMap class="com.mediapp.domain.common.Appointment" id="Day-Appointment-Result-Map">
+	 	<result property="headline" column="appointment_headline"/>
+	 	<result property="dateOfAppointment" column="date_of_appointment"/>
+	 	<result property="timeOfAppointment" column="time_of_appointment"/>
+	 	<result property="appointmentDuration" column="appointment_duration"/>
+	</resultMap>
+	 	
+	<parameterMap id="Day-Appointment-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    	javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="DateOfAppointment"    		javaType="java.sql.Date"   		mode="IN"/>
+	</parameterMap>
+
+	<select id="dayAppointment" parameterMap="Day-Appointment-Parm-Map" resultMap="Day-Appointment-Result-Map">
+			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration
+			from appointment_history ah,
+			doctor_details dd,
+			person p
+			where 
+			(p.person_type = 'Doctor' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) 
+			and p.idPerson =?
+			and date_of_appointment = ?
+			union all
+			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration
+			from appointment_history ah,
+			patient_details  pd,
+			person p
+			where 
+			(person_type = 'Patient' and pd.idPerson=p.idPerson and pd.idPatient_details = ah.idPatient_details)
+			and p.idPerson =?
+			and date_of_appointment = ?
+ 	</select>
 	 	
 </sqlMap>

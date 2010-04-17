@@ -13,6 +13,8 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private Time timeOfAppointment;
 	
+	private Time appointmentDuration;
+	
 	private String comments;
 	
 	private int patientID;
@@ -23,7 +25,6 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private String confirmedIndicator;
 	
-	
 	private Date newDateProposed;
 	
 	private Time newTimeProposed;
@@ -31,6 +32,26 @@ public class Appointment extends MediAppBaseDomain{
 	private Date followUpDate;
 	
 	private int referenceDoctorID;
+	
+	private String headline;	
+	
+
+	public Time getAppointmentDuration() {
+		return appointmentDuration;
+	}
+
+	public void setAppointmentDuration(Time appointmentDuration) {
+		this.appointmentDuration = appointmentDuration;
+	}
+	
+	
+	public String getHeadline() {
+		return headline;
+	}
+
+	public void setHeadline(String headline) {
+		this.headline = headline;
+	}
 
 	public int getAppointmentSetterID() {
 		return appointmentSetterID;

@@ -1,9 +1,11 @@
 package com.mediapp.core.common.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
@@ -33,6 +35,8 @@ public interface CommonDAO {
 	public List <SearchResult> getDoctors(SearchCriteria searchCriteria) throws DataAccessException;
 
 	public List <CodeDecode> getAutoComplete(String codeCategory,String code) throws DataAccessException;
+	
+	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment) throws DataAccessException;
 
 	
 }
