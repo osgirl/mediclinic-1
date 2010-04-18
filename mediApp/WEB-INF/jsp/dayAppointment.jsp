@@ -104,7 +104,7 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 										<div id="dayAppointments"  style="display:block" align="center">
 											<table  border=""  class="appointment" border="0" cellpadding="2" cellspacing="1" width="95%">
 												<tr bgcolor="lightblue">
-															Appointment for a day
+															Appointment for  <fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>
 												<tr>
 											
 												<c:forEach items="${appointment}" var="appointments">
@@ -114,10 +114,11 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 																<c:out value="${appointments.timeOfAppointment}"/>
 															</c:if>
 															<c:if test='${empty appointments.headline }'>
-																<a href="javascript:fn_createAppointment(<c:out value="${personID}"/>,<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>)" >
+																<a href="javascript:fn_createAppointment(<c:out value="${appointments.doctorID}"/>,'<c:out value="${appointments.timeOfAppointment}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>')" >
 																	<c:out value="${appointments.timeOfAppointment}"/>
 																</a>
 															</c:if>
+															
 															
 														</td>
 														<td width="90%" bgcolor="#eeeeee" bordercolor="black">	

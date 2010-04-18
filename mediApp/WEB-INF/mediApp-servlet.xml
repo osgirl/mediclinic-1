@@ -64,7 +64,17 @@
         <property name="commonService">
 			<ref bean="commonService"/>
 		</property>
+	</bean>
 
+	<bean id="createAppointment" class="com.mediapp.web.controller.common.CreateAppointmentController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>appointment</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Appointment</value></property>
+        <property name="formView"><value>createAppointment</value></property>
+        <property name="successView"><value>createAppointment</value></property>
+        <property name="commonService">
+			<ref bean="commonService"/>
+		</property>
 	</bean>
 
 	<bean id="takeAppointmentForm" class="com.mediapp.web.controller.common.TakeAppointmentController">
@@ -141,7 +151,9 @@
 				<entry key="searchDoctor.htm">
 					<ref bean="searchDoctor" />
 				</entry>
-				
+				<entry key="createAppointment.htm">
+					<ref bean="createAppointment" />
+				</entry>
 			</map>
 		</property>
 	</bean>

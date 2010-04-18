@@ -75,16 +75,15 @@ function fn_dayAppointment(personID){
 	 
 }
 
-function fn_createAppointment(personID,appointmentDate){
-	
-	var myArgs=new Array();
-	myArgs[0] = personID;
-	myArgs[1] = appointmentDate;
-	   
-	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:430px;dialogWidth:630px;status:no;edge:sunken';
-	alert(WinSettings );
-    var c = window.showModalDialog('/createAppointment.htm', myArgs, WinSettings);
+function fn_createAppointment(personID,timeOfAppointment,appointmentDate){
+	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:430px;dialogWidth:630px;status:no;edge:sunken';	
+    var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment, "", WinSettings);
 
+}
+
+function fn_fn_addAppointment(){
+	document.forms["createAppointment"].submit();
+	
 }
 //calendar
 var dDate = new Date();
