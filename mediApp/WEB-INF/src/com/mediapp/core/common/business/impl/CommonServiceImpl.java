@@ -54,10 +54,10 @@ public class CommonServiceImpl implements CommonService{
 	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment) {
 		List <Appointment> appointmentList =commonDAO.getDayAppointment(idPerson, dateOfAppointment);
 		
-		List <Appointment> completeAppointmentList = new ArrayList();
+		List <Appointment> completeAppointmentList = new ArrayList();		
 		Appointment eachAppointment = new Appointment();
 		Time iTime = Time.valueOf(CommonCoreConstants.WORK_START_TIME);
-		while (iTime.compareTo(Time.valueOf(CommonCoreConstants.WORK_END_TIME))>0){
+		while (iTime.compareTo(Time.valueOf(CommonCoreConstants.WORK_END_TIME))<= 0){			
 			eachAppointment.setTimeOfAppointment(iTime);
 			for(Appointment loopAppointment:appointmentList){
 				if (loopAppointment.getTimeOfAppointment().compareTo(iTime)==0){
@@ -65,15 +65,15 @@ public class CommonServiceImpl implements CommonService{
 					eachAppointment.setHeadline(loopAppointment.getHeadline());
 					
 				}
-			}
+			}			
 			completeAppointmentList.add(eachAppointment);
-			eachAppointment = null;
+			eachAppointment = new Appointment();
 			Calendar now = Calendar.getInstance();
-			now.setTime(iTime);
+			now.setTime((Time)iTime.clone());
+			iTime = new Time(1);
 			now.add(Calendar.MINUTE, CommonCoreConstants.INTERVAL_MINUTE);
-			iTime.setTime(now.getTimeInMillis());			
+			iTime.setTime(now.getTimeInMillis());
 		}
-		
 		return completeAppointmentList;
 		
 	}

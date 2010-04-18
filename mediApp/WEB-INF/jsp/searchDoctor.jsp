@@ -105,8 +105,7 @@
 														</td>
 													</tr>
 													<tr>
-														<td align="center" colspan="2">
-															<input type="hidden" id="hSearch" name="hSearch"></input>
+														<td align="center" colspan="2">															
 															<input type="button"  onClick="javascript:fn_searchDoctor();" alignment="center" value="Search" class="bsubmit"  width="75"/>
 														</td>
 													</tr>
@@ -125,7 +124,7 @@
 																						<c:out value="${searchResult.doctorMiddleName}"/> 
 																						<c:out value="${searchResult.doctorLastName}"/>
 																			</td>	
-																			<td><a href="" onClick="javascript:fn_dayAppointment(<c:out value="${searchResult.idPerson}"/>)"> Take Appointment</a>
+																			<td><a href="javascript:fn_dayAppointment(<c:out value="${searchResult.idPerson}"/>)" > Take Appointment</a>
 																			</td>
 																		</tr>
 																		<tr>																		<tr>

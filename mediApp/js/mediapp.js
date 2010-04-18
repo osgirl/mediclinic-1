@@ -66,6 +66,10 @@ function fn_dayAppointment(personID){
 	 hidVar.value = document.getElementById('dateOfAppointment').value;	 
 	 form.appendChild(hidVar); 
 	 window.method = "GET"; */
+//	alert(<%=request.getContextPath()%>+"/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('dateOfAppointment').value;);
+//	var context = <%=request.getContextPath()%>;
+//	alert("context"+context);
+//	alert(document.getElementById('context').value);
 	 window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('dateOfAppointment').value;
 	 
 	 
