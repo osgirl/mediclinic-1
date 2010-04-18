@@ -109,7 +109,17 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 											
 												<c:forEach items="${appointment}" var="appointments">
 													<tr>
-														<td width="10%" bgcolor="#eeeeee" bordercolor="black"><c:out value="${appointments.timeOfAppointment}"/></td>
+														<td width="10%" bgcolor="#eeeeee" bordercolor="black">
+															<c:if test='${not empty appointments.headline}'>
+																<c:out value="${appointments.timeOfAppointment}"/>
+															</c:if>
+															<c:if test='${empty appointments.headline }'>
+																<a href="javascript:fn_createAppointment(<c:out value="${personID}"/>,<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>)" >
+																	<c:out value="${appointments.timeOfAppointment}"/>
+																</a>
+															</c:if>
+															
+														</td>
 														<td width="90%" bgcolor="#eeeeee" bordercolor="black">	
 															<c:if test='${not empty appointments.headline}'>															
 																<c:out value="${appointments.headline}"/>
