@@ -167,7 +167,8 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
 	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment) throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
-		criteria.put("PersonID", idPerson);		
+		Integer idPersonInt = new Integer(idPerson);
+		criteria.put("PersonID", idPersonInt);		
 		criteria.put("DateOfAppointment", dateOfAppointment);
 		List <Appointment> appointmentList = (ArrayList<Appointment>) getList("common.dayAppointment",criteria );	
 		return appointmentList;

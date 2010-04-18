@@ -17,4 +17,6 @@ public interface CommonWebConstants {
 	String SEARCH_RESULTS = "searchResults";
 	
 	String DOCTOR_SEARCH = "doctorSearch";
+	
+	String DAY_APPOINTMENT = "appointment";
 }

@@ -77,10 +77,13 @@
 
 	<bean id="dayAppointmentForm" class="com.mediapp.web.controller.common.DayAppointmentController">
         <property name="sessionForm"><value>true</value></property>
-        <property name="commandName"><value>person</value></property>
-        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="commandName"><value>appointment</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Appointment</value></property>
         <property name="formView"><value>dayAppointment</value></property>
         <property name="successView"><value>dayAppointment</value></property>
+        <property name="commonService">
+			<ref bean="commonService"/>
+		</property>        
 	</bean>
 
 	<bean id="appointmentPopUpForm" class="com.mediapp.web.controller.common.AppointmentPopUpController">
@@ -92,7 +95,6 @@
         <property name="commonService">
 			<ref bean="commonService"/>
 		</property>
-        
 	</bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

@@ -179,8 +179,10 @@
 	</resultMap>
 	 	
 	<parameterMap id="Day-Appointment-Parm-Map"   class="java.util.HashMap">
-		<parameter property="PersonID"    	javaType="java.lang.String"    mode="IN"/>
-	    <parameter property="DateOfAppointment"    		javaType="java.sql.Date"   		mode="IN"/>
+		<parameter property="PersonID"    			javaType="java.lang.Integer"    mode="IN"/>
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
+	    <parameter property="PersonID"    			javaType="java.lang.Integer"    mode="IN"/>
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>	    
 	</parameterMap>
 
 	<select id="dayAppointment" parameterMap="Day-Appointment-Parm-Map" resultMap="Day-Appointment-Result-Map">
@@ -191,7 +193,7 @@
 			where 
 			(p.person_type = 'Doctor' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) 
 			and p.idPerson =?
-			and date_of_appointment = ?
+			and date_of_appointment = date_format(?,'%Y-%m-%d')
 			union all
 			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration
 			from appointment_history ah,
@@ -200,7 +202,7 @@
 			where 
 			(person_type = 'Patient' and pd.idPerson=p.idPerson and pd.idPatient_details = ah.idPatient_details)
 			and p.idPerson =?
-			and date_of_appointment = ?
+			and date_of_appointment = date_format(?,'%Y-%m-%d')
  	</select>
 	 	
 </sqlMap>

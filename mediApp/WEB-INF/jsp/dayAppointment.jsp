@@ -101,17 +101,21 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 														</td>
 													</tr>
 													</table>
-												<div id="dayAppointments"  style="display:block" align="center">
-												<table  border=""  class="appointment" width=450>
+										<div id="dayAppointments"  style="display:block" align="center">
+											<table  border=""  class="appointment" width=450>
+												<c:forEach items="${appointment}" var="appointments">
 													<tr>
-															<td width="50" bgcolor="lightblue">9:00 AM </td>
-															<td width="250" bgcolor="lightblue" ><a onclick="javascript:ajaxCall();">hi</a></td>
+														<td width="15%"><c:out value="${appointments.timeOfAppointment}"/></td>
+														<td width="85%">	
+															<c:if test='${not empty appointments.headline}'>															
+																<c:out value="${appointments.headline}"/>
+															</c:if>														
+														</td>
 													</tr>
-													<tr id="test1"></tr>
-												</table>												
-												</div>
-												
-												</table>
+												</c:forEach>
+											</table>												
+										</div>
+									</table>
 												
 								</form>
 	

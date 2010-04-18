@@ -75,9 +75,10 @@
 													<tr>
 														<td width="40%">Date: </td>
 														<td width="40%">
-															<spring:bind path="doctorSearch.searchCriteria.dateOfAppointment">	
-																<input type="text" name="dateOfAppointment" id="dateOfAppointment"   />
-															</spring:bind>		
+															<spring:bind path="doctorSearch.searchCriteria.dateOfAppointment">
+																<input type="text" name="dateOfAppointment" id="dateOfAppointment"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${status.value}"/>" />
+																
+															</spring:bind>
 														</td>
 														<td width="20%">
 																	<script language="JavaScript">

@@ -53,8 +53,22 @@ function fn_searchDoctor(){
 	document.forms["searchDoctor"].submit();
 }
 
-function fn_dayAppointment(personID){
-	alert(personID);
+function fn_dayAppointment(personID){	
+	/* var form = document.forms['searchDoctor'];	   
+	 var hidVar = document.createElement("input");
+	 hidVar.type = "hidden";	 
+	 hidVar.name = "PersonID";
+	 hidVar.id = "PersonID";
+	 hidVar.value = personID;
+	 form.appendChild(hidVar);	 
+	 hidVar.name = "AppointmentDate";
+	 hidVar.id = "AppointmentDate";
+	 hidVar.value = document.getElementById('dateOfAppointment').value;	 
+	 form.appendChild(hidVar); 
+	 window.method = "GET"; */
+	 window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('dateOfAppointment').value;
+	 
+	 
 }
 //calendar
 var dDate = new Date();
