@@ -60,12 +60,14 @@
 						<td >
 							<spring:bind path="appointment.comments">
 								<textarea name="${status.expression}"  value="<c:out value="${status.value}"/>"  rows="2" cols="50" >
-								</textarea>
-													
+								</textarea>													
 							</spring:bind>
 						</td>
 					</tr>
-		
+					<spring:bind path="appointment.doctorID">								
+						<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorID}"/>"/>					
+					</spring:bind>
+					
 					<tr>
 						<td align="center" colspan="2">															
 						<input type="button"  onClick="javascript:fn_addAppointment();" alignment="center" value="Add" class="bsubmit"  width="75"/>

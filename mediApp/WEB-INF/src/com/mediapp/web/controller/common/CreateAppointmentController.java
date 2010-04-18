@@ -8,11 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mediapp.core.common.business.CommonService;
 import com.mediapp.domain.common.Appointment;
+import com.mediapp.domain.common.DoctorSearch;
+import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.web.constants.common.CommonWebConstants;
 
 public class CreateAppointmentController extends MediAppBaseController{
@@ -46,6 +51,11 @@ public class CreateAppointmentController extends MediAppBaseController{
 	    appointmentMap.put("appointment", appointment);
 	    return appointmentMap;
 	}
+
+	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
+		Appointment newAppointment =  (Appointment) command;		
+		return new ModelAndView(getSuccessView(),CommonWebConstants.DOCTOR_SEARCH, newAppointment);
+    }
 
 	public CommonService getCommonService() {
 		return commonService;

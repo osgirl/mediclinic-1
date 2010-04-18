@@ -204,5 +204,11 @@
 			and p.idPerson =?
 			and date_of_appointment = date_format(?,'%Y-%m-%d')
  	</select>
-	 	
+ 	
+	<insert id="insertNewAppointment">
+		INSERT INTO appointment_history ( idPatient_details,idDoctor_details,date_of_appointment,appointment_set_by,
+		appointment_confirmation,time_of_appointment,appointment_comment,appointment_duration ) 
+		VALUES ( #patientID#,#doctorID#,#dateOfAppointment#,#appointmentSetterID#,'N',
+		#timeOfAppointment#,#comments#,#appointmentDuration# )
+	</insert>
 </sqlMap>
