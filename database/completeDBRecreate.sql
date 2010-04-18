@@ -11,14 +11,14 @@ CREATE SCHEMA IF NOT EXISTS `mediapp` DEFAULT CHARACTER SET latin1 COLLATE latin
 DROP TABLE IF EXISTS `mediapp`.`Person` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`Person` (
-  `idPerson` INT NOT NULL ,
+  `idPerson` INT NOT NULL AUTO_INCREMENT ,
   `first_name` VARCHAR(45) NULL ,
   `last_name` VARCHAR(45) NULL ,
   `middle_name` VARCHAR(45) NULL ,
   `date_of_birth` DATE NULL ,
   `Gender` VARCHAR(1) NULL ,
-  `landline_phone_number` INT NULL ,
-  `mobile_phone_number` INT NULL ,
+  `landline_phone_number` VARCHAR(100) NULL ,
+  `mobile_phone_number` VARCHAR(100) NULL ,
   `email_Address` VARCHAR(45) NULL ,
   `password` VARCHAR(45) NULL ,
   `status_of_account` VARCHAR(1) NULL ,
@@ -120,6 +120,9 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Appointment_History` (
   `follow_up_date` DATETIME NULL ,
   `reference_doctor_id` INT NULL ,
   `time_of_appointment` TIME NULL ,
+  `appointment_headline` VARCHAR(500) NULL ,
+  `appointment_comment` VARCHAR(4500) NULL ,
+  `appointment_duration` TIME NULL ,
   PRIMARY KEY (`idAppointment_History`) ,
   INDEX `idPatient` (`idPatient_details` ASC) ,
   INDEX `idDoctor` (`idDoctor_details` ASC) ,
@@ -158,6 +161,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Code_Decode` (
   `code_ctg` VARCHAR(45) NULL ,
   `code_val` VARCHAR(200) NULL ,
   `code_desc` VARCHAR(4000) NULL ,
+  `comment` VARCHAR(4000) NULL ,
   PRIMARY KEY (`idCode_Decode`) ,
   UNIQUE INDEX `idCode_Decode_UNIQUE` (`idCode_Decode` ASC) )
 ENGINE = InnoDB;
@@ -177,8 +181,10 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Address` (
   `State` VARCHAR(45) NULL ,
   `Country` VARCHAR(45) NULL ,
   `personID` INT NULL ,
+  `updated` INT NULL DEFAULT 1 ,
   PRIMARY KEY (`idAddress`) ,
   INDEX `personID` (`personID` ASC) ,
+  UNIQUE INDEX `personID_UNIQUE` (`personID` ASC) ,
   CONSTRAINT `personID`
     FOREIGN KEY (`personID` )
     REFERENCES `mediapp`.`Person` (`idPerson` )
