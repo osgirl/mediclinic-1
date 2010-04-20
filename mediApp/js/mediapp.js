@@ -81,8 +81,12 @@ function fn_createAppointment(personID,timeOfAppointment,appointmentDate){
 
 }
 
-function fn_fn_addAppointment(){
+function fn_addAppointment(){	
+	document.getElementById('dateOfAppointment').disabled=false;
+	document.getElementById('timeOfAppointment').disabled=false;
 	document.forms["createAppointment"].submit();
+	//window.opener.location.reload(true);
+	window.close();
 	
 }
 //calendar

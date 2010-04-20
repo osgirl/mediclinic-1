@@ -10,14 +10,18 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mediapp.core.common.business.CommonService;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.DoctorSearch;
+import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
+import com.mediapp.web.common.CustomTimeEditor;
 import com.mediapp.web.constants.common.CommonWebConstants;
 
 public class CreateAppointmentController extends MediAppBaseController{
@@ -29,33 +33,46 @@ public class CreateAppointmentController extends MediAppBaseController{
 			Errors errors) throws Exception {
 		String sidPerson = request.getParameter("PersonID");		
 		int idPerson = Integer.parseInt(sidPerson);
-		System.out.println("Doc is"+ sidPerson);
 		String sAppointmentDate = request.getParameter("AppointmentDate");
-		System.out.println("Doc is 1 "+ sAppointmentDate);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	    Date dateOfAppointment = dateFormat.parse(sAppointmentDate);
 	    String sAppointmentTime = request.getParameter("AppointmentTime");
-	    System.out.println("Doc is 2 "+ sAppointmentTime);
 	    Time timeOfAppointment = Time.valueOf(sAppointmentTime);
-	    //List <Appointment> completeAppointmentList = commonService.getDayAppointment(idPerson, dateOfAppointment);
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
-	    //appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, completeAppointmentList);
-	    //appointmentMap.put("personID", idPerson);
-	    //appointmentMap.put("appointmentDate", dateOfAppointment);
-	    //appointmentMap.put("appointmentTime", sAppointmentTime);
 	    Appointment appointment = new Appointment();
-	    appointment.setDoctorID(idPerson);
+	    appointment.setDoctorID(idPerson);	    
 	    appointment.setDateOfAppointment(dateOfAppointment);
 	    appointment.setTimeOfAppointment(timeOfAppointment);
-	    System.out.println("time is "+ appointment.getTimeOfAppointment());
 	    appointmentMap.put("appointment", appointment);
 	    return appointmentMap;
 	}
 
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
-		Appointment newAppointment =  (Appointment) command;		
-		return new ModelAndView(getSuccessView(),CommonWebConstants.DOCTOR_SEARCH, newAppointment);
+		Appointment newAppointment =  (Appointment) command;
+//		newAppointment.setTimeOfAppointment(Time.valueOf(newAppointment.getsTimeOfAppointment()));
+		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);		
+		newAppointment.setAppointmentSetter(sessionPerson.getIdPerson());
+		commonService.insertNewAppointment(newAppointment);
+		return null;
     }
+@Override
+	protected void initBinder(HttpServletRequest request,
+		ServletRequestDataBinder binder) throws Exception {
+		 String dateFormat = getMessageSourceAccessor().getMessage("format.date",
+	     "MM/dd/yyyy");
+		 SimpleDateFormat df = new SimpleDateFormat(dateFormat);
+		 df.setLenient(true);
+		 binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(
+	     df, true));
+		 String dateFormat1 = getMessageSourceAccessor().getMessage("format.date",
+	     "HH:mm:ss");
+		 SimpleDateFormat df1 = new SimpleDateFormat(dateFormat1);
+		 df.setLenient(true);
+		 binder.registerCustomEditor(java.sql.Time.class, new CustomTimeEditor(
+	     df1, true));
+
+	}
+
 
 	public CommonService getCommonService() {
 		return commonService;

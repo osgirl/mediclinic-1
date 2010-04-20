@@ -38,5 +38,5 @@ public interface CommonDAO {
 	
 	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment) throws DataAccessException;
 
-	
+	public boolean insertNewAppointment(Appointment appointment) throws DataAccessException;
 }

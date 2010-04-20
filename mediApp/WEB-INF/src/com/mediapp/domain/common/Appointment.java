@@ -19,9 +19,17 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private int patientID;
 	
-	private int doctorID;
+	private int appointmentSetter;
 	
-	private int appointmentSetterID;
+	public int getAppointmentSetter() {
+		return appointmentSetter;
+	}
+
+	public void setAppointmentSetter(int appointmentSetter) {
+		this.appointmentSetter = appointmentSetter;
+	}
+
+	private int doctorID;
 	
 	private String confirmedIndicator;
 	
@@ -51,14 +59,6 @@ public class Appointment extends MediAppBaseDomain{
 
 	public void setHeadline(String headline) {
 		this.headline = headline;
-	}
-
-	public int getAppointmentSetterID() {
-		return appointmentSetterID;
-	}
-
-	public void setAppointmentSetterID(int appointmentSetterID) {
-		this.appointmentSetterID = appointmentSetterID;
 	}
 
 	public String getConfirmedIndicator() {

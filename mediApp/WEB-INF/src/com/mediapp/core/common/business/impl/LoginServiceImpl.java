@@ -29,6 +29,7 @@ public class LoginServiceImpl implements LoginService {
 					person.setEmailID(dbDetails.getEmailID());
 					person.setUsername(dbDetails.getEmailID());
 					person.setPersonTypeString(dbDetails.getPersonTypeString());
+					person.setIdPerson(dbDetails.getIdPerson());
 				} else {
 					//dbDetails = person;
 					dbDetails.setAuthenticated(false);	

@@ -38,20 +38,17 @@
 						<td >Date :</td>
 						<td>
 							<spring:bind path="appointment.dateOfAppointment">
-								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.dateOfAppointment}"/>"/>					
+								<input type="text" name="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" disabled="disabled" />
 							</spring:bind>
-							
-							<input type="text" name="dateOfAppointment"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" readonly="readonly"/>
 						</td>
 					</tr>
 
 					<tr>
 						<td >Time :</td>
 						<td>
-							<spring:bind path="appointment.timeOfAppointment">								
-								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.timeOfAppointment}"/>"/>					
+							<spring:bind path="appointment.timeOfAppointment">
+								<input type="text" name="${status.expression}"  value="<c:out value="${appointment.timeOfAppointment}"/>" disabled="disabled" />
 							</spring:bind>
-							<input type="text" name="timeOfAppointment"  value="<c:out value="${appointment.timeOfAppointment}"/>" readonly="readonly"/>
 						</td>
 					</tr>
 					
@@ -64,10 +61,10 @@
 							</spring:bind>
 						</td>
 					</tr>
-					<spring:bind path="appointment.doctorID">								
-						<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorID}"/>"/>					
-					</spring:bind>
-					
+						<spring:bind path="appointment.doctorID">	
+						<c:out value="${appointment.doctorID}"/>							
+							<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorID}"/>"/>					
+						</spring:bind>
 					<tr>
 						<td align="center" colspan="2">															
 						<input type="button"  onClick="javascript:fn_addAppointment();" alignment="center" value="Add" class="bsubmit"  width="75"/>

@@ -62,9 +62,9 @@ public class CommonServiceImpl implements CommonService{
 			for(Appointment loopAppointment:appointmentList){
 				if (loopAppointment.getTimeOfAppointment().compareTo(iTime)==0){
 					eachAppointment.setAppointmentDuration(loopAppointment.getAppointmentDuration());
-					eachAppointment.setHeadline(loopAppointment.getHeadline());
-					
+					eachAppointment.setHeadline(loopAppointment.getHeadline());					
 				}
+				eachAppointment.setDoctorID(loopAppointment.getDoctorID());
 			}			
 			completeAppointmentList.add(eachAppointment);
 			eachAppointment = new Appointment();
@@ -76,5 +76,8 @@ public class CommonServiceImpl implements CommonService{
 		}
 		return completeAppointmentList;
 		
+	}
+	public boolean insertNewAppointment(Appointment appointment){
+		return commonDAO.insertNewAppointment(appointment);
 	}
 }

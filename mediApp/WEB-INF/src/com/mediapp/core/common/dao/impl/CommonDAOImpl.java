@@ -175,5 +175,8 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		
 		
 	}	
-	
+	public boolean insertNewAppointment(Appointment appointment) throws DataAccessException{		
+		insertObject("common.insertNewAppointment",appointment );
+		return true;		
+	}	
 }

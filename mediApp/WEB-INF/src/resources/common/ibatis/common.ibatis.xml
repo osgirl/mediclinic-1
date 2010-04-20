@@ -172,21 +172,21 @@
       </select>
 
  	<resultMap class="com.mediapp.domain.common.Appointment" id="Day-Appointment-Result-Map">
-	 	<result property="headline" column="appointment_headline"/>
-	 	<result property="dateOfAppointment" column="date_of_appointment"/>
-	 	<result property="timeOfAppointment" column="time_of_appointment"/>
-	 	<result property="appointmentDuration" column="appointment_duration"/>
+	 	<result property="headline" 			column="appointment_headline"/>
+	 	<result property="dateOfAppointment" 	column="date_of_appointment"/>
+	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
+	 	<result property="appointmentDuration" 	column="appointment_duration"/>
+	 	<result property="doctorID" 			column="idDoctor_details"/>
 	</resultMap>
 	 	
 	<parameterMap id="Day-Appointment-Parm-Map"   class="java.util.HashMap">
-		<parameter property="PersonID"    			javaType="java.lang.Integer"    mode="IN"/>
+		<parameter property="PersonID"    			javaType="java.lang.Integer"   mode="IN"/>
 	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
 	    <parameter property="PersonID"    			javaType="java.lang.Integer"    mode="IN"/>
-	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>	    
 	</parameterMap>
 
 	<select id="dayAppointment" parameterMap="Day-Appointment-Parm-Map" resultMap="Day-Appointment-Result-Map">
-			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration
+			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details
 			from appointment_history ah,
 			doctor_details dd,
 			person p
@@ -194,21 +194,23 @@
 			(p.person_type = 'Doctor' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) 
 			and p.idPerson =?
 			and date_of_appointment = date_format(?,'%Y-%m-%d')
-			union all
-			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration
-			from appointment_history ah,
-			patient_details  pd,
+			 union all
+			select '','9999-12-31','23:59:59', '23:59:59',idDoctor_details
+			from doctor_details dd,
 			person p
 			where 
-			(person_type = 'Patient' and pd.idPerson=p.idPerson and pd.idPatient_details = ah.idPatient_details)
+			(p.person_type = 'Doctor' and dd.idPerson=p.idPerson) 
 			and p.idPerson =?
-			and date_of_appointment = date_format(?,'%Y-%m-%d')
  	</select>
- 	
+
+	<parameterMap id="Day-Appointment-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    			javaType="java.lang.Integer"    mode="IN"/>	    
+	</parameterMap>
+	
 	<insert id="insertNewAppointment">
 		INSERT INTO appointment_history ( idPatient_details,idDoctor_details,date_of_appointment,appointment_set_by,
-		appointment_confirmation,time_of_appointment,appointment_comment,appointment_duration ) 
-		VALUES ( #patientID#,#doctorID#,#dateOfAppointment#,#appointmentSetterID#,'N',
-		#timeOfAppointment#,#comments#,#appointmentDuration# )
+		appointment_confirmation,time_of_appointment,appointment_comment,appointment_duration,appointment_headline ) 
+		VALUES ( (select idpatient_details from patient_details where idPerson=#appointmentSetter#),#doctorID#,#dateOfAppointment#,(select idpatient_details from patient_details where idPerson=#appointmentSetter#),'N',
+		#timeOfAppointment#,#comments#,#appointmentDuration# ,#headline#)
 	</insert>
 </sqlMap>
