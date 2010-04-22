@@ -53,6 +53,25 @@ public class SearchResult extends MediAppBaseDomain{
 	
 	private String sundayWorking;
 
+	private String workDays;
+	
+	public String getWorkDays() {
+		return workDays;
+	}
+
+	public void setWorkDays(String workDays) {
+		StringBuffer s = new StringBuffer("");
+		if( this.workDays ==null ){
+			s.append(workDays);
+			this.workDays = s.toString();			
+		}else if(this.workDays != null ){
+			s.append(this.workDays);			
+			s.append("-");
+			s.append(workDays);
+			this.workDays = s.toString();			
+		}
+	}
+
 	public String getDoctorFirstName() {
 		return doctorFirstName;
 	}
@@ -155,6 +174,9 @@ public class SearchResult extends MediAppBaseDomain{
 
 	public void setMondayWorking(String mondayWorking) {
 		this.mondayWorking = mondayWorking;
+		if ("Y".equals(mondayWorking)==true){
+			setWorkDays("M");
+		}
 	}
 
 	public String getTuesdayWorking() {
@@ -163,6 +185,10 @@ public class SearchResult extends MediAppBaseDomain{
 
 	public void setTuesdayWorking(String tuesdayWorking) {
 		this.tuesdayWorking = tuesdayWorking;
+		if ("Y".equals(tuesdayWorking)==true){
+			setWorkDays("Tu");
+		}
+
 	}
 
 	public String getWednesdayWorking() {
@@ -171,6 +197,11 @@ public class SearchResult extends MediAppBaseDomain{
 
 	public void setWednesdayWorking(String wednesdayWorking) {
 		this.wednesdayWorking = wednesdayWorking;
+		if ("Y".equals(wednesdayWorking)==true){
+			setWorkDays("W");
+		}
+
+
 	}
 
 	public String getThursdayWorking() {
@@ -179,6 +210,10 @@ public class SearchResult extends MediAppBaseDomain{
 
 	public void setThursdayWorking(String thursdayWorking) {
 		this.thursdayWorking = thursdayWorking;
+		if ("Y".equals(thursdayWorking)==true){
+			setWorkDays("Th");
+		}
+
 	}
 
 	public String getFridayWorking() {
@@ -187,6 +222,9 @@ public class SearchResult extends MediAppBaseDomain{
 
 	public void setFridayWorking(String fridayWorking) {
 		this.fridayWorking = fridayWorking;
+		if ("Y".equals(fridayWorking)==true){
+			setWorkDays("F");
+		}
 	}
 
 	public String getSaturdayWorking() {
@@ -195,6 +233,10 @@ public class SearchResult extends MediAppBaseDomain{
 
 	public void setSaturdayWorking(String saturdayWorking) {
 		this.saturdayWorking = saturdayWorking;
+		if ("Y".equals(saturdayWorking)==true){
+			setWorkDays("Sa");
+		}
+
 	}
 
 	public String getSundayWorking() {
@@ -203,6 +245,9 @@ public class SearchResult extends MediAppBaseDomain{
 
 	public void setSundayWorking(String sundayWorking) {
 		this.sundayWorking = sundayWorking;
+		if ("Y".equals(sundayWorking)==true){
+			setWorkDays("Su");
+		}
 	}
 
 	public int getIdPerson() {

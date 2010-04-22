@@ -33,6 +33,9 @@ public class CreateAppointmentController extends MediAppBaseController{
 			Errors errors) throws Exception {
 		String sidPerson = request.getParameter("PersonID");		
 		int idPerson = Integer.parseInt(sidPerson);
+		System.out.println("person "+ idPerson);
+		String sidDoctor = request.getParameter("DoctorID");		
+		int idDoctor = Integer.parseInt(sidDoctor);
 		String sAppointmentDate = request.getParameter("AppointmentDate");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	    Date dateOfAppointment = dateFormat.parse(sAppointmentDate);
@@ -40,7 +43,9 @@ public class CreateAppointmentController extends MediAppBaseController{
 	    Time timeOfAppointment = Time.valueOf(sAppointmentTime);
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
 	    Appointment appointment = new Appointment();
-	    appointment.setDoctorID(idPerson);	    
+	    appointment.setDoctorID(idDoctor);
+	    appointment.setDoctorPersonID(idPerson);
+	    System.out.println("person "+ appointment.getDoctorPersonID());
 	    appointment.setDateOfAppointment(dateOfAppointment);
 	    appointment.setTimeOfAppointment(timeOfAppointment);
 	    appointmentMap.put("appointment", appointment);
@@ -51,10 +56,14 @@ public class CreateAppointmentController extends MediAppBaseController{
 		Appointment newAppointment =  (Appointment) command;
 //		newAppointment.setTimeOfAppointment(Time.valueOf(newAppointment.getsTimeOfAppointment()));
 		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);		
-		newAppointment.setAppointmentSetter(sessionPerson.getIdPerson());
+		//newAppointment.setAppointmentSetter(sessionPerson.getIdPerson());
 		commonService.insertNewAppointment(newAppointment);
-		return null;
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy"); 
+		String sdate = sdf.format(newAppointment.getDateOfAppointment());
+		 
+		return new ModelAndView("redirect://dayAppointment.htm?PersonID="+newAppointment.getDoctorPersonID()+"&AppointmentDate="+ sdate );
     }
+	
 @Override
 	protected void initBinder(HttpServletRequest request,
 		ServletRequestDataBinder binder) throws Exception {

@@ -108,24 +108,28 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 												<tr>
 											
 												<c:forEach items="${appointment}" var="appointments">
-													<tr>
-														<td width="10%" bgcolor="#eeeeee" bordercolor="black">
-															<c:if test='${not empty appointments.headline}'>
+													<tr>													
+														<c:if test='${not empty appointments.headline}'>
+															<td width="10%" bgcolor="red" bordercolor="black">
 																<c:out value="${appointments.timeOfAppointment}"/>
-															</c:if>
+															</td>
+														</c:if>
 															<c:if test='${empty appointments.headline }'>
-																<a href="javascript:fn_createAppointment(<c:out value="${appointments.doctorID}"/>,'<c:out value="${appointments.timeOfAppointment}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>')" >
-																	<c:out value="${appointments.timeOfAppointment}"/>
-																</a>
-															</c:if>
-															
-															
-														</td>
-														<td width="90%" bgcolor="#eeeeee" bordercolor="black">	
-															<c:if test='${not empty appointments.headline}'>															
-																<c:out value="${appointments.headline}"/>
+																<td width="10%" bgcolor="#FFCCCC" bordercolor="black">
+																	<a href="javascript:fn_createAppointment(<c:out value="${personID}"/>,<c:out value="${appointments.doctorID}"/>,'<c:out value="${appointments.timeOfAppointment}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>')" >
+																		<c:out value="${appointments.timeOfAppointment}"/>
+																	</a>
+																</td>
+															</c:if>															
+															<c:if test='${not empty appointments.headline}'>
+																<td width="90%" bgcolor="red" bordercolor="black">															
+																</td>
 															</c:if>														
-														</td>
+															<c:if test='${empty appointments.headline}'>
+																<td width="90%" bgcolor="#FFCCCC" bordercolor="black">															
+																</td>
+															</c:if>														
+														
 													</tr>
 												</c:forEach>
 											</table>												

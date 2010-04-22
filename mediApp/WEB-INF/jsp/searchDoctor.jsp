@@ -63,10 +63,10 @@
 															<td>Speciality:</td>
 																<td>
 																	<spring:bind path="doctorSearch.searchCriteria.speciality">		
-																		<input type="text" name="speciality" id="speciality" value="<c:out value="${status.value}"/>"/>
+																		<input type="text" name="${status.expression}" id="${status.expression}" value="<c:out value="${status.value}"/>"/>
 																	</spring:bind>		
 																<script type="text/javascript">
-																	new Autocomplete('speciality', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+																	new Autocomplete('searchCriteria.speciality', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
 																</script>
 															</td>
 														</tr>
@@ -76,7 +76,7 @@
 														<td width="40%">Date: </td>
 														<td width="40%">
 															<spring:bind path="doctorSearch.searchCriteria.dateOfAppointment">
-																<input type="text" name="dateOfAppointment" id="dateOfAppointment"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${status.value}"/>" />
+																<input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${status.value}"/>" />
 																
 															</spring:bind>
 														</td>
@@ -96,10 +96,10 @@
 														<td >Locality: </td>
 														<td >
 															<spring:bind path="doctorSearch.searchCriteria.locality">	
-																<input type="text" name="locality" id="locality" value="<c:out value="${status.value}"/>"/>
+																<input type="text" name="${status.expression}" id="${status.expression}" value="<c:out value="${status.value}"/>"/>
 															</spring:bind>		
 															<script type="text/javascript">
-																new Autocomplete('locality', { serviceUrl:'/appointmentPopUp.htm' },'PERSON_TY');
+																new Autocomplete('searchCriteria.locality', { serviceUrl:'/appointmentPopUp.htm' },'PERSON_TY');
 															</script>
 	
 														</td>
@@ -139,7 +139,12 @@
 																		<tr>																		<tr>
 																			<td>
 																							<c:out value="${searchResult.address2}"/> 
-																			</td>	
+																			</td>
+																			<td>
+																				Work Days: <c:out value="${searchResult.workDays}"/> 
+																			</td>
+																				
+																				
 																		</tr>															
 																		<tr>																		<tr>
 																			<td>

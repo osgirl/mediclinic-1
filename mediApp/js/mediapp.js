@@ -70,25 +70,27 @@ function fn_dayAppointment(personID){
 //	var context = <%=request.getContextPath()%>;
 //	alert("context"+context);
 //	alert(document.getElementById('context').value);
-	 window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('dateOfAppointment').value;
+	 window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('searchCriteria.dateOfAppointment').value;
 	 
 	 
 }
 
-function fn_createAppointment(personID,timeOfAppointment,appointmentDate){
+function fn_createAppointment(personID,doctorID,timeOfAppointment,appointmentDate){
+	window.name = "Parent";
 	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:430px;dialogWidth:630px;status:no;edge:sunken';	
-    var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment, "", WinSettings);
+    var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment, window, WinSettings);
 
 }
 
 function fn_addAppointment(){	
 	document.getElementById('dateOfAppointment').disabled=false;
 	document.getElementById('timeOfAppointment').disabled=false;
-	document.forms["createAppointment"].submit();
-	//window.opener.location.reload(true);
+	document.forms["createAppointment"].target='Parent'; 
+	window.location = window.location;	
 	window.close();
-	
+	document.forms["createAppointment"].submit();
 }
+
 //calendar
 var dDate = new Date();
 var dCurMonth = dDate.getMonth();

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>    
 <%@ taglib prefix="str" uri="http://jakarta.apache.org/taglibs/string-1.1" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@page import="com.mediapp.domain.common.Person"%>
 <html>
@@ -56,15 +57,18 @@
 						<td >Comments:</td>
 						<td >
 							<spring:bind path="appointment.comments">
-								<textarea name="${status.expression}"  value="<c:out value="${status.value}"/>"  rows="2" cols="50" >
+								<textarea name="${status.expression}"  value="${fn:trim(status.value)}"  rows="2" cols="50" >
 								</textarea>													
 							</spring:bind>
 						</td>
 					</tr>
-						<spring:bind path="appointment.doctorID">	
-						<c:out value="${appointment.doctorID}"/>							
+						<spring:bind path="appointment.doctorID">
 							<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorID}"/>"/>					
 						</spring:bind>
+						<spring:bind path="appointment.doctorPersonID">
+							<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorPersonID}"/>"/>					
+						</spring:bind>
+						
 					<tr>
 						<td align="center" colspan="2">															
 						<input type="button"  onClick="javascript:fn_addAppointment();" alignment="center" value="Add" class="bsubmit"  width="75"/>

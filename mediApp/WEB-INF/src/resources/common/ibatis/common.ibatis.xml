@@ -208,9 +208,9 @@
 	</parameterMap>
 	
 	<insert id="insertNewAppointment">
-		INSERT INTO appointment_history ( idPatient_details,idDoctor_details,date_of_appointment,appointment_set_by,
+		INSERT INTO appointment_history ( idPatient_details,idDoctor_details,date_of_appointment,appointment_type,
 		appointment_confirmation,time_of_appointment,appointment_comment,appointment_duration,appointment_headline ) 
-		VALUES ( (select idpatient_details from patient_details where idPerson=#appointmentSetter#),#doctorID#,#dateOfAppointment#,(select idpatient_details from patient_details where idPerson=#appointmentSetter#),'N',
+		VALUES ( (select idpatient_details from patient_details where idPerson=#doctorPersonID#),#doctorID#,#dateOfAppointment#,'R','N',
 		#timeOfAppointment#,#comments#,#appointmentDuration# ,#headline#)
 	</insert>
 </sqlMap>

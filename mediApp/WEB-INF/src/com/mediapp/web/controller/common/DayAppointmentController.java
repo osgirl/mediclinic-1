@@ -30,7 +30,7 @@ public class DayAppointmentController extends MediAppBaseController{
 	    List <Appointment> completeAppointmentList = commonService.getDayAppointment(idPerson, dateOfAppointment);
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
 	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, completeAppointmentList);
-	    appointmentMap.put("personID", idPerson);
+	    appointmentMap.put("personID", idPerson);	    
 	    appointmentMap.put("appointmentDate", dateOfAppointment);
 	    return appointmentMap;
 	}

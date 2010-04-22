@@ -1,5 +1,6 @@
 package com.mediapp.web.controller.common;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -20,6 +22,7 @@ import com.mediapp.domain.common.DoctorSearch;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
+import com.mediapp.web.common.CustomTimeEditor;
 import com.mediapp.web.constants.common.CommonWebConstants;
 import com.mediapp.web.util.common.CommonWebUtil;
 
@@ -34,14 +37,7 @@ public class SearchDoctorController  extends MediAppBaseController  {
 	}
 	
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)throws Exception {
-		//Person person = (Person) command;
 		Map < String , Object > logonMap = new HashMap < String , Object > ();
-	/*	List <CodeDecode> speciality = loginService.getSpecialities();
-		if (request.getSession().getAttribute("speciality") == null) {
-			request.getSession().setAttribute("speciality", speciality);
-		}		
-		logonMap.put("speciality", speciality);
-	*/
 		DoctorSearch doctorSearch = new DoctorSearch();
 		doctorSearch.setSearchCriteria(new SearchCriteria());
 		List <SearchResult> searchResult = new ArrayList<SearchResult>();
@@ -53,7 +49,7 @@ public class SearchDoctorController  extends MediAppBaseController  {
 	
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		DoctorSearch doctorSearch =  (DoctorSearch) command;		
-		SearchCriteria searchCriteria =doctorSearch.getSearchCriteria();		
+		SearchCriteria searchCriteria =doctorSearch.getSearchCriteria();
 		doctorSearch.setSearchResult(commonService.getDoctors(searchCriteria));		
 		return new ModelAndView(getSuccessView(),CommonWebConstants.DOCTOR_SEARCH, doctorSearch);
     }
@@ -61,9 +57,23 @@ public class SearchDoctorController  extends MediAppBaseController  {
 	protected void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {		
 	}
 
-	public void initBinder(HttpServletRequest request,
-			ServletRequestDataBinder binder){
-	}
+	protected void initBinder(HttpServletRequest request,
+			ServletRequestDataBinder binder) throws Exception {
+			 String dateFormat = getMessageSourceAccessor().getMessage("format.date",
+		     "MM/dd/yyyy");
+			 SimpleDateFormat df = new SimpleDateFormat(dateFormat);
+			 df.setLenient(true);
+			 binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(
+		     df, true));
+			 String dateFormat1 = getMessageSourceAccessor().getMessage("format.date",
+		     "HH:mm:ss");
+			 SimpleDateFormat df1 = new SimpleDateFormat(dateFormat1);
+			 df.setLenient(true);
+			 binder.registerCustomEditor(java.sql.Time.class, new CustomTimeEditor(
+		     df1, true));
+
+		}
+
 	
 	public CommonService getCommonService() {
 		return commonService;
