@@ -114,7 +114,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Appointment_History` (
   `idDoctor_details` INT NULL ,
   `date_of_appointment` DATE NULL ,
   `idDiagnosis` INT NULL ,
-  `appointment_set_by` VARCHAR(100) NULL ,
+  `appointment_type` VARCHAR(100) NULL ,
   `appointment_confirmation` CHAR NULL ,
   `proposed_reschedule_date` DATETIME NULL ,
   `follow_up_date` DATETIME NULL ,
