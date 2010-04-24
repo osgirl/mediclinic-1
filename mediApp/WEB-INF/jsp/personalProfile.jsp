@@ -49,8 +49,8 @@
 
 												<div id="Personal Details"  style="display:block" align="center">
 												<table  border=""  class="login" width=670 cellpadding="200">
-													<tr bgcolor="lightblue">
-														<td>Personal Details</td>
+													<tr bgcolor="lightblue" >
+														Personal Details
 													</tr>
 												
 													<tr>
@@ -96,17 +96,15 @@
 													<tr>
 														<td >Gender: <font color="red">*</font></td>
 														<td >
-														<spring:bind path="person.gender">
-														<input type="hidden" name="personGender" value="${person.gender }"/>
-															<input type="radio" name="gender" value="M" /> Male		
-															<input type="radio" name="gender" value="F"/> Female
-														</spring:bind>	
-														<script>
-															function checkGender(gender) {
-																if
-															}
-														</script>	
+															<spring:bind path="person.gender">
+															<input type="hidden" name="personGender" value="${person.gender }"/>
+																<input type="radio" name="gender" value="M" /> Male		
+																<input type="radio" name="gender" value="F"/> Female
+															</spring:bind>	
 														</td>
+														<spring:bind path="person.idPerson">
+															<input type="hidden" name="${status.expression}" value="${person.idPerson}"/>
+														</spring:bind>
 													</tr>
 													<tr>
 														<td>Address 1:</td>

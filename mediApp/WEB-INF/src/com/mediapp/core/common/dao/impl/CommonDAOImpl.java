@@ -179,4 +179,12 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		insertObject("common.insertNewAppointment",appointment );
 		return true;		
 	}	
+
+	public Person getPersonalProfile(int idPerson) throws DataAccessException{
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		Integer idPersonInt = new Integer(idPerson);
+		criteria.put("PersonID", idPersonInt);		
+		Person completeDetails = (Person) getObject("common.getPersonalProfile",criteria );
+		return completeDetails;		
+	}
 }

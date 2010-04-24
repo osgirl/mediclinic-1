@@ -18,6 +18,7 @@ import com.mediapp.core.common.constants.CommonCoreConstants;
 import com.mediapp.core.common.dao.CommonDAO;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.CodeDecode;
+import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
 
@@ -79,5 +80,9 @@ public class CommonServiceImpl implements CommonService{
 	}
 	public boolean insertNewAppointment(Appointment appointment){
 		return commonDAO.insertNewAppointment(appointment);
+	}
+
+	public Person getPersonalProfile(int personID){
+		return commonDAO.getPersonalProfile(personID);
 	}
 }

@@ -79,7 +79,7 @@
 	
 	<insert id="insertAddress" >
 			insert into address (address1, address2, locality, city, state, country, personID) values
-			(#address.address1#, #address.address2#, #address.locality#, #address.city#, #address.state#, #address.country#, currval('seq_person_id'))
+			(#address.address1#, #address.address2#, #address.locality#, #address.city#, #address.state#, #address.country#, #idPerson#)
 			ON DUPLICATE KEY UPDATE updated = updated + 1;
 	</insert>
 
@@ -213,4 +213,39 @@
 		VALUES ( (select idpatient_details from patient_details where idPerson=#doctorPersonID#),#doctorID#,#dateOfAppointment#,'R','N',
 		#timeOfAppointment#,#comments#,#appointmentDuration# ,#headline#)
 	</insert>
+	
+		 <parameterMap id="Personal-Details-Map"   class="java.util.HashMap">
+	    <parameter property="PersonID"    	 		javaType="java.lang.Integer"    mode="IN"/>
+	 </parameterMap>
+	 
+	 <resultMap class="com.mediapp.domain.common.Person" id="Personal-Details-Result-Map">
+	 	<result property="idPerson" column="idPerson"/>
+	 	<result property="firstName" column="first_name"/>
+	 	<result property="lastName" column="last_name"/>
+	 	<result property="middleInitial" column="middle_name"/>
+	 	<result property="dateOfBirth" column="date_of_birth"/>
+	 	<result property="gender" column="gender"/>
+	 	<result property="landlinePhoneNumber" column="landline_phone_number"/>
+	 	<result property="cellPhoneNumber" column="mobile_phone_number"/>
+	 	<result property="emailID" column="email_address"/>
+	 	<result property="accountStatus" column="status_of_account"/>
+	 	<result property="personTypeString" column="person_type"/>
+	 	<result property="address.address1" column="address1" />
+	 	<result property="address.address2" column="address2" />
+	 	<result property="address.locality" column="locality" />
+	 	<result property="address.city" column="city" />
+	 	<result property="address.state" column="state" />
+	 	<result property="address.country" column="country"/>
+	 </resultMap>
+
+	<select id="getPersonalProfile" parameterMap="Personal-Details-Map" resultMap="Personal-Details-Result-Map">
+            SELECT person.idPerson,first_name,last_name,middle_name,
+           date_of_birth, Gender, landline_phone_number, mobile_phone_number,
+           email_address, status_of_account, person_type, 
+           address1, address2, locality, city, state, country
+           FROM person left join address on address.personID = person.idPerson
+           where 
+		   idPerson=?;		   
+ 	</select>
+	
 </sqlMap>

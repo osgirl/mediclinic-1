@@ -22,6 +22,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mediapp.core.common.business.CommonService;
 import com.mediapp.core.common.business.LoginService;
 import com.mediapp.core.common.business.impl.ScheduleEMail;
 import com.mediapp.domain.common.Address;
@@ -32,19 +33,27 @@ import com.mediapp.web.util.common.CommonWebUtil;
 
 public class PersonalProfileController extends MediAppBaseController  {
 	LoginService loginService;
+	
+	CommonService commonService;
 	public LoginService getLoginService() {
 		return loginService;
 	}
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
 	}
+	
+	public CommonService getCommonService() {
+		return commonService;
+	}
+	public void setCommonService(CommonService commonService) {
+		this.commonService = commonService;
+	}
+
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)throws Exception {
 		Person person = (Person) command;
 		Map < String , Object > logonMap = new HashMap < String , Object > ();
-		System.out.println("Object is null " + (null == person));
-		if (null == person.getLastName()) {
-			person = loginService.authenticate((Person) request.getSession().getAttribute(CommonWebConstants.USER_ID));
-		}
+		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);		
+		person = commonService.getPersonalProfile(sessionPerson.getIdPerson());
 		logonMap.put("person", person );
 		return logonMap;
 	}

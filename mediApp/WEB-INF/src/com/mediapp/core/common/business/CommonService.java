@@ -18,4 +18,6 @@ public interface CommonService {
 	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment) ;
 	
 	public boolean insertNewAppointment(Appointment appointment);
+	
+	public Person getPersonalProfile(int personID);
 }
