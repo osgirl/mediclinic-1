@@ -214,8 +214,8 @@
 		#timeOfAppointment#,#comments#,#appointmentDuration# ,#headline#)
 	</insert>
 	
-		 <parameterMap id="Personal-Details-Map"   class="java.util.HashMap">
-	    <parameter property="PersonID"    	 		javaType="java.lang.Integer"    mode="IN"/>
+	 <parameterMap id="Personal-Details-Map"   class="java.util.HashMap">
+		 <parameter property="PersonID"    	 		javaType="java.lang.Integer"    mode="IN"/>
 	 </parameterMap>
 	 
 	 <resultMap class="com.mediapp.domain.common.Person" id="Personal-Details-Result-Map">
@@ -246,6 +246,41 @@
            FROM person left join address on address.personID = person.idPerson
            where 
 		   idPerson=?;		   
+ 	</select>
+	
+	<resultMap class="com.mediapp.domain.common.Appointment" id="Get-Appointment-Result-Map">
+	 	<result property="headline" 			column="appointment_headline"/>
+	 	<result property="dateOfAppointment" 	column="date_of_appointment"/>
+	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
+	 	<result property="appointmentDuration" 	column="appointment_duration"/>
+	 	<result property="doctorID" 			column="idDoctor_details"/>
+	 	<result property="codeICD" 				column="ICD_CODE"/>
+	 	<result property="prescription" 		column="Prescription"/>
+	 	<result property="lNotes" 				column="LNotes"/>
+	 	<result property="diagnosis" 			column="diagnosis"/>
+	 	<result property="allergy" 				column="allergy"/>
+	 	<result property="suggestedTest" 		column="suggested_Test"/>
+	 	<result property="testValue" 			column="test_Result_Value"/>
+	 	<result property="testResultUnit" 		column="test_result_Unit"/>
+	</resultMap>
+	 	
+	<parameterMap id="Get-Appointment-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    			javaType="java.lang.Integer"   mode="IN"/>
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
+	</parameterMap>
+
+	<select id="getAppointment" parameterMap="Get-Appointment-Parm-Map" resultMap="Get-Appointment-Result-Map">
+			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,
+				ICD_CODE,Prescription,LNotes,diagnosis,allergy,suggested_Test,test_Result_Value,test_result_Unit
+			from person p
+			left OUTER join doctor_details dd on dd.idPerson=p.idPerson
+			left OUTER join appointment_history ah on 
+				((p.person_type = 'Doctor' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) or
+					(p.person_type = 'Patient' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) )
+			left OUTER join diagnosis d on d.idAppointment = ah.idAppointment_History
+			left OUTER join tests t on t.fDiagnosis= d.idDiagnosis
+			where p.idPerson =? 
+			and date_of_appointment = date_format(?,'%Y-%m-%d');
  	</select>
 	
 </sqlMap>

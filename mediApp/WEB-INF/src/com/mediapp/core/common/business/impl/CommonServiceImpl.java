@@ -85,4 +85,8 @@ public class CommonServiceImpl implements CommonService{
 	public Person getPersonalProfile(int personID){
 		return commonDAO.getPersonalProfile(personID);
 	}
+	
+	public Appointment getAppointment(int idPerson,Date dateOfAppointment) {
+		return commonDAO.getAppointment(idPerson, dateOfAppointment);
+	}
 }

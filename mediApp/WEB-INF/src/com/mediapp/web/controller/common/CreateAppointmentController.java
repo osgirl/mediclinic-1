@@ -32,8 +32,7 @@ public class CreateAppointmentController extends MediAppBaseController{
 	protected Map referenceData(HttpServletRequest request, Object command,
 			Errors errors) throws Exception {
 		String sidPerson = request.getParameter("PersonID");		
-		int idPerson = Integer.parseInt(sidPerson);
-		System.out.println("person "+ idPerson);
+		int idPerson = Integer.parseInt(sidPerson);		
 		String sidDoctor = request.getParameter("DoctorID");		
 		int idDoctor = Integer.parseInt(sidDoctor);
 		String sAppointmentDate = request.getParameter("AppointmentDate");
@@ -44,8 +43,7 @@ public class CreateAppointmentController extends MediAppBaseController{
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
 	    Appointment appointment = new Appointment();
 	    appointment.setDoctorID(idDoctor);
-	    appointment.setDoctorPersonID(idPerson);
-	    System.out.println("person "+ appointment.getDoctorPersonID());
+	    appointment.setDoctorPersonID(idPerson);	    
 	    appointment.setDateOfAppointment(dateOfAppointment);
 	    appointment.setTimeOfAppointment(timeOfAppointment);
 	    appointmentMap.put("appointment", appointment);
@@ -61,7 +59,7 @@ public class CreateAppointmentController extends MediAppBaseController{
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy"); 
 		String sdate = sdf.format(newAppointment.getDateOfAppointment());
 		 
-		return new ModelAndView("redirect://dayAppointment.htm?PersonID="+newAppointment.getDoctorPersonID()+"&AppointmentDate="+ sdate );
+		return new ModelAndView("redirect:/dayAppointment.htm?PersonID="+newAppointment.getDoctorPersonID()+"&AppointmentDate="+ sdate );
     }
 	
 @Override

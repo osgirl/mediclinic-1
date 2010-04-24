@@ -1,7 +1,6 @@
 package com.mediapp.web.controller.common;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,7 @@ import com.mediapp.core.common.business.CommonService;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.web.constants.common.CommonWebConstants;
 
-public class DayAppointmentController extends MediAppBaseController{
+public class UpdateAppointmentController extends MediAppBaseController{
 	CommonService commonService;
 	
 	
@@ -32,9 +31,9 @@ public class DayAppointmentController extends MediAppBaseController{
 		}else{
 			dateOfAppointment = dateFormat.parse(sAppointmentDate);
 		}		
-	    List <Appointment> completeAppointmentList = commonService.getDayAppointment(idPerson, dateOfAppointment);
+	    Appointment appointment = commonService.getAppointment(idPerson, dateOfAppointment);
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
-	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, completeAppointmentList);
+	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, appointment);
 	    appointmentMap.put("personID", idPerson);	    
 	    appointmentMap.put("appointmentDate", dateOfAppointment);
 	    return appointmentMap;
@@ -50,4 +49,5 @@ public class DayAppointmentController extends MediAppBaseController{
 	
 	
 	
+
 }

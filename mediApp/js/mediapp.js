@@ -54,32 +54,13 @@ function fn_searchDoctor(){
 }
 
 function fn_dayAppointment(personID){	
-	/* var form = document.forms['searchDoctor'];	   
-	 var hidVar = document.createElement("input");
-	 hidVar.type = "hidden";	 
-	 hidVar.name = "PersonID";
-	 hidVar.id = "PersonID";
-	 hidVar.value = personID;
-	 form.appendChild(hidVar);	 
-	 hidVar.name = "AppointmentDate";
-	 hidVar.id = "AppointmentDate";
-	 hidVar.value = document.getElementById('dateOfAppointment').value;	 
-	 form.appendChild(hidVar); 
-	 window.method = "GET"; */
-//	alert(<%=request.getContextPath()%>+"/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('dateOfAppointment').value;);
-//	var context = <%=request.getContextPath()%>;
-//	alert("context"+context);
-//	alert(document.getElementById('context').value);
 	 window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('searchCriteria.dateOfAppointment').value;
-	 
-	 
 }
 
 function fn_createAppointment(personID,doctorID,timeOfAppointment,appointmentDate){
 	window.name = "Parent";
 	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:430px;dialogWidth:630px;status:no;edge:sunken';	
     var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment, window, WinSettings);
-
 }
 
 function fn_addAppointment(){	
@@ -89,6 +70,13 @@ function fn_addAppointment(){
 	window.location = window.location;	
 	window.close();
 	document.forms["createAppointment"].submit();
+}
+
+function fn_openAppointment(personID,timeOfAppointment,appointmentDate){
+	window.name = "Parent";	
+	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:430px;dialogWidth:630px;status:no;edge:sunken';	
+    var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment, window, WinSettings);
+	
 }
 
 //calendar

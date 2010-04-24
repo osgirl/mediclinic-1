@@ -41,4 +41,6 @@ public interface CommonDAO {
 	public boolean insertNewAppointment(Appointment appointment) throws DataAccessException;
 	
 	public Person getPersonalProfile(int idPerson) throws DataAccessException;
+	
+	public Appointment getAppointment(int idPerson,Date dateOfAppointment) throws DataAccessException;
 }

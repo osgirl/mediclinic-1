@@ -20,4 +20,6 @@ public interface CommonService {
 	public boolean insertNewAppointment(Appointment appointment);
 	
 	public Person getPersonalProfile(int personID);
+	
+	public Appointment getAppointment(int idPerson,Date dateOfAppointment) ;
 }
