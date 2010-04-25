@@ -32,7 +32,7 @@ function ajaxCall(){
 									<%	 pageContext.setAttribute("PersonType",p.getPersonTypeString());
 									pageContext.setAttribute("PersonID",p.getIdPerson());
 									%>							
-									<table width=700  border="1" class="layout"  >	
+									<table width=900  border="1" class="layout"  >	
 										<tr>
 											<td>	
 												<table width=100 align="left"  border="1" class="layout" >	
@@ -107,7 +107,7 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 													</tr>
 													</table>
 										<div id="dayAppointments"  style="display:block" align="center">
-											<table  border=""  class="appointment" border="0" cellpadding="2" cellspacing="1" width="95%">
+											<table  border=""  class="appointment" border="0" cellpadding="2" cellspacing="1" width="680" align="right">
 												<tr bgcolor="lightblue">
 															Appointment for  <fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>
 												<tr>
