@@ -54,5 +54,8 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/velocity-1.6.3-dep.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/velocity-1.6.3.jar"/>
 	<classpathentry kind="src" output="work" path="work"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/displaytag-1.2.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/displaytag-export-poi-1.2.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/displaytag-portlet-1.2.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>

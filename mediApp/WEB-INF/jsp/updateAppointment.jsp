@@ -23,52 +23,79 @@
 	<body>
 		<form name="createAppointment" id="createAppointment" method="post" >
 			<div id="createApt"  style="display:block" align="center">
-				<table  border=""  class="login" width=450>
+				<table  border=""  class="login" width=900>
 					<tr bgcolor="lightblue">
 						New Appointment
 					</tr>
-					<tr>
-						<td >Headline :</td>
-						<td>
-							<spring:bind path="appointment.headline">
-								<input type="text" name="${status.expression}"  value="<c:out value="${appointment.headline}"/>"/>					
+					<table  border=""  class="login" width=900>
+						<tr>
+							<td>Headline :
+								<spring:bind path="appointment.headline">
+									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.headline}"/>"  disabled="disabled" />					
+								</spring:bind>
+							</td>
+						</tr>
+						<tr>
+							<td >Date :
+								<spring:bind path="appointment.dateOfAppointment">
+									<input type="text" name="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" disabled="disabled" />
+								</spring:bind>
+								Time :
+								<spring:bind path="appointment.timeOfAppointment">
+									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.timeOfAppointment}"/>" disabled="disabled" />
+								</spring:bind>
+							</td>
+							
+						</tr>
+						<tr>
+							<td width="10%">Comments:							
+								<spring:bind path="appointment.comments">
+									<textarea name="${status.expression}"  value="${fn:trim(appointment.comments)}"  rows="2" cols="30" disabled="disabled">
+									</textarea>													
+								</spring:bind>
+							</td>
+						</tr>
+							<spring:bind path="appointment.doctorID">
+								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorID}"/>"/>					
 							</spring:bind>
-						</td>
-					</tr>
-					<tr>
-						<td >Date :</td>
-						<td>
-							<spring:bind path="appointment.dateOfAppointment">
-								<input type="text" name="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" disabled="disabled" />
+							<spring:bind path="appointment.doctorPersonID">
+								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorPersonID}"/>"/>					
 							</spring:bind>
-						</td>
-					</tr>
+					</table>
+					<table  border=""  class="login" width=900>
+						<tr>
+							<td  width="33%">Diagnosis:
+							</td>
+							<td  width="33%">Find Prescription:
+							</td>
+							<td  width="33%">Prescription:
+							</td>
+						</tr>
+						<tr>
+							<td  width="33%">
+								<spring:bind path="appointment.diagnosis">
+									<input type="text" name="${status.expression}"  value="${appointment.diagnosis}"/>
+																						
+								</spring:bind>
+							</td>
+							<td  width="33%">
+									<input type="text" name="findPrescription"  value=""/>
+									<input type="button"  onClick="javascript:fn_addPrescription();" alignment="center" value=">>" class="bsubmit"  width="75"/>
+							</td>
+															
+							<td  width="33%">
+								<spring:bind path="appointment.prescription">
+								<SELECT NAME="${status.expression}" MULTIPLE SIZE=3 >
+									<OPTION VALUE="${status.expression}" >IbuProfen								
+								</SELECT>
+									
+																						
+								</spring:bind>
+							</td>
+	
+						</tr>
 
-					<tr>
-						<td >Time :</td>
-						<td>
-							<spring:bind path="appointment.timeOfAppointment">
-								<input type="text" name="${status.expression}"  value="<c:out value="${appointment.timeOfAppointment}"/>" disabled="disabled" />
-							</spring:bind>
-						</td>
-					</tr>
-					
-					<tr>
-						<td >Comments:</td>
-						<td >
-							<spring:bind path="appointment.comments">
-								<textarea name="${status.expression}"  value="${fn:trim(appointment.comments)}"  rows="2" cols="50" >
-								</textarea>													
-							</spring:bind>
-						</td>
-					</tr>
-						<spring:bind path="appointment.doctorID">
-							<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorID}"/>"/>					
-						</spring:bind>
-						<spring:bind path="appointment.doctorPersonID">
-							<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorPersonID}"/>"/>					
-						</spring:bind>
-						
+					</table>						
 					<tr>
 						<td align="center" colspan="2">															
 						<input type="button"  onClick="javascript:fn_updateAppointmentDetails();" alignment="center" value="Update" class="bsubmit"  width="75"/>
