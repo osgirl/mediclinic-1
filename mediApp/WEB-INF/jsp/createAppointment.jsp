@@ -34,6 +34,8 @@
 								<input type="text" name="${status.expression}"  value="<c:out value="${status.value}"/>"/>					
 							</spring:bind>
 						</td>
+						<td></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td >Date :</td>
@@ -42,6 +44,8 @@
 								<input type="text" name="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" disabled="disabled" />
 							</spring:bind>
 						</td>
+						<td></td>
+						<td></td>
 					</tr>
 
 					<tr>
@@ -51,13 +55,23 @@
 								<input type="text" name="${status.expression}"  value="<c:out value="${appointment.timeOfAppointment}"/>" disabled="disabled" />
 							</spring:bind>
 						</td>
+						<td>Duration :</td>
+						<td>
+							<spring:bind path="appointment.appointmentDuration">
+								<select id="${status.expression}" name="${status.expression}" style="WIDTH: 150px">
+									<c:forEach items="${appointmentDuration}" var="data">
+										<option value='${data.codeDecode}' >${data.codeDecode}</option>
+									</c:forEach>
+								</select>
+							</spring:bind>
+						</td>
 					</tr>
 					
 					<tr>
 						<td >Comments:</td>
 						<td >
 							<spring:bind path="appointment.comments">
-								<textarea name="${status.expression}"  value="${fn:trim(status.value)}"  rows="2" cols="50" >
+								<textarea name="${status.expression}"  value="${fn:trim(status.value)}"  rows="6" cols="25" >
 								</textarea>													
 							</spring:bind>
 						</td>

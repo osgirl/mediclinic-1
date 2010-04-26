@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mediapp.core.common.business.CommonService;
 import com.mediapp.domain.common.Appointment;
+import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.DoctorSearch;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
@@ -47,6 +48,8 @@ public class CreateAppointmentController extends MediAppBaseController{
 	    appointment.setDateOfAppointment(dateOfAppointment);
 	    appointment.setTimeOfAppointment(timeOfAppointment);
 	    appointmentMap.put("appointment", appointment);
+	    List <CodeDecode> appointmentDuration = commonService.getCodeValue("APPOINTMENT_DURATION");
+	    appointmentMap.put("appointmentDuration", appointmentDuration);
 	    return appointmentMap;
 	}
 

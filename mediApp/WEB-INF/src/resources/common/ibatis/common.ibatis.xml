@@ -177,16 +177,18 @@
 	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
 	 	<result property="appointmentDuration" 	column="appointment_duration"/>
 	 	<result property="doctorID" 			column="idDoctor_details"/>
+	 	<result property="doctorWorkStartTime" 	column="work_start_time"/>
+	 	<result property="doctorWorkEndTime" 	column="work_end_time"/>
 	</resultMap>
 	 	
 	<parameterMap id="Day-Appointment-Parm-Map"   class="java.util.HashMap">
-		<parameter property="PersonID"    			javaType="java.lang.Integer"   mode="IN"/>
-	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
+		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
 	    <parameter property="PersonID"    			javaType="java.lang.Integer"    mode="IN"/>
 	</parameterMap>
 
 	<select id="dayAppointment" parameterMap="Day-Appointment-Parm-Map" resultMap="Day-Appointment-Result-Map">
-			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details
+			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,work_start_time,work_end_time
 			from appointment_history ah,
 			doctor_details dd,
 			person p
@@ -195,7 +197,7 @@
 			and p.idPerson =?
 			and date_of_appointment = date_format(?,'%Y-%m-%d')
 			 union all
-			select '','9999-12-31','23:59:59', '23:59:59',idDoctor_details
+			select '','9999-12-31','23:59:59', '23:59:59',idDoctor_details,work_start_time,work_end_time
 			from doctor_details dd,
 			person p
 			where 

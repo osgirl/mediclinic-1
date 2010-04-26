@@ -53,7 +53,26 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private String testResultUnit;
 	
+	private String doctorWorkStartTime;
 	
+	private String doctorWorkEndTime;
+	
+	public String getDoctorWorkStartTime() {
+		return doctorWorkStartTime;
+	}
+
+	public void setDoctorWorkStartTime(String doctorWorkStartTime) {
+		this.doctorWorkStartTime = doctorWorkStartTime;
+	}
+
+	public String getDoctorWorkEndTime() {
+		return doctorWorkEndTime;
+	}
+
+	public void setDoctorWorkEndTime(String doctorWorkEndTime) {
+		this.doctorWorkEndTime = doctorWorkEndTime;
+	}
+
 	public String getSuggestedTest() {
 		return suggestedTest;
 	}
