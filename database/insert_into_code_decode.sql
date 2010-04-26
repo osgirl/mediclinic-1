@@ -112,4 +112,6 @@ insert into `mediapp`.`Code_Decode` (`idCode_Decode`, `code_ctg`, `code_val`, `c
 insert into `mediapp`.`Code_Decode` (`idCode_Decode`, `code_ctg`, `code_val`, `code_desc`) values (111,'SPECIALITY','Vascular & Interventional Radiology ','Focused on using images and minimally invasive procedures for diagnostic or treatment purposes.');
 insert into `mediapp`.`Code_Decode` (`idCode_Decode`, `code_ctg`, `code_val`, `code_desc`) values (112,'SPECIALITY','Vascular Surgery ','Concerned with the surgical treatment of disorders of the blood vessels.');
 insert into `mediapp`.`Code_Decode` (`idCode_Decode`, `code_ctg`, `code_val`, `code_desc`) values (113,'SPECIALITY','Women’s Health ','Specifically trained to provide diagnosis and treatment related to women’s health issues. ');
+insert into `mediapp`.`code_decode` (`idCode_Decode`, `code_ctg`, `code_val`, `comment`, `code_desc`) values ('114', 'APPOINTMENT_DURATION', '00:30:00', '30 Minutes', '00:30:00');
+insert into `mediapp`.`code_decode` (`idCode_Decode`, `code_ctg`, `code_val`, `comment`, `code_desc`) values ('115', 'APPOINTMENT_DURATION', '01:00:00', '1 Hours', '01:00:00');
 COMMIT;
