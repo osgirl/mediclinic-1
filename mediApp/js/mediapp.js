@@ -74,7 +74,7 @@ function fn_addAppointment(){
 
 function fn_openAppointment(personID,timeOfAppointment,appointmentDate){
 	window.name = "Parent";	
-	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:900px;status:no;edge:sunken';	
+	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1200px;status:no;edge:sunken';	
     var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment, window, WinSettings);
 	
 }

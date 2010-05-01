@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="WEB-INF/src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-lang-2.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-logging.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/jfl.jar"/>
@@ -63,6 +62,7 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/jsmpp-2.1.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/slf4j-api-1.5.6.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/slf4j-log4j12-1.5.6.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/smslib.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/smslib.jar" sourcepath="C:/Documents and Settings/Administrator/Desktop/padmaraj/demo/mediclinic/workspace/springMVC/smslib"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
