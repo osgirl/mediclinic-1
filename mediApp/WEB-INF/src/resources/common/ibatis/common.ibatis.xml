@@ -264,6 +264,7 @@
 	 	<result property="suggestedTest" 		column="suggested_Test"/>
 	 	<result property="testValue" 			column="test_Result_Value"/>
 	 	<result property="testResultUnit" 		column="test_result_Unit"/>
+	 	<result property="comments" 		column="appointment_comment"/>
 	</resultMap>
 	 	
 	<parameterMap id="Get-Appointment-Parm-Map"   class="java.util.HashMap">

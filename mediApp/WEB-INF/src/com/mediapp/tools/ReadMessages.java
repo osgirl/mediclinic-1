@@ -17,11 +17,12 @@
 // 4) Setup callback notifications.
 // 5) Run
 
-package examples.modem;
+package com.mediapp.tools;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.crypto.spec.SecretKeySpec;
+import org.smslib.AGateway;
 import org.smslib.ICallNotification;
 import org.smslib.IGatewayStatusNotification;
 import org.smslib.IInboundMessageNotification;
@@ -112,7 +113,7 @@ public class ReadMessages
 			// Create a new AES Key with a known key value. 
 			// Register it in KeyManager in order to keep it active. SMSLib will then automatically
 			// encrypt / decrypt all messages send to / received from this number.
-			this.srv.getKeyManager().registerKey("09538885476", new AESKey(new SecretKeySpec("0011223344556677".getBytes(), "AES")));
+			this.srv.getKeyManager().registerKey("+306948494037", new AESKey(new SecretKeySpec("0011223344556677".getBytes(), "AES")));
 
 			// Read Messages. The reading is done via the Service object and
 			// affects all Gateway objects defined. This can also be more directed to a specific
@@ -140,35 +141,35 @@ public class ReadMessages
 
 	public class InboundNotification implements IInboundMessageNotification
 	{
-		public void process(String gatewayId, MessageTypes msgType, InboundMessage msg)
+		public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg)
 		{
-			if (msgType == MessageTypes.INBOUND) System.out.println(">>> New Inbound message detected from Gateway: " + gatewayId);
-			else if (msgType == MessageTypes.STATUSREPORT) System.out.println(">>> New Inbound Status Report message detected from Gateway: " + gatewayId);
+			if (msgType == MessageTypes.INBOUND) System.out.println(">>> New Inbound message detected from Gateway: " + gateway.getGatewayId());
+			else if (msgType == MessageTypes.STATUSREPORT) System.out.println(">>> New Inbound Status Report message detected from Gateway: " + gateway.getGatewayId());
 			System.out.println(msg);
 		}
 	}
 
 	public class CallNotification implements ICallNotification
 	{
-		public void process(String gatewayId, String callerId)
+		public void process(AGateway gateway, String callerId)
 		{
-			System.out.println(">>> New call detected from Gateway: " + gatewayId + " : " + callerId);
+			System.out.println(">>> New call detected from Gateway: " + gateway.getGatewayId() + " : " + callerId);
 		}
 	}
 
 	public class GatewayStatusNotification implements IGatewayStatusNotification
 	{
-		public void process(String gatewayId, GatewayStatuses oldStatus, GatewayStatuses newStatus)
+		public void process(AGateway gateway, GatewayStatuses oldStatus, GatewayStatuses newStatus)
 		{
-			System.out.println(">>> Gateway Status change for " + gatewayId + ", OLD: " + oldStatus + " -> NEW: " + newStatus);
+			System.out.println(">>> Gateway Status change for " + gateway.getGatewayId() + ", OLD: " + oldStatus + " -> NEW: " + newStatus);
 		}
 	}
 
 	public class OrphanedMessageNotification implements IOrphanedMessageNotification
 	{
-		public boolean process(String gatewayId, InboundMessage msg)
+		public boolean process(AGateway gateway, InboundMessage msg)
 		{
-			System.out.println(">>> Orphaned message part detected from " + gatewayId);
+			System.out.println(">>> Orphaned message part detected from " + gateway.getGatewayId());
 			System.out.println(msg);
 			// Since we are just testing, return FALSE and keep the orphaned message part.
 			return false;

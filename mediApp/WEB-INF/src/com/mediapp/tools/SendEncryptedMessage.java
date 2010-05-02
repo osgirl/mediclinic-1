@@ -1,6 +1,6 @@
 // SendEncryptedMessage.java - Sample application.
 
-package examples.modem;
+package com.mediapp.tools;
 
 import javax.crypto.spec.SecretKeySpec;
 import org.smslib.Library;

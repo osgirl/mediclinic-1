@@ -6,8 +6,13 @@
 // For asynchronous dispatch, the example application sets a callback
 // notification, to see what's happened with messages.
 
-package examples.modem;
+package com.mediapp.tools;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.smslib.AGateway;
+import org.smslib.Group;
 import org.smslib.IOutboundMessageNotification;
 import org.smslib.Library;
 import org.smslib.OutboundMessage;
@@ -42,7 +47,10 @@ public class SendMessage
 		System.out.println("  Battery Level: " + gateway.getBatteryLevel() + "%");
 		System.out.println();
 		// Send a message synchronously.
-		msg = new OutboundMessage("09325315471", "Hello from MediApp!");
+		srv.createGroup("TestGroup");
+		srv.addToGroup("TestGroup", "+919538885476");
+		msg = new OutboundMessage("TestGroup", "Hello from MediApp!");
+//		msg = new OutboundMessage("+919538885476", "Hello from MediApp!");
 		srv.sendMessage(msg);
 		System.out.println(msg);
 		// Or, send out a WAP SI message.
@@ -62,9 +70,9 @@ public class SendMessage
 
 	public class OutboundNotification implements IOutboundMessageNotification
 	{
-		public void process(String gatewayId, OutboundMessage msg)
+		public void process(AGateway gateway, OutboundMessage msg)
 		{
-			System.out.println("Outbound handler called from Gateway: " + gatewayId);
+			System.out.println("Outbound handler called from Gateway: " + gateway.getGatewayId());
 			System.out.println(msg);
 		}
 	}

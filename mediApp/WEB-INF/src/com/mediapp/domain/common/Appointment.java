@@ -1,6 +1,7 @@
 package com.mediapp.domain.common;
 
 import java.util.Date;
+import java.util.List;
 import java.sql.Time;
 
 
@@ -39,7 +40,7 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private String codeICD;
 	
-	private String prescription;
+	private List <String> prescription;
 	
 	private String lNotes;
 	
@@ -113,11 +114,12 @@ public class Appointment extends MediAppBaseDomain{
 		this.codeICD = codeICD;
 	}
 
-	public String getPrescription() {
+
+	public List<String> getPrescription() {
 		return prescription;
 	}
 
-	public void setPrescription(String prescription) {
+	public void setPrescription(List<String> prescription) {
 		this.prescription = prescription;
 	}
 
