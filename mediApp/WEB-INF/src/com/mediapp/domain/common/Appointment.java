@@ -1,8 +1,13 @@
 package com.mediapp.domain.common;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.sql.Time;
+
+import org.apache.commons.collections.Factory;
+import org.apache.commons.collections.FactoryUtils;
+import org.apache.commons.collections.list.LazyList;
 
 
 public class Appointment extends MediAppBaseDomain{
@@ -26,6 +31,12 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private String confirmedIndicator;
 	
+    private List<Diagnosis> diagnosis = LazyList.decorate(
+ 				new ArrayList < Diagnosis > (),
+				FactoryUtils.instantiateFactory(Diagnosis.class)); 
+        
+
+	
 	private Date newDateProposed;
 	
 	private Time newTimeProposed;
@@ -37,22 +48,6 @@ public class Appointment extends MediAppBaseDomain{
 	private String headline;	
 	
 	private int diagnosisID;
-	
-	private String codeICD;
-	
-	private List <String> prescription;
-	
-	private String lNotes;
-	
-	private String diagnosis;
-	
-	private String allergy;	
-	
-	private String suggestedTest;
-	
-	private String testValue;
-	
-	private String testResultUnit;
 	
 	private String doctorWorkStartTime;
 	
@@ -74,29 +69,6 @@ public class Appointment extends MediAppBaseDomain{
 		this.doctorWorkEndTime = doctorWorkEndTime;
 	}
 
-	public String getSuggestedTest() {
-		return suggestedTest;
-	}
-
-	public void setSuggestedTest(String suggestedTest) {
-		this.suggestedTest = suggestedTest;
-	}
-
-	public String getTestValue() {
-		return testValue;
-	}
-
-	public void setTestValue(String testValue) {
-		this.testValue = testValue;
-	}
-
-	public String getTestResultUnit() {
-		return testResultUnit;
-	}
-
-	public void setTestResultUnit(String testResultUnit) {
-		this.testResultUnit = testResultUnit;
-	}
 
 	public int getDiagnosisID() {
 		return diagnosisID;
@@ -106,46 +78,6 @@ public class Appointment extends MediAppBaseDomain{
 		this.diagnosisID = diagnosisID;
 	}
 
-	public String getCodeICD() {
-		return codeICD;
-	}
-
-	public void setCodeICD(String codeICD) {
-		this.codeICD = codeICD;
-	}
-
-
-	public List<String> getPrescription() {
-		return prescription;
-	}
-
-	public void setPrescription(List<String> prescription) {
-		this.prescription = prescription;
-	}
-
-	public String getlNotes() {
-		return lNotes;
-	}
-
-	public void setlNotes(String lNotes) {
-		this.lNotes = lNotes;
-	}
-
-	public String getDiagnosis() {
-		return diagnosis;
-	}
-
-	public void setDiagnosis(String diagnosis) {
-		this.diagnosis = diagnosis;
-	}
-
-	public String getAllergy() {
-		return allergy;
-	}
-
-	public void setAllergy(String allergy) {
-		this.allergy = allergy;
-	}
 
 	public int getDoctorPersonID() {
 		return doctorPersonID;
@@ -260,6 +192,14 @@ public class Appointment extends MediAppBaseDomain{
 
 	public Time getNewTimeProposed() {
 		return newTimeProposed;
+	}
+
+	public List<Diagnosis> getDiagnosis() {
+		return diagnosis;
+	}
+
+	public void setDiagnosis(List<Diagnosis> diagnosis) {
+		this.diagnosis = diagnosis;
 	}
 
 

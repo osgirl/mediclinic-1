@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.validation.Errors;
 
@@ -17,7 +20,10 @@ import com.mediapp.web.constants.common.CommonWebConstants;
 public class UpdateAppointmentController extends MediAppBaseController{
 	CommonService commonService;
 	
-	
+	protected Object formBackingObject(HttpServletRequest request) throws Exception {
+		Appointment ret = new Appointment();
+		return ret;
+	}
 	@Override
 	protected Map referenceData(HttpServletRequest request, Object command,
 			Errors errors) throws Exception {
@@ -31,14 +37,18 @@ public class UpdateAppointmentController extends MediAppBaseController{
 		}else{
 			dateOfAppointment = dateFormat.parse(sAppointmentDate);
 		}		
-	    Appointment appointment = commonService.getAppointment(idPerson, dateOfAppointment);
+	  //  Appointment appointment = commonService.getAppointment(idPerson, dateOfAppointment);
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
-	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, appointment);
-	    appointmentMap.put("personID", idPerson);	    
+	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, new Appointment());
+	    appointmentMap.put("personID", 1);	    
 	    appointmentMap.put("appointmentDate", dateOfAppointment);
 	    return appointmentMap;
 	}
 
+	 protected ModelAndView processFormSubmission(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object, BindException bindException) throws Exception {
+	        return new ModelAndView(getSuccessView(),CommonWebConstants.DAY_APPOINTMENT,object);
+	    }
+	
 	public CommonService getCommonService() {
 		return commonService;
 	}

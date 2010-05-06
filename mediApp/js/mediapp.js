@@ -79,6 +79,10 @@ function fn_openAppointment(personID,timeOfAppointment,appointmentDate){
 	
 }
 
+function fn_updateAppointmentDetails(){
+	document.forms["updateAppointment"].submit();
+}
+
 //calendar
 var dDate = new Date();
 var dCurMonth = dDate.getMonth();

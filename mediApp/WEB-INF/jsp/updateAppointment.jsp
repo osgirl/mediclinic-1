@@ -24,6 +24,9 @@
 	<script type="text/javascript">
 	function addRowToTable()
 	{
+	  var numi = document.getElementById('counter');
+      var num = (document.getElementById("counter").value - 1) + 2;
+      numi.value = num;		
 	  var tbl = document.getElementById('tblSample');
 	  var lastRow = tbl.rows.length;
 	  // if there's no header row in the table, then iteration = lastRow + 1
@@ -40,8 +43,8 @@
 	  //var textNode = document.createTextNode(iteration);
 	  var el0 = document.createElement('input');
 	  el0.type = 'text';
-	  el0.name = 'diagnosis' + iteration;
-	  el0.id = 'diagnosis' + iteration;
+	  el0.name = "diagnosis[" + (num -1 )+ "].codeICD";
+	  el0.id = "diagnosis[" + (num -1 )+ "].codeICD";
 	  el0.size = 20;
 	  cellLeft.appendChild(el0);
 	  
@@ -79,7 +82,7 @@
 	  // select cell
 	  var cellRightSel = row.insertCell(4);
 	  var sel = document.createElement('<select multiple size=3 style="width: 15em;">');
-	  sel.name = 'prescription' + iteration;
+	  sel.name = "diagnosis[" + (num -1 )+ "].prescription" ;
 	  el.size = 3;	  
 	  //sel.options[0] = new Option('text zero', 'value0');
 	  //sel.options[1] = new Option('text one', 'value1');
@@ -133,7 +136,7 @@
 	  // select cell
 	  var cellRightSel = row.insertCell(4);
 	  var sel = document.createElement('<select multiple size=3 style="width: 15em;">');
-	  sel.name = 'suggestedTest' + iteration;
+	  sel.name = "diagnosis[" + (num -1 )+ "].diagnosisTest";
 	  el.size = 3;	  
 	  //sel.options[0] = new Option('text zero', 'value0');
 	  //sel.options[1] = new Option('text one', 'value1');
@@ -212,11 +215,11 @@
 	  openInNewWindow(frm);
 	}
 	</script>
-		<form name="createAppointment" id="createAppointment" method="post" >		
+		<form name="updateAppointment" id="updateAppointment" method="post" >		
 			<div id="createApt"  style="display:block" align="center">
 				<table  border=""  class="login" width=1200>
-					<tr bgcolor="lightblue">
-						New Appointment
+					<tr bgcolor="lightblue" align="center">
+						<font style="text-align: center;font-size: 120%;font-weight: bold;">Update Appointment</font>
 					</tr>
 					<table  border=""  class="login" width=1200>
 						<tbody>
@@ -280,62 +283,142 @@
 							</td>
 							
 						</tr>
-						<tr>
-							<td  >
-									<input type="checkbox" name="radioBtn" />
-							</td>
-						
-							<td  >
-								<spring:bind path="appointment.diagnosis">
-									<input type="text" name="${status.expression}1"  value="${appointment.diagnosis}1"/>
-																						
-								</spring:bind>
-							</td>
-							<td >
-									<input type="text" name="findPrescription1"  value=""/>
+						<input type="hidden" value="0" id="counter"/>
+						<c:choose>
+							<c:when test="${!empty appointment.diagnosis}">
+
+								<c:forEach items="${appointment.diagnosis}" varStatus="diagnosisAndtest">
 									<script type="text/javascript">
-											new Autocomplete('findPrescription1', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+												var num = document.getElementById("counter").value + 1;
+												document.getElementById("counter").value = num;
 									</script>
 									
-							</td>
-							<td >
-								<input type="button"  onClick="javascript:fn_addPrescription();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
-							</td>
-															
-							<td >
-								<spring:bind path="appointment.prescription">
-								<SELECT NAME="${status.expression}1" MULTIPLE SIZE=3   style="width: 15em;">
-									<OPTION VALUE="${status.expression}" ></OPTION>								
-								</SELECT>
-								</spring:bind>
-							</td>
-							<td >
-								<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="D" class="bsubmit" id="btnDel" width="75" />
-							</td>
-
-							<td >
-									<input type="text" name="findTest1"  value=""/>
-							</td>
-							<script type="text/javascript">
-									new Autocomplete('findTest1', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
-							</script>
+									<tr>
+										<td  >
+												<input type="checkbox" name="radioBtn" />
+										</td>
+									
+										<td  >
+											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].codeICD">
+												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${status.value}"/>"/>
+																									
+											</spring:bind>
+										</td>
+										<td >
+												<input type="text" name="findPrescription1"  value=""/>
+												<script type="text/javascript">
+														new Autocomplete('findPrescription1', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+												</script>
+												
+										</td>
+										<td >
+											<input type="button"  onClick="javascript:fn_addPrescription();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+										</td>
+																		
+										<td >
+											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].prescription">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple>
+													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescription}" varStatus="legg">
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription[legg.index]}"/></option>		
+													</c:forEach>
+												</select>
+											</spring:bind>
+										</td>
+										<td >
+											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="D" class="bsubmit" id="btnDel" width="75" />
+										</td>
+			
+										<td >
+												<input type="text" name="findTest1"  value=""/>
+										</td>
+										<script type="text/javascript">
+												new Autocomplete('findTest1', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+										</script>
+										
+										<td >
+											<input type="button"  onClick="javascript:fn_addTest();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+										</td>
+																		
+										<td >
+											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].diagnosisTest">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple>
+													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}" varStatus="legg">
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest[legg.index]}"/></option>		
+													</c:forEach>
+												</select>
+											</spring:bind>
+										</td>
+										<td >
+											<input type="button"  onClick="javascript:fn_deleteD();" alignment="center" value="D" class="bsubmit" id="btnDel" width="75" />
+										</td>
+										
+									</tr>								
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+									<tr>
+										<td  >
+												<input type="checkbox" name="radioBtn" />
+										</td>
+									
+										<td  >
+											<spring:bind path="appointment.diagnosis[1].codeICD">
+												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${status.value}"/>"/>
+																									
+											</spring:bind>
+										</td>
+										<td >
+												<input type="text" name="findPrescription1"  value=""/>
+												<script type="text/javascript">
+														new Autocomplete('findPrescription1', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+												</script>
+												
+										</td>
+										<td >
+											<input type="button"  onClick="javascript:fn_addPrescription();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+										</td>
+																		
+										<td >
+											<spring:bind path="appointment.diagnosis[1].prescription">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple>
+													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescription}" varStatus="legg">
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription[legg.index]}"/></option>		
+													</c:forEach>
+												</select>
+											</spring:bind>
+										</td>
+										<td >
+											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="D" class="bsubmit" id="btnDel" width="75" />
+										</td>
+			
+										<td >
+												<input type="text" name="findTest1"  value=""/>
+										</td>
+										<script type="text/javascript">
+												new Autocomplete('findTest1', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+										</script>
+										
+										<td >
+											<input type="button"  onClick="javascript:fn_addTest();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+										</td>
+																		
+										<td >
+											<spring:bind path="appointment.diagnosis[1].diagnosisTest">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple>
+													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}" varStatus="legg">
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest[legg.index]}"/></option>		
+													</c:forEach>
+												</select>
+											</spring:bind>
+										</td>
+										<td >
+											<input type="button"  onClick="javascript:fn_deleteD();" alignment="center" value="D" class="bsubmit" id="btnDel" width="75" />
+										</td>
+										
+									</tr>								
 							
-							<td >
-								<input type="button"  onClick="javascript:fn_addTest();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
-							</td>
-															
-							<td >
-								<spring:bind path="appointment.suggestedTest">
-								<SELECT NAME="${status.expression}" MULTIPLE SIZE=3   style="width: 15em;">
-									<OPTION VALUE="${status.expression}" ></OPTION>								
-								</SELECT>
-								</spring:bind>
-							</td>
-							<td >
-								<input type="button"  onClick="javascript:fn_deleteD();" alignment="center" value="D" class="bsubmit" id="btnDel" width="75" />
-							</td>
-							
-						</tr>								
+							</c:otherwise>
+						</c:choose>
 						  </tbody>
 					</table>						
 					<tr>

@@ -1,5 +1,7 @@
 package com.mediapp.domain.common;
 
+import java.util.List;
+
 public class Diagnosis extends MediAppBaseDomain{
 	
 	private static final long serialVersionUID = 4L;
@@ -10,7 +12,9 @@ public class Diagnosis extends MediAppBaseDomain{
 	
 	private String codeICD;
 	
-	private String prescription;
+	private List <String> prescription;
+	
+	private List <String> diagnosisTest;
 	
 	private String lNotes;
 	
@@ -44,11 +48,21 @@ public class Diagnosis extends MediAppBaseDomain{
 		this.codeICD = codeICD;
 	}
 
-	public String getPrescription() {
+
+
+	public String getLNotes() {
+		return lNotes;
+	}
+
+	public void setLNotes(String notes) {
+		lNotes = notes;
+	}
+
+	public List<String> getPrescription() {
 		return prescription;
 	}
 
-	public void setPrescription(String prescription) {
+	public void setPrescription(List<String> prescription) {
 		this.prescription = prescription;
 	}
 
@@ -82,6 +96,14 @@ public class Diagnosis extends MediAppBaseDomain{
 
 	public void setTestID(int testID) {
 		this.testID = testID;
+	}
+
+	public List<String> getDiagnosisTest() {
+		return diagnosisTest;
+	}
+
+	public void setDiagnosisTest(List<String> diagnosisTest) {
+		this.diagnosisTest = diagnosisTest;
 	}
 	
 	
