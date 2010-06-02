@@ -75,75 +75,100 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 														</td>
 													</tr>
 													</table>
-												<div id="dayAppointments"  style="display:block" align="center">
+											<div id="dayAppointments"  style="display:block" align="center">
 												<table  border=""  class="appointment" width=450>
-<tr><td align="center"><table border="0" cellpadding="3" cellspacing="0" width="100%"><tbody><tr><td align="center" bgcolor="#eeeeee" valign="middle" width="14%"><font size="1" color="#ff0000" face="verdana,arial,helvetica"><b>Sunday</b></font></td><td align="center" bgcolor="#eeeeee" valign="middle" width="14%"><font size="1" color="#ff0000" face="verdana,arial,helvetica"><b>Monday</b></font></td><td align="center" bgcolor="#eeeeee" valign="middle" width="14%"><font size="1" color="#ff0000" face="verdana,arial,helvetica"><b>Tuesday</b></font></td><td align="center" bgcolor="#eeeeee" valign="middle" width="14%"><font size="1" color="#ff0000" face="verdana,arial,helvetica"><b>Wednesday</b></font></td><td align="center" bgcolor="#eeeeee" valign="middle" width="14%"><font size="1" color="#ff0000" face="verdana,arial,helvetica"><b>Thursday</b></font></td><td align="center" bgcolor="#eeeeee" valign="middle" width="14%"><font size="1" color="#ff0000" face="verdana,arial,helvetica"><b>Friday</b></font></td><td align="center" bgcolor="#eeeeee" valign="middle" width="14%"><font size="1" color="#ff0000" face="verdana,arial,helvetica"><b>Saturday</b></font></td></tr></tbody></table></td></tr>
-<tr>
-	<td align="center">
-		<table border="0" cellpadding="2" cellspacing="1" width="100%">
-			<tbody><tr>	<td height="70" width="14%">&nbsp;</td>
-					<td height="70" width="14%">&nbsp;</td>
-					<td height="70" width="14%">&nbsp;</td>
-					<td height="70" width="14%">&nbsp;</td>
-					<td align="right" bgcolor="#eeeeee" height="70" valign="top" width="14%">
-						<font size="1" face="verdana,arial,helvetica">
-						<a href="javascript://" onclick="javascript:open_window('day_scheduler.html?April&amp;1',300,350,0,1);">
-						<font color="#000000">1</font></a></font></td>
-					<td align="right" bgcolor="#eeeeee" height="70" valign="top" width="14%">
-						<font size="1" face="verdana,arial,helvetica">
-						<a href="javascript://" onclick="javascript:open_window('day_scheduler.html?April&amp;2',300,350,0,1);">
-						<font color="#000000">2</font></a></font></td>
-					<td align="right" bgcolor="#eeeeee" height="70" valign="top" width="14%">
-						<font size="1" face="verdana,arial,helvetica">
-						<a href="javascript://" onclick="javascript:open_window('day_scheduler.html?April&amp;3',300,350,0,1);">
-						<font color="#000000">3</font></a></font></td></tr>
-			<tr>	<td align="right" bgcolor="#eeeeee" height="70" valign="top" width="14%">
-						<font size="1" face="verdana,arial,helvetica">
-						<a href="javascript://" onclick="javascript:open_window('day_scheduler.html?April&amp;1',300,350,0,1);">
-						<font color="#000000">4</font></a></font></td>
-					<td align="right" bgcolor="#eeeeee" height="70" valign="top" width="14%">
-						<font size="1" face="verdana,arial,helvetica">
-						<a href="javascript://" onclick="javascript:open_window('day_scheduler.html?April&amp;2',300,350,0,1);">
-						<font color="#000000">5</font></a></font></td>
-					<td align="right" bgcolor="#eeeeee" height="70" valign="top" width="14%">
-						<font size="1" face="verdana,arial,helvetica">
-						<a href="javascript://" onclick="javascript:open_window('day_scheduler.html?April&amp;3',300,350,0,1);">
-						<font color="#000000">6</font></a></font></td>
-					<td align="right" bgcolor="#eeeeee" height="70" valign="top" width="14%">
-						<font size="1" face="verdana,arial,helvetica">
-						<a href="javascript://" onclick="javascript:open_window('day_scheduler.html?April&amp;1',300,350,0,1);">
-						<font color="#000000">7</font></a></font></td>						
-					<td align="right" bgcolor="#eeeeee" height="70" valign="top" width="14%">
-						<font size="1" face="verdana,arial,helvetica">
-						<a href="javascript://" onclick="javascript:open_window('day_scheduler.html?April&amp;1',300,350,0,1);">
-						<font color="#000000">8</font></a></font></td>
-					<td align="right" bgcolor="#eeeeee" height="70" valign="top" width="14%">
-						<font size="1" face="verdana,arial,helvetica">
-						<a href="javascript://" onclick="javascript:open_window('day_scheduler.html?April&amp;1',300,350,0,1);">
-						<font color="#000000">9</font></a></font></td>
-					<td align="right" bgcolor="#eeeeee" height="70" valign="top" width="14%">
-						<font size="1" face="verdana,arial,helvetica">
-						<a href="javascript://" onclick="javascript:open_window('day_scheduler.html?April&amp;1',300,350,0,1);">
-						<font color="#000000">10</font></a></font></td></tr>						
-</tbody>
-
-</table>
-
-
-												
-												</table>
-												</div></td>
+													<tr>
+														<td align="center">
+															<table border="0" cellpadding="3" cellspacing="0" width="100%">
+																<tbody>
+																	<tr>
+																		<td align="center" bgcolor="#eeeeee" valign="middle" width="14%">
+																			<font size="1" color="#ff0000" face="verdana,arial,helvetica">
+																				<b>Sunday</b>
+																			</font>
+																		</td>
+																		<td align="center" bgcolor="#eeeeee" valign="middle" width="14%">
+																			<font size="1" color="#ff0000" face="verdana,arial,helvetica">
+																				<b>Monday</b>
+																			</font>
+																		</td>
+																		<td align="center" bgcolor="#eeeeee" valign="middle" width="14%">
+																			<font size="1" color="#ff0000" face="verdana,arial,helvetica">
+																				<b>Tuesday</b>
+																			</font>
+																		</td>
+																		<td align="center" bgcolor="#eeeeee" valign="middle" width="14%">
+																			<font size="1" color="#ff0000" face="verdana,arial,helvetica">
+																				<b>Wednesday</b>
+																			</font>
+																		</td>
+																		<td align="center" bgcolor="#eeeeee" valign="middle" width="14%">
+																			<font size="1" color="#ff0000" face="verdana,arial,helvetica">
+																				<b>Thursday</b>
+																			</font>
+																		</td>
+																		<td align="center" bgcolor="#eeeeee" valign="middle" width="14%">
+																			<font size="1" color="#ff0000" face="verdana,arial,helvetica">
+																				<b>Friday</b>
+																			</font>
+																		</td>
+																		<td align="center" bgcolor="#eeeeee" valign="middle" width="14%">
+																			<font size="1" color="#ff0000" face="verdana,arial,helvetica">
+																				<b>Saturday</b>
+																			</font>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</td>
+													</tr>
+													<tr>
+														<td align="center">
+															<table border="0" cellpadding="2" cellspacing="1" width="100%">
+																<tbody>
+																	<c:set var="counter" value="1" scope="page" />
+																	<c:forEach items="${appointment}" var="appointments">
+																		<c:if  test='${counter mod 7 == 1}'>
+																			<c:if  test='${counter == 1 }'>
+																				<tr>
+																			</c:if>
+																			<c:if  test='${counter >  1 }'>
+																				</tr>
+																				<tr>
+																			</c:if>
+																		</c:if>
+																		<c:choose>																																							
+																			<c:when test='${empty appointments.dateOfAppointment}'>
+																				<td height="70" width="14%">&nbsp;</td>
+																			</c:when>
+																			<c:otherwise>
+																				<td align="right" bgcolor="#eeeeee" height="70" valign="top" width="14%">
+																					<font size="1" face="verdana,arial,helvetica">
+																						<font color="#000000"><fmt:formatDate pattern="dd" value="${appointments.dateOfAppointment}"/></font>
+																						<a href="javascript://" onclick="javascript:open_window('day_scheduler.html?April&amp;1',300,350,0,1);">
+																							<font color="#000000"><br><br><br>${appointments.appointmentCount}</font>
+																						</a>
+																					</font>
+																				</td>
+																			</c:otherwise>																			
+																		</c:choose>
+																		<c:set var="counter" value="${counter+1 }"/>
+																	</c:forEach>
+																	</tr>
+																	</tbody>
+																</table>
+															</table>
+														</div>
+													</td>
 												</tr>
-												</table>
-												
-								</form>
-	
+											</table>
+										</form>
+									</div>
+								</div>
+								<div id="column">
+								</div>
 							</div>
-						</div>
-						<div id="column">
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
 <%@ include file="/WEB-INF/jsp/footer.jsp" %>

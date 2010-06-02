@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mediapp.domain.common.Appointment;
+import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
@@ -24,5 +25,7 @@ public interface CommonService {
 	public Appointment getAppointment(int idPerson,Date dateOfAppointment) ;
 	
 	public List <CodeDecode> getCodeValue(String codeCategory) ;
+	
+	public List <AppointmentForMonth> getMonthAppointment(int idPerson, Date dateOfAppointment);
 	
 }

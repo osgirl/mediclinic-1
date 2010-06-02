@@ -256,15 +256,6 @@
 	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
 	 	<result property="appointmentDuration" 	column="appointment_duration"/>
 	 	<result property="doctorID" 			column="idDoctor_details"/>
-	 	<result property="codeICD" 				column="ICD_CODE"/>
-	 	<result property="prescription" 		column="Prescription"/>
-	 	<result property="lNotes" 				column="LNotes"/>
-	 	<result property="diagnosis" 			column="diagnosis"/>
-	 	<result property="allergy" 				column="allergy"/>
-	 	<result property="suggestedTest" 		column="suggested_Test"/>
-	 	<result property="testValue" 			column="test_Result_Value"/>
-	 	<result property="testResultUnit" 		column="test_result_Unit"/>
-	 	<result property="comments" 		column="appointment_comment"/>
 	</resultMap>
 	 	
 	<parameterMap id="Get-Appointment-Parm-Map"   class="java.util.HashMap">
@@ -273,8 +264,7 @@
 	</parameterMap>
 
 	<select id="getAppointment" parameterMap="Get-Appointment-Parm-Map" resultMap="Get-Appointment-Result-Map">
-			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,
-				ICD_CODE,Prescription,LNotes,diagnosis,allergy,suggested_Test,test_Result_Value,test_result_Unit
+			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details				
 			from person p
 			left OUTER join doctor_details dd on dd.idPerson=p.idPerson
 			left OUTER join appointment_history ah on 
@@ -285,5 +275,41 @@
 			where p.idPerson =? 
 			and date_of_appointment = date_format(?,'%Y-%m-%d');
  	</select>
+
+	<resultMap class="com.mediapp.domain.common.AppointmentForMonth" id="Get-MonthAppointment-Result-Map">
+	 	<result property="dateOfAppointment" 	column="date_of_appointment"/>
+	 	<result property="appointmentCount"		column="AppointmentCount"/>
+	</resultMap>
+	 	
+	<parameterMap id="Get-MonthAppointment-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    			javaType="java.lang.Integer"  		mode="IN"/>
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
+		<parameter property="PersonID"    			javaType="java.lang.Integer"   		mode="IN"/>
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
+	</parameterMap>
+
+	<select id="getMonthAppointment" parameterMap="Get-MonthAppointment-Parm-Map" resultMap="Get-MonthAppointment-Result-Map">
+		select date_of_appointment,count(date_of_appointment) as AppointmentCount
+		from person p
+		left OUTER join doctor_details dd on dd.idPerson=p.idPerson
+		left OUTER join appointment_history ah on      
+		(p.person_type = 'Doctor' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details)
+		where p.idPerson =?    and month(date_of_appointment) = month(?) 
+		and year(date_of_appointment) = year(?)              
+		group by date_of_appointment             
+		union all
+		select date_of_appointment,count(date_of_appointment)        
+		from person p
+		left OUTER join patient_details pd on pd.idPerson=p.idPerson    
+		left OUTER join appointment_history ah on
+		(p.person_type = 'Patient' and pd.idPerson=p.idPerson and pd.idPatient_details = ah.idPatient_details)     
+		where p.idPerson =?     
+		and month(date_of_appointment) = month(?)             
+		and year(date_of_appointment) = year(?)              
+		group by date_of_appointment; 
+ 	</select>
+
 	
 </sqlMap>

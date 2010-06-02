@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.mediapp.domain.common.Appointment;
+import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
@@ -43,4 +44,7 @@ public interface CommonDAO {
 	public Person getPersonalProfile(int idPerson) throws DataAccessException;
 	
 	public Appointment getAppointment(int idPerson,Date dateOfAppointment) throws DataAccessException;
+	
+	public List <AppointmentForMonth> getMonthAppointment(int idPerson, Date dateOfAppointment) throws DataAccessException;
+
 }

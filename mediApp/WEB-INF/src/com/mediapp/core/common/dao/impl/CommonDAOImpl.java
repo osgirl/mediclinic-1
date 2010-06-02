@@ -13,6 +13,7 @@ import org.springframework.dao.DataAccessException;
 import com.mediapp.core.common.constants.CommonCoreConstants;
 import com.mediapp.core.common.dao.CommonDAO;
 import com.mediapp.domain.common.Appointment;
+import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
@@ -196,5 +197,16 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		Appointment appointment = (Appointment) getObject("common.getAppointment",criteria );	
 		return appointment;
 		
+	}
+
+	@Override
+	public List<AppointmentForMonth> getMonthAppointment(int idPerson,
+			Date dateOfAppointment) throws DataAccessException {
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		Integer idPersonInt = new Integer(idPerson);
+		criteria.put("PersonID", idPersonInt);		
+		criteria.put("DateOfAppointment", dateOfAppointment);
+		List<AppointmentForMonth>  appointmentForMonth = (ArrayList<AppointmentForMonth>) getList("common.getMonthAppointment",criteria );	
+		return appointmentForMonth;
 	}
 }

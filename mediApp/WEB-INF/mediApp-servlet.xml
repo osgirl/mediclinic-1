@@ -95,6 +95,9 @@
         <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
         <property name="formView"><value>takeAppointment</value></property>
         <property name="successView"><value>takeAppointment</value></property>
+        <property name="commonService">
+			<ref bean="commonService"/>
+		</property>        
 	</bean>
 
 	<bean id="dayAppointmentForm" class="com.mediapp.web.controller.common.DayAppointmentController">
