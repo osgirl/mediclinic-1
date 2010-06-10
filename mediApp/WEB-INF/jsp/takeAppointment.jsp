@@ -27,58 +27,24 @@
 															<input type="button"  alignment="center" value="Upload Documents" class="gsubmit"  />																																												
 														</td>
 													</tr>
-													<tr>
-														<td >
-														<input type="hidden" name="calSelectedDate" value="">
-														<input type="hidden" name="selectedDate" value="">
-														<input type="hidden" name="selectedMonth" value="">
-														<input type="hidden" name="selectedYear" value="">																								
-<select name="tbSelMonth" id="tbSelMonth" onchange='fUpdateCal(takeAppointment.tbSelYear.value, takeAppointment.tbSelMonth.value)'>
-<option value="1">January</option>
-<option value="2">February</option>
-<option value="3">March</option>
-<option value="4">April</option>
-<option value="5">May</option>
-<option value="6">June</option>
-<option value="7">July</option>
-<option value="8">August</option>
-<option value="9">September</option>
-<option value="10">October</option>
-<option value="11">November</option>
-<option value="12">December</option>
-</select>
-  
-<select name="tbSelYear" id="tbSelYear" onchange='fUpdateCal(takeAppointment.tbSelYear.value, takeAppointment.tbSelMonth.value)'>
-<option value="2008">2008</option>
-<option value="2009">2009</option>
-<option value="2010">2010</option>
-<option value="2011">2011</option>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<script language="JavaScript" for=window event=onload>
-<!-- Begin
-var dCurDate = new Date();
-takeAppointment.tbSelMonth.options[dCurDate.getMonth()].selected = true;
-for (i = 0; i < takeAppointment.tbSelYear.length; i++)
-if (takeAppointment.tbSelYear.options[i].value == dCurDate.getFullYear())
-	takeAppointment.tbSelYear.options[i].selected = true;
-//  End -->
-</script>
-
-<script language="JavaScript">
-var dCurDate = new Date();
-fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 1);
-</script>
-														</td>
-													</tr>
-													</table>
+												</table>
 											<div id="dayAppointments"  style="display:block" align="center">
 												<table  border=""  class="appointment" width=450>
 													<tr>
 														<td align="center">
+															<table border="0" cellpadding="3" cellspacing="0" width="100%">
+																	<tr>
+																		<td align="center" bgcolor="#eeeeee" valign="middle" >
+																			<font size="3" color="#ff0000" face="verdana,arial,helvetica">
+																				<input type="hidden" name="AppointmentMonth" value="<fmt:formatDate pattern="MM" value="${AppointmentDate}"/>">
+																				<input type="hidden" name="AppointmentYear" value="<fmt:formatDate pattern="yyyy" value="${AppointmentDate}"/>">
+																				<b><fmt:formatDate pattern="MMMMMMMMM" value="${AppointmentDate}"/></b>
+																				
+																			</font>
+																		</td>
+																	</tr>
+															
+															</table>
 															<table border="0" cellpadding="3" cellspacing="0" width="100%">
 																<tbody>
 																	<tr>
@@ -124,6 +90,7 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 													</tr>
 													<tr>
 														<td align="center">
+															<input type="hidden" name="PersonID" value="${personID}">
 															<table border="0" cellpadding="2" cellspacing="1" width="100%">
 																<tbody>
 																	<c:set var="counter" value="1" scope="page" />
@@ -140,19 +107,28 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 																		<c:choose>																																							
 																			<c:when test='${empty appointments.dateOfAppointment}'>
 																				<td height="70" width="14%">&nbsp;</td>
-																			</c:when>
+																			</c:when>																			
 																			<c:otherwise>
-																				<td align="right" bgcolor="#eeeeee" height="70" valign="top" width="14%">
+																				<c:choose>
+																					<c:when  test='${appointments.appointmentCount > 0}'>
+																						<td align="right" bgcolor="#669933" height="70" valign="top" width="14%">
+																					</c:when>
+																					<c:otherwise>
+																					<td align="right" bgcolor="#CCCCFF" height="70" valign="top" width="14%">
+																					</c:otherwise>
+																				</c:choose>
 																					<font size="1" face="verdana,arial,helvetica">
-																						<font color="#000000"><fmt:formatDate pattern="dd" value="${appointments.dateOfAppointment}"/></font>
-																						<a href="javascript://" onclick="javascript:open_window('day_scheduler.html?April&amp;1',300,350,0,1);">
-																							<font color="#000000"><br><br><br>${appointments.appointmentCount}</font>
+																						<a href="javascript://" onclick="javascript:getAppointment('<c:out value="${personID}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>');">
+																							<font color="#000000"><fmt:formatDate pattern="dd" value="${appointments.dateOfAppointment}"/></font>
 																						</a>
+																						<c:if  test='${appointments.appointmentCount > 0}'>
+																							<font color="#000000"><br><br><br>${appointments.appointmentCount}</font>
+																						</c:if>
 																					</font>
 																				</td>
 																			</c:otherwise>																			
 																		</c:choose>
-																		<c:set var="counter" value="${counter+1 }"/>
+																		<c:set var="counter" value="${counter+1 }"/>																		
 																	</c:forEach>
 																	</tr>
 																	</tbody>

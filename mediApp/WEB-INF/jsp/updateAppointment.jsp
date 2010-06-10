@@ -222,30 +222,31 @@
 						<font style="text-align: center;font-size: 120%;font-weight: bold;">Update Appointment</font>
 					</tr>
 					<table  border=""  class="login" width=1200>
-						<tbody>
 						<tr>
-							<td>Headline :
+							<td>Headline : &nbsp;&nbsp; 
 								<spring:bind path="appointment.headline">
-									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.headline}"/>"  disabled="disabled" />					
+									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.headline}"/>"  disabled="disabled" style="width: 800px" />					
 								</spring:bind>
 							</td>
 						</tr>
 						<tr>
-							<td >Date :
+							<td >Date : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<spring:bind path="appointment.dateOfAppointment">
-									<input type="text" name="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" disabled="disabled" />
+									<input type="text" name="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" disabled="disabled" style="width: 200px"/>
 								</spring:bind>
-								Time :
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								Time : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<spring:bind path="appointment.timeOfAppointment">
-									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.timeOfAppointment}"/>" disabled="disabled" />
+									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.timeOfAppointment}"/>" disabled="disabled" style="width: 200px"/>
 								</spring:bind>
 							</td>
 							
 						</tr>
+						
 						<tr>
-							<td width="10%">Comments:							
+							<td width="10%">Comments : 							
 								<spring:bind path="appointment.comments">
-									<textarea name="${status.expression}"  value="${fn:trim(appointment.comments)}"  rows="2" cols="30" disabled="disabled">
+									<textarea name="${status.expression}"  value="${fn:trim(appointment.comments)}"  rows="2" cols="100" disabled="disabled">
 									</textarea>													
 								</spring:bind>
 							</td>
@@ -256,8 +257,8 @@
 							<spring:bind path="appointment.doctorPersonID">
 								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorPersonID}"/>"/>					
 							</spring:bind>
-						</tbody>
-					</table>
+						
+					</table>					
 					<table  border=""  class="login" width=1200 id="tblSample">
 						<tbody id="aa">						
 						<tr>
@@ -300,7 +301,7 @@
 									
 										<td  >
 											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].codeICD">
-												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${status.value}"/>"/>
+												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${status.value}"/>" />
 																									
 											</spring:bind>
 										</td>
@@ -312,12 +313,15 @@
 												
 										</td>
 										<td >
+											
 											<input type="button"  onClick="javascript:fn_addPrescription();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											</br> &nbsp;
+											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="D" class="bsubmit" id="btnDel" width="75" />
 										</td>
 																		
 										<td >
 											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].prescription">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple>
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple>
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescription}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription[legg.index]}"/></option>		
 													</c:forEach>
@@ -341,7 +345,7 @@
 																		
 										<td >
 											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].diagnosisTest">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple>
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple>
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest[legg.index]}"/></option>		
 													</c:forEach>

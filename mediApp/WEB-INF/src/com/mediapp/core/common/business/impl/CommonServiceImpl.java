@@ -109,7 +109,7 @@ public class CommonServiceImpl implements CommonService{
 		sdf = new SimpleDateFormat("MM");
 		String smonth =sdf.format(date1);
 		Integer iimonth = new Integer(smonth);
-		int imonth = iimonth.intValue();
+		int imonth = iimonth.intValue()-1;
 		SimpleDateFormat sdf1;
 		sdf1 = new SimpleDateFormat("yyyy");
 		String syear =sdf1.format(date1);
@@ -117,7 +117,7 @@ public class CommonServiceImpl implements CommonService{
 		int iyear = iiyear.intValue();
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 	    int weekday = calendar.get(Calendar.DAY_OF_WEEK);
-	    int iblank =0;
+	    int iblank =1;
 	    while(iblank < weekday){
 	    	//Calendar idummyc = Calendar.getInstance();
 	    	//idummyc.set(1999, 12, 31);

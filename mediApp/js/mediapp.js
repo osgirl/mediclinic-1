@@ -74,7 +74,7 @@ function fn_addAppointment(){
 
 function fn_openAppointment(personID,timeOfAppointment,appointmentDate){
 	window.name = "Parent";	
-	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1200px;status:no;edge:sunken';	
+	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1500px;status:no;edge:sunken';	
     var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment, window, WinSettings);
 	
 }
@@ -125,6 +125,10 @@ window.location.href = "/dayAppointment.htm?selectedDate="+myElement.children["c
       }
    }
 }
+function getAppointment(personID,appointmentDate){
+	window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate;	
+}
+
 function fGetDaysInMonth(iMonth, iYear) {
 var dPrevDate = new Date(iYear, iMonth, 0);
 return dPrevDate.getDate();
