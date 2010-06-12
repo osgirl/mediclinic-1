@@ -78,20 +78,13 @@
 	  el.className='bsubmit';	   
 	  //el.onkeypress = keyPressTest;
 	  cellRight.appendChild(el);
-
-	  // select cell
-	  var cellRightSel = row.insertCell(4);
-	  var sel = document.createElement('<select multiple size=3 style="width: 15em;">');
-	  sel.name = "diagnosis[" + (num -1 )+ "].prescription" ;
-	  el.size = 3;	  
-	  //sel.options[0] = new Option('text zero', 'value0');
-	  //sel.options[1] = new Option('text one', 'value1');
-	  cellRightSel.appendChild(sel);
-
-	  var cellRight = row.insertCell(5);
+//	  var br = document.createElement('</br>');
+	  cellRight.appendChild(document.createElement("br"));
+		
+	  //delete button	  
 	  var el = document.createElement('input');
 	  el.type = 'button';
-	  el.value='D';
+	  el.value='<<';
 	  el.name = 'btnDel' + iteration;
 	  el.id = 'btnDdd' + iteration;
 	  el.setAttribute("class","bsubmit");
@@ -101,6 +94,16 @@
 	  el.className='bsubmit';	   
 	  //el.onkeypress = keyPressTest;
 	  cellRight.appendChild(el);
+	  
+	  // select cell
+	  var cellRightSel = row.insertCell(4);
+	  var sel = document.createElement('<select multiple size=3 style="width: 15em;">');
+	  sel.name = "diagnosis[" + (num -1 )+ "].prescription" ;
+	  el.size = 3;	  
+	  //sel.options[0] = new Option('text zero', 'value0');
+	  //sel.options[1] = new Option('text one', 'value1');
+	  cellRightSel.appendChild(sel);
+
 //start
 	  // right cell
 	  var cellRight = row.insertCell(2);
@@ -132,7 +135,22 @@
 	  el.className='bsubmit';	   
 	  //el.onkeypress = keyPressTest;
 	  cellRight.appendChild(el);
+	  cellRight.appendChild(document.createElement("br"));
 
+	  //delete button
+	  var el = document.createElement('input');
+	  el.type = 'button';
+	  el.value='<<';
+	  el.name = 'btnDel' + iteration;
+	  el.id = 'btnDel' + iteration;
+	  el.setAttribute("class","bsubmit");
+	//  el.setAttribute("onClick","javascript:fn_addPrescription();");  
+	  el.onclick = function() { fn_addPrescription(); }; 
+		  'javascript:fn_deleteTest();';
+	  el.className='bsubmit';	   
+	  //el.onkeypress = keyPressTest;
+	  cellRight.appendChild(el);
+	  
 	  // select cell
 	  var cellRightSel = row.insertCell(4);
 	  var sel = document.createElement('<select multiple size=3 style="width: 15em;">');
@@ -142,19 +160,6 @@
 	  //sel.options[1] = new Option('text one', 'value1');
 	  cellRightSel.appendChild(sel);
 
-	  var cellRight = row.insertCell(5);
-	  var el = document.createElement('input');
-	  el.type = 'button';
-	  el.value='D';
-	  el.name = 'btnDel' + iteration;
-	  el.id = 'btnDdd' + iteration;
-	  el.setAttribute("class","bsubmit");
-	//  el.setAttribute("onClick","javascript:fn_addPrescription();");  
-	  el.onclick = function() { fn_addPrescription(); }; 
-		  'javascript:fn_deleteTest();';
-	  el.className='bsubmit';	   
-	  //el.onkeypress = keyPressTest;
-	  cellRight.appendChild(el);
 
 //end
 	}
@@ -225,7 +230,7 @@
 						<tr>
 							<td>Headline : &nbsp;&nbsp; 
 								<spring:bind path="appointment.headline">
-									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.headline}"/>"  disabled="disabled" style="width: 800px" />					
+									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.headline}"/>"  disabled="disabled" style="width: 700px" />					
 								</spring:bind>
 							</td>
 						</tr>
@@ -250,6 +255,9 @@
 									</textarea>													
 								</spring:bind>
 							</td>
+							<td align="center" >
+								<input type="button"  onClick="javascript:fn_addPrescription();" alignment="center" value="Reschedule" class="bsubmit" id="btnReschedule" width="75" />							
+							</td>
 						</tr>
 							<spring:bind path="appointment.doctorID">
 								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorID}"/>"/>					
@@ -272,15 +280,11 @@
 							</td>
 							<td  >Prescription:
 							</td>
-							<td>
-							</td>
 							<td>Find Test:
 							</td>
 							<td>
 							</td>
 							<td>Tests:
-							</td>
-							<td>
 							</td>
 							
 						</tr>
@@ -316,7 +320,7 @@
 											
 											<input type="button"  onClick="javascript:fn_addPrescription();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br> &nbsp;
-											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="D" class="bsubmit" id="btnDel" width="75" />
+											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>
 																		
 										<td >
@@ -329,10 +333,6 @@
 											</spring:bind>
 										</td>
 										<td >
-											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="D" class="bsubmit" id="btnDel" width="75" />
-										</td>
-			
-										<td >
 												<input type="text" name="findTest1"  value=""/>
 										</td>
 										<script type="text/javascript">
@@ -341,6 +341,9 @@
 										
 										<td >
 											<input type="button"  onClick="javascript:fn_addTest();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											</br>
+											<input type="button"  onClick="javascript:fn_deleteD();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
+											
 										</td>
 																		
 										<td >
@@ -351,9 +354,6 @@
 													</c:forEach>
 												</select>
 											</spring:bind>
-										</td>
-										<td >
-											<input type="button"  onClick="javascript:fn_deleteD();" alignment="center" value="D" class="bsubmit" id="btnDel" width="75" />
 										</td>
 										
 									</tr>								
@@ -379,8 +379,12 @@
 												
 										</td>
 										<td >
+											
 											<input type="button"  onClick="javascript:fn_addPrescription();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											</br> 
+											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>
+																		
 																		
 										<td >
 											<spring:bind path="appointment.diagnosis[1].prescription">
@@ -392,10 +396,6 @@
 											</spring:bind>
 										</td>
 										<td >
-											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="D" class="bsubmit" id="btnDel" width="75" />
-										</td>
-			
-										<td >
 												<input type="text" name="findTest1"  value=""/>
 										</td>
 										<script type="text/javascript">
@@ -404,6 +404,8 @@
 										
 										<td >
 											<input type="button"  onClick="javascript:fn_addTest();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											</br>
+											<input type="button"  onClick="javascript:fn_deleteD();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>
 																		
 										<td >
@@ -415,10 +417,6 @@
 												</select>
 											</spring:bind>
 										</td>
-										<td >
-											<input type="button"  onClick="javascript:fn_deleteD();" alignment="center" value="D" class="bsubmit" id="btnDel" width="75" />
-										</td>
-										
 									</tr>								
 							
 							</c:otherwise>

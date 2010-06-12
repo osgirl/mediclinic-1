@@ -32,8 +32,40 @@
 												<table  border=""  class="appointment" width=450>
 													<tr>
 														<td align="center">
-															<table border="0" cellpadding="3" cellspacing="0" width="100%">
+															<table border="0" cellpadding="3" cellspacing="0" width="100%">																	
 																	<tr>
+																		<td align="left" width="33%" bgcolor="#eeeeee">
+																			<a href="#" onclick="" style="text-decoration:none" >
+																				<font color="#ff0000"><b>&lt;</b></font>
+																			</a>
+																		
+																		</td>
+																		<td align="center" bgcolor="#eeeeee" valign="middle" width="33%" >
+																			<font size="3" color="#ff0000" face="verdana,arial,helvetica">
+																				<input type="hidden" name="AppointmentMonth" value="<fmt:formatDate pattern="MM" value="${AppointmentDate}"/>">
+																				<input type="hidden" name="AppointmentYear" value="<fmt:formatDate pattern="yyyy" value="${AppointmentDate}"/>">
+																				<b><fmt:formatDate pattern="yyyy" value="${AppointmentDate}"/></b>
+																				
+																			</font>
+																		</td>
+																		<td align="right" width="33%" bgcolor="#eeeeee" >
+																			<a href="#" onclick="" style="text-decoration:none">
+																				<font color="#ff0000"><b>&gt;</b></font>
+																			</a>
+																		
+																		</td>
+
+																	</tr>
+															
+
+																	<tr>
+																		<td align="left" width="33%" bgcolor="#eeeeee">
+																			<a href="#" onclick="" style="text-decoration:none">
+																				<font color="#ff0000"><b>&lt;&lt;</b></font>
+																			</a>
+																		
+																		</td>
+																	
 																		<td align="center" bgcolor="#eeeeee" valign="middle" >
 																			<font size="3" color="#ff0000" face="verdana,arial,helvetica">
 																				<input type="hidden" name="AppointmentMonth" value="<fmt:formatDate pattern="MM" value="${AppointmentDate}"/>">
@@ -42,6 +74,13 @@
 																				
 																			</font>
 																		</td>
+																		<td align="right" width="33%" bgcolor="#eeeeee">
+																			<a href="#" onclick="" style="text-decoration:none" >
+																				<font color="#ff0000"><b>&gt;&gt;</b></font>
+																			</a>
+																		
+																		</td>
+																		
 																	</tr>
 															
 															</table>
@@ -118,8 +157,8 @@
 																					</c:otherwise>
 																				</c:choose>
 																					<font size="1" face="verdana,arial,helvetica">
-																						<a href="javascript://" onclick="javascript:getAppointment('<c:out value="${personID}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>');">
-																							<font color="#000000"><fmt:formatDate pattern="dd" value="${appointments.dateOfAppointment}"/></font>
+																						<a href="#" onclick="javascript:getAppointment('<c:out value="${personID}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>');">
+																							<b><font color="#000000"><fmt:formatDate pattern="dd" value="${appointments.dateOfAppointment}"/></font></b>
 																						</a>
 																						<c:if  test='${appointments.appointmentCount > 0}'>
 																							<font color="#000000"><br><br><br>${appointments.appointmentCount}</font>

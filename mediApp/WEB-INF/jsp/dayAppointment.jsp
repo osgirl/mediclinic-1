@@ -109,7 +109,7 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 										<div id="dayAppointments"  style="display:block" align="center">
 											<table  border=""  class="appointment" border="0" cellpadding="2" cellspacing="1" width="680" align="right">
 												<tr bgcolor="lightblue">
-															Appointment for  <fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>
+															Appointment for  <fmt:formatDate type="date" value="${appointmentDate}"/>
 												<tr>
 												<c:set var="PersonType" />												
 												<%	 pageContext.setAttribute("PersonType",p.getPersonTypeString());								
