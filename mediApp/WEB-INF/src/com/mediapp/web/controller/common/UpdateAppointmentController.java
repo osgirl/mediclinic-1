@@ -29,6 +29,8 @@ public class UpdateAppointmentController extends MediAppBaseController{
 			Errors errors) throws Exception {
 		String sidPerson = request.getParameter("PersonID");		
 		int idPerson = Integer.parseInt(sidPerson);
+		String sidAppointment = request.getParameter("AppointmentID");		
+		int idAppointment = Integer.parseInt(sidAppointment);
 		String sAppointmentDate = request.getParameter("AppointmentDate");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
 		Date dateOfAppointment = null;
@@ -37,15 +39,16 @@ public class UpdateAppointmentController extends MediAppBaseController{
 		}else{
 			dateOfAppointment = dateFormat.parse(sAppointmentDate);
 		}		
-	  //  Appointment appointment = commonService.getAppointment(idPerson, dateOfAppointment);
+	    Appointment appointment = commonService.getAppointment(idPerson, dateOfAppointment,idAppointment);
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
-	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, new Appointment());
+	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, appointment);
 	    appointmentMap.put("personID", 1);	    
 	    appointmentMap.put("appointmentDate", dateOfAppointment);
 	    return appointmentMap;
 	}
 
 	 protected ModelAndView processFormSubmission(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object, BindException bindException) throws Exception {
+		 	Appointment a = (Appointment) object;		 	
 	        return new ModelAndView(getSuccessView(),CommonWebConstants.DAY_APPOINTMENT,object);
 	    }
 	

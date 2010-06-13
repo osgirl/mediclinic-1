@@ -4,9 +4,9 @@
 			</div>
 		</div>
 		<div id="footer">
-			<p id="copyright">© Abc</p>
+			<p id="copyright">© MediApp</p>
 			<p id="info">
-				Theme by Abc
+				Beta 1.0
 			</p>
 		</div>
 	</div>

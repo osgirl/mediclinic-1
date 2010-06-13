@@ -172,6 +172,7 @@
       </select>
 
  	<resultMap class="com.mediapp.domain.common.Appointment" id="Day-Appointment-Result-Map">
+	 	<result property="appointmentID" 		column="idAppointment_History"/> 	
 	 	<result property="headline" 			column="appointment_headline"/>
 	 	<result property="dateOfAppointment" 	column="date_of_appointment"/>
 	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
@@ -179,6 +180,7 @@
 	 	<result property="doctorID" 			column="idDoctor_details"/>
 	 	<result property="doctorWorkStartTime" 	column="work_start_time"/>
 	 	<result property="doctorWorkEndTime" 	column="work_end_time"/>
+	 	<result property="comments"			 	column="appointment_comment"/>
 	</resultMap>
 	 	
 	<parameterMap id="Day-Appointment-Parm-Map"   class="java.util.HashMap">
@@ -188,7 +190,7 @@
 	</parameterMap>
 
 	<select id="dayAppointment" parameterMap="Day-Appointment-Parm-Map" resultMap="Day-Appointment-Result-Map">
-			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,work_start_time,work_end_time
+			select idAppointment_History, appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,work_start_time,work_end_time,appointment_comment
 			from appointment_history ah,
 			doctor_details dd,
 			person p
@@ -197,7 +199,7 @@
 			and p.idPerson =?
 			and date_of_appointment = date_format(?,'%Y-%m-%d')
 			 union all
-			select '','9999-12-31','23:59:59', '23:59:59',idDoctor_details,work_start_time,work_end_time
+			select 0,'','9999-12-31','23:59:59', '23:59:59',idDoctor_details,work_start_time,work_end_time,''
 			from doctor_details dd,
 			person p
 			where 
@@ -259,8 +261,7 @@
 	</resultMap>
 	 	
 	<parameterMap id="Get-Appointment-Parm-Map"   class="java.util.HashMap">
-		<parameter property="PersonID"    			javaType="java.lang.Integer"   mode="IN"/>
-	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
+		<parameter property="AppointmentID"    			javaType="java.lang.Integer"   mode="IN"/>
 	</parameterMap>
 
 	<select id="getAppointment" parameterMap="Get-Appointment-Parm-Map" resultMap="Get-Appointment-Result-Map">
@@ -272,8 +273,7 @@
 					(p.person_type = 'Patient' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) )
 			left OUTER join diagnosis d on d.idAppointment = ah.idAppointment_History
 			left OUTER join tests t on t.fDiagnosis= d.idDiagnosis
-			where p.idPerson =? 
-			and date_of_appointment = date_format(?,'%Y-%m-%d');
+			where ah.idAppointment_History=?;
  	</select>
 
 	<resultMap class="com.mediapp.domain.common.AppointmentForMonth" id="Get-MonthAppointment-Result-Map">

@@ -72,24 +72,33 @@ function fn_addAppointment(){
 	document.forms["createAppointment"].submit();
 }
 
-function fn_openAppointment(personID,timeOfAppointment,appointmentDate){
+function fn_openAppointment(personID,timeOfAppointment,appointmentDate,appointmentID){
+	//alert(appointmentID);
+	//alert('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID);
 	window.name = "Parent";	
 	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1500px;status:no;edge:sunken';	
-    var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment, window, WinSettings);
+    var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID, window, WinSettings);
     
 	
 }
 
 function fn_updateAppointmentDetails(){
+    var num = (document.getElementById("counter").value - 1) + 2;
+    for(var i=0;i<num;i++) {
+    	document.getElementById("diagnosis["+i+"].prescription").disabled = false;
+    	document.getElementById("diagnosis["+i+"].diagnosisTest").disabled = false;
+    } 
 	document.forms["updateAppointment"].submit();
 }
 
 function fn_addToSelect(selectName,tempName){	
+	alert(selectName);
+	alert(tempName);
 	if(document.getElementById(tempName).value == ""){
 		alert("please enter the text to be added.");
 		document.getElementById(tempName).focus();
 	}else{
-		alert();
+		//alert();
 		// Create an Option object
 		var opt = document.createElement("OPTION");
 		// Add an Option object to Drop Down/List Box
@@ -97,7 +106,10 @@ function fn_addToSelect(selectName,tempName){
 	    // Assign text and value to Option object
 	    opt.text = document.getElementById(tempName).value;
 	    opt.value = document.getElementById(tempName).value;
+	    opt.selected = "true";
+	    document.getElementById(tempName).value = "";
 	    document.getElementById(tempName).focus();
+	    
 	}
 }
 

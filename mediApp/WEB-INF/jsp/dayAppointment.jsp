@@ -155,7 +155,7 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 															<c:if test='${not empty appointments.headline}'>
 																<td width="90%" bgcolor="#FFCCCC" bordercolor="black">	
 																	
-																	<a href="javascript:fn_openAppointment(${personID},'${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>')" >
+																	<a href="javascript:fn_openAppointment(${personID},'${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>',${appointments.appointmentID})" >
 																		<c:out value="${appointments.headline}"/>
 																	</a>													
 																</td>

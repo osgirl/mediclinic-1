@@ -43,7 +43,7 @@ public interface CommonDAO {
 	
 	public Person getPersonalProfile(int idPerson) throws DataAccessException;
 	
-	public Appointment getAppointment(int idPerson,Date dateOfAppointment) throws DataAccessException;
+	public Appointment getAppointment(int idPerson,Date dateOfAppointment, int idAppointment) throws DataAccessException;
 	
 	public List <AppointmentForMonth> getMonthAppointment(int idPerson, Date dateOfAppointment) throws DataAccessException;
 
