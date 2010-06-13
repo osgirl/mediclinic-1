@@ -76,11 +76,23 @@ function fn_openAppointment(personID,timeOfAppointment,appointmentDate){
 	window.name = "Parent";	
 	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1500px;status:no;edge:sunken';	
     var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment, window, WinSettings);
+    
 	
 }
 
 function fn_updateAppointmentDetails(){
 	document.forms["updateAppointment"].submit();
+}
+
+function fn_addToSelect(selectName,tempName){	
+	// Create an Option object
+	var opt = document.createElement("OPTION");
+	// Add an Option object to Drop Down/List Box
+    document.getElementById(selectName).options.add(opt);    
+    // Assign text and value to Option object
+    opt.text = document.getElementById(tempName).value;
+    opt.value = document.getElementById(tempName).value;
+	
 }
 
 //calendar

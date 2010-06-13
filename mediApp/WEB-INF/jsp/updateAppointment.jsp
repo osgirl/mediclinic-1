@@ -52,8 +52,9 @@
 	  var cellRight = row.insertCell(2);
 	  var el = document.createElement('input');
 	  el.type = 'text';
-	  el.name = 'findPrescription' + iteration;	  
-	  el.id = 'findPrescription' + iteration;
+	  el.name = 'findPrescription[' + (num -1 );
+	  var pr = el.name;	  
+	  el.id = 'findPrescription[' + (num -1 );
 	  el.size = 20;	  
 	  //el.onkeypress = keyPressTest;
 	  cellRight.appendChild(el);
@@ -73,8 +74,9 @@
 	  el.id = 'btnAdd' + iteration;
 	  el.setAttribute("class","bsubmit");
 	//  el.setAttribute("onClick","javascript:fn_addPrescription();");  
-	  el.onclick = function() { fn_addPrescription(); }; 
-		  'javascript:fn_addPrescription();';
+	  el.onclick = function() { fn_addPrescription(); };
+	  selName = "diagnosis[" + (num -1 )+ "].prescription" ; 
+		  'javascript:fn_addToSelect('+selName +','+pr+ ');';
 	  el.className='bsubmit';	   
 	  //el.onkeypress = keyPressTest;
 	  cellRight.appendChild(el);
@@ -131,7 +133,7 @@
 	  el.setAttribute("class","bsubmit");
 	//  el.setAttribute("onClick","javascript:fn_addPrescription();");  
 	  el.onclick = function() { fn_addPrescription(); }; 
-		  'javascript:fn_addTest();';
+		  'javascript:fn_addToSelect();';
 	  el.className='bsubmit';	   
 	  //el.onkeypress = keyPressTest;
 	  cellRight.appendChild(el);
@@ -256,7 +258,7 @@
 								</spring:bind>
 							</td>
 							<td align="center" >
-								<input type="button"  onClick="javascript:fn_addPrescription();" alignment="center" value="Reschedule" class="bsubmit" id="btnReschedule" width="75" />							
+								<input type="button"  onClick="javascript:fn_addToSelect();" alignment="center" value="Reschedule" class="bsubmit" id="btnReschedule" width="75" />							
 							</td>
 						</tr>
 							<spring:bind path="appointment.doctorID">
@@ -310,15 +312,15 @@
 											</spring:bind>
 										</td>
 										<td >
-												<input type="text" name="findPrescription1"  value=""/>
+												<input type="text" name="findPrescription[1]"  id="findPrescription[1]" value=""/>
 												<script type="text/javascript">
-														new Autocomplete('findPrescription1', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+														new Autocomplete('findPrescription[1]', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
 												</script>
 												
 										</td>
 										<td >
 											
-											<input type="button"  onClick="javascript:fn_addPrescription();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											<input type="button"  onClick="javascript:fn_addToSelect(<c:out value="${status.expression}"/>);" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br> &nbsp;
 											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>
@@ -340,7 +342,7 @@
 										</script>
 										
 										<td >
-											<input type="button"  onClick="javascript:fn_addTest();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											<input type="button"  onClick="javascript:fn_addToSelect();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br>
 											<input type="button"  onClick="javascript:fn_deleteD();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 											
@@ -372,15 +374,15 @@
 											</spring:bind>
 										</td>
 										<td >
-												<input type="text" name="findPrescription1"  value=""/>
+												<input type="text" name="findPrescription[1]"  value=""/>
 												<script type="text/javascript">
-														new Autocomplete('findPrescription1', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+														new Autocomplete('findPrescription[1]', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
 												</script>
 												
 										</td>
 										<td >
 											
-											<input type="button"  onClick="javascript:fn_addPrescription();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											<input type="button"  onClick="javascript:fn_addToSelect('diagnosis[1].prescription','findPrescription[1]');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br> 
 											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>
@@ -388,7 +390,7 @@
 																		
 										<td >
 											<spring:bind path="appointment.diagnosis[1].prescription">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple>
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple>													
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescription}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription[legg.index]}"/></option>		
 													</c:forEach>
@@ -396,14 +398,14 @@
 											</spring:bind>
 										</td>
 										<td >
-												<input type="text" name="findTest1"  value=""/>
+												<input type="text" name="findTest[1]"  value=""/>
 										</td>
 										<script type="text/javascript">
-												new Autocomplete('findTest1', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+												new Autocomplete('findTest[1]', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
 										</script>
 										
 										<td >
-											<input type="button"  onClick="javascript:fn_addTest();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											<input type="button"  onClick="javascript:fn_addToSelect('diagnosis[1].diagnosisTest','findTest[1]');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br>
 											<input type="button"  onClick="javascript:fn_deleteD();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>
