@@ -85,14 +85,20 @@ function fn_updateAppointmentDetails(){
 }
 
 function fn_addToSelect(selectName,tempName){	
-	// Create an Option object
-	var opt = document.createElement("OPTION");
-	// Add an Option object to Drop Down/List Box
-    document.getElementById(selectName).options.add(opt);    
-    // Assign text and value to Option object
-    opt.text = document.getElementById(tempName).value;
-    opt.value = document.getElementById(tempName).value;
-	
+	if(document.getElementById(tempName).value == ""){
+		alert("please enter the text to be added.");
+		document.getElementById(tempName).focus();
+	}else{
+		alert();
+		// Create an Option object
+		var opt = document.createElement("OPTION");
+		// Add an Option object to Drop Down/List Box
+	    document.getElementById(selectName).options.add(opt);    
+	    // Assign text and value to Option object
+	    opt.text = document.getElementById(tempName).value;
+	    opt.value = document.getElementById(tempName).value;
+	    document.getElementById(tempName).focus();
+	}
 }
 
 //calendar
@@ -139,6 +145,18 @@ window.location.href = "/dayAppointment.htm?selectedDate="+myElement.children["c
 }
 function getAppointment(personID,appointmentDate){
 	window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate;	
+}
+
+function fn_moveDiv(event){
+	x=event.clientX;
+	y=event.clientY;
+	alert(x+","+y);
+	document.getElementById('TestResult').style.top = y +'px';  
+	document.getElementById('TestResult').style.left = x +'px';
+	document.getElementById('TestResult').style.display="block"; 
+	
+
+	
 }
 
 function fGetDaysInMonth(iMonth, iYear) {

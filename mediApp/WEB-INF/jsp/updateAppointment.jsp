@@ -47,6 +47,12 @@
 	  el0.id = "diagnosis[" + (num -1 )+ "].codeICD";
 	  el0.size = 20;
 	  cellLeft.appendChild(el0);
+	  //add script
+	  var ss = document.createElement('script');	  
+	  var scr = "new Autocomplete('"+el0.name+"', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');";
+	  ss.text = scr;
+	  var hh = document.getElementsByTagName('head')[0];
+	  hh.appendChild(ss);
 	  
 	  // right cell
 	  var cellRight = row.insertCell(2);
@@ -111,8 +117,9 @@
 	  var cellRight = row.insertCell(2);
 	  var el = document.createElement('input');
 	  el.type = 'text';
-	  el.name = 'findTest' + iteration;	  
-	  el.id = 'findTest' + iteration;
+	  el.name = 'findTest[' + (num -1 );	  
+	  el.id = 'findTest[' + (num -1 );
+	  testName = 'findTest[' + (num -1 );
 	  el.size = 20;	  
 	  //el.onkeypress = keyPressTest;
 	  cellRight.appendChild(el);
@@ -133,7 +140,8 @@
 	  el.setAttribute("class","bsubmit");
 	//  el.setAttribute("onClick","javascript:fn_addPrescription();");  
 	  el.onclick = function() { fn_addPrescription(); }; 
-		  'javascript:fn_addToSelect();';
+	  testNames ="diagnosis[" + (num -1 )+ "].diagnosisTest";
+	  'javascript:fn_addToSelect('+ testNames+','+testName+');';
 	  el.className='bsubmit';	   
 	  //el.onkeypress = keyPressTest;
 	  cellRight.appendChild(el);
@@ -157,6 +165,8 @@
 	  var cellRightSel = row.insertCell(4);
 	  var sel = document.createElement('<select multiple size=3 style="width: 15em;">');
 	  sel.name = "diagnosis[" + (num -1 )+ "].diagnosisTest";
+	  sel.id = "diagnosis[" + (num -1 )+ "].diagnosisTest";
+	  
 	  el.size = 3;	  
 	  //sel.options[0] = new Option('text zero', 'value0');
 	  //sel.options[1] = new Option('text one', 'value1');
@@ -308,19 +318,23 @@
 										<td  >
 											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].codeICD">
 												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${status.value}"/>" />
+												<script type="text/javascript">
+														new Autocomplete('<c:out value="diagnosis[${diagnosisAndtest.index}].codeICD"/>', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+												</script>
+												
 																									
 											</spring:bind>
 										</td>
 										<td >
-												<input type="text" name="findPrescription[1]"  id="findPrescription[1]" value=""/>
+												<input type="text" name="findPrescription[${diagnosisAndtest.index}]"  id="findPrescription[1]" value=""/>
 												<script type="text/javascript">
-														new Autocomplete('findPrescription[1]', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+														new Autocomplete('<c:out value="findPrescription[${diagnosisAndtest.index}]"/>', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
 												</script>
 												
 										</td>
 										<td >
 											
-											<input type="button"  onClick="javascript:fn_addToSelect(<c:out value="${status.expression}"/>);" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											<input type="button"  onClick="javascript:fn_addToSelect(<c:out value="diagnosis[${diagnosisAndtest.index}].prescription"/>,<c:out value="findPrescription[${diagnosisAndtest.index}]"/>);" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br> &nbsp;
 											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>
@@ -335,14 +349,14 @@
 											</spring:bind>
 										</td>
 										<td >
-												<input type="text" name="findTest1"  value=""/>
+												<input type="text" name="findTest[${diagnosisAndtest.index}]"  value=""/>
 										</td>
 										<script type="text/javascript">
-												new Autocomplete('findTest1', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+												new Autocomplete('<c:out value="findTest[${diagnosisAndtest.index}]"/>', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
 										</script>
 										
 										<td >
-											<input type="button"  onClick="javascript:fn_addToSelect();" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											<input type="button"  onClick="javascript:fn_addToSelect(<c:out value="diagnosis[${diagnosisAndtest.index}].diagnosisTest"/>,<c:out value="findTest[${diagnosisAndtest.index}]"/>);" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br>
 											<input type="button"  onClick="javascript:fn_deleteD();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 											
@@ -370,6 +384,9 @@
 										<td  >
 											<spring:bind path="appointment.diagnosis[1].codeICD">
 												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${status.value}"/>"/>
+												<script type="text/javascript">
+														new Autocomplete('<c:out value="diagnosis[1].codeICD"/>', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+												</script>
 																									
 											</spring:bind>
 										</td>
@@ -412,7 +429,7 @@
 																		
 										<td >
 											<spring:bind path="appointment.diagnosis[1].diagnosisTest">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple>
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple onclick="javascript:fn_moveDiv(event);">
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest[legg.index]}"/></option>		
 													</c:forEach>
@@ -423,6 +440,12 @@
 							
 							</c:otherwise>
 						</c:choose>
+						<div id="TestResult" style="display:none" >
+							<tr>
+								<td> 
+								</td>
+							</tr>
+						</div>
 						  </tbody>
 					</table>						
 					<tr>
