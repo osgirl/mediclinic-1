@@ -4,6 +4,8 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
 DROP SCHEMA IF EXISTS `mediapp` ;
 CREATE SCHEMA IF NOT EXISTS `mediapp` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
+DROP SCHEMA IF EXISTS `new_schema1` ;
+CREATE SCHEMA IF NOT EXISTS `new_schema1` ;
 
 -- -----------------------------------------------------
 -- Table `mediapp`.`Person`
@@ -354,6 +356,46 @@ DROP function IF EXISTS `mediapp`.`currval` $$
  RETURN cur_val; 
  END;
 $$
+
+-- -----------------------------------------------------
+-- function bulknextval
+-- -----------------------------------------------------
+DROP function IF EXISTS `mediapp`.`bulknextval` $$
+CREATE FUNCTION `mediapp`.`bulknextval` (`seq_name` varchar(100), `incrementamt` bigint(20)) 
+RETURNS bigint(20) NOT DETERMINISTIC 
+BEGIN    
+ DECLARE cur_val bigint(20);
+  SELECT
+ sequence_cur_value INTO cur_val     
+ FROM        
+ mediapp.sequence_data     
+ WHERE        
+ sequence_name = seq_name; 
+ IF cur_val IS NOT NULL THEN        
+ UPDATE            
+ mediapp.sequence_data         
+ SET            
+ sequence_cur_value = IF (                 
+ (sequence_cur_value + (sequence_increment*incrementamt)) > sequence_max_value,                 
+ IF (                     
+ sequence_cycle = TRUE,                     
+ sequence_min_value,                     
+ NULL                
+ ),                 
+ sequence_cur_value + (sequence_increment*incrementamt)            
+ )         
+ WHERE            
+ sequence_name = seq_name         
+ ;     
+ END IF; 
+  SELECT
+ sequence_cur_value INTO cur_val     
+ FROM        
+ mediapp.sequence_data     
+ WHERE        
+ sequence_name = seq_name;  
+ RETURN cur_val;
+END$$
 
 DELIMITER ;
 
