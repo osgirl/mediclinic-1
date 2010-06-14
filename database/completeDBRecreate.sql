@@ -297,6 +297,20 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `mediapp`.`log`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`log` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`log` (
+  `idlog` INT NOT NULL AUTO_INCREMENT ,
+  `pname` VARCHAR(1000) NULL ,
+  `ptime` DATETIME NULL ,
+  `log_text` VARCHAR(4500) NULL ,
+  PRIMARY KEY (`idlog`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- function nextval
 -- -----------------------------------------------------
 
@@ -370,19 +384,19 @@ BEGIN
  FROM        
  mediapp.sequence_data     
  WHERE        
- sequence_name = seq_name; 
+ sequence_name = seq_name;    
  IF cur_val IS NOT NULL THEN        
  UPDATE            
  mediapp.sequence_data         
  SET            
  sequence_cur_value = IF (                 
- (sequence_cur_value + (sequence_increment*incrementamt)) > sequence_max_value,                 
+ (sequence_cur_value + sequence_increment*incrementamt) > sequence_max_value,                 
  IF (                     
  sequence_cycle = TRUE,                     
  sequence_min_value,                     
  NULL                
  ),                 
- sequence_cur_value + (sequence_increment*incrementamt)            
+ sequence_cur_value + sequence_increment*incrementamt             
  )         
  WHERE            
  sequence_name = seq_name         
@@ -394,7 +408,15 @@ BEGIN
  mediapp.sequence_data     
  WHERE        
  sequence_name = seq_name;  
- RETURN cur_val;
+ RETURN cur_val; END$$
+
+-- -----------------------------------------------------
+-- procedure log_insert
+-- -----------------------------------------------------
+DROP procedure IF EXISTS `mediapp`.`log_insert` $$
+CREATE PROCEDURE `log_insert`(in p_proc_id varchar(100),in p_debug_info text)
+BEGIN
+insert into log (pname,log_text,ptime)  values (p_proc_id,p_debug_info,now());
 END$$
 
 DELIMITER ;
