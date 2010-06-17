@@ -334,6 +334,51 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
+-- Table `mediapp`.`postal_codes`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`postal_codes` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`postal_codes` (
+  `idpostal_codes` INT(11) NOT NULL AUTO_INCREMENT ,
+  `country_name` VARCHAR(1000) NULL DEFAULT NULL ,
+  `state_name` VARCHAR(1000) NULL DEFAULT NULL ,
+  `area_name` VARCHAR(1000) NULL DEFAULT NULL ,
+  `pin_code` VARCHAR(20) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idpostal_codes`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 43666
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`prescription_meta_data`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`prescription_meta_data` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`prescription_meta_data` (
+  `idprescription_meta_data` INT(11) NOT NULL AUTO_INCREMENT ,
+  `prescription` VARCHAR(1000) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idprescription_meta_data`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 142051
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`test_meta_data`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`test_meta_data` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`test_meta_data` (
+  `idtest_meta_data` INT(11) NOT NULL AUTO_INCREMENT ,
+  `test_description` VARCHAR(1000) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idtest_meta_data`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 87
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
 -- function bulknextval
 -- -----------------------------------------------------
 
