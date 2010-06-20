@@ -2,7 +2,9 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
+DROP SCHEMA IF EXISTS `mydb` ;
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
+DROP SCHEMA IF EXISTS `mediapp` ;
 CREATE SCHEMA IF NOT EXISTS `mediapp` DEFAULT CHARACTER SET latin1 ;
 
 -- -----------------------------------------------------
@@ -217,7 +219,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`icd_code_10` (
   PRIMARY KEY (`idicd_code_10`) ,
   UNIQUE INDEX `idicd_code_10_UNIQUE` (`idicd_code_10` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 40
+AUTO_INCREMENT = 32597
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -268,7 +270,22 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`log` (
   `log_text` VARCHAR(4500) NULL DEFAULT NULL ,
   PRIMARY KEY (`idlog`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 18
+AUTO_INCREMENT = 10
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`menu_to_role_mapping`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`menu_to_role_mapping` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`menu_to_role_mapping` (
+  `idmenu_to_role_mapping` INT(11) NOT NULL AUTO_INCREMENT ,
+  `menu_name` VARCHAR(50) NULL DEFAULT NULL ,
+  `menu_url` VARCHAR(100) NULL DEFAULT NULL ,
+  `role` VARCHAR(100) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idmenu_to_role_mapping`) )
+ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -292,45 +309,6 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = latin1
 COMMENT = '\'patient detail';
-
-
--- -----------------------------------------------------
--- Table `mediapp`.`sequence_data`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mediapp`.`sequence_data` ;
-
-CREATE  TABLE IF NOT EXISTS `mediapp`.`sequence_data` (
-  `sequence_name` VARCHAR(100) NOT NULL ,
-  `sequence_increment` INT(11) NOT NULL DEFAULT '1' ,
-  `sequence_min_value` INT(11) NOT NULL DEFAULT '1' ,
-  `sequence_max_value` BIGINT(20) NOT NULL DEFAULT '100000000' ,
-  `sequence_cur_value` BIGINT(20) NOT NULL DEFAULT '1' ,
-  `sequence_cycle` TINYINT(1) NOT NULL DEFAULT '0' ,
-  PRIMARY KEY (`sequence_name`) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `mediapp`.`tests`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mediapp`.`tests` ;
-
-CREATE  TABLE IF NOT EXISTS `mediapp`.`tests` (
-  `idTests` INT(11) NOT NULL AUTO_INCREMENT ,
-  `suggested_Test` INT(11) NULL DEFAULT NULL ,
-  `test_Result_Value` VARCHAR(45) NULL DEFAULT NULL ,
-  `test_Result_Unit` VARCHAR(45) NULL DEFAULT NULL ,
-  `fDiagnosis` INT(11) NULL DEFAULT NULL ,
-  PRIMARY KEY (`idTests`) ,
-  INDEX `fDiagnosis` (`fDiagnosis` ASC) ,
-  CONSTRAINT `fDiagnosis`
-    FOREIGN KEY (`fDiagnosis` )
-    REFERENCES `mediapp`.`diagnosis` (`idDiagnosis` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
@@ -365,6 +343,23 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
+-- Table `mediapp`.`sequence_data`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`sequence_data` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`sequence_data` (
+  `sequence_name` VARCHAR(100) NOT NULL ,
+  `sequence_increment` INT(11) NOT NULL DEFAULT '1' ,
+  `sequence_min_value` INT(11) NOT NULL DEFAULT '1' ,
+  `sequence_max_value` BIGINT(20) NOT NULL DEFAULT '100000000' ,
+  `sequence_cur_value` BIGINT(20) NOT NULL DEFAULT '1' ,
+  `sequence_cycle` TINYINT(1) NOT NULL DEFAULT '0' ,
+  PRIMARY KEY (`sequence_name`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
 -- Table `mediapp`.`test_meta_data`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mediapp`.`test_meta_data` ;
@@ -375,6 +370,28 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`test_meta_data` (
   PRIMARY KEY (`idtest_meta_data`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 87
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`tests`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`tests` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`tests` (
+  `idTests` INT(11) NOT NULL AUTO_INCREMENT ,
+  `suggested_Test` INT(11) NULL DEFAULT NULL ,
+  `test_Result_Value` VARCHAR(45) NULL DEFAULT NULL ,
+  `test_Result_Unit` VARCHAR(45) NULL DEFAULT NULL ,
+  `fDiagnosis` INT(11) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idTests`) ,
+  INDEX `fDiagnosis` (`fDiagnosis` ASC) ,
+  CONSTRAINT `fDiagnosis`
+    FOREIGN KEY (`fDiagnosis` )
+    REFERENCES `mediapp`.`diagnosis` (`idDiagnosis` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 
