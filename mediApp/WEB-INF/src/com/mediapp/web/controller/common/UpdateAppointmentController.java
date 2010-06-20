@@ -15,6 +15,8 @@ import org.springframework.validation.Errors;
 
 import com.mediapp.core.common.business.CommonService;
 import com.mediapp.domain.common.Appointment;
+import com.mediapp.domain.common.DoctorSearch;
+import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.web.constants.common.CommonWebConstants;
 
 public class UpdateAppointmentController extends MediAppBaseController{
@@ -47,10 +49,17 @@ public class UpdateAppointmentController extends MediAppBaseController{
 	    return appointmentMap;
 	}
 
-	 protected ModelAndView processFormSubmission(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object, BindException bindException) throws Exception {
-		 	Appointment a = (Appointment) object;		 	
-	        return new ModelAndView(getSuccessView(),CommonWebConstants.DAY_APPOINTMENT,object);
-	    }
+	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
+		Appointment appointment = (Appointment) command;		
+		boolean status = commonService.updateDiagnosisAndTests(appointment);		
+		return new ModelAndView();
+    }
+
+	
+//	 protected ModelAndView processFormSubmission(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object, BindException bindException) throws Exception {
+//		 	Appointment a = (Appointment) object;		 	
+//	        return new ModelAndView(getSuccessView(),CommonWebConstants.DAY_APPOINTMENT,object);
+//	    }
 	
 	public CommonService getCommonService() {
 		return commonService;

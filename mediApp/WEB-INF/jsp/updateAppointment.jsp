@@ -78,7 +78,7 @@
 	  el.name = 'btnAdd' + iteration;
 	  el.id = 'btnAdd' + iteration;
 	  el.setAttribute("class","bsubmit");
-	  selName = "diagnosis[" + (num -1 )+ "].prescription" ;	 	  
+	  var selName = "diagnosis[" + (num -1 )+ "].prescription" ;	 	  
 	  el.onclick =  function() { fn_addToSelect(selName,pr) };
 	  el.className='bsubmit';	   
 	  //el.onkeypress = keyPressTest;
@@ -94,7 +94,6 @@
 	  el.setAttribute("class","bsubmit");
 	//  el.setAttribute("onClick","javascript:fn_addPrescription();");  
 	  el.onclick = function() { fn_addPrescription(); }; 
-		  'javascript:fn_deletePrescription();';
 	  el.className='bsubmit';	   
 	  //el.onkeypress = keyPressTest;
 	  cellRight.appendChild(el);
@@ -103,6 +102,7 @@
 	  var cellRightSel = row.insertCell(4);
 	  var sel = document.createElement('<select multiple size=3 style="width: 15em">');
 	  sel.name = "diagnosis[" + (num -1 )+ "].prescription" ;
+	  sel.id = "diagnosis[" + (num -1 )+ "].prescription" ;
 	  el.size = 3;	  
 	  //sel.options[0] = new Option('text zero', 'value0');
 	  //sel.options[1] = new Option('text one', 'value1');
@@ -110,10 +110,11 @@
 
 //start
 	  // right cell
-	  var cellRight = row.insertCell(2);
+	  var cellRight = row.insertCell(5);
 	  var el = document.createElement('input');
 	  el.type = 'text';
-	  el.name = 'findTest[' + (num -1 ) +']';	  
+	  el.name = 'findTest[' + (num -1 ) +']';	
+	  var pr1 = el.name;  
 	  el.id = 'findTest[' + (num -1 ) +']';
 	  testName = 'findTest[' + (num -1 ) +']';
 	  el.size = 20;	  
@@ -127,17 +128,16 @@
 	  var hh = document.getElementsByTagName('head')[0];
 	  hh.appendChild(ss);
 	  
-	  var cellRight = row.insertCell(3);
+	  var cellRight = row.insertCell(6);
 	  var el = document.createElement('input');
 	  el.type = 'button';
 	  el.value='>>';
 	  el.name = 'btnAdd' + iteration;
 	  el.id = 'btnAdd' + iteration;
 	  el.setAttribute("class","bsubmit");
-	//  el.setAttribute("onClick","javascript:fn_addPrescription();");  
-//	  el.onclick = new function() { fn_addPrescription(); }; 
+	  var selName1 = "diagnosis[" + (num -1 )+ "].diagnosisTest";
+	  el.onclick =  function() { fn_addToSelect(selName1,pr1) };
 	  testNames ="diagnosis[" + (num -1 )+ "].diagnosisTest";
-	  'javascript:fn_addToSelect('+ testNames+','+testName+');';
 	  el.className='bsubmit';	   
 	  //el.onkeypress = keyPressTest;
 	  cellRight.appendChild(el);
@@ -150,82 +150,27 @@
 	  el.name = 'btnDel' + iteration;
 	  el.id = 'btnDel' + iteration;
 	  el.setAttribute("class","bsubmit");
-	//  el.setAttribute("onClick","javascript:fn_addPrescription();");  
 	  el.onclick = function() { fn_addPrescription(); }; 
-		  'javascript:fn_deleteTest();';
 	  el.className='bsubmit';	   
 	  //el.onkeypress = keyPressTest;
 	  cellRight.appendChild(el);
 	  
 	  // select cell
-	  var cellRightSel = row.insertCell(4);
+	  var cellRightSel = row.insertCell(7);
 	  var sel = document.createElement("<select multiple size=3 style='width: 15em'>");
 	  sel.name = "diagnosis[" + (num -1 )+ "].diagnosisTest";
 	  sel.id = "diagnosis[" + (num -1 )+ "].diagnosisTest";
-	  
 	  el.size = 3;	  
-	  //sel.options[0] = new Option('text zero', 'value0');
-	  //sel.options[1] = new Option('text one', 'value1');
 	  cellRightSel.appendChild(sel);
 
 
 //end
-	}
-	function keyPressTest(e, obj)
-	{
-	  var validateChkb = document.getElementById('chkValidateOnKeyPress');
-	  if (validateChkb.checked) {
-	    var displayObj = document.getElementById('spanOutput');
-	    var key;
-	    if(window.event) {
-	      key = window.event.keyCode; 
-	    }
-	    else if(e.which) {
-	      key = e.which;
-	    }
-	    var objId;
-	    if (obj != null) {
-	      objId = obj.id;
-	    } else {
-	      objId = this.id;
-	    }
-	    displayObj.innerHTML = objId + ' : ' + String.fromCharCode(key);
-	  }
 	}
 	function removeRowFromTable()
 	{
 	  var tbl = document.getElementById('tblSample');
 	  var lastRow = tbl.rows.length;
 	  if (lastRow > 2) tbl.deleteRow(lastRow - 1);
-	}
-	function openInNewWindow(frm)
-	{
-	  // open a blank window
-	  var aWindow = window.open('', 'TableAddRowNewWindow',
-	   'scrollbars=yes,menubar=yes,resizable=yes,toolbar=no,width=400,height=400');
-	   
-	  // set the target to the blank window
-	  frm.target = 'TableAddRowNewWindow';
-	  
-	  // submit
-	  frm.submit();
-	}
-	function validateRow(frm)
-	{
-	  var chkb = document.getElementById('chkValidate');
-	  if (chkb.checked) {
-	    var tbl = document.getElementById('tblSample');
-	    var lastRow = tbl.rows.length - 1;
-	    var i;
-	    for (i=1; i<=lastRow; i++) {
-	      var aRow = document.getElementById('txtRow' + i);
-	      if (aRow.value.length <= 0) {
-	        alert('Row ' + i + ' is empty');
-	        return;
-	      }
-	    }
-	  }
-	  openInNewWindow(frm);
 	}
 	</script>
 		<form name="updateAppointment" id="updateAppointment" method="post" >		

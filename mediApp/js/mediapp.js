@@ -83,17 +83,16 @@ function fn_openAppointment(personID,timeOfAppointment,appointmentDate,appointme
 }
 
 function fn_updateAppointmentDetails(){
-    var num = (document.getElementById("counter").value - 1) + 2;
-    for(var i=0;i<num;i++) {
+    var num = (document.getElementById("counter").value - 1) + 1 ;    
+    for(var i=0;i<num;i++) {    	
     	document.getElementById("diagnosis["+i+"].prescription").disabled = false;
     	document.getElementById("diagnosis["+i+"].diagnosisTest").disabled = false;
     } 
 	document.forms["updateAppointment"].submit();
 }
 
-function fn_addToSelect(selectName,tempName){	
-	alert(selectName);
-	alert(tempName);
+function fn_addToSelect(selectName,tempName){
+	//alert(selectName,tempName);
 	if(document.getElementById(tempName).value == ""){
 		alert("please enter the text to be added.");
 		document.getElementById(tempName).focus();
@@ -102,7 +101,7 @@ function fn_addToSelect(selectName,tempName){
 		// Create an Option object
 		var opt = document.createElement("OPTION");
 		// Add an Option object to Drop Down/List Box
-	    document.getElementById(selectName).options.add(opt);    
+	    document.getElementById(selectName).options.add(opt);
 	    // Assign text and value to Option object
 	    opt.text = document.getElementById(tempName).value;
 	    opt.value = document.getElementById(tempName).value;

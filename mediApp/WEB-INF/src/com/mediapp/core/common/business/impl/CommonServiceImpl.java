@@ -163,4 +163,8 @@ public class CommonServiceImpl implements CommonService{
 		}
 		return completeAppointmentList;
 	}
+	
+	public boolean updateDiagnosisAndTests(Appointment appointment) {
+		return commonDAO.updateDiagnosisAndTests(appointment);
+	}	
 }

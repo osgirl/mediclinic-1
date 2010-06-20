@@ -311,5 +311,36 @@
 		group by date_of_appointment; 
  	</select>
 
+	 <parameterMap id="Bulk-Nextval-Parm-Map"   class="java.util.HashMap">
+	    <parameter property="SequenceName" 		javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="HowMuch"   		javaType="java.lang.Integer"   mode="IN"/>	    
+	 </parameterMap>
+	 
+	<select id="bulkNextVal" parameterMap="Bulk-Nextval-Parm-Map" resultClass="java.lang.Integer">
+			select bulknextval(?,?);
+ 	</select>
+
+	 <parameterMap id="Insert-NewDiagnosis-Parm-Map"   class="java.util.HashMap">
+	    <parameter property="AppointmentID" 		javaType="java.lang.Integer"    mode="IN"/>
+	    <parameter property="DiagnosisID"   		javaType="java.lang.Integer"   	mode="IN"/>
+		<parameter property="Prescription"   		javaType="java.lang.String"   	mode="IN"/>	    	    
+	 </parameterMap>
+	
+	<insert id="insertNewDiagnosis" parameterMap="Insert-NewDiagnosis-Parm-Map">
+		INSERT INTO diagnosis (idDiagnosis, idAppointment,Prescription ) 
+		VALUES (?,?,? )
+	</insert>
+
+	 <parameterMap id="Insert-NewDiagnosis-Parm-Map"   class="java.util.HashMap">
+	    <parameter property="diagnosisTest" 			javaType="java.lang.String"    mode="IN"/>	    
+		<parameter property="diagnosisTestResultValue"  javaType="java.lang.String"   	mode="IN"/>
+		<parameter property="diagnosisTestResultUnit"   javaType="java.lang.String"   	mode="IN"/>
+		<parameter property="DiagnosisID"   			javaType="java.lang.Integer"   	mode="IN"/>	    	    
+	 </parameterMap>
+
+	<insert id="insertNewTests" parameterMap="Insert-NewTests-Parm-Map">
+		INSERT INTO tests (suggested_Test, test_Result_Value,test_Result_Unit,fDiagnosis ) 
+		VALUES (?,?,?,?)
+	</insert>
 	
 </sqlMap>

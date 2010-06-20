@@ -1,7 +1,5 @@
 package com.mediapp.domain.common;
 
-import java.util.List;
-
 public class Diagnosis extends MediAppBaseDomain{
 	
 	private static final long serialVersionUID = 4L;
@@ -12,9 +10,14 @@ public class Diagnosis extends MediAppBaseDomain{
 	
 	private String codeICD;
 	
-	private List <String> prescription;
+	private String prescription;
 	
-	private List <String> diagnosisTest;
+
+	private String diagnosisTest;
+	
+	private String diagnosisTestResultUnit;
+	
+	private String diagnosisTestResultValue;
 	
 	private String lNotes;
 	
@@ -58,14 +61,6 @@ public class Diagnosis extends MediAppBaseDomain{
 		lNotes = notes;
 	}
 
-	public List<String> getPrescription() {
-		return prescription;
-	}
-
-	public void setPrescription(List<String> prescription) {
-		this.prescription = prescription;
-	}
-
 	public String getlNotes() {
 		return lNotes;
 	}
@@ -98,13 +93,36 @@ public class Diagnosis extends MediAppBaseDomain{
 		this.testID = testID;
 	}
 
-	public List<String> getDiagnosisTest() {
+	public String getPrescription() {
+		return prescription;
+	}
+
+	public void setPrescription(String prescription) {
+		this.prescription = prescription;
+	}
+
+	public String getDiagnosisTest() {
 		return diagnosisTest;
 	}
 
-	public void setDiagnosisTest(List<String> diagnosisTest) {
+	public void setDiagnosisTest(String diagnosisTest) {
 		this.diagnosisTest = diagnosisTest;
 	}
-	
-	
+
+	public String getDiagnosisTestResultUnit() {
+		return diagnosisTestResultUnit;
+	}
+
+	public void setDiagnosisTestResultUnit(String diagnosisTestResultUnit) {
+		this.diagnosisTestResultUnit = diagnosisTestResultUnit;
+	}
+
+	public String getDiagnosisTestResultValue() {
+		return diagnosisTestResultValue;
+	}
+
+	public void setDiagnosisTestResultValue(String diagnosisTestResultValue) {
+		this.diagnosisTestResultValue = diagnosisTestResultValue;
+	}
+
 }

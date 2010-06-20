@@ -1,5 +1,6 @@
 package com.mediapp.core.common.dao.impl;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import com.mediapp.core.common.constants.CommonCoreConstants;
 import com.mediapp.core.common.dao.CommonDAO;
@@ -209,5 +211,53 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		criteria.put("DateOfAppointment", dateOfAppointment);
 		List<AppointmentForMonth>  appointmentForMonth = (ArrayList<AppointmentForMonth>) getList("common.getMonthAppointment",criteria );	
 		return appointmentForMonth;
+	}
+
+	public boolean updateDiagnosisAndTests(Appointment appointment) throws DataAccessException,DataIntegrityViolationException{
+		int count = appointment.getDiagnosis().size();
+		Integer countInteger = new Integer(count);
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		criteria.put("SequenceName","s_diagnosis_id" );
+		criteria.put("HowMuch",countInteger );
+		Integer maxDianosisID =  (Integer)getObject("common.bulkNextVal",criteria );
+		int minDiagnosisID = maxDianosisID.intValue() - count;
+		int whileCounter = 0;
+		while(minDiagnosisID <=maxDianosisID){
+			appointment.getDiagnosis().get(whileCounter).setDiagnosisID(minDiagnosisID);
+			whileCounter = whileCounter+1;
+			minDiagnosisID = minDiagnosisID+1;
+		}
+		try { 
+			this.getSqlMapClient().startBatch(); 
+			for (int i = 0; i < appointment.getDiagnosis().size(); i++) { 
+				criteria =  new HashMap < String, Object > () ;
+				Integer appointmentID = new Integer(appointment.getAppointmentID() );
+				criteria.put("AppointmentID",appointmentID);
+				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );				
+				criteria.put("DiagnosisID", diagnosisID);
+				criteria.put("Prescription", appointment.getDiagnosis().get(i).getPrescription());
+				getSqlMapClient().insert("common.insertNewDiagnosis",
+						criteria);
+			} 
+			int insertCount = this.getSqlMapClient().executeBatch();
+			this.getSqlMapClient().startBatch(); 
+			for (int i = 0; i < appointment.getDiagnosis().size(); i++) {
+				criteria =  new HashMap < String, Object > () ;
+				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );				
+				criteria.put("DiagnosisID", diagnosisID);
+				criteria.put("diagnosisTest", appointment.getDiagnosis().get(i).getDiagnosisTest());
+				criteria.put("diagnosisTestResultValue", appointment.getDiagnosis().get(i).getDiagnosisTestResultValue());
+				criteria.put("diagnosisTestResultUnit", appointment.getDiagnosis().get(i).getDiagnosisTestResultUnit());
+				getSqlMapClient().insert("common.insertNewTests",
+						criteria);
+			} 
+			insertCount = this.getSqlMapClient().executeBatch();
+
+			} catch (SQLException e) { 
+			throw new DataIntegrityViolationException(e.getMessage()); 
+			} 
+
+		
+		return true;
 	}
 }
