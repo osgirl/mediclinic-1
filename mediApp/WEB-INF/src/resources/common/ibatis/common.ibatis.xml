@@ -331,7 +331,7 @@
 		VALUES (?,?,? )
 	</insert>
 
-	 <parameterMap id="Insert-NewDiagnosis-Parm-Map"   class="java.util.HashMap">
+	 <parameterMap id="Insert-NewTests-Parm-Map"   class="java.util.HashMap">
 	    <parameter property="diagnosisTest" 			javaType="java.lang.String"    mode="IN"/>	    
 		<parameter property="diagnosisTestResultValue"  javaType="java.lang.String"   	mode="IN"/>
 		<parameter property="diagnosisTestResultUnit"   javaType="java.lang.String"   	mode="IN"/>
