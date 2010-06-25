@@ -41,16 +41,20 @@ public class UpdateAppointmentController extends MediAppBaseController{
 		}else{
 			dateOfAppointment = dateFormat.parse(sAppointmentDate);
 		}		
-	    Appointment appointment = commonService.getAppointment(idPerson, dateOfAppointment,idAppointment);
+		Appointment appointment = commonService.getAppointment(idPerson, dateOfAppointment,idAppointment);
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
 	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, appointment);
-	    appointmentMap.put("personID", 1);	    
+	    appointmentMap.put("personID", idPerson);	    
 	    appointmentMap.put("appointmentDate", dateOfAppointment);
+	    appointmentMap.put("AppointmentID", idAppointment);	    
 	    return appointmentMap;
 	}
 
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
-		Appointment appointment = (Appointment) command;		
+		Appointment appointment = (Appointment) command;
+		String sidAppointment = request.getParameter("AppointmentID");		
+		int idAppointment = Integer.parseInt(sidAppointment);
+		appointment.setAppointmentID(idAppointment);
 		boolean status = commonService.updateDiagnosisAndTests(appointment);		
 		return new ModelAndView();
     }

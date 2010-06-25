@@ -16,7 +16,9 @@ import com.mediapp.core.common.constants.CommonCoreConstants;
 import com.mediapp.core.common.dao.CommonDAO;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.AppointmentForMonth;
+import com.mediapp.domain.common.AppointmentTO;
 import com.mediapp.domain.common.CodeDecode;
+import com.mediapp.domain.common.Diagnosis;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
@@ -193,12 +195,22 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	
 	public Appointment getAppointment(int idPerson,Date dateOfAppointment, int idAppointment) throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
-//		Integer idPersonInt = new Integer(idPerson);
-//		criteria.put("PersonID", idPersonInt);		
-//		criteria.put("DateOfAppointment", dateOfAppointment);
 		criteria.put("AppointmentID", idAppointment);		
-		Appointment appointment = (Appointment) getObject("common.getAppointment",criteria );	
-		return appointment;
+		List<AppointmentTO> appointment = (ArrayList<AppointmentTO>) getList("common.getAppointment",criteria );
+		Appointment appointmentLast = new Appointment();
+		appointmentLast.setAppointmentID(appointment.get(0).getAppointmentID());
+		appointmentLast.setDateOfAppointment(appointment.get(0).getDateOfAppointment());
+		appointmentLast.setTimeOfAppointment(appointment.get(0).getTimeOfAppointment());
+		List <Diagnosis> diagnosis = new ArrayList();
+		for(AppointmentTO  eachAppointment: appointment){
+			Diagnosis eachDiagnosis = new Diagnosis();
+			eachDiagnosis.setCodeICD(eachAppointment.getCodeICD());
+			eachDiagnosis.setDiagnosis(eachAppointment.getDiagnosis());
+			eachDiagnosis.setDiagnosisTest(eachAppointment.getDiagnosisTest());			
+			diagnosis.add(eachDiagnosis);
+		}
+		appointmentLast.setDiagnosis(diagnosis);
+		return appointmentLast;
 		
 	}
 
@@ -222,7 +234,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		Integer maxDianosisID =  (Integer)getObject("common.bulkNextVal",criteria );
 		int minDiagnosisID = maxDianosisID.intValue() - count;
 		int whileCounter = 0;
-		while(minDiagnosisID <=maxDianosisID){
+		while(minDiagnosisID <maxDianosisID){
 			appointment.getDiagnosis().get(whileCounter).setDiagnosisID(minDiagnosisID);
 			whileCounter = whileCounter+1;
 			minDiagnosisID = minDiagnosisID+1;
@@ -240,6 +252,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 						criteria);
 			} 
 			int insertCount = this.getSqlMapClient().executeBatch();
+			System.out.println("count "+insertCount);
 			this.getSqlMapClient().startBatch(); 
 			for (int i = 0; i < appointment.getDiagnosis().size(); i++) {
 				criteria =  new HashMap < String, Object > () ;

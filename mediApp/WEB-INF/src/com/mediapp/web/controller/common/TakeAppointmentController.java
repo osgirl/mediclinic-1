@@ -38,7 +38,6 @@ public class TakeAppointmentController extends MediAppBaseController {
 			dateOfAppointment = dateFormat.parse(sAppointmentDate);
 		}		
 	    List <AppointmentForMonth> completeAppointmentList = commonService.getMonthAppointment(idPerson, dateOfAppointment);
-	    System.out.println("size is "+completeAppointmentList.size());
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
 	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, completeAppointmentList);
 	    appointmentMap.put("personID", idPerson);

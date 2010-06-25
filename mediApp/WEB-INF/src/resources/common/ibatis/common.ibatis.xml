@@ -252,12 +252,18 @@
 		   idPerson=?;		   
  	</select>
 	
-	<resultMap class="com.mediapp.domain.common.Appointment" id="Get-Appointment-Result-Map">
-	 	<result property="headline" 			column="appointment_headline"/>
-	 	<result property="dateOfAppointment" 	column="date_of_appointment"/>
-	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
-	 	<result property="appointmentDuration" 	column="appointment_duration"/>
-	 	<result property="doctorID" 			column="idDoctor_details"/>
+	<resultMap class="com.mediapp.domain.common.AppointmentTO" id="Get-Appointment-Result-Map">
+		<result property="appointmentID" 				column="idAppointment_history"/>
+	 	<result property="headline" 					column="appointment_headline"/>
+	 	<result property="dateOfAppointment" 			column="date_of_appointment"/>
+	 	<result property="timeOfAppointment" 			column="time_of_appointment"/>
+	 	<result property="appointmentDuration" 			column="appointment_duration"/>
+	 	<result property="doctorID" 					column="idDoctor_details"/>
+	 	<result property="codeICD" 						column="ICD_code"/>
+	 	<result property="prescription" 				column="Prescription"/>
+	 	<result property="diagnosisTest" 				column="suggested_test"/>
+	 	<result property="diagnosisTestResultUnit" 		column="test_result_value"/>
+	 	<result property="diagnosisTestResultValue" 	column="test_result_unit"/>
 	</resultMap>
 	 	
 	<parameterMap id="Get-Appointment-Parm-Map"   class="java.util.HashMap">
@@ -265,7 +271,8 @@
 	</parameterMap>
 
 	<select id="getAppointment" parameterMap="Get-Appointment-Parm-Map" resultMap="Get-Appointment-Result-Map">
-			select appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details				
+			select idAppointment_history,appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,
+                    ICD_code,Prescription,suggested_test,test_result_value,test_result_unit				
 			from person p
 			left OUTER join doctor_details dd on dd.idPerson=p.idPerson
 			left OUTER join appointment_history ah on 
@@ -321,8 +328,8 @@
  	</select>
 
 	 <parameterMap id="Insert-NewDiagnosis-Parm-Map"   class="java.util.HashMap">
-	    <parameter property="AppointmentID" 		javaType="java.lang.Integer"    mode="IN"/>
 	    <parameter property="DiagnosisID"   		javaType="java.lang.Integer"   	mode="IN"/>
+	    <parameter property="AppointmentID" 		javaType="java.lang.Integer"    mode="IN"/>
 		<parameter property="Prescription"   		javaType="java.lang.String"   	mode="IN"/>	    	    
 	 </parameterMap>
 	

@@ -220,6 +220,10 @@
 							</spring:bind>
 						
 					</table>					
+					<spring:bind path="appointment.appointmentID">
+						<input type="hidden" name="AppointmentID"  id="AppointmentID" value="<c:out value="${appointment.appointmentID}"/>"/>
+					</spring:bind>
+					
 					<table  border=""  class="login" width=1200 id="tblSample">
 						<tbody id="aa">						
 						<tr>
