@@ -5,7 +5,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 DROP SCHEMA IF EXISTS `mydb` ;
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DROP SCHEMA IF EXISTS `mediapp` ;
-CREATE SCHEMA IF NOT EXISTS `mediapp` DEFAULT CHARACTER SET latin1 ;
+CREATE SCHEMA IF NOT EXISTS `mediapp` ;
 
 -- -----------------------------------------------------
 -- Table `mediapp`.`person`
