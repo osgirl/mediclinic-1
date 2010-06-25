@@ -89,6 +89,7 @@ function fn_updateAppointmentDetails(){
     	document.getElementById("diagnosis["+i+"].diagnosisTest").disabled = false;
     } 
     document.forms["updateAppointment"].submit();
+    window.close();
 }
 
 function fn_addToSelect(selectName,tempName){
