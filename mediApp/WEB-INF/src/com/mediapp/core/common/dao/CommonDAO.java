@@ -2,6 +2,7 @@ package com.mediapp.core.common.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -49,4 +50,6 @@ public interface CommonDAO {
 	public List <AppointmentForMonth> getMonthAppointment(int idPerson, Date dateOfAppointment) throws DataAccessException;
 
 	public boolean updateDiagnosisAndTests(Appointment appointment) throws DataAccessException, DataIntegrityViolationException;
+	
+	public boolean scheduleJob(String action, Map<String, String> parms, String comments) throws DataAccessException;
 }

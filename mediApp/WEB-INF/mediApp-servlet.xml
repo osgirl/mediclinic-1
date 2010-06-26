@@ -37,6 +37,10 @@
 		<property name="sendeMail">
 			<ref bean="sendeMail"/>
 		</property>
+		<property name="sendSMS">
+			<ref bean="sendSMS"/>
+		</property>
+		
     </bean>
 
 	<bean id="personalProfileForm" class="com.mediapp.web.controller.common.PersonalProfileController">
@@ -209,6 +213,17 @@
    <bean id="sendeMail" class="com.mediapp.core.common.business.impl.ScheduleEMail">
       <property name="mailSender" ref="mailSender"/>
       <property name="velocityEngine" ref="velocityEngine"/>
+      <property name="commonDAO">
+			<ref bean="commonDAO"/>
+	  </property>
+      
+   </bean>
+
+   <bean id="sendSMS" class="com.mediapp.core.common.business.impl.ScheduleSMS">
+      <property name="commonDAO">
+			<ref bean="commonDAO"/>
+	  </property>
+   
    </bean>
    
    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">

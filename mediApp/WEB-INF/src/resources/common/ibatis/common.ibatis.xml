@@ -66,8 +66,8 @@
 
 
 	<insert id="insertNewPerson">
-		INSERT INTO person (idPerson, email_Address,status_of_account,person_type,password ) 
-		VALUES (nextval('seq_person_id'), #emailID#,'T',#personTypeString#,AES_ENCRYPT(#password#,#key#) )
+		INSERT INTO person (idPerson, email_Address,status_of_account,person_type,password,mobile_phone_number ) 
+		VALUES (nextval('seq_person_id'), #emailID#,'T',#personTypeString#,AES_ENCRYPT(#password#,#key#),#cellPhoneNumber# )
 	</insert>
 	
 	<update id="updateProfile" >
@@ -330,12 +330,13 @@
 	 <parameterMap id="Insert-NewDiagnosis-Parm-Map"   class="java.util.HashMap">
 	    <parameter property="DiagnosisID"   		javaType="java.lang.Integer"   	mode="IN"/>
 	    <parameter property="AppointmentID" 		javaType="java.lang.Integer"    mode="IN"/>
-		<parameter property="Prescription"   		javaType="java.lang.String"   	mode="IN"/>	    	    
+		<parameter property="Prescription"   		javaType="java.lang.String"   	mode="IN"/>	    
+		<parameter property="ICDCode"   			javaType="java.lang.String"   	mode="IN"/>			    
 	 </parameterMap>
 	
 	<insert id="insertNewDiagnosis" parameterMap="Insert-NewDiagnosis-Parm-Map">
-		INSERT INTO diagnosis (idDiagnosis, idAppointment,Prescription ) 
-		VALUES (?,?,? )
+		INSERT INTO diagnosis (idDiagnosis, idAppointment,Prescription,ICD_code ) 
+		VALUES (?,?,?,? )
 	</insert>
 
 	 <parameterMap id="Insert-NewTests-Parm-Map"   class="java.util.HashMap">
@@ -348,6 +349,28 @@
 	<insert id="insertNewTests" parameterMap="Insert-NewTests-Parm-Map">
 		INSERT INTO tests (suggested_Test, test_Result_Value,test_Result_Unit,fDiagnosis ) 
 		VALUES (?,?,?,?)
+	</insert>
+
+	 <parameterMap id="Insert-ScheduleJob-Parm-Map"   class="java.util.HashMap">
+		<parameter property="ScheduleID" 		javaType="java.lang.Integer"    mode="IN"/>	 
+	    <parameter property="Action" 			javaType="java.lang.String"    mode="IN"/>	    
+		<parameter property="Comments"  		javaType="java.lang.String"   	mode="IN"/>
+	 </parameterMap>
+
+	<insert id="insertScheduleJob" parameterMap="Insert-ScheduleJob-Parm-Map">
+		INSERT INTO schedule_job (idschedule_job,action,comments ) 
+		VALUES (?,?,?)
+	</insert>
+
+	 <parameterMap id="Insert-JobInputs-Parm-Map"   class="java.util.HashMap">
+		<parameter property="ScheduleID" 		javaType="java.lang.Integer"    mode="IN"/>	 
+	    <parameter property="InputParmName" 	javaType="java.lang.String"    mode="IN"/>	    
+		<parameter property="InputParmValue"  	javaType="java.lang.String"   	mode="IN"/>
+	 </parameterMap>
+
+	<insert id="insertJobInputs" parameterMap="Insert-JobInputs-Parm-Map">
+		INSERT INTO job_inputs (idschedule_job, input_parmeter_name,input_paramenter_id ) 
+		VALUES (?,?,?)
 	</insert>
 	
 </sqlMap>

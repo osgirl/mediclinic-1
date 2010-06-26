@@ -11,20 +11,28 @@ function fn_showPatientRgFrm(){
 	var menuStyle=document.getElementById("RegistrationForm").style; 
 	document.all("PersonType").selectedIndex = 1;
 	menuStyle.display="block";
+	document.getElementById("hRegisterMe").value ="Y";
+	//alert(document.getElementById("hRegisterMe").value);
 }
 function fn_hidePatientRgFrm(){
 	var menuStyle=document.getElementById("RegistrationForm").style; 
 	menuStyle.display="none";
+	document.getElementById("hRegisterMe").value ="N";
+
 }
 function fn_showDoctorRgFrm(){
 	//fn_hidePatientRgFrm();
 	document.all("PersonType").selectedIndex = 0;
 	var menuStyle=document.getElementById("RegistrationForm").style; 
 	menuStyle.display="block";
+	document.getElementById("hRegisterMe").value ="Y";
+
 }
 function fn_hideDoctorRgFrm(){
 	var menuStyle=document.getElementById("RegistrationForm").style; 
 	menuStyle.display="none";
+	document.getElementById("hRegisterMe").value ="N";
+	
 }
 
 function fn_showMessage(){
@@ -35,6 +43,7 @@ function fn_showMessage(){
 	//alert(document.getElementById("hPersonType").value);
 	//document.all("personTypeString").value=document.all("PersonType")[indexValue].value;
 	//alert(document.all("personTypeString").value);
+	//alert(document.getElementById("hRegisterMe").value);
 	document.forms["logon"].submit();
 }
 function fn_submitLogin(){
@@ -42,6 +51,7 @@ function fn_submitLogin(){
 	//alert(document.getElementById('PersonType').options[indexValue].text);
 	document.getElementById('hPersonType').value=document.getElementById('PersonType').options[indexValue].text;
 	//alert(document.getElementById("hPersonType").value);
+	
 	document.forms["logon"].submit();
 }
 function fn_nextURL(URL){
@@ -111,6 +121,158 @@ function fn_addToSelect(selectName,tempName){
 	    document.getElementById(tempName).focus();
 	    
 	}
+}
+
+function addRowToTable()
+{
+  var numi = document.getElementById('counter');
+  var num = (document.getElementById("counter").value - 1) + 2;
+  numi.value = num;		
+  var tbl = document.getElementById('tblSample');
+  var lastRow = tbl.rows.length;
+  // if there's no header row in the table, then iteration = lastRow + 1
+  var iteration = lastRow;
+  var row = tbl.insertRow(lastRow);
+  
+  var cellRight = row.insertCell(0);
+  var el = document.createElement('input');
+  el.type = 'checkbox';
+  cellRight.appendChild(el);
+
+  // left cell
+  var cellLeft = row.insertCell(1);
+  //var textNode = document.createTextNode(iteration);
+  var el0 = document.createElement('input');
+  el0.type = 'text';
+  el0.name = "diagnosis[" + (num -1 )+ "].codeICD";
+  el0.id = "diagnosis[" + (num -1 )+ "].codeICD";
+  el0.size = 20;
+  cellLeft.appendChild(el0);
+  //add script
+  var ss = document.createElement('script');	  
+  var scr = "new Autocomplete('"+el0.name+"', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');";
+  ss.text = scr;
+  var hh = document.getElementsByTagName('head')[0];
+  hh.appendChild(ss);
+  
+  // right cell
+  var cellRight = row.insertCell(2);
+  var el = document.createElement('input');
+  el.type = 'text';
+  el.name = 'findPrescription[' + (num -1 )+']';
+  var pr = el.name;	  
+  el.id = 'findPrescription[' + (num -1 ) +']';
+  el.size = 20;	  
+  //el.onkeypress = keyPressTest;
+  cellRight.appendChild(el);
+
+  //add script
+  var ss = document.createElement('script');
+  var scr = "new Autocomplete('"+el.name+"', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');";
+  ss.text = scr;
+  var hh = document.getElementsByTagName('head')[0];
+  hh.appendChild(ss);
+  
+  var cellRight = row.insertCell(3);
+  var el = document.createElement('input');
+  el.type = 'button';
+  el.value='>>';
+  el.name = 'btnAdd' + iteration;
+  el.id = 'btnAdd' + iteration;
+  el.setAttribute("class","bsubmit");
+  var selName = "diagnosis[" + (num -1 )+ "].prescription" ;	 	  
+  el.onclick =  function() { fn_addToSelect(selName,pr) };
+  el.className='bsubmit';	   
+  //el.onkeypress = keyPressTest;
+  cellRight.appendChild(el);
+  cellRight.appendChild(document.createElement("br"));
+	
+  //delete button	  
+  var el = document.createElement('input');
+  el.type = 'button';
+  el.value='<<';
+  el.name = 'btnDel' + iteration;
+  el.id = 'btnDdd' + iteration;
+  el.setAttribute("class","bsubmit");
+//  el.setAttribute("onClick","javascript:fn_addPrescription();");  
+  el.onclick = function() { fn_addPrescription(); }; 
+  el.className='bsubmit';	   
+  //el.onkeypress = keyPressTest;
+  cellRight.appendChild(el);
+  
+  // select cell
+  var cellRightSel = row.insertCell(4);
+  var sel = document.createElement('<select multiple size=3 style="width: 15em">');
+  sel.name = "diagnosis[" + (num -1 )+ "].prescription" ;
+  sel.id = "diagnosis[" + (num -1 )+ "].prescription" ;
+  el.size = 3;	  
+  //sel.options[0] = new Option('text zero', 'value0');
+  //sel.options[1] = new Option('text one', 'value1');
+  cellRightSel.appendChild(sel);
+
+//start
+  // right cell
+  var cellRight = row.insertCell(5);
+  var el = document.createElement('input');
+  el.type = 'text';
+  el.name = 'findTest[' + (num -1 ) +']';	
+  var pr1 = el.name;  
+  el.id = 'findTest[' + (num -1 ) +']';
+  testName = 'findTest[' + (num -1 ) +']';
+  el.size = 20;	  
+  //el.onkeypress = keyPressTest;
+  cellRight.appendChild(el);
+
+  //add script
+  var ss = document.createElement('script');
+  var scr = "new Autocomplete('"+el.name+"', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');";
+  ss.text = scr;
+  var hh = document.getElementsByTagName('head')[0];
+  hh.appendChild(ss);
+  
+  var cellRight = row.insertCell(6);
+  var el = document.createElement('input');
+  el.type = 'button';
+  el.value='>>';
+  el.name = 'btnAdd' + iteration;
+  el.id = 'btnAdd' + iteration;
+  el.setAttribute("class","bsubmit");
+  var selName1 = "diagnosis[" + (num -1 )+ "].diagnosisTest";
+  el.onclick =  function() { fn_addToSelect(selName1,pr1) };
+  testNames ="diagnosis[" + (num -1 )+ "].diagnosisTest";
+  el.className='bsubmit';	   
+  //el.onkeypress = keyPressTest;
+  cellRight.appendChild(el);
+  cellRight.appendChild(document.createElement("br"));
+
+  //delete button
+  var el = document.createElement('input');
+  el.type = 'button';
+  el.value='<<';
+  el.name = 'btnDel' + iteration;
+  el.id = 'btnDel' + iteration;
+  el.setAttribute("class","bsubmit");
+  el.onclick = function() { fn_addPrescription(); }; 
+  el.className='bsubmit';	   
+  //el.onkeypress = keyPressTest;
+  cellRight.appendChild(el);
+  
+  // select cell
+  var cellRightSel = row.insertCell(7);
+  var sel = document.createElement("<select multiple size=3 style='width: 15em'>");
+  sel.name = "diagnosis[" + (num -1 )+ "].diagnosisTest";
+  sel.id = "diagnosis[" + (num -1 )+ "].diagnosisTest";
+  el.size = 3;	  
+  cellRightSel.appendChild(sel);
+
+
+//end
+}
+function removeRowFromTable()
+{
+  var tbl = document.getElementById('tblSample');
+  var lastRow = tbl.rows.length;
+  if (lastRow > 2) tbl.deleteRow(lastRow - 1);
 }
 
 //calendar

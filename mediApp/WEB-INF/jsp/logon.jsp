@@ -8,6 +8,7 @@
 
 		<form name="logon" id="logon" method="post">
 		<input type="hidden" id="hPersonType" name="hPersonType"></input>
+		<input type="hidden" id="hRegisterMe" name="hRegisterMe"></input>		
 		<table width=500 align="center">	
 		<tr>
 		<td>	
@@ -124,7 +125,16 @@
 							<td width="30%" align="right">Email: </td>
 							<td width="70%" align="left">
 							<spring:bind path="person.emailID">
-								<input type="text" name="emailID" value="<c:out value="${status.value}"/>"/>		
+								<input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>		
+							</spring:bind>
+							</td>
+							
+						</tr>
+						<tr>
+							<td width="30%" align="right">Cell Phone Number: </td>
+							<td width="70%" align="left">
+							<spring:bind path="person.cellPhoneNumber">
+								<input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>		
 							</spring:bind>
 							</td>
 							

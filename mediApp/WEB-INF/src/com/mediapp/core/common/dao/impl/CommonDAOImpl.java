@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -206,7 +207,8 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			Diagnosis eachDiagnosis = new Diagnosis();
 			eachDiagnosis.setCodeICD(eachAppointment.getCodeICD());
 			eachDiagnosis.setDiagnosis(eachAppointment.getDiagnosis());
-			eachDiagnosis.setDiagnosisTest(eachAppointment.getDiagnosisTest());			
+			eachDiagnosis.setDiagnosisTest(eachAppointment.getDiagnosisTest());
+			eachDiagnosis.setPrescription(eachAppointment.getPrescription());
 			diagnosis.add(eachDiagnosis);
 		}
 		appointmentLast.setDiagnosis(diagnosis);
@@ -248,6 +250,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );				
 				criteria.put("DiagnosisID", diagnosisID);
 				criteria.put("Prescription", appointment.getDiagnosis().get(i).getPrescription());
+				criteria.put("ICDCode", appointment.getDiagnosis().get(i).getCodeICD());
 				getSqlMapClient().insert("common.insertNewDiagnosis",
 						criteria);
 			} 
@@ -273,4 +276,39 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		
 		return true;
 	}
+	
+	public boolean scheduleJob(String action, Map<String, String> parms, String comments) throws DataAccessException{
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		criteria.put("SequenceName","s_schedule_job" );
+		criteria.put("HowMuch",1 );
+		Integer scheduleID =  (Integer)getObject("common.bulkNextVal",criteria );
+		criteria =  new HashMap < String, Object > () ;
+		criteria.put("Action", action);
+		criteria.put("Comments", comments);
+		criteria.put("ScheduleID", scheduleID);
+		insertObject("common.insertScheduleJob",criteria );
+		try
+		{
+			this.getSqlMapClient().startBatch(); 
+			Iterator it = parms.entrySet().iterator();
+		    while (it.hasNext()) { 
+		        Map.Entry pairs = (Map.Entry)it.next(); 
+				criteria =  new HashMap < String, Object > () ;
+				criteria.put("InputParmName", pairs.getKey());
+				criteria.put("InputParmValue", pairs.getValue());
+				criteria.put("ScheduleID", scheduleID);				
+				getSqlMapClient().insert("common.insertJobInputs",
+						criteria);
+		        System.out.println(pairs.getKey() + " = " + pairs.getValue()); 
+		    } 			
+			int insertCount = this.getSqlMapClient().executeBatch();
+
+		}catch (SQLException e) { 
+			throw new DataIntegrityViolationException(e.getMessage()); 
+		} 
+		
+		return true;
+		
+	}
+
 }

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mediapp.core.common.business.LoginService;
 import com.mediapp.core.common.business.impl.ScheduleEMail;
+import com.mediapp.core.common.business.impl.ScheduleSMS;
 import com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
@@ -38,6 +39,15 @@ public class LoginController extends MediAppBaseController  {
 		this.sendeMail = sendeMail;
 	}
 
+	ScheduleSMS sendSMS;
+	
+	
+	public ScheduleSMS getSendSMS() {
+		return sendSMS;
+	}
+	public void setSendSMS(ScheduleSMS sendSMS) {
+		this.sendSMS = sendSMS;
+	}
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)
 	throws Exception {
 		Person logon = (Person) command;
@@ -57,17 +67,22 @@ public class LoginController extends MediAppBaseController  {
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
 		Person person = loginService.authenticate((Person)command);
 		if (null !=request ){	
-			String eMailID = request.getParameter("emailID");
-			person.setEmailID(eMailID);
-			String personType = request.getParameter("hPersonType");			
+		//	String eMailID = request.getParameter("emailID");
+			String eMailID = person.getEmailID();
+		//	person.setEmailID(eMailID);
+			String isRegistering = request.getParameter("hRegisterMe");
+			System.out.println("Register  .... "+isRegistering);
+			String personType = request.getParameter("hPersonType");
+			System.out.println("Register  .... "+personType);
 			String SuccessMessage = "You have been registered. An email has been sent with password";			
-			if (eMailID!=""){		
+			if (isRegistering.equals("Y")){		
 					CodeDecode personCode = new CodeDecode();
 					personCode.setCodeDecode(personType);
 					person.setPersonType(personCode);
 					boolean state =loginService.addNewMember(person);
 					if(state){
-						sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
+						//sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
+						sendeMail.schedule(eMailID, CommonWebConstants.REG_EMAIL_TYPE,person.getIdPerson());
 					//	errorList.add("error.register.success");
 						request.setAttribute("SuccessMessage", SuccessMessage);
 						//CommonWebUtil.addErrorMessagesInReq(request, errorList);

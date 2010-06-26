@@ -11,12 +11,16 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import com.mediapp.core.common.constants.CommonCoreConstants;
+import com.mediapp.core.common.dao.CommonDAO;
+import com.mediapp.domain.common.CodeDecode;
 
 import javax.mail.internet.MimeMessage;
 
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -55,6 +59,28 @@ public class ScheduleEMail {
 	       
 	    }
 
+		private CommonDAO commonDAO;
+
+		public CommonDAO getCommonDAO() {
+			return commonDAO;
+		}
+
+		public void setCommonDAO(CommonDAO commonDAO) {
+			this.commonDAO = commonDAO;
+		}
+	    
+	    @SuppressWarnings("unchecked")
+		public boolean schedule( String emailTo, String emailType,  int personID) {
+	    	Map<String,String> criteria =  new HashMap < String, String > () ;
+	    	criteria.put("EmailTo", emailTo);
+	    	criteria.put("EmailType", emailType);
+	    	Integer iPersonID = new Integer(personID);
+	    	String sPersonID = iPersonID.toString();
+	    	criteria.put("PersonID", sPersonID);
+	    	boolean status = commonDAO.scheduleJob("Email", criteria, "Emailing");
+	    	return status;
+	    }
+	    
 
 		public JavaMailSender getMailSender() {
 			return mailSender;
