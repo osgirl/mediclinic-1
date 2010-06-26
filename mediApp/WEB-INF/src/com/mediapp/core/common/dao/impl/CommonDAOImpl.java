@@ -299,7 +299,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 				criteria.put("ScheduleID", scheduleID);				
 				getSqlMapClient().insert("common.insertJobInputs",
 						criteria);
-		        System.out.println(pairs.getKey() + " = " + pairs.getValue()); 
+	//	        System.out.println(pairs.getKey() + " = " + pairs.getValue()); 
 		    } 			
 			int insertCount = this.getSqlMapClient().executeBatch();
 
