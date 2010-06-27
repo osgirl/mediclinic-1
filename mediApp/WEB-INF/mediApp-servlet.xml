@@ -51,6 +51,13 @@
         <property name="successView"><value>pastHistory</value></property>
 	</bean>
 
+	<bean id="holidayCalendar" class="com.mediapp.web.controller.common.HolidayCalendarController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>holidayCalendar</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.HolidayCalendarList</value></property>
+        <property name="formView"><value>holidayCalendar</value></property>
+        <property name="successView"><value>holidayCalendar</value></property>
+	</bean>
 
 	<bean id="personalProfileForm" class="com.mediapp.web.controller.common.PersonalProfileController">
         <property name="sessionForm"><value>true</value></property>
@@ -187,6 +194,9 @@
 				</entry>
 				<entry key="pastHistory.htm">
 					<ref bean="pastHistory" />
+				</entry>
+				<entry key="holidayCalendar.htm">
+					<ref bean="holidayCalendar" />
 				</entry>
 			</map>
 		</property>
