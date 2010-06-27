@@ -113,7 +113,7 @@
 		</table>
 		
 		<div id="RegistrationForm" style="display:none" align="center" >
-		<table  border="" id="RegistrationForm"  class="login" width=250>
+		<table  border="" id="RegistrationForm"  class="login" width=400>
 			<tr>
 				<td align="center" bgcolor="lightblue">Registration Form</td>
 			</tr>

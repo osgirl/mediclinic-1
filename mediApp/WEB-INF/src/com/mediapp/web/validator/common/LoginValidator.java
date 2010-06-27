@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.validator.EmailValidator;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -60,12 +61,20 @@ public class LoginValidator implements Validator {
 					}
 				}
 			}else{
-				List<String> errorList = new ArrayList<String>();
-				errorList = loginService.checkIfeMailExists(person);
-				if(errorList.size()>0){
-					errors.rejectValue("emailID", errorList.get(0),
-							null, "Already Exists.");
+				EmailValidator emailValidate = EmailValidator.getInstance();
+				boolean isValid = emailValidate.isValid(person.getEmailID());
+				if (!isValid){
+					errors.rejectValue("emailID", "error.login.invalid.email",
+							null, "Invalid EmailID.");
 					
+				}
+				if(!errors.hasErrors()){
+					List<String> errorList = new ArrayList<String>();
+					errorList = loginService.checkIfeMailExists(person);
+					if(errorList.size()>0){
+						errors.rejectValue("emailID", errorList.get(0),
+								null, "Already Exists.");
+					}
 				}
 			}
 		}		

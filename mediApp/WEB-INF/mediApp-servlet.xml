@@ -43,6 +43,15 @@
 		
     </bean>
 
+	<bean id="pastHistory" class="com.mediapp.web.controller.common.PastHistoryController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>patientDetails</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.PatientDetails</value></property>
+        <property name="formView"><value>pastHistory</value></property>
+        <property name="successView"><value>pastHistory</value></property>
+	</bean>
+
+
 	<bean id="personalProfileForm" class="com.mediapp.web.controller.common.PersonalProfileController">
         <property name="sessionForm"><value>true</value></property>
         <property name="commandName"><value>person</value></property>
@@ -176,7 +185,9 @@
 				<entry key="updateAppointment.htm">
 					<ref bean="updateAppointment" />
 				</entry>
-				
+				<entry key="pastHistory.htm">
+					<ref bean="pastHistory" />
+				</entry>
 			</map>
 		</property>
 	</bean>

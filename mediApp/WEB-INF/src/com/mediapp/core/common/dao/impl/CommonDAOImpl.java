@@ -68,6 +68,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			person.setPersonTypeString(person.getPersonType().getCodeDecode());
 			person.setPassword("mediApp");			
 			insertObject("common.insertNewPerson",person );
+			person.setUsername(person.getEmailID());
+			Person personNew = getPersonDetails(person);
+			person.setIdPerson(personNew.getIdPerson());
 			return true;
 	}
 	

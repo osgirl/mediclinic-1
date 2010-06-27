@@ -71,9 +71,7 @@ public class LoginController extends MediAppBaseController  {
 			String eMailID = person.getEmailID();
 		//	person.setEmailID(eMailID);
 			String isRegistering = request.getParameter("hRegisterMe");
-			System.out.println("Register  .... "+isRegistering);
 			String personType = request.getParameter("hPersonType");
-			System.out.println("Register  .... "+personType);
 			String SuccessMessage = "You have been registered. An email has been sent with password";			
 			if (isRegistering.equals("Y")){		
 					CodeDecode personCode = new CodeDecode();
@@ -83,6 +81,7 @@ public class LoginController extends MediAppBaseController  {
 					if(state){
 						//sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
 						sendeMail.schedule(eMailID, CommonWebConstants.REG_EMAIL_TYPE,person.getIdPerson());
+						sendSMS.schedule(person.getCellPhoneNumber(), CommonWebConstants.REG_EMAIL_TYPE, person.getIdPerson());
 					//	errorList.add("error.register.success");
 						request.setAttribute("SuccessMessage", SuccessMessage);
 						//CommonWebUtil.addErrorMessagesInReq(request, errorList);

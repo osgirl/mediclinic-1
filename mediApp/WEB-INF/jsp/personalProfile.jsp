@@ -31,7 +31,7 @@
 													<c:if test="${'Patient' == PersonType}">												 	
 														<tr>
 															<td>
-																<input type="button"  alignment="center" value="Past History" class="gsubmit"  />
+																<input type="button" onClick="javascript:fn_nextURL('/pastHistory.htm');"  alignment="center" value="Past History" class="gsubmit"  />
 															</td>
 														</tr>
 														<tr>
