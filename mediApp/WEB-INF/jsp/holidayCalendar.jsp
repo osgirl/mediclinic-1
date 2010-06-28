@@ -5,8 +5,8 @@
 					<div id="contentSingleEntry" style="">
 						<div id="entries">
 							<div class="entryAlone">
-								<form name="searchDoctor" id="searchDoctor" method="post" >
-									<table width=700  border="1" class="layout"  >	
+								<form name="holidayCalendar" id="holidayCalendar" method="post" >
+									<table width=900  border="1" class="layout"  >	
 										<tr>
 											<td>	
 												<table width=100 align="left"  border="1" class="layout" >	
@@ -28,26 +28,28 @@
 												</table>
 
 												<div id="History"  style="display:block" align="center">
-													<table  border=""  class="login" width=670 cellpadding="200">
+													<table  border=""  class="login" width=800 cellpadding="200">
 														<tr bgcolor="lightblue" >
 															Add Holidays
 														</tr>
-														<tr>
-															<td>
-															</td>						
-															<td>Holiday Date:
+														<tr >
+															<td width="20%">Holiday Date:
 															</td>
-															<td>From Time:
+															<td width="10%" align="left">
+															</td >
+															<td width="15%" align="left">Full Day:
 															</td>
-															<td>
+															<td width="15%" align="left">From Time:
 															</td>
-															<td>To Time:
+															<td width="15%" align="left">To Time:
+															</td>
+															<td width="25%" >
 															</td>
 														</tr>
 														
 														<tr>
 														<td >
-															<spring:bind path="holidayCalendar.holidays.holidayDate">
+															<spring:bind path="holidayCalendar.holidays[0].holidayDate">
 																<input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${status.value}"/>" />																
 															</spring:bind>
 														</td>
@@ -55,21 +57,35 @@
 																	<script language="JavaScript">
 																		new tcal ({
 																			// form name
-																			'formname': 'searchDoctor',
+																			'formname': 'holidayCalendar',
 																			// input name
-																			'controlname': 'dateOfAppointment'
+																			'controlname': 'holidays[0].holidayDate'
 																			});
 																	</script>
 																
 														</td>
 														<td >
-															<spring:bind path="holidayCalendar.holidays.fromTime">
-																<input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${status.value}"/>" />																
+															<spring:bind path="holidayCalendar.holidays[0].fromTime">
+																<select id="${status.expression}" name="${status.expression}" style="WIDTH: 100px">
+																		<option value='blank' selected="selected" >-Select-</option>
+																		<option value='Y'  >Full Day</option>
+																</select>
 															</spring:bind>
 														</td>
 														<td >
-															<spring:bind path="holidayCalendar.holidays.toTime">
-																<input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${status.value}"/>" />																
+															<spring:bind path="holidayCalendar.holidays[0].fromTime">
+																<select id="${status.expression}" name="${status.expression}" style="WIDTH: 100px">
+																		<option value='blank' selected="selected" >-Select-</option>
+																		<option value='Y'  >10:00 AM</option>
+																</select>
+															</spring:bind>
+														</td>
+														<td >
+															<spring:bind path="holidayCalendar.holidays[0].fromTime">
+																<select id="${status.expression}" name="${status.expression}" style="WIDTH: 100px">
+																		<option value='blank' selected="selected" >-Select-</option>
+																		<option value='Y'  >Full Day</option>
+																</select>
 															</spring:bind>
 														</td>
 														
