@@ -28,42 +28,7 @@
 										<tr>
 											<td>	
 												<table width=100 align="left"  border="1" class="layout" >
-													<c:if test="${'Patient' == PersonType}">												 	
-														<tr>
-															<td>
-																<input type="button" onClick="javascript:fn_nextURL('/pastHistory.htm');"  alignment="center" value="Past History" class="gsubmit"  />
-															</td>
-														</tr>
-														<tr>
-															<td>															
-																<input type="button"  onClick="javascript:fn_nextURL('/takeAppointment.htm');" alignment="center" value="My Appointments" class="gsubmit"  />
-															</td>
-														</tr>
-														<tr>
-															<td>															
-																<input type="button"  onClick="javascript:fn_nextURL('/searchDoctor.htm');" alignment="center" value="Search Doctor" class="gsubmit"  />
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<input type="button"  onClick="javascript:fn_nextURL('/searchDoctor.htm');" alignment="center" value="Upload Documents" class="gsubmit"  />																																												
-															</td>
-														</tr>
-													</c:if>
-													
-													<c:if test="${'Doctor' == PersonType}">												 	
-														<tr>
-															<td>															
-																<input type="button"  onClick="javascript:fn_nextURL('/dayAppointment.htm?PersonID=${PersonID}');" alignment="center" value="My Appointments" class="gsubmit"  />
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<input type="button"  onClick="javascript:fn_nextURL('/searchDoctor.htm');" alignment="center" value="My Search" class="gsubmit"  />																																												
-															</td>
-														</tr>
-													</c:if>													
-																										
+             <menu:verticalMenuItemTag></menu:verticalMenuItemTag>																										
 												</table>
 
 												<div id="Personal Details"  style="display:block" align="center">

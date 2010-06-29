@@ -2,6 +2,7 @@ package com.mediapp.core.common.business;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -32,5 +33,7 @@ public interface CommonService {
 	public List <AppointmentForMonth> getMonthAppointment(int idPerson, Date dateOfAppointment);
 	
 	public boolean updateDiagnosisAndTests(Appointment appointment) ;
+
+	
 	
 }

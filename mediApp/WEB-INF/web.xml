@@ -39,5 +39,10 @@
   		<taglib-uri>/spring</taglib-uri> 
   		<taglib-location>/WEB-INF/spring.tld</taglib-location> 
   	</taglib>
+	  	
+	  <taglib>
+	    <taglib-uri>verticalMenuItemTag</taglib-uri> 
+	    <taglib-location>/WEB-INF/tld/verticalMenuItemTag.tld</taglib-location> 
+	   </taglib>
 
 </web-app>

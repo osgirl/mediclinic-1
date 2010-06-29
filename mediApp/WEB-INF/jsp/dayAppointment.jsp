@@ -36,27 +36,7 @@ function ajaxCall(){
 										<tr>
 											<td>	
 												<table width=100 align="left"  border="1" class="layout" >	
-													<tr>
-														<td>
-															<input type="button" onClick="javascript:fn_nextURL('/personalProfile.htm');" alignment="center" value="Personal Details" class="gsubmit"    />
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<input type="button"  alignment="center" value="Past History" class="gsubmit"  />
-														</td>
-													</tr>
-													<tr>
-														<td>															
-															<input type="button"  onClick="javascript:fn_nextURL('/takeAppointment.htm');" alignment="center" value="Take Appointment" class="gsubmit"  />
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<input type="button"  alignment="center" value="Reschedule" class="gsubmit"  />																																												
-														</td>
-													</tr>
-													<tr>
+											     <menu:verticalMenuItemTag></menu:verticalMenuItemTag>													<tr>
 														<td >
 														<input type="hidden" name="calSelectedDate" value="">
 														<input type="hidden" name="selectedDate" value="">

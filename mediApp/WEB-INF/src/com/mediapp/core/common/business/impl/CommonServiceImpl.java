@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -166,5 +167,6 @@ public class CommonServiceImpl implements CommonService{
 	
 	public boolean updateDiagnosisAndTests(Appointment appointment) {
 		return commonDAO.updateDiagnosisAndTests(appointment);
-	}	
+	}
+	
 }

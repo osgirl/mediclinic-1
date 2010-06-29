@@ -52,4 +52,6 @@ public interface CommonDAO {
 	public boolean updateDiagnosisAndTests(Appointment appointment) throws DataAccessException, DataIntegrityViolationException;
 	
 	public boolean scheduleJob(String action, Map<String, String> parms, String comments) throws DataAccessException;
+	
+	public Map getMenuItems(String userRole) throws DataAccessException;
 }

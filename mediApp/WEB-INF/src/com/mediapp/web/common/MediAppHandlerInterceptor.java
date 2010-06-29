@@ -32,6 +32,7 @@ public class MediAppHandlerInterceptor extends HandlerInterceptorAdapter {
 	 */
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
+		
 		if (!isAuthenticated(request)) {
 			throw new MediAppBaseException("user.not.authenticated");
 		} 

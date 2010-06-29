@@ -4,6 +4,7 @@
 package com.mediapp.core.common.business;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -29,5 +30,6 @@ public interface LoginService {
 	public List<String> checkIfeMailExists(Person person);
 
 	public List <CodeDecode> getSpecialities() ;
-	
+
+	public Map getMenuItems(String userRole);
 }

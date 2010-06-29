@@ -117,4 +117,27 @@ public class MediAppBaseDAOImpl extends SqlMapClientDaoSupport{
 		logger.info((new StringBuilder()).append("Object retrieved [")
 				.append(obj).append("]").toString());
 	}
+	
+	/**
+	 * Returns single Object
+	 * @param operationName
+	 * @param criteria
+	 * @return
+	 */
+	public Map getMap(String operationName, Map criteria, String key, String value) {
+		Map obj = null;
+		try {
+			obj = getSqlMapClient().queryForMap(operationName, criteria, key,value);
+			if (logger.isDebugEnabled())
+				logger.debug((new StringBuilder()).append("Object retrieved [")
+						.append(obj).append("]").toString());
+		} catch (SQLException se) {
+			org.springframework.dao.DataAccessException dae = super
+					.getSqlMapClientTemplate().getExceptionTranslator()
+					.translate("RetrieveObject", operationName, se);
+			throw dae;
+		}
+		return obj;
+	}
+
 }

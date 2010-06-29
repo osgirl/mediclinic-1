@@ -2,12 +2,14 @@ package com.mediapp.web.controller.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -66,12 +68,13 @@ public class LoginController extends MediAppBaseController  {
 	
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
 		Person person = loginService.authenticate((Person)command);
+		String personType = request.getParameter("hPersonType");
+
 		if (null !=request ){	
 		//	String eMailID = request.getParameter("emailID");
 			String eMailID = person.getEmailID();
 		//	person.setEmailID(eMailID);
 			String isRegistering = request.getParameter("hRegisterMe");
-			String personType = request.getParameter("hPersonType");
 			String SuccessMessage = "You have been registered. An email has been sent with password";			
 			if (isRegistering.equals("Y")){		
 					CodeDecode personCode = new CodeDecode();
@@ -90,7 +93,10 @@ public class LoginController extends MediAppBaseController  {
 				return new ModelAndView("redirect:/logon.htm",CommonWebConstants.USER_ID, person);
 			}
 		}
-		CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);
+		CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);		
+		HttpSession sessionObj = request.getSession(true);
+		sessionObj.setAttribute("menuItems", loginService.getMenuItems(personType));
+
 		return new ModelAndView("redirect:/personalProfile.htm",CommonWebConstants.USER_ID, person);
     }
 	/**

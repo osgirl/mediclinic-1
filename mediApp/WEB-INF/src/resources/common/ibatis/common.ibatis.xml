@@ -372,5 +372,12 @@
 		INSERT INTO job_inputs (idschedule_job, input_parmeter_name,input_paramenter_id ) 
 		VALUES (?,?,?)
 	</insert>
+	<parameterMap id="Menu-Item-Map"   class="java.util.HashMap">
+	    <parameter property="UserRole"    		javaType="java.lang.String"    mode="IN"/>
+	 </parameterMap>
+
+	<select id="getMenuItems" parameterMap="Menu-Item-Map" resultClass="java.util.HashMap">
+           select menu_name, menu_url from menu_to_role_mapping where role = ?;
+ 	</select>
 	
 </sqlMap>

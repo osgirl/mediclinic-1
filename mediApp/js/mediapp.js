@@ -54,7 +54,7 @@ function fn_submitLogin(){
 	
 	document.forms["logon"].submit();
 }
-function fn_nextURL(URL){
+function fn_nextURL(URL){	
 	window.location.href = URL;
 	//document.forms["logon"].submit();
 }

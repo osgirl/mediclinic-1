@@ -314,4 +314,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		
 	}
 
+	public Map getMenuItems(String userRole) throws DataAccessException{
+		Map<String,String> criteria =  new HashMap < String, String > () ;
+		criteria.put("UserRole", userRole);
+		return  getMap("common.getMenuItems", criteria,"menu_name", "menu_url");		
+	}
 }

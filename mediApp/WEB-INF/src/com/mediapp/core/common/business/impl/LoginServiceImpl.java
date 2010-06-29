@@ -1,7 +1,9 @@
 package com.mediapp.core.common.business.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,6 +83,10 @@ public class LoginServiceImpl implements LoginService {
 	
 	public List <CodeDecode> getSpecialities() {
 		return commonDAO.getCodeValue(CommonCoreConstants.SPECIALITY);
+	}
+
+	public Map getMenuItems(String userRole){		
+		return commonDAO.getMenuItems(userRole);
 	}
 
 }
