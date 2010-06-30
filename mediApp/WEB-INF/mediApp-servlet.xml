@@ -51,6 +51,16 @@
         <property name="successView"><value>pastHistory</value></property>
 	</bean>
 
+    <bean id="uploadFile" class="com.mediapp.web.controller.common.MultiPartFileUploadController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>upload</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.MultiPartFileUploadBean</value></property>
+        <property name="formView"><value>uploadFile</value></property>
+        <property name="successView"><value>uploadFile</value></property>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
 	<bean id="holidayCalendar" class="com.mediapp.web.controller.common.HolidayCalendarController">
         <property name="sessionForm"><value>true</value></property>
         <property name="commandName"><value>holidayCalendar</value></property>
@@ -198,6 +208,10 @@
 				<entry key="holidayCalendar.htm">
 					<ref bean="holidayCalendar" />
 				</entry>
+				<entry key="uploadFile.htm">
+					<ref bean="uploadFile" />
+				</entry>
+				
 			</map>
 		</property>
 	</bean>

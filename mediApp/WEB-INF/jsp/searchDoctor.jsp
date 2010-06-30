@@ -10,24 +10,7 @@
 										<tr>
 											<td>	
 												<table width=100 align="left"  border="1" class="layout" >	
-													<tr>
-														<td>
-															<input type="button"  alignment="center" value="Past History" class="gsubmit"  />
-														</td>
-													</tr>
-													<tr>
-														<td>															
-															<input type="button"  onClick="javascript:fn_nextURL('/takeAppointment.htm');" alignment="center" value="My Appointments" class="gsubmit"  />
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<input type="button"  alignment="center" value="Upload Documents" class="gsubmit"  />																																												
-														</td>
-													</tr>
-													
-														
-														
+													<menu:verticalMenuItemTag></menu:verticalMenuItemTag>
 												</table>
 
 												<div id="Search"  style="display:block" align="center">

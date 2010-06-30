@@ -28,7 +28,7 @@
 										<tr>
 											<td>	
 												<table width=100 align="left"  border="1" class="layout" >
-             <menu:verticalMenuItemTag></menu:verticalMenuItemTag>																										
+           											  <menu:verticalMenuItemTag></menu:verticalMenuItemTag>																										
 												</table>
 
 												<div id="Personal Details"  style="display:block" align="center">

@@ -275,6 +275,93 @@ function removeRowFromTable()
   if (lastRow > 2) tbl.deleteRow(lastRow - 1);
 }
 
+function fn_uploadFile(){
+	 window.name = "Parent"; 
+	 var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1500px;status:no;edge:sunken'; 
+	    var c = window.showModalDialog('/uploadFile.htm', window, WinSettings);
+}
+
+//calendar UI scripts
+function addRowToCalendar()
+{
+ 
+  var numi = document.getElementById('counter');
+  var num = (document.getElementById("counter").value - 1) + 2;
+  numi.value = num;  
+  var tbl = document.getElementById('tblSample');
+  var lastRow = tbl.rows.length;
+  // if there's no header row in the table, then iteration = lastRow + 1
+  var iteration = lastRow;
+  var row = tbl.insertRow(lastRow);
+  
+  // left cell
+  var cellLeft = row.insertCell(0);
+  var el0 = document.createElement('input');
+  el0.type = 'text';
+  el0.name = "holidays[" + (num -1 )+ "].holidayDate";
+  el0.id = "holidays[" + (num -1 )+ "].holidayDate";
+  el0.size = 9;
+//  el0.style="WIDTH: 100px";
+//  el0.innerHTML=("<script language='JavaScript'>new tcal ({'formname': 'holidayCalendar','controlname': 'holidays[0].holidayDate'});</script>");
+  cellLeft.appendChild(el0);
+
+  //add script
+  var ss = document.createElement('script');   
+  var scr = "new tcal ({ 'formname': 'holidayCalendar', 'controlname': '"+el0.name+"'});";
+  ss.text = scr;
+  var hh = document.getElementsByTagName("head")[0];
+  hh.appendChild(ss);
+  
+  // right cell
+  var cellRight = row.insertCell(1);  
+  var el = document.createElement('input');
+  el.type = 'checkbox';
+  cellRight.appendChild(el);
+  el.name = 'holidays[' + (num -1 )+'].fromTime';
+  el.id =  'holidays[' + (num -1 )+'].fromTime';
+  cellRight.appendChild(el);
+
+  
+  var cellRight = row.insertCell(2);
+  var el0 = document.createElement('input');
+  el0.type = 'text';
+  el0.name = "holidays[" + (num -1 )+ "].holidayDate";
+  el0.id = "holidays[" + (num -1 )+ "].holidayDate";
+  el0.size = 9;
+  cellRight.appendChild(el0);
+  //add script
+  var ss = document.createElement('script');   
+  var scr = "new tcal ({ 'formname': 'holidayCalendar', 'controlname': '"+el0.name+"'});";
+  ss.text = scr;
+  var hh = document.getElementsByTagName('head')[0];
+  hh.appendChild(ss);
+  
+   var cellRight = row.insertCell(3);
+  var el0 = document.createElement('input');
+  el0.type = 'text';
+  el0.name = "holidays[" + (num -1 )+ "].holidayDate";
+  el0.id = "holidays[" + (num -1 )+ "].holidayDate";
+  el0.size = 9;
+  cellRight.appendChild(el0);
+  //add script
+  var ss = document.createElement('script');   
+  var scr = "new tcal ({ 'formname': 'holidayCalendar', 'controlname': '"+el0.name+"'});";
+  ss.text = scr;
+  var hh = document.getElementsByTagName('head')[0];
+  hh.appendChild(ss);
+ 
+//end
+}
+function removeRowFromCalendar()
+{
+  var tbl = document.getElementById('tblSample');
+  var lastRow = tbl.rows.length;
+  if (lastRow > 2) tbl.deleteRow(lastRow - 1);
+}
+
+//calendar UI scripts end
+
+
 //calendar
 var dDate = new Date();
 var dCurMonth = dDate.getMonth();

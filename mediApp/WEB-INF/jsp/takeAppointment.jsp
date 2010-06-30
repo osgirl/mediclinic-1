@@ -9,27 +9,14 @@
 						<div id="entries">
 							<div class="entryAlone">
 								<form name="takeAppointment" id="takeAppointment" method="post" >
-									<table width=700  border="1" class="layout"  >	
+									<table width=900  border="1" class="layout"  >	
 										<tr>
 											<td>	
 												<table width=100 align="left"  border="1" class="layout" >	
-													<tr>
-														<td>
-															<input type="button" onClick="javascript:fn_nextURL('/personalProfile.htm');" alignment="center" value="Personal Details" class="gsubmit"    />
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<input type="button"  alignment="center" value="Past History" class="gsubmit"  />
-														</td>
-													<tr>
-														<td>
-															<input type="button"  alignment="center" value="Upload Documents" class="gsubmit"  />																																												
-														</td>
-													</tr>
+													<menu:verticalMenuItemTag></menu:verticalMenuItemTag>
 												</table>
 											<div id="dayAppointments"  style="display:block" align="center">
-												<table  border=""  class="appointment" width=450>
+												<table  border=""  class="appointment" width=680>
 													<tr>
 														<td align="center">
 															<table border="0" cellpadding="3" cellspacing="0" width="100%">																	

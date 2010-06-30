@@ -42,11 +42,10 @@ public class VerticalMenuTag  extends TagSupport {
 			          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_AFTER_ONCLICK_TAG)
 			          .append(pairs.getKey())
 			          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_AFTER_VALUE_TAG);
-			         System.out.println(pairs.getKey() + " = " + pairs.getValue()); 
+			    //     System.out.println(pairs.getKey() + " = " + pairs.getValue()); 
 			     }  
 			 //    menuItemTag = menuItemTag
 			 // .append(CommonWebConstants.MENU_TABLE_END_TAG);
-			     System.out.println("menuitem tag is "+menuItemTag);
 			     pageContext.getOut().print(menuItemTag.toString());
 			  
 	   		}catch(Exception se){

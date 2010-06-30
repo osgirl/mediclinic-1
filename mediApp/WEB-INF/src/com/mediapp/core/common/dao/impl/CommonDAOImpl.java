@@ -258,7 +258,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 						criteria);
 			} 
 			int insertCount = this.getSqlMapClient().executeBatch();
-			System.out.println("count "+insertCount);
+			//System.out.println("count "+insertCount);
 			this.getSqlMapClient().startBatch(); 
 			for (int i = 0; i < appointment.getDiagnosis().size(); i++) {
 				criteria =  new HashMap < String, Object > () ;

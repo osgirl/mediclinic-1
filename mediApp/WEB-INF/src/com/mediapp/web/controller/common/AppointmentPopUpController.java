@@ -62,7 +62,7 @@ public class AppointmentPopUpController extends MediAppBaseController  {
 	//	Person person = loginService.authenticate((Person)command);
 		String codeCategory =  (String) request.getParameter(CommonWebConstants.CODE_CATEGORY);
 		String code =  (String) request.getParameter(CommonWebConstants.CODE_QUERY);
-		System.out.println("code is "+ request.getParameter("codeCategory"));
+		//System.out.println("code is "+ request.getParameter("codeCategory"));
 		List <CodeDecode> codes = commonService.getAutoComplete(codeCategory, code);
 		try{
 			response.flushBuffer();
