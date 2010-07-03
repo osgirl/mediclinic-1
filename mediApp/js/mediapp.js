@@ -281,6 +281,105 @@ function fn_uploadFile(){
 	    var c = window.showModalDialog('/uploadFile.htm', window, WinSettings);
 }
 
+//new script
+function fn_addRowForWorkHours()
+{
+
+  if ((document.getElementById('sundayWorking').checked ==true || 
+		  document.getElementById('mondayWorking').checked ==true || 
+		  document.getElementById('tuesdayWorking').checked ==true ||
+		  document.getElementById('wednesdayWorking').checked ==true ||
+		  document.getElementById('thursdayWorking').checked ==true ||
+		  document.getElementById('fridayWorking').checked ==true ||
+		  document.getElementById('saturdayWorking').checked ==true) &&
+		  document.getElementById('startTime').value !="" &&
+		  document.getElementById('endTime').value != "" )
+	{
+	  var numi = document.getElementById('counter');
+	  var num = (document.getElementById("counter").value - 1) + 2;
+	  numi.value = num;  
+	  var tbl = document.getElementById('tblWorkHours');
+	  var lastRow = tbl.rows.length;
+	  // if there's no header row in the table, then iteration = lastRow + 1
+	  var iteration = lastRow;
+	  var row = tbl.insertRow(lastRow);
+	  var cellLeft = row.insertCell(0);
+	  var el0 = document.createElement('input');
+	  el0.type = 'text';
+	  el0.name = "doctorWorkTiming[" + (num -1 )+ "].workDay";
+	  el0.id = "doctorWorkTiming[" + (num -1 )+ "].workDay";
+	  el0.size = 10;
+	  cellLeft.appendChild(el0);
+	  document.getElementById(el0.id).readonly = true;
+	  if(document.getElementById('sundayWorking').checked ==true ){
+		  document.getElementById(el0.id).value= "Sunday"; 
+	  }
+	  if(document.getElementById('mondayWorking').checked ==true ){
+		  document.getElementById(el0.id).value= "Monday"; 
+	  }
+	  if(document.getElementById('tuesdayWorking').checked ==true ){
+		  document.getElementById(el0.id).value= "Tuesday"; 
+	  }
+	  if(document.getElementById('wednesdayWorking').checked ==true ){
+		  document.getElementById(el0.id).value= "Wednesday"; 
+	  }
+	  if(document.getElementById('thursdayWorking').checked ==true ){
+		  document.getElementById(el0.id).value= "Thursday"; 
+	  }
+	  if(document.getElementById('fridayWorking').checked ==true ){
+		  document.getElementById(el0.id).value= "Friday"; 
+	  }
+	  if(document.getElementById('saturdayWorking').checked ==true ){
+		  document.getElementById(el0.id).value= "Saturday"; 
+	  }
+
+	  
+	  var cellLeft = row.insertCell(1);
+	  var el0 = document.createElement('input');
+	  el0.type = 'text';
+	  el0.name = "doctorWorkTiming[" + (num -1 )+ "].workDay";
+	  el0.id = "doctorWorkTiming[" + (num -1 )+ "].workDay";
+	  el0.size = 10;
+	  cellLeft.appendChild(el0);
+	  document.getElementById(el0.id).readonly = true;
+	  document.getElementById(el0.id).value= document.getElementById("startTime").value;
+		  
+	  var cellLeft = row.insertCell(2);
+	  var el0 = document.createElement('input');
+	  el0.type = 'text';
+	  el0.name = "doctorWorkTiming[" + (num -1 )+ "].workDay";
+	  el0.id = "doctorWorkTiming[" + (num -1 )+ "].workDay";
+	  el0.size = 10;
+	  cellLeft.appendChild(el0);
+	  document.getElementById(el0.id).readonly = true;
+	  document.getElementById(el0.id).value= document.getElementById("endTime").value;	  
+		//alert(document.all.sundayWorking.checked);
+	 show("tblWorkHours");
+  	}else{
+	  if(document.getElementById('sundayWorking').checked ==false & 
+			  document.getElementById('mondayWorking').checked ==false & 
+			  document.getElementById('tuesdayWorking').checked ==false &
+			  document.getElementById('wednesdayWorking').checked ==false &
+			  document.getElementById('thursdayWorking').checked ==false &
+			  document.getElementById('fridayWorking').checked ==false &
+			  document.getElementById('saturdayWorking').checked ==false ){
+		  alert("Please select day.");
+	  }
+	  if(document.getElementById('startTime').value == ""){
+		  alert("Please enter start time.");
+	  }
+	  if(document.getElementById('endTime').value == ""){
+		  alert("Please enter end time.");
+	  }
+
+	  
+  	}
+}
+
+//end new script
+
+
+
 //calendar UI scripts
 function addRowToCalendar()
 {

@@ -1,6 +1,11 @@
 package com.mediapp.domain.common;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.collections.FactoryUtils;
+import org.apache.commons.collections.list.LazyList;
 
 
 
@@ -44,7 +49,17 @@ public class Person extends MediAppBaseDomain{
     
     private String accountStatus;
     
-    private Address address;
+    private Address address = new Address();
+    
+    private String registrationNumber;
+    
+    private String specialization;
+    
+
+	private List<DoctorWorkTimings> doctorWorkTiming = LazyList.decorate(
+				new ArrayList < DoctorWorkTimings > (),
+			FactoryUtils.instantiateFactory(DoctorWorkTimings.class)); 
+    
 
 	public String getLandlinePhoneNumber() {
 		return landlinePhoneNumber;
@@ -192,5 +207,31 @@ public class Person extends MediAppBaseDomain{
 	public void setEmailID(String emailID) {
 		this.emailID = emailID;
 	}
-    
+ 
+	public List<DoctorWorkTimings> getDoctorWorkTiming() {
+		return doctorWorkTiming;
+	}
+
+	public void setDoctorWorkTiming(List<DoctorWorkTimings> doctorWorkTiming) {
+		this.doctorWorkTiming = doctorWorkTiming;
+	}
+
+    public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
+
+	public String getSpecialization() {
+		return specialization;
+	}
+
+	public void setSpecialization(String specialization) {
+		this.specialization = specialization;
+	}
+
+	
+	
 }

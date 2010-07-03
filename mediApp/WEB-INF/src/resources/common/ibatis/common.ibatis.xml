@@ -240,17 +240,23 @@
 	 	<result property="address.city" column="city" />
 	 	<result property="address.state" column="state" />
 	 	<result property="address.country" column="country"/>
+	 	<result property="address.registrationNumber" column="registration_id"/>
+	 	<result property="address.specialization" column="specialization"/>
 	 </resultMap>
 
 	<select id="getPersonalProfile" parameterMap="Personal-Details-Map" resultMap="Personal-Details-Result-Map">
             SELECT person.idPerson,first_name,last_name,middle_name,
            date_of_birth, Gender, landline_phone_number, mobile_phone_number,
            email_address, status_of_account, person_type, 
-           address1, address2, locality, city, state, country
-           FROM person left join address on address.personID = person.idPerson
+           address1, address2, locality, city, state, country,registration_id,specialization
+           FROM person 
+           left join address 
+           on address.personID = person.idPerson
+           left join doctor_details
+           on person.idPerson = doctor_details.idPerson
            where 
-		   idPerson=?;		   
- 	</select>
+		   person.idPerson=?;
+	</select>
 	
 	<resultMap class="com.mediapp.domain.common.AppointmentTO" id="Get-Appointment-Result-Map">
 		<result property="appointmentID" 				column="idAppointment_history"/>

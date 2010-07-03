@@ -78,24 +78,24 @@ public class PersonalProfileController extends MediAppBaseController  {
 
 	protected void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
 		Person logon = (Person) command;
-		String address1 = request.getParameter("address1");
-		String address2 = request.getParameter("address2");	
-		String locality = request.getParameter("locality");	
-		String city = request.getParameter("city");	
-		String state = request.getParameter("state");	
-		String country = request.getParameter("country");
-		String birthDate = request.getParameter("dateOOfBirth");
-		if(null != birthDate && "" != birthDate) {
-			SimpleDateFormat formatDate = new SimpleDateFormat("MM/dd/yyyy");
-			logon.setDateOfBirth(formatDate.parse(birthDate));
-		}
-		logon.setAddress(new Address());
-		logon.getAddress().setAddress1(address1);
-		logon.getAddress().setAddress2(address2);
-		logon.getAddress().setLocality(locality);
-		logon.getAddress().setCity(city);
-		logon.getAddress().setState(state);
-		logon.getAddress().setCountry(country);
+	//	String address1 = request.getParameter("address1");
+	//	String address2 = request.getParameter("address2");	
+	//	String locality = request.getParameter("locality");	
+	//	String city = request.getParameter("city");	
+	//	String state = request.getParameter("state");	
+	//	String country = request.getParameter("country");
+	//	String birthDate = request.getParameter("dateOOfBirth");
+	//	if(null != birthDate && "" != birthDate) {
+	//		SimpleDateFormat formatDate = new SimpleDateFormat("MM/dd/yyyy");
+	//		logon.setDateOfBirth(formatDate.parse(birthDate));
+	//	}
+	//	logon.setAddress(new Address());
+	//	logon.getAddress().setAddress1(address1);
+	//	logon.getAddress().setAddress2(address2);
+	//	logon.getAddress().setLocality(locality);
+	//	logon.getAddress().setCity(city);
+	//	logon.getAddress().setState(state);
+	//	logon.getAddress().setCountry(country);
 	}
 
 /*	public void initFormatters(DataBinder binder) {
