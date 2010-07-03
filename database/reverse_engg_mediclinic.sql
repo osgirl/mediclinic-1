@@ -2,9 +2,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-DROP SCHEMA IF EXISTS `mydb` ;
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
-DROP SCHEMA IF EXISTS `mediapp` ;
 CREATE SCHEMA IF NOT EXISTS `mediapp` DEFAULT CHARACTER SET latin1 ;
 
 -- -----------------------------------------------------
@@ -30,7 +28,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`person` (
   PRIMARY KEY (`idPerson`) ,
   UNIQUE INDEX `email_Address_UNIQUE` (`email_Address` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 16
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -74,13 +72,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`diagnosis` (
   `Lnotes` VARCHAR(4500) NULL DEFAULT NULL ,
   `diagnosis` VARCHAR(4500) NULL DEFAULT NULL ,
   `allergy` VARCHAR(100) NULL DEFAULT NULL ,
-  PRIMARY KEY (`idDiagnosis`) ,
-  INDEX `idAppointment` (`idAppointment` ASC) ,
-  CONSTRAINT `idAppointment`
-    FOREIGN KEY (`idAppointment` )
-    REFERENCES `mediapp`.`appointment_history` (`idAppointment_History` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`idDiagnosis`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -131,7 +123,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`appointment_history` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 35
+AUTO_INCREMENT = 36
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -181,6 +173,28 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = latin1
 COMMENT = '\'doctor detail';
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`doctor_work_timings`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`doctor_work_timings` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`doctor_work_timings` (
+  `iddoctor_work_timings` INT(11) NOT NULL ,
+  `work_day` VARCHAR(45) NULL DEFAULT NULL ,
+  `start_time` TIME NULL DEFAULT NULL ,
+  `end_time` TIME NULL DEFAULT NULL ,
+  `doctor_id` INT(11) NULL DEFAULT NULL ,
+  PRIMARY KEY (`iddoctor_work_timings`) ,
+  INDEX `fk_doctor_id` (`doctor_id` ASC) ,
+  CONSTRAINT `fk_doctor_id`
+    FOREIGN KEY (`doctor_id` )
+    REFERENCES `mediapp`.`doctor_details` (`idDoctor_details` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
@@ -234,6 +248,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`schedule_job` (
   `comments` VARCHAR(4500) NULL DEFAULT NULL ,
   PRIMARY KEY (`idschedule_job`) )
 ENGINE = InnoDB
+AUTO_INCREMENT = 27
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -243,7 +258,7 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `mediapp`.`job_inputs` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`job_inputs` (
-  `idjob_inputs` INT(11) NOT NULL ,
+  `idjob_inputs` INT(11) NOT NULL AUTO_INCREMENT ,
   `idschedule_job` INT(11) NULL DEFAULT NULL ,
   `input_parmeter_name` VARCHAR(100) NULL DEFAULT NULL ,
   `input_paramenter_id` VARCHAR(100) NULL DEFAULT NULL ,
@@ -255,6 +270,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`job_inputs` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 13
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -286,6 +302,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`menu_to_role_mapping` (
   `role` VARCHAR(100) NULL DEFAULT NULL ,
   PRIMARY KEY (`idmenu_to_role_mapping`) )
 ENGINE = InnoDB
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -380,18 +397,20 @@ DROP TABLE IF EXISTS `mediapp`.`tests` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`tests` (
   `idTests` INT(11) NOT NULL AUTO_INCREMENT ,
-  `suggested_Test` INT(11) NULL DEFAULT NULL ,
+  `suggested_Test` VARCHAR(1000) NULL DEFAULT NULL ,
   `test_Result_Value` VARCHAR(45) NULL DEFAULT NULL ,
   `test_Result_Unit` VARCHAR(45) NULL DEFAULT NULL ,
   `fDiagnosis` INT(11) NULL DEFAULT NULL ,
   PRIMARY KEY (`idTests`) ,
   INDEX `fDiagnosis` (`fDiagnosis` ASC) ,
-  CONSTRAINT `fDiagnosis`
-    FOREIGN KEY (`fDiagnosis` )
-    REFERENCES `mediapp`.`diagnosis` (`idDiagnosis` )
+  INDEX `fk_diagnosis` () ,
+  CONSTRAINT `fk_diagnosis`
+    FOREIGN KEY ()
+    REFERENCES `mediapp`.`diagnosis` ()
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = latin1;
 
 
