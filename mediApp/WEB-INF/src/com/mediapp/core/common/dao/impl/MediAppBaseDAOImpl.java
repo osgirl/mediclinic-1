@@ -92,8 +92,8 @@ public class MediAppBaseDAOImpl extends SqlMapClientDaoSupport{
 		return obj;
 	}
 	
-	public Object updateObject(String operationName, Object criteria) {
-		Object obj = null;
+	public int updateObject(String operationName, Object criteria) {
+		int obj ;
 		try {
 			
 			obj = getSqlMapClient().update(operationName,
@@ -140,4 +140,23 @@ public class MediAppBaseDAOImpl extends SqlMapClientDaoSupport{
 		return obj;
 	}
 
+	public boolean deleteObject(String operationName, Object deleteObject) {
+		Object obj = null;
+		try {
+			
+			obj = getSqlMapClient().delete(operationName,
+					deleteObject);
+			if (logger.isDebugEnabled())
+				logger.debug((new StringBuilder()).append("Object deleted [")
+						.append(obj).append("]").toString());
+		} catch (SQLException se) {
+			org.springframework.dao.DataAccessException dae = super
+					.getSqlMapClientTemplate().getExceptionTranslator()
+					.translate("DeleteObject", operationName, se);
+			throw dae;
+		}
+		boolean success=true;
+		return success;
+	}
+	
 }

@@ -27,6 +27,7 @@ import com.mediapp.core.common.business.LoginService;
 import com.mediapp.core.common.business.impl.ScheduleEMail;
 import com.mediapp.domain.common.Address;
 import com.mediapp.domain.common.Person;
+import com.mediapp.web.common.CustomTimeEditor;
 import com.mediapp.web.constants.common.CommonWebConstants;
 import com.mediapp.web.util.common.CommonWebUtil;
 
@@ -75,7 +76,17 @@ public class PersonalProfileController extends MediAppBaseController  {
 		return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
 	}
 		
+	protected void initBinder(HttpServletRequest request,
+			ServletRequestDataBinder binder) throws Exception {
+			 String dateFormat = getMessageSourceAccessor().getMessage("format.date",
+		     "MM/dd/yyyy");
+			 SimpleDateFormat df = new SimpleDateFormat(dateFormat);
+			 df.setLenient(true);
+			 binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(
+		     df, true));
 
+		}
+	
 	protected void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
 		Person logon = (Person) command;
 	//	String address1 = request.getParameter("address1");

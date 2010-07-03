@@ -67,11 +67,19 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	public boolean addNewMember(Person person) throws DataAccessException {
 			person.setPersonTypeString(person.getPersonType().getCodeDecode());
 			person.setPassword("mediApp");			
-			insertObject("common.insertNewPerson",person );
-			person.setUsername(person.getEmailID());
-			Person personNew = getPersonDetails(person);
-			person.setIdPerson(personNew.getIdPerson());
-			return true;
+			boolean insertStatus = false;
+			insertStatus=insertObject("common.insertNewPerson",person );
+			if (insertStatus){
+				if (person.getPersonTypeString() == CommonCoreConstants.DOCTOR){
+					insertStatus= insertObject("common.insertDoctor",person );
+				}else{
+					insertStatus=insertObject("common.insertPatient",person );
+				}
+				person.setUsername(person.getEmailID());
+				Person personNew = getPersonDetails(person);
+				person.setIdPerson(personNew.getIdPerson());
+			}
+			return insertStatus;
 	}
 	
 	public int getMaxPersonId() throws DataAccessException {
@@ -79,13 +87,21 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	}
 	
 	public boolean updateProfile(Person person)throws DataAccessException{
- 		updateObject("common.updateProfile", person);
-		return true;
+ 		int count = updateObject("common.updateProfile", person);
+ 		boolean flag=false;
+ 		if (count > 0){
+ 			flag = true;
+ 		}
+		return flag;
 	}
 	
 	public boolean insertAddress(Person person)throws DataAccessException{
-		updateObject("common.insertAddress", person);
-		return true;
+		int count=updateObject("common.insertAddress", person);
+ 		boolean flag=false;
+ 		if (count > 0){
+ 			flag = true;
+ 		}
+		return flag;
 	}
 
 	public List <CodeDecode> getCodeValue(String codeCategory) throws DataAccessException {
@@ -319,4 +335,10 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		criteria.put("UserRole", userRole);
 		return  getMap("common.getMenuItems", criteria,"menu_name", "menu_url");		
 	}
+
+	public boolean deleteAddress(Person person)throws DataAccessException{
+		//boolean flag=deleteObject("common.deleteAddress", person);
+		return deleteObject("common.deleteAddress", person);
+	}
+
 }

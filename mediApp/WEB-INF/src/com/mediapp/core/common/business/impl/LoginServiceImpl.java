@@ -65,8 +65,15 @@ public class LoginServiceImpl implements LoginService {
 
 	public boolean updateProfile(Person person) {	
 		boolean updateSuccess = false;
-		if (commonDAO.updateProfile(person) && commonDAO.insertAddress(person)){
-			updateSuccess = true;
+		boolean successFlag = commonDAO.updateProfile(person);
+		if (successFlag  ){
+			successFlag = commonDAO.deleteAddress(person);
+			if (successFlag){
+				 successFlag = commonDAO.insertAddress(person);			 
+				 if (successFlag){
+						updateSuccess = true;
+				 }
+			}
 		}
 		return updateSuccess;
 	}
