@@ -90,6 +90,31 @@
               <spring:bind path="person.idPerson">
                <input type="hidden" name="${status.expression}" value="${person.idPerson}"/>
               </spring:bind>
+              <spring:bind path="person.doctorDetails.idDoctor">
+               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.idDoctor}"/>
+              </spring:bind>
+              <spring:bind path="person.doctorDetails.mondayWorking">
+               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.mondayWorking}"/>
+              </spring:bind>
+              <spring:bind path="person.doctorDetails.tuesdayWorking">
+               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.tuesdayWorking}"/>
+              </spring:bind>
+              <spring:bind path="person.doctorDetails.wednesdayWorking">
+               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.wednesdayWorking}"/>
+              </spring:bind>
+              <spring:bind path="person.doctorDetails.thursdayWorking">
+               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.thursdayWorking}"/>
+              </spring:bind>
+              <spring:bind path="person.doctorDetails.fridayWorking">
+               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.fridayWorking}"/>
+              </spring:bind>
+              <spring:bind path="person.doctorDetails.saturdayWorking">
+               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.saturdayWorking}"/>
+              </spring:bind>
+              <spring:bind path="person.doctorDetails.sundayWorking">
+               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.sundayWorking}"/>
+              </spring:bind>
+
              </tr>
              <tr>
               <td>Address 1:</td>
@@ -180,7 +205,7 @@
                 	<input type="text" name="${status.expression}" id="${status.expression}"  value="${person.specialization}" style="WIDTH: 300px"/>
                 	</spring:bind>  
                 <script type="text/javascript">
-                 new Autocomplete('speciality', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALITY');
+                 new Autocomplete('specialization', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALITY');
                 </script>
                </td>
               </tr>
@@ -193,13 +218,13 @@
 	                <tr>
 		                <td>
 			                <div style="overflow:auto;width:150px;height:150px;border:1px solid #336699;padding-left:5px;background-color:white;">
-			                 <input type="checkbox" name="sundayWorking" id="sundayWorking" value="Y" onclick="javascript:fn_addDate();">Sunday</input><br>
-			                 <input type="checkbox" name="mondayWorking" id="mondayWorking" value="Y" onclick="javascript:fn_addDate();">Monday</input><br>
-			                 <input type="checkbox" name="tuesdayWorking" id="tuesdayWorking" value="Y" onclick="javascript:fn_addDate();">Tuesday</input><br>
-			                 <input type="checkbox" name="wednesdayWorking" id="wednesdayWorking" value="Y" onclick="javascript:fn_addDate();">Wednesday<br>
-			                 <input type="checkbox" name="thursdayWorking" id="thursdayWorking" value="Y" onclick="javascript:fn_addDate();">Thursday</input><br>
-			                 <input type="checkbox" name="fridayWorking" id="fridayWorking" value="Y" onclick="javascript:fn_addDate();">Friday</input><br> 
-			                 <input type="checkbox" name="saturdayWorking" id="saturdayWorking" value="Y" onclick="javascript:fn_addDate();">Saturday</input><br>
+			                 <input type="checkbox" name="sundayWorking" id="sundayWorking" value="Y" >Sunday</input><br>
+			                 <input type="checkbox" name="mondayWorking" id="mondayWorking" value="Y" >Monday</input><br>
+			                 <input type="checkbox" name="tuesdayWorking" id="tuesdayWorking" value="Y" >Tuesday</input><br>
+			                 <input type="checkbox" name="wednesdayWorking" id="wednesdayWorking" value="Y" >Wednesday<br>
+			                 <input type="checkbox" name="thursdayWorking" id="thursdayWorking" value="Y" >Thursday</input><br>
+			                 <input type="checkbox" name="fridayWorking" id="fridayWorking" value="Y" >Friday</input><br> 
+			                 <input type="checkbox" name="saturdayWorking" id="saturdayWorking" value="Y" >Saturday</input><br>
 			                </div>
 		                </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		                <td>Start Time:<font color="red" >*</font></td>
@@ -213,7 +238,7 @@
 	                </tr>
 	                <tr>
 	                	<td align="center" colspan="2">
-	                  		<input id="addWorkHours" name ="addWorkHours" type="submit"  onclick="javascript:fn_addRowForWorkHours();" alignment="center" value="Add" class="bsubmit"  width="75"/>
+	                  		<input id="addWorkHours" name ="addWorkHours" type="button"  onclick="javascript:fn_addRowForWorkHours();" alignment="center" value="Add" class="bsubmit"  width="75"/>
 	                 	</td>
 	                </tr>
                </table>

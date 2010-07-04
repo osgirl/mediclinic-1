@@ -10,7 +10,7 @@ public class Doctor extends MediAppBaseDomain {
 	
 	private int idDoctor;
 	
-	private String specilization;
+	private String specialization;
 	
 	private String workStartTime;
 	
@@ -30,6 +30,9 @@ public class Doctor extends MediAppBaseDomain {
 	
 	private char sundayWorking;
 
+	private String registrationNumber;
+	
+
 	public int getIdPerson() {
 		return idPerson;
 	}
@@ -46,12 +49,12 @@ public class Doctor extends MediAppBaseDomain {
 		this.idDoctor = idDoctor;
 	}
 
-	public String getSpecilization() {
-		return specilization;
+	public String getSpecialization() {
+		return specialization;
 	}
 
-	public void setSpecilization(String specilization) {
-		this.specilization = specilization;
+	public void setSpecialization(String specialization) {
+		this.specialization = specialization;
 	}
 
 	public String getWorkStartTime() {
@@ -125,5 +128,15 @@ public class Doctor extends MediAppBaseDomain {
 	public void setSundayWorking(char sundayWorking) {
 		this.sundayWorking = sundayWorking;
 	}
+
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
+
+
 }
 

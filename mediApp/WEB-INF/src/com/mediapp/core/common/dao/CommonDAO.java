@@ -56,4 +56,8 @@ public interface CommonDAO {
 	public Map getMenuItems(String userRole) throws DataAccessException;
 	
 	public boolean deleteAddress(Person person)throws DataAccessException;
+	
+	public boolean updateDoctorDetails(Person person)throws DataAccessException;
+	
+	public boolean insertDoctorWorkTimings(Person person)throws DataAccessException;
 }

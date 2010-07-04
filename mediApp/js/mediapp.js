@@ -295,66 +295,27 @@ function fn_addRowForWorkHours()
 		  document.getElementById('startTime').value !="" &&
 		  document.getElementById('endTime').value != "" )
 	{
-	  var numi = document.getElementById('counter');
-	  var num = (document.getElementById("counter").value - 1) + 2;
-	  numi.value = num;  
-	  var tbl = document.getElementById('tblWorkHours');
-	  var lastRow = tbl.rows.length;
-	  // if there's no header row in the table, then iteration = lastRow + 1
-	  var iteration = lastRow;
-	  var row = tbl.insertRow(lastRow);
-	  var cellLeft = row.insertCell(0);
-	  var el0 = document.createElement('input');
-	  el0.type = 'text';
-	  el0.name = "doctorWorkTiming[" + (num -1 )+ "].workDay";
-	  el0.id = "doctorWorkTiming[" + (num -1 )+ "].workDay";
-	  el0.size = 10;
-	  cellLeft.appendChild(el0);
-	  document.getElementById(el0.id).readonly = true;
 	  if(document.getElementById('sundayWorking').checked ==true ){
-		  document.getElementById(el0.id).value= "Sunday"; 
+		  fn_addRowForTime("Sunday"); 
 	  }
 	  if(document.getElementById('mondayWorking').checked ==true ){
-		  document.getElementById(el0.id).value= "Monday"; 
+		  fn_addRowForTime("Monday"); 
 	  }
 	  if(document.getElementById('tuesdayWorking').checked ==true ){
-		  document.getElementById(el0.id).value= "Tuesday"; 
+		  fn_addRowForTime("Tuesday"); 
 	  }
 	  if(document.getElementById('wednesdayWorking').checked ==true ){
-		  document.getElementById(el0.id).value= "Wednesday"; 
+		  fn_addRowForTime("Wednesday"); 
 	  }
 	  if(document.getElementById('thursdayWorking').checked ==true ){
-		  document.getElementById(el0.id).value= "Thursday"; 
+		  fn_addRowForTime("Thursday"); 
 	  }
 	  if(document.getElementById('fridayWorking').checked ==true ){
-		  document.getElementById(el0.id).value= "Friday"; 
+		  fn_addRowForTime("Friday"); 
 	  }
 	  if(document.getElementById('saturdayWorking').checked ==true ){
-		  document.getElementById(el0.id).value= "Saturday"; 
-	  }
-
-	  
-	  var cellLeft = row.insertCell(1);
-	  var el0 = document.createElement('input');
-	  el0.type = 'text';
-	  el0.name = "doctorWorkTiming[" + (num -1 )+ "].workDay";
-	  el0.id = "doctorWorkTiming[" + (num -1 )+ "].workDay";
-	  el0.size = 10;
-	  cellLeft.appendChild(el0);
-	  document.getElementById(el0.id).readonly = true;
-	  document.getElementById(el0.id).value= document.getElementById("startTime").value;
-		  
-	  var cellLeft = row.insertCell(2);
-	  var el0 = document.createElement('input');
-	  el0.type = 'text';
-	  el0.name = "doctorWorkTiming[" + (num -1 )+ "].workDay";
-	  el0.id = "doctorWorkTiming[" + (num -1 )+ "].workDay";
-	  el0.size = 10;
-	  cellLeft.appendChild(el0);
-	  document.getElementById(el0.id).readonly = true;
-	  document.getElementById(el0.id).value= document.getElementById("endTime").value;	  
-		//alert(document.all.sundayWorking.checked);
-	 show("tblWorkHours");
+		  fn_addRowForTime("Saturday"); 
+	  }	  
   	}else{
 	  if(document.getElementById('sundayWorking').checked ==false & 
 			  document.getElementById('mondayWorking').checked ==false & 
@@ -374,6 +335,48 @@ function fn_addRowForWorkHours()
 
 	  
   	}
+}
+
+function fn_addRowForTime(dayName){
+	  var numi = document.getElementById('counter');
+	  var num = (document.getElementById("counter").value - 1) + 2;
+	  numi.value = num;  
+	  var tbl = document.getElementById('tblWorkHours');
+	  var lastRow = tbl.rows.length;
+	  // if there's no header row in the table, then iteration = lastRow + 1
+	  var iteration = lastRow;
+	  var row = tbl.insertRow(lastRow);
+	  var cellLeft = row.insertCell(0);
+	  var el0 = document.createElement('input');
+	  el0.type = 'text';
+	  el0.name = "doctorWorkTiming[" + (num -1 )+ "].workDayName";
+	  el0.id = "doctorWorkTiming[" + (num -1 )+ "].workDayName";
+	  el0.size = 10;
+	  cellLeft.appendChild(el0);
+	  document.getElementById(el0.id).readonly = true;
+	  document.getElementById(el0.id).value= dayName; 
+	  
+	  var cellLeft = row.insertCell(1);
+	  var el0 = document.createElement('input');
+	  el0.type = 'text';
+	  el0.name = "doctorWorkTiming[" + (num -1 )+ "].startTime";
+	  el0.id = "doctorWorkTiming[" + (num -1 )+ "].startTime";
+	  el0.size = 10;
+	  cellLeft.appendChild(el0);
+	  document.getElementById(el0.id).readonly = true;
+	  document.getElementById(el0.id).value= document.getElementById("startTime").value;
+		  
+	  var cellLeft = row.insertCell(2);
+	  var el0 = document.createElement('input');
+	  el0.type = 'text';
+	  el0.name = "doctorWorkTiming[" + (num -1 )+ "].endTime";
+	  el0.id = "doctorWorkTiming[" + (num -1 )+ "].endTime";
+	  el0.size = 10;
+	  cellLeft.appendChild(el0);
+	  document.getElementById(el0.id).readonly = true;
+	  document.getElementById(el0.id).value= document.getElementById("endTime").value;	  
+		//alert(document.all.sundayWorking.checked);
+	 show("tblWorkHours");
 }
 
 //end new script

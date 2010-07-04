@@ -51,10 +51,7 @@ public class Person extends MediAppBaseDomain{
     
     private Address address = new Address();
     
-    private String registrationNumber;
-    
-    private String specialization;
-    
+    private Doctor doctorDetails = new Doctor();
 
 	private List<DoctorWorkTimings> doctorWorkTiming = LazyList.decorate(
 				new ArrayList < DoctorWorkTimings > (),
@@ -216,20 +213,12 @@ public class Person extends MediAppBaseDomain{
 		this.doctorWorkTiming = doctorWorkTiming;
 	}
 
-    public String getRegistrationNumber() {
-		return registrationNumber;
+	public Doctor getDoctorDetails() {
+		return doctorDetails;
 	}
 
-	public void setRegistrationNumber(String registrationNumber) {
-		this.registrationNumber = registrationNumber;
-	}
-
-	public String getSpecialization() {
-		return specialization;
-	}
-
-	public void setSpecialization(String specialization) {
-		this.specialization = specialization;
+	public void setDoctorDetails(Doctor doctorDetails) {
+		this.doctorDetails = doctorDetails;
 	}
 
 	

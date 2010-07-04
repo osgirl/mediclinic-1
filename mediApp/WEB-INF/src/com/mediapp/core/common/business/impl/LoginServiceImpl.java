@@ -71,7 +71,15 @@ public class LoginServiceImpl implements LoginService {
 			if (successFlag){
 				 successFlag = commonDAO.insertAddress(person);			 
 				 if (successFlag){
+					 if(person.getPersonTypeString().equals(CommonCoreConstants.DOCTOR)){
+						 successFlag = commonDAO.updateDoctorDetails(person);
+						 if (successFlag){
+							 successFlag = commonDAO.insertDoctorWorkTimings(person);
+						 }
+					 }
+					 if (successFlag){
 						updateSuccess = true;
+					 }
 				 }
 			}
 		}

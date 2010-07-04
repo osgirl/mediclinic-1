@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.text.DefaultEditorKit.InsertContentAction;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -341,4 +343,46 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return deleteObject("common.deleteAddress", person);
 	}
 
+	public boolean updateDoctorDetails(Person person)throws DataAccessException{
+ 		int count = updateObject("common.updateDoctorDetails", person);
+ 		boolean flag=false;
+ 		if (count > 0){
+ 			flag = true;
+ 		}
+		return flag;
+		
+	}
+	
+	public boolean insertDoctorWorkTimings(Person person)throws DataAccessException{
+		boolean successFlag = false;
+		int insertCount;
+		try { 
+			Map<String,Object> criteria =  new HashMap < String, Object > () ;
+			Integer doctorID = person.getDoctorDetails().getIdDoctor();
+			
+			this.getSqlMapClient().startBatch(); 
+			for (int i = 0; i < person.getDoctorWorkTiming().size(); i++) { 
+				criteria =  new HashMap < String, Object > () ;
+				String workDayName = person.getDoctorWorkTiming().get(i).getWorkDayName();
+				criteria.put("WorkDay",workDayName);
+				Date startTime = person.getDoctorWorkTiming().get(i).getStartTime();				
+				criteria.put("StartTime", startTime);
+				Date endTime = person.getDoctorWorkTiming().get(i).getEndTime();
+				criteria.put("EndTime", endTime);
+				criteria.put("DoctorID", doctorID);				
+				getSqlMapClient().insert("common.insertDoctorWorkTimings",
+						criteria);
+			} 
+			insertCount = this.getSqlMapClient().executeBatch();
+		}catch (SQLException e) { 
+			throw new DataIntegrityViolationException(e.getMessage()); 
+		} 
+		if (person.getDoctorWorkTiming().size() == insertCount){
+			successFlag = true;
+		}
+		return successFlag;
+		
+	}
+
+	
 }

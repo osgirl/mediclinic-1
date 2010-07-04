@@ -240,15 +240,16 @@
 	 	<result property="address.city" column="city" />
 	 	<result property="address.state" column="state" />
 	 	<result property="address.country" column="country"/>
-	 	<result property="registrationNumber" column="registration_id"/>
-	 	<result property="specialization" column="specialization"/>
+	 	<result property="doctorDetails.registrationNumber" column="registration_id"/>
+	 	<result property="doctorDetails.specialization" column="specialization"/>
+	 	<result property="doctorDetails.idDoctor" column="idDoctor_details"/>
 	 </resultMap>
 
 	<select id="getPersonalProfile" parameterMap="Personal-Details-Map" resultMap="Personal-Details-Result-Map">
             SELECT person.idPerson,first_name,last_name,middle_name,
            date_of_birth, Gender, landline_phone_number, mobile_phone_number,
            email_address, status_of_account, person_type, 
-           address1, address2, locality, city, state, country,registration_id,specialization
+           address1, address2, locality, city, state, country,registration_id,specialization,idDoctor_details
            FROM person 
            left join address 
            on address.personID = person.idPerson
@@ -400,6 +401,26 @@
 			(#idPerson#);
 	</insert>
 	
+	<update id="updateDoctorDetails" >
+		UPDATE doctor_details set specialization=#doctorDetails.specialization#,registration_id=#doctorDetails.registrationNumber#,
+		monday_working=#doctorDetails.mondayWorking#,tuesday_working=#doctorDetails.tuesdayWorking#,
+		wednesday_working=#doctorDetails.wednesdayWorking#,thursday_working=#doctorDetails.thursdayWorking#,
+		friday_working=#doctorDetails.fridayWorking#,saturday_working=#doctorDetails.saturdayWorking#,
+		sunday_working=#doctorDetails.sundayWorking#
+		where idPerson = #idPerson#;	
+	</update>
+
+	 <parameterMap id="Insert-DoctorWorkTimings-Parm-Map"   class="java.util.HashMap">
+	    <parameter property="WorkDay"   			javaType="java.lang.String"   	mode="IN"/>
+	    <parameter property="StartTime" 			javaType="java.util.Date"    	mode="IN"/>
+		<parameter property="EndTime"   			javaType="java.util.Date"   	mode="IN"/>	    
+		<parameter property="DoctorID"   			javaType="java.lang.Integer"   	mode="IN"/>			    
+	 </parameterMap>
+
+	<insert id="insertDoctorWorkTimings" >
+			insert into doctor_work_timings (work_day,start_time,end_time,doctor_id) values
+			(?,?,?,?);
+	</insert>
 
 	
 </sqlMap>
