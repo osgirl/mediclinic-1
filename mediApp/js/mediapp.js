@@ -354,7 +354,10 @@ function fn_addRowForTime(dayName){
 	  el0.size = 10;
 	  cellLeft.appendChild(el0);
 	  document.getElementById(el0.id).readonly = true;
-	  document.getElementById(el0.id).value= dayName; 
+	  document.getElementById(el0.id).value= dayName;
+	  
+	  var lowercaseDayName = dayName.toLowerCase();	  
+	  document.getElementById("doctorDetails."+lowercaseDayName+"Working").value = "Y";
 	  
 	  var cellLeft = row.insertCell(1);
 	  var el0 = document.createElement('input');

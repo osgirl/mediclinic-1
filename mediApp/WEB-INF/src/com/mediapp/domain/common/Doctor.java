@@ -16,19 +16,19 @@ public class Doctor extends MediAppBaseDomain {
 	
 	private String workEndTime;
 	
-	private char mondayWorking;
+	private String mondayWorking;
 	
-	private char tuesdayWorking;
+	private String tuesdayWorking;
 	
-	private char wednesdayWorking;
+	private String wednesdayWorking;
 	
-	private char thursdayWorking;
+	private String thursdayWorking;
 	
-	private char fridayWorking;
+	private String fridayWorking;
 	
-	private char saturdayWorking;
+	private String saturdayWorking;
 	
-	private char sundayWorking;
+	private String sundayWorking;
 
 	private String registrationNumber;
 	
@@ -73,59 +73,59 @@ public class Doctor extends MediAppBaseDomain {
 		this.workEndTime = workEndTime;
 	}
 
-	public char getMondayWorking() {
+	public String getMondayWorking() {
 		return mondayWorking;
 	}
 
-	public void setMondayWorking(char mondayWorking) {
+	public void setMondayWorking(String mondayWorking) {
 		this.mondayWorking = mondayWorking;
 	}
 
-	public char getTuesdayWorking() {
+	public String getTuesdayWorking() {
 		return tuesdayWorking;
 	}
 
-	public void setTuesdayWorking(char tuesdayWorking) {
+	public void setTuesdayWorking(String tuesdayWorking) {
 		this.tuesdayWorking = tuesdayWorking;
 	}
 
-	public char getWednesdayWorking() {
+	public String getWednesdayWorking() {
 		return wednesdayWorking;
 	}
 
-	public void setWednesdayWorking(char wednesdayWorking) {
+	public void setWednesdayWorking(String wednesdayWorking) {
 		this.wednesdayWorking = wednesdayWorking;
 	}
 
-	public char getThursdayWorking() {
+	public String getThursdayWorking() {
 		return thursdayWorking;
 	}
 
-	public void setThursdayWorking(char thursdayWorking) {
+	public void setThursdayWorking(String thursdayWorking) {
 		this.thursdayWorking = thursdayWorking;
 	}
 
-	public char getFridayWorking() {
+	public String getFridayWorking() {
 		return fridayWorking;
 	}
 
-	public void setFridayWorking(char fridayWorking) {
+	public void setFridayWorking(String fridayWorking) {
 		this.fridayWorking = fridayWorking;
 	}
 
-	public char getSaturdayWorking() {
+	public String getSaturdayWorking() {
 		return saturdayWorking;
 	}
 
-	public void setSaturdayWorking(char saturdayWorking) {
+	public void setSaturdayWorking(String saturdayWorking) {
 		this.saturdayWorking = saturdayWorking;
 	}
 
-	public char getSundayWorking() {
+	public String getSundayWorking() {
 		return sundayWorking;
 	}
 
-	public void setSundayWorking(char sundayWorking) {
+	public void setSundayWorking(String sundayWorking) {
 		this.sundayWorking = sundayWorking;
 	}
 

@@ -78,17 +78,29 @@ public class PersonalProfileController extends MediAppBaseController  {
 		
 	protected void initBinder(HttpServletRequest request,
 			ServletRequestDataBinder binder) throws Exception {
-			 String dateFormat = getMessageSourceAccessor().getMessage("format.date",
-		     "MM/dd/yyyy");
-			 SimpleDateFormat df = new SimpleDateFormat(dateFormat);
-			 df.setLenient(true);
-			 binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(
-		     df, true));
-
+		 String dateFormat = getMessageSourceAccessor().getMessage("format.date",
+	     "MM/dd/yyyy");
+		 SimpleDateFormat df = new SimpleDateFormat(dateFormat);
+		 df.setLenient(true);
+		 binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(
+	     df, true));
+		 String dateFormat1 = getMessageSourceAccessor().getMessage("format.date",
+	     "HH:mm:ss");
+		 SimpleDateFormat df1 = new SimpleDateFormat(dateFormat1);
+		 df.setLenient(true);
+		 binder.registerCustomEditor(java.sql.Time.class, new CustomTimeEditor(
+	     df1, true));
 		}
 	
 	protected void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
-		Person logon = (Person) command;
+/*		Person logon = (Person) command;
+		List errorsList = errors.getAllErrors();
+		int i = 0;
+		while(i < errorsList.size() ){
+			System.out.println("error is "+ errorsList.get(i).toString());
+			
+		}
+*/		
 	//	String address1 = request.getParameter("address1");
 	//	String address2 = request.getParameter("address2");	
 	//	String locality = request.getParameter("locality");	

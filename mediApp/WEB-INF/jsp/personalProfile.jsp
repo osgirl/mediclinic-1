@@ -190,8 +190,8 @@
              <tr>
                <td>Registration Number:<font color="red">*</font></td>
                <td>
-               		<spring:bind path="person.registrationNumber">
-               			<input type="text" name="${status.expression}" id="${status.expression}"  value="${person.registrationNumber}"  style="WIDTH: 200px"/>
+               		<spring:bind path="person.doctorDetails.registrationNumber">
+               			<input type="text" name="${status.expression}" id="${status.expression}"  value="${person.doctorDetails.registrationNumber}"  style="WIDTH: 200px"/>
                		</spring:bind>
                	</td>
                		
@@ -201,11 +201,11 @@
              <tr>
                <td>Specialization:<font color="red">*</font></td>
                <td>
-					<spring:bind path="person.specialization">
-                	<input type="text" name="${status.expression}" id="${status.expression}"  value="${person.specialization}" style="WIDTH: 300px"/>
+					<spring:bind path="person.doctorDetails.specialization">
+                	<input type="text" name="${status.expression}" id="${status.expression}"  value="${person.doctorDetails.specialization}" style="WIDTH: 300px"/>
                 	</spring:bind>  
                 <script type="text/javascript">
-                 new Autocomplete('specialization', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALITY');
+                 new Autocomplete('doctorDetails.specialization', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALITY');
                 </script>
                </td>
               </tr>

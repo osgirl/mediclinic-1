@@ -242,14 +242,14 @@
 	 	<result property="address.country" column="country"/>
 	 	<result property="doctorDetails.registrationNumber" column="registration_id"/>
 	 	<result property="doctorDetails.specialization" column="specialization"/>
-	 	<result property="doctorDetails.idDoctor" column="idDoctor_details"/>
+	 	<result property="doctorDetails.idDoctor" column="idDoctor_details" />
 	 </resultMap>
 
 	<select id="getPersonalProfile" parameterMap="Personal-Details-Map" resultMap="Personal-Details-Result-Map">
             SELECT person.idPerson,first_name,last_name,middle_name,
            date_of_birth, Gender, landline_phone_number, mobile_phone_number,
            email_address, status_of_account, person_type, 
-           address1, address2, locality, city, state, country,registration_id,specialization,idDoctor_details
+           address1, address2, locality, city, state, country,registration_id,specialization,ifnull(idDoctor_details,0) as idDoctor_details
            FROM person 
            left join address 
            on address.personID = person.idPerson
