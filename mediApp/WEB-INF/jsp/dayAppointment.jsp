@@ -1,25 +1,4 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
-<script>
-function ajaxCall(){
-	new Ajax.Request('/appointmentPopUp.htm',
-			{
-			 method:'get',
-			 onSuccess: function(transport){
-			   var response = transport.responseText || "no response text";
-			   alert("Success! \n\n" + response);
-			  // document.getElementId('test1').style="display:block";
-//			   alert(document.getElementById('test1'));
-			   document.getElementById('test1').InnerHTML="hey";
-//			   alert(document.getElementById('test1').InnerHTML);
-			   },
-			 onFailure: function(){ alert('Something went wrong...') }
-			});
-
-}
-
-</script>		
-
-		
 <%@page import="com.mediapp.domain.common.Person"%><div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
