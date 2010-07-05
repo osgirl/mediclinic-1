@@ -55,7 +55,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`address` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 36
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -162,6 +162,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`doctor_details` (
   `friday_working` VARCHAR(1) NULL DEFAULT NULL ,
   `saturday_working` VARCHAR(1) NULL DEFAULT NULL ,
   `sunday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `registration_id` VARCHAR(45) NULL DEFAULT NULL ,
   PRIMARY KEY (`idDoctor_details`) ,
   INDEX `idPerson1` (`idPerson` ASC) ,
   CONSTRAINT `idPerson1`
@@ -181,7 +182,7 @@ COMMENT = '\'doctor detail';
 DROP TABLE IF EXISTS `mediapp`.`doctor_work_timings` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`doctor_work_timings` (
-  `iddoctor_work_timings` INT(11) NOT NULL ,
+  `iddoctor_work_timings` INT(11) NOT NULL AUTO_INCREMENT ,
   `work_day` VARCHAR(45) NULL DEFAULT NULL ,
   `start_time` TIME NULL DEFAULT NULL ,
   `end_time` TIME NULL DEFAULT NULL ,
@@ -194,6 +195,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`doctor_work_timings` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 47
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -402,13 +404,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`tests` (
   `test_Result_Unit` VARCHAR(45) NULL DEFAULT NULL ,
   `fDiagnosis` INT(11) NULL DEFAULT NULL ,
   PRIMARY KEY (`idTests`) ,
-  INDEX `fDiagnosis` (`fDiagnosis` ASC) ,
-  INDEX `fk_diagnosis` () ,
-  CONSTRAINT `fk_diagnosis`
-    FOREIGN KEY ()
-    REFERENCES `mediapp`.`diagnosis` ()
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  INDEX `fDiagnosis` (`fDiagnosis` ASC) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = latin1;
