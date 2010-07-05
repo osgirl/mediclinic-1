@@ -242,7 +242,7 @@
 	                 	</td>
 	                </tr>
                </table>
-               <table border="1" width="600" id="tblWorkHours" style="display:none">
+               <table border="1" width="600" id="tblWorkHours" style="display:block">
                 	<input type="hidden" value="1" id="counter"/>               
                     <tr>
    			        	<td> Work Day:
@@ -252,6 +252,54 @@
                			<td> To Time:
                			</td>
                 	</tr>
+                	<c:choose>                		
+						<c:when test="${!empty person.doctorWorkTiming[0].workDayName}">
+							<c:forEach items="${person.doctorWorkTiming}" varStatus="workTimings">
+								<script type="text/javascript">										
+										var num = (document.getElementById("counter").value - 1) + 2;
+										document.getElementById("counter").value = num;										
+								</script>
+							
+								<tr>
+									<td>
+										<spring:bind path="person.doctorWorkTiming[${workTimings.index}].workDayName">
+											<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${person.doctorWorkTiming[workTimings.index].workDayName}"/>" readonly="readonly" style="width: 7em;"/>
+										</spring:bind>
+									</td>
+									<td>
+										<spring:bind path="person.doctorWorkTiming[${workTimings.index}].startTime">												
+											<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${person.doctorWorkTiming[workTimings.index].startTime}"/>" readonly="readonly" style="width: 7em;"/>
+										</spring:bind>
+									</td>
+									<td>
+										<spring:bind path="person.doctorWorkTiming[${workTimings.index}].endTime">												
+											<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${person.doctorWorkTiming[workTimings.index].endTime}"/>" readonly="readonly" style="width: 7em;"/>
+										</spring:bind>
+									</td>
+								</tr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<td>
+									<spring:bind path="person.doctorWorkTiming[0].workDayName">
+										<input type="text" name="<c:out value="${status.expression}"/>"  value="" readonly="readonly" style="width: 7em;"/>
+									</spring:bind>
+								</td>
+								<td>
+									<spring:bind path="person.doctorWorkTiming[0].startTime">												
+										<input type="text" name="<c:out value="${status.expression}"/>"  value="" readonly="readonly" style="width: 7em;"/>
+									</spring:bind>
+								</td>
+								<td>
+									<spring:bind path="person.doctorWorkTiming[0].endTime">												
+										<input type="text" name="<c:out value="${status.expression}"/>"  value="" readonly="readonly" style="width: 7em;"/>
+									</spring:bind>
+								</td>
+							</tr>
+						</c:otherwise>						
+					</c:choose>
+							
                </table>
              </td>
            </tr>

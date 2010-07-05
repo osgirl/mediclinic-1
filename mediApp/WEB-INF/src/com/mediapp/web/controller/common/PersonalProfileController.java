@@ -100,7 +100,10 @@ public class PersonalProfileController extends MediAppBaseController  {
 			System.out.println("error is "+ errorsList.get(i).toString());
 			
 		}
-*/		
+*/	
+		//Person logon = (Person) command;
+		//System.out.println("request value "+ request.getParameter("doctorWorkTiming[1].workDayName"));
+		//System.out.println("controller values" + logon.getDoctorWorkTiming().get(0).getWorkDayName());
 	//	String address1 = request.getParameter("address1");
 	//	String address2 = request.getParameter("address2");	
 	//	String locality = request.getParameter("locality");	

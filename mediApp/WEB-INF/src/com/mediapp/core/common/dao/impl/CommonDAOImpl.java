@@ -22,6 +22,7 @@ import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.AppointmentTO;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Diagnosis;
+import com.mediapp.domain.common.DoctorWorkTimings;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
@@ -212,6 +213,18 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		Integer idPersonInt = new Integer(idPerson);
 		criteria.put("PersonID", idPersonInt);		
 		Person completeDetails = (Person) getObject("common.getPersonalProfile",criteria );
+		if (completeDetails.getPersonTypeString().equals(CommonCoreConstants.DOCTOR)){
+			List<DoctorWorkTimings> workTimings = (ArrayList<DoctorWorkTimings>) getList("common.getDoctorWorkTimings",criteria );
+			int i = 0;
+			for(DoctorWorkTimings  eachPerson: workTimings){				
+				completeDetails.getDoctorWorkTiming().get(i).setWorkDayName(eachPerson.getWorkDayName());
+				completeDetails.getDoctorWorkTiming().get(i).setStartTime(eachPerson.getStartTime());
+				completeDetails.getDoctorWorkTiming().get(i).setEndTime(eachPerson.getEndTime());
+				i = i+1;
+			}
+			
+		}
+		
 		return completeDetails;		
 	}
 	
@@ -359,20 +372,22 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		try { 
 			Map<String,Object> criteria =  new HashMap < String, Object > () ;
 			Integer doctorID = person.getDoctorDetails().getIdDoctor();
-			
+			successFlag =deleteObject("common.deleteDoctorWorkTimings", person);
 			this.getSqlMapClient().startBatch(); 
-			for (int i = 0; i < person.getDoctorWorkTiming().size(); i++) { 
-				criteria =  new HashMap < String, Object > () ;
-				String workDayName = person.getDoctorWorkTiming().get(i).getWorkDayName();
-				criteria.put("WorkDay",workDayName);
-				Date startTime = person.getDoctorWorkTiming().get(i).getStartTime();				
-				criteria.put("StartTime", startTime);
-				Date endTime = person.getDoctorWorkTiming().get(i).getEndTime();
-				criteria.put("EndTime", endTime);
-				criteria.put("DoctorID", doctorID);				
-				getSqlMapClient().insert("common.insertDoctorWorkTimings",
-						criteria);
-			} 
+			for (int i = 0; i < person.getDoctorWorkTiming().size(); i++) {
+				if(null != person.getDoctorWorkTiming().get(i).getWorkDayName()){
+					criteria =  new HashMap < String, Object > () ;
+					String workDayName = person.getDoctorWorkTiming().get(i).getWorkDayName();
+					criteria.put("WorkDay",workDayName);
+					Date startTime = person.getDoctorWorkTiming().get(i).getStartTime();				
+					criteria.put("StartTime", startTime);
+					Date endTime = person.getDoctorWorkTiming().get(i).getEndTime();
+					criteria.put("EndTime", endTime);
+					criteria.put("DoctorID", doctorID);				
+					getSqlMapClient().insert("common.insertDoctorWorkTimings",
+							criteria);
+				}
+			}
 			insertCount = this.getSqlMapClient().executeBatch();
 		}catch (SQLException e) { 
 			throw new DataIntegrityViolationException(e.getMessage()); 

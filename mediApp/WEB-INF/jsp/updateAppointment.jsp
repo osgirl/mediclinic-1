@@ -100,8 +100,8 @@
 							
 								<c:forEach items="${appointment.diagnosis}" varStatus="diagnosisAndtest">
 									<script type="text/javascript">
-												var num = document.getElementById("counter").value + 1;
-												document.getElementById("counter").value = num;
+											var num = (document.getElementById("counter").value - 1) + 2;
+											document.getElementById("counter").value = num;
 									</script>
 									
 									<tr>

@@ -417,10 +417,35 @@
 		<parameter property="DoctorID"   			javaType="java.lang.Integer"   	mode="IN"/>			    
 	 </parameterMap>
 
-	<insert id="insertDoctorWorkTimings" >
+	<insert id="insertDoctorWorkTimings"  parameterMap="Insert-DoctorWorkTimings-Parm-Map">
 			insert into doctor_work_timings (work_day,start_time,end_time,doctor_id) values
 			(?,?,?,?);
 	</insert>
+
+	 <parameterMap id="Docotor-WorkTimings-Parm-Map"   class="java.util.HashMap">
+		 <parameter property="PersonID"    	 		javaType="java.lang.Integer"    mode="IN"/>
+	 </parameterMap>
+	 
+	 <resultMap class="com.mediapp.domain.common.DoctorWorkTimings" id="Doctor-WorkTimings-Result-Map">
+	 	<result property="workDayName" 	column="work_day" />
+	 	<result property="startTime" 	column="start_time" />
+	 	<result property="endTime" 		column="end_time" />
+	 </resultMap>
+
+	<select id="getDoctorWorkTimings" parameterMap="Docotor-WorkTimings-Parm-Map" resultMap="Doctor-WorkTimings-Result-Map">
+		select work_day,start_time, end_time 
+		from doctor_work_timings dwt,
+		doctor_details dd,
+		person p
+		where dwt.doctor_id = dd.iddoctor_details
+		and dd.idperson = p.idperson
+		and p.idPerson =?;
+
+	</select>
+
+	<delete id="deleteDoctorWorkTimings" >
+		delete from doctor_work_timings where doctor_id = #doctorDetails.idDoctor#;
+	</delete>
 
 	
 </sqlMap>

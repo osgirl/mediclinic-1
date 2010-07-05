@@ -82,6 +82,37 @@ function fn_addAppointment(){
 	document.forms["createAppointment"].submit();
 }
 
+function fn_GetMonthView(indicator){
+	
+	var date = new Date(document.getElementById('AppointmentDate').value);
+	if (indicator == 1){		
+		document.getElementById('AppointmentDate').value = date.getMonth()+"/"+date.getDate()+"/"+ date.getFullYear();		
+		document.forms["takeAppointment"].submit();
+	}
+	if (indicator == 2){		
+		var nextMonth = date.getMonth()+2;
+		document.getElementById('AppointmentDate').value = nextMonth+"/"+date.getDate()+"/"+ date.getFullYear();		
+		document.forms["takeAppointment"].submit();
+		
+	}
+}
+
+function fn_GetYearView(indicator){
+	
+	var date = new Date(document.getElementById('AppointmentDate').value);
+	var month = date.getMonth()+1;
+	if (indicator == 1){
+		var prevYear = date.getFullYear()-1;		
+		document.getElementById('AppointmentDate').value = month+"/"+date.getDate()+"/"+ prevYear;		
+		document.forms["takeAppointment"].submit();
+	}
+	if (indicator == 2){		
+		var nextYear = date.getFullYear()+1;
+		document.getElementById('AppointmentDate').value = month+"/"+date.getDate()+"/"+ nextYear;		
+		document.forms["takeAppointment"].submit();
+	}
+}
+
 function fn_openAppointment(personID,timeOfAppointment,appointmentDate,appointmentID){
 	//alert(appointmentID);
 	//alert('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID);
@@ -295,6 +326,7 @@ function fn_addRowForWorkHours()
 		  document.getElementById('startTime').value !="" &&
 		  document.getElementById('endTime').value != "" )
 	{
+	  
 	  if(document.getElementById('sundayWorking').checked ==true ){
 		  fn_addRowForTime("Sunday"); 
 	  }
@@ -338,47 +370,57 @@ function fn_addRowForWorkHours()
 }
 
 function fn_addRowForTime(dayName){
-	  var numi = document.getElementById('counter');
-	  var num = (document.getElementById("counter").value - 1) + 2;
-	  numi.value = num;  
+	  var numi = document.getElementById('counter');	  
+	  var num = (document.getElementById("counter").value - 1) + 2;	    
 	  var tbl = document.getElementById('tblWorkHours');
 	  var lastRow = tbl.rows.length;
-	  // if there's no header row in the table, then iteration = lastRow + 1
-	  var iteration = lastRow;
-	  var row = tbl.insertRow(lastRow);
-	  var cellLeft = row.insertCell(0);
-	  var el0 = document.createElement('input');
-	  el0.type = 'text';
-	  el0.name = "doctorWorkTiming[" + (num -1 )+ "].workDayName";
-	  el0.id = "doctorWorkTiming[" + (num -1 )+ "].workDayName";
-	  el0.size = 10;
-	  cellLeft.appendChild(el0);
-	  document.getElementById(el0.id).readonly = true;
-	  document.getElementById(el0.id).value= dayName;
-	  
-	  var lowercaseDayName = dayName.toLowerCase();	  
-	  document.getElementById("doctorDetails."+lowercaseDayName+"Working").value = "Y";
-	  
-	  var cellLeft = row.insertCell(1);
-	  var el0 = document.createElement('input');
-	  el0.type = 'text';
-	  el0.name = "doctorWorkTiming[" + (num -1 )+ "].startTime";
-	  el0.id = "doctorWorkTiming[" + (num -1 )+ "].startTime";
-	  el0.size = 10;
-	  cellLeft.appendChild(el0);
-	  document.getElementById(el0.id).readonly = true;
-	  document.getElementById(el0.id).value= document.getElementById("startTime").value;
+	  if (numi.value==1){
+		  document.getElementById("doctorWorkTiming[0].workDayName").readonly = false;
+		  document.getElementById("doctorWorkTiming[0].workDayName").size=10;
+		  document.getElementById("doctorWorkTiming[0].workDayName").value= dayName;
+		  document.getElementById("doctorWorkTiming[0].startTime").value= document.getElementById("startTime").value;
+		  document.getElementById("doctorWorkTiming[0].startTime").size=10;
+		  document.getElementById("doctorWorkTiming[0].endTime").value= document.getElementById("endTime").value;
+		  document.getElementById("doctorWorkTiming[0].endTime").size=10;
+	  }else{		  
+	  // if there's no header row in the table, then iteration = lastRow + 1		  
+		  var iteration = lastRow;
+		  var row = tbl.insertRow(lastRow);
+		  var cellLeft = row.insertCell(0);
+		  var el0 = document.createElement('input');
+		  el0.type = 'text';
+		  el0.name = "doctorWorkTiming[" + (num -1 )+ "].workDayName";
+		  el0.id = "doctorWorkTiming[" + (num -1 )+ "].workDayName";
+		  el0.size = 10;
+		  cellLeft.appendChild(el0);
+		  document.getElementById(el0.id).readonly = true;
+		  document.getElementById(el0.id).value= dayName;
 		  
-	  var cellLeft = row.insertCell(2);
-	  var el0 = document.createElement('input');
-	  el0.type = 'text';
-	  el0.name = "doctorWorkTiming[" + (num -1 )+ "].endTime";
-	  el0.id = "doctorWorkTiming[" + (num -1 )+ "].endTime";
-	  el0.size = 10;
-	  cellLeft.appendChild(el0);
-	  document.getElementById(el0.id).readonly = true;
-	  document.getElementById(el0.id).value= document.getElementById("endTime").value;	  
+		  var lowercaseDayName = dayName.toLowerCase();	  
+		  document.getElementById("doctorDetails."+lowercaseDayName+"Working").value = "Y";
+		  
+		  var cellLeft = row.insertCell(1);
+		  var el0 = document.createElement('input');
+		  el0.type = 'text';
+		  el0.name = "doctorWorkTiming[" + (num -1 )+ "].startTime";
+		  el0.id = "doctorWorkTiming[" + (num -1 )+ "].startTime";
+		  el0.size = 10;
+		  cellLeft.appendChild(el0);
+		  document.getElementById(el0.id).readonly = true;
+		  document.getElementById(el0.id).value= document.getElementById("startTime").value;
+			  
+		  var cellLeft = row.insertCell(2);
+		  var el0 = document.createElement('input');
+		  el0.type = 'text';
+		  el0.name = "doctorWorkTiming[" + (num -1 )+ "].endTime";
+		  el0.id = "doctorWorkTiming[" + (num -1 )+ "].endTime";
+		  el0.size = 10;
+		  cellLeft.appendChild(el0);
+		  document.getElementById(el0.id).readonly = true;
+		  document.getElementById(el0.id).value= document.getElementById("endTime").value;
+	  }
 		//alert(document.all.sundayWorking.checked);
+	  numi.value = num;	  
 	 show("tblWorkHours");
 }
 

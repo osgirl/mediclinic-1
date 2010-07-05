@@ -8,7 +8,7 @@
 					<div id="contentSingleEntry" style="">
 						<div id="entries">
 							<div class="entryAlone">
-								<form name="takeAppointment" id="takeAppointment" method="post" >
+								<form name="takeAppointment" id="takeAppointment" method="get" >
 									<table width=900  border="1" class="layout"  >	
 										<tr>
 											<td>	
@@ -22,7 +22,7 @@
 															<table border="0" cellpadding="3" cellspacing="0" width="100%">																	
 																	<tr>
 																		<td align="left" width="33%" bgcolor="#eeeeee">
-																			<a href="#" onclick="" style="text-decoration:none" >
+																			<a href="#" onclick="fn_GetYearView(1);" style="text-decoration:none" >
 																				<font color="#ff0000"><b>&lt;</b></font>
 																			</a>
 																		
@@ -31,12 +31,13 @@
 																			<font size="3" color="#ff0000" face="verdana,arial,helvetica">
 																				<input type="hidden" name="AppointmentMonth" value="<fmt:formatDate pattern="MM" value="${AppointmentDate}"/>">
 																				<input type="hidden" name="AppointmentYear" value="<fmt:formatDate pattern="yyyy" value="${AppointmentDate}"/>">
+																				<input type="hidden" name="AppointmentDate" value="<fmt:formatDate pattern="MM/dd/yyyy" value="${AppointmentDate}"/>">																																							
 																				<b><fmt:formatDate pattern="yyyy" value="${AppointmentDate}"/></b>
 																				
 																			</font>
 																		</td>
 																		<td align="right" width="33%" bgcolor="#eeeeee" >
-																			<a href="#" onclick="" style="text-decoration:none">
+																			<a href="#" onclick="fn_GetYearView(2);" style="text-decoration:none">
 																				<font color="#ff0000"><b>&gt;</b></font>
 																			</a>
 																		
@@ -47,7 +48,7 @@
 
 																	<tr>
 																		<td align="left" width="33%" bgcolor="#eeeeee">
-																			<a href="#" onclick="" style="text-decoration:none">
+																			<a href="#" onclick="fn_GetMonthView(1);" style="text-decoration:none">
 																				<font color="#ff0000"><b>&lt;&lt;</b></font>
 																			</a>
 																		
@@ -62,7 +63,7 @@
 																			</font>
 																		</td>
 																		<td align="right" width="33%" bgcolor="#eeeeee">
-																			<a href="#" onclick="" style="text-decoration:none" >
+																			<a href="#" onclick="fn_GetMonthView(2);" style="text-decoration:none" >
 																				<font color="#ff0000"><b>&gt;&gt;</b></font>
 																			</a>
 																		
@@ -116,7 +117,7 @@
 													</tr>
 													<tr>
 														<td align="center">
-															<input type="hidden" name="PersonID" value="${personID}">
+															<input type="hidden" name="PersonID" value="${personID}">																														
 															<table border="0" cellpadding="2" cellspacing="1" width="100%">
 																<tbody>
 																	<c:set var="counter" value="1" scope="page" />
