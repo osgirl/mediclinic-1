@@ -217,6 +217,18 @@
 			
  	</select>
 
+
+	<select id="dayAppointmentForPatient" parameterMap="Day-Appointment-Parm-Map" resultMap="Day-Appointment-Result-Map">
+			select idAppointment_History, appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,appointment_comment
+			from appointment_history ah,
+			patient_details pd,
+			person p
+			where 
+			(p.person_type = 'Patient' and pd.idPerson=p.idPerson and pd.idpatient_details = ah.idDoctor_details) 
+			and p.idPerson =?
+			and date_of_appointment = date_format(?,'%Y-%m-%d');
+ 	</select>
+
 	<parameterMap id="Day-Appointment-Parm-Map"   class="java.util.HashMap">
 		<parameter property="PersonID"    			javaType="java.lang.Integer"    mode="IN"/>	    
 	</parameterMap>

@@ -40,7 +40,7 @@ public interface CommonDAO {
 
 	public List <CodeDecode> getAutoComplete(String codeCategory,String code) throws DataAccessException;
 	
-	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment) throws DataAccessException;
+	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment,String personType) throws DataAccessException;
 
 	public boolean insertNewAppointment(Appointment appointment) throws DataAccessException;
 	

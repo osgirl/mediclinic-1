@@ -56,35 +56,41 @@ public class CommonServiceImpl implements CommonService{
 		return commonDAO.getDoctors(searchCriteria);
 	}
 	
-	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment) {
-		List <Appointment> appointmentList =commonDAO.getDayAppointment(idPerson, dateOfAppointment);
-		List<DoctorWorkTimings> workTimings = commonDAO.getDoctorWorkTimingsForDay(idPerson, dateOfAppointment);		
-		long startTimingLong=0;	
-		String startTiming=null;
-		long endTimingLong=0;
-		String endTiming=null;
-		for(DoctorWorkTimings workTimingEach : workTimings){
-			if(0 == startTimingLong){
-				startTimingLong = workTimingEach.getStartTime().getTime();
-				startTiming = workTimingEach.getStartTime().toString();
-			}else{
-				if ((workTimingEach.getStartTime().getTime() -startTimingLong) < 0){
+	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment, String personType) {
+		List <Appointment> appointmentList =commonDAO.getDayAppointment(idPerson, dateOfAppointment,personType);
+		if (personType.equals(CommonCoreConstants.DOCTOR)){
+			List<DoctorWorkTimings> workTimings = commonDAO.getDoctorWorkTimingsForDay(idPerson, dateOfAppointment);		
+			long startTimingLong=0;	
+			String startTiming=null;
+			long endTimingLong=0;
+			String endTiming=null;
+			for(DoctorWorkTimings workTimingEach : workTimings){
+				if(0 == startTimingLong){
 					startTimingLong = workTimingEach.getStartTime().getTime();
 					startTiming = workTimingEach.getStartTime().toString();
-				} 
-			}
-			if(0 == endTimingLong){
-				endTimingLong = workTimingEach.getEndTime().getTime();
-				endTiming = workTimingEach.getEndTime().toString();
-			}else{
-				if(workTimingEach.getEndTime().getTime()-endTimingLong > 0){
+				}else{
+					if ((workTimingEach.getStartTime().getTime() -startTimingLong) < 0){
+						startTimingLong = workTimingEach.getStartTime().getTime();
+						startTiming = workTimingEach.getStartTime().toString();
+					} 
+				}
+				if(0 == endTimingLong){
 					endTimingLong = workTimingEach.getEndTime().getTime();
 					endTiming = workTimingEach.getEndTime().toString();
+				}else{
+					if(workTimingEach.getEndTime().getTime()-endTimingLong > 0){
+						endTimingLong = workTimingEach.getEndTime().getTime();
+						endTiming = workTimingEach.getEndTime().toString();
+					}
 				}
 			}
+			appointmentList.get(0).setDoctorWorkStartTime(startTiming);
+			appointmentList.get(0).setDoctorWorkEndTime(endTiming);
+		}else{
+			appointmentList.get(0).setDoctorWorkStartTime(CommonCoreConstants.WORK_START_TIME);
+			appointmentList.get(0).setDoctorWorkEndTime(CommonCoreConstants.WORK_END_TIME);
 		}
-		appointmentList.get(0).setDoctorWorkStartTime(startTiming);
-		appointmentList.get(0).setDoctorWorkEndTime(endTiming);
+		
 		List <Appointment> completeAppointmentList = new ArrayList();		
 		Appointment eachAppointment = new Appointment();		
 		Time iTime = Time.valueOf(appointmentList.get(0).getDoctorWorkStartTime());
@@ -101,7 +107,9 @@ public class CommonServiceImpl implements CommonService{
 						eachAppointment.setAppointmentID(loopAppointment.getAppointmentID());					
 						appointmentEndTime.setTime(eachAppointment.getTimeOfAppointment().getTime()+eachAppointment.getAppointmentDuration().getTime());
 					}
-					eachAppointment.setDoctorID(loopAppointment.getDoctorID());
+					if(personType.equals(CommonCoreConstants.DOCTOR)){
+						eachAppointment.setDoctorID(loopAppointment.getDoctorID());
+					}
 				}
 			}else{
 				eachAppointment.setHeadline("BLOCKED");

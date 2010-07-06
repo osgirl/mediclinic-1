@@ -25,9 +25,9 @@ public interface CommonCoreConstants {
 	 
 	 int DAY_IS_SATURDAY = 7;
 	 
-	 String WORK_START_TIME = "09:00:00"; 
+	 String WORK_START_TIME = "07:00:00"; 
 	 
-	 String WORK_END_TIME = "17:00:00"; 
+	 String WORK_END_TIME = "21:00:00"; 
 
 	 int INTERVAL_MINUTE = 30;
 }

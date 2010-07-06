@@ -13,6 +13,7 @@ import org.springframework.validation.Errors;
 
 import com.mediapp.core.common.business.CommonService;
 import com.mediapp.domain.common.Appointment;
+import com.mediapp.domain.common.Person;
 import com.mediapp.web.constants.common.CommonWebConstants;
 
 public class DayAppointmentController extends MediAppBaseController{
@@ -31,8 +32,9 @@ public class DayAppointmentController extends MediAppBaseController{
 			dateOfAppointment = new Date();			
 		}else{
 			dateOfAppointment = dateFormat.parse(sAppointmentDate);
-		}		
-	    List <Appointment> completeAppointmentList = commonService.getDayAppointment(idPerson, dateOfAppointment);
+		}
+		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
+	    List <Appointment> completeAppointmentList = commonService.getDayAppointment(idPerson, dateOfAppointment,sessionPerson.getPersonTypeString());
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
 	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, completeAppointmentList);
 	    appointmentMap.put("personID", idPerson);	    

@@ -20,7 +20,7 @@ public interface CommonService {
 	
 	public List <SearchResult> getDoctors(SearchCriteria searchCriteria);
 	
-	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment) ;
+	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment,String personType) ;
 	
 	public boolean insertNewAppointment(Appointment appointment);
 	
