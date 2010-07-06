@@ -21,6 +21,7 @@ import com.mediapp.core.common.dao.CommonDAO;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.CodeDecode;
+import com.mediapp.domain.common.DoctorWorkTimings;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
@@ -56,22 +57,55 @@ public class CommonServiceImpl implements CommonService{
 	}
 	
 	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment) {
-		List <Appointment> appointmentList =commonDAO.getDayAppointment(idPerson, dateOfAppointment);		
+		List <Appointment> appointmentList =commonDAO.getDayAppointment(idPerson, dateOfAppointment);
+		List<DoctorWorkTimings> workTimings = commonDAO.getDoctorWorkTimingsForDay(idPerson, dateOfAppointment);		
+		long startTimingLong=0;	
+		String startTiming=null;
+		long endTimingLong=0;
+		String endTiming=null;
+		for(DoctorWorkTimings workTimingEach : workTimings){
+			if(0 == startTimingLong){
+				startTimingLong = workTimingEach.getStartTime().getTime();
+				startTiming = workTimingEach.getStartTime().toString();
+			}else{
+				if ((workTimingEach.getStartTime().getTime() -startTimingLong) < 0){
+					startTimingLong = workTimingEach.getStartTime().getTime();
+					startTiming = workTimingEach.getStartTime().toString();
+				} 
+			}
+			if(0 == endTimingLong){
+				endTimingLong = workTimingEach.getEndTime().getTime();
+				endTiming = workTimingEach.getEndTime().toString();
+			}else{
+				if(workTimingEach.getEndTime().getTime()-endTimingLong > 0){
+					endTimingLong = workTimingEach.getEndTime().getTime();
+					endTiming = workTimingEach.getEndTime().toString();
+				}
+			}
+		}
+		appointmentList.get(0).setDoctorWorkStartTime(startTiming);
+		appointmentList.get(0).setDoctorWorkEndTime(endTiming);
 		List <Appointment> completeAppointmentList = new ArrayList();		
 		Appointment eachAppointment = new Appointment();		
 		Time iTime = Time.valueOf(appointmentList.get(0).getDoctorWorkStartTime());
+		Time appointmentEndTime = Time.valueOf("00:00:00"); 
 		while (iTime.compareTo(Time.valueOf(appointmentList.get(0).getDoctorWorkEndTime()))<= 0){			
 			eachAppointment.setTimeOfAppointment(iTime);
-			for(Appointment loopAppointment:appointmentList){
-				if (loopAppointment.getTimeOfAppointment().compareTo(iTime)==0){
-					eachAppointment.setAppointmentDuration(loopAppointment.getAppointmentDuration());
-					eachAppointment.setHeadline(loopAppointment.getHeadline());
-					eachAppointment.setComments(loopAppointment.getComments());					
-					eachAppointment.setAppointmentID(loopAppointment.getAppointmentID());					
-					
+			if ((!appointmentEndTime.toString().equals("00:00:00"))&& (iTime.getTime()-appointmentEndTime.getTime() > 0)){
+				
+				for(Appointment loopAppointment:appointmentList){
+					if (loopAppointment.getTimeOfAppointment().compareTo(iTime)==0){
+						eachAppointment.setAppointmentDuration(loopAppointment.getAppointmentDuration());
+						eachAppointment.setHeadline(loopAppointment.getHeadline());
+						eachAppointment.setComments(loopAppointment.getComments());					
+						eachAppointment.setAppointmentID(loopAppointment.getAppointmentID());					
+						appointmentEndTime.setTime(eachAppointment.getTimeOfAppointment().getTime()+eachAppointment.getAppointmentDuration().getTime());
+					}
+					eachAppointment.setDoctorID(loopAppointment.getDoctorID());
 				}
-				eachAppointment.setDoctorID(loopAppointment.getDoctorID());
-			}			
+			}else{
+				eachAppointment.setHeadline("BLOCKED");
+			}
 			completeAppointmentList.add(eachAppointment);
 			eachAppointment = new Appointment();
 			Calendar now = Calendar.getInstance();

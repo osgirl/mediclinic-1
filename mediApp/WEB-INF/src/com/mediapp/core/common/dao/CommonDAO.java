@@ -10,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.CodeDecode;
+import com.mediapp.domain.common.DoctorWorkTimings;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
@@ -60,4 +61,6 @@ public interface CommonDAO {
 	public boolean updateDoctorDetails(Person person)throws DataAccessException;
 	
 	public boolean insertDoctorWorkTimings(Person person)throws DataAccessException;
+
+	public List <DoctorWorkTimings> getDoctorWorkTimingsForDay(int idPerson, Date dateOfAppointment) throws DataAccessException;
 }

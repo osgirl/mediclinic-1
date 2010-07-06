@@ -205,6 +205,16 @@
 			where 
 			(p.person_type = 'Doctor' and dd.idPerson=p.idPerson) 
 			and p.idPerson =?
+			union all
+			select 0, 'OOO','9999-12-31','23:59:59', '23:59:59',0,start_time,end_time,'' 
+			from doctor_work_timings dwt,
+			doctor_details dd,
+			person p
+			where dwt.doctor_id = dd.iddoctor_details
+			and dd.idperson = p.idperson
+			and p.idPerson =?
+			and work_day = DATE_FORMAT(?, '%W');
+			
  	</select>
 
 	<parameterMap id="Day-Appointment-Parm-Map"   class="java.util.HashMap">
@@ -446,6 +456,24 @@
 	<delete id="deleteDoctorWorkTimings" >
 		delete from doctor_work_timings where doctor_id = #doctorDetails.idDoctor#;
 	</delete>
+
+
+	 <parameterMap id="Docotor-WorkTimingsForDay-Parm-Map"   class="java.util.HashMap">
+		 <parameter property="PersonID"    	 		javaType="java.lang.Integer"    mode="IN"/>
+		 <parameter property="AppointmentDate"  	javaType="java.util.Date"   	mode="IN"/>
+	 </parameterMap>
+
+
+	<select id="getDoctorWorkTimingsForDay" parameterMap="Docotor-WorkTimingsForDay-Parm-Map" resultMap="Doctor-WorkTimings-Result-Map">
+		select work_day,start_time, end_time 
+		from doctor_work_timings dwt,
+		doctor_details dd,
+		person p
+		where dwt.doctor_id = dd.iddoctor_details
+		and dd.idperson = p.idperson
+		and p.idPerson =?
+		and work_day = DATE_FORMAT(?, '%W');
+	</select>
 
 	
 </sqlMap>

@@ -399,5 +399,13 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		
 	}
 
+	public List <DoctorWorkTimings> getDoctorWorkTimingsForDay(int idPerson, Date dateOfAppointment) throws DataAccessException{
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		Integer idPersonInt = new Integer(idPerson);
+		criteria.put("PersonID", idPersonInt);		
+		criteria.put("AppointmentDate", dateOfAppointment);		
+		List<DoctorWorkTimings> workTimings = (ArrayList<DoctorWorkTimings>) getList("common.getDoctorWorkTimingsForDay",criteria );
+		return   workTimings;
+	}
 	
 }
