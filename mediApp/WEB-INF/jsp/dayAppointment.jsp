@@ -82,15 +82,19 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 																</td>
 															</c:if>
 																<c:if test='${empty appointments.headline }'>
-																	<td width="10%" bgcolor="#E0E0F8" bordercolor="black">
-																		<a href="javascript:fn_createAppointment(<c:out value="${personID}"/>,<c:out value="${appointments.doctorID}"/>,'<c:out value="${appointments.timeOfAppointment}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>')" >
-																			<c:out value="${appointments.timeOfAppointment}"/>
-																		</a>
-																	</td>
+																	
+																		<td width="10%" bgcolor="#E0E0F8" bordercolor="black">
+																		<c:if test='${appointments.headline != "OOO"}'>
+																			<a href="javascript:fn_createAppointment(<c:out value="${personID}"/>,<c:out value="${appointments.doctorID}"/>,'<c:out value="${appointments.timeOfAppointment}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>')" >
+																				<c:out value="${appointments.timeOfAppointment}"/>
+																			</a>
+																		</c:if>
+																		</td>
+																	
 																</c:if>															
-																<c:if test='${not empty appointments.headline}'>
-																	<td width="90%" bgcolor="#FFCCCC" bordercolor="black">															
-																	</td>
+																<c:if test='${not empty appointments.headline}'>																	
+																		<td width="90%" bgcolor="#FFCCCC" bordercolor="black">															
+																		</td>																	
 																</c:if>														
 																<c:if test='${empty appointments.headline}'>
 																	<td width="90%" bgcolor="#E0E0F8" bordercolor="black">															
@@ -112,11 +116,13 @@ fDrawCal(dCurDate.getFullYear(), dCurDate.getMonth()+1, 30, 30, "12px", "bold", 
 															</c:if>
 															
 															<c:if test='${not empty appointments.headline}'>
+																
 																<td width="90%" bgcolor="#FFCCCC" bordercolor="black">	
-																	
+																	<c:if test='${appointments.headline != "OOO"}'>
 																	<a href="javascript:fn_openAppointment(${personID},'${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>',${appointments.appointmentID})" >
 																		<c:out value="${appointments.headline}"/>
-																	</a>													
+																	</a>
+																	</c:if>
 																</td>
 															</c:if>
 															<c:if test='${empty appointments.headline}'>

@@ -79,6 +79,9 @@
 						<spring:bind path="appointment.doctorID">
 							<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorID}"/>"/>					
 						</spring:bind>
+						<spring:bind path="appointment.appointmentEndTime">
+							<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.appointmentEndTime}"/>"/>					
+						</spring:bind>
 						<spring:bind path="appointment.doctorPersonID">
 							<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorPersonID}"/>"/>					
 						</spring:bind>

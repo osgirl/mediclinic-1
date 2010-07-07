@@ -21,6 +21,8 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private Time appointmentDuration;
 	
+	private Time appointmentEndTime;
+	
 	private String comments;
 	
 	private int patientID;
@@ -202,5 +204,13 @@ public class Appointment extends MediAppBaseDomain{
 		this.diagnosis = diagnosis;
 	}
 
+	public Time getAppointmentEndTime() {
+		return appointmentEndTime;
+	}
 
+	public void setAppointmentEndTime(Time appointmentEndTime) {
+		this.appointmentEndTime = appointmentEndTime;
+	}
+
+	
 }

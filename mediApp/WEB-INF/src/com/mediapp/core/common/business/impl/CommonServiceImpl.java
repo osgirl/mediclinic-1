@@ -3,6 +3,7 @@ package com.mediapp.core.common.business.impl;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -95,25 +96,26 @@ public class CommonServiceImpl implements CommonService{
 		Appointment eachAppointment = new Appointment();		
 		Time iTime = Time.valueOf(appointmentList.get(0).getDoctorWorkStartTime());
 		Time appointmentEndTime = Time.valueOf("00:00:00"); 
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss"); 
 		while (iTime.compareTo(Time.valueOf(appointmentList.get(0).getDoctorWorkEndTime()))<= 0){			
 			eachAppointment.setTimeOfAppointment(iTime);
-			if ((!appointmentEndTime.toString().equals("00:00:00"))&& (iTime.getTime()-appointmentEndTime.getTime() > 0)){
+			if ( (iTime.getTime()-appointmentEndTime.getTime() > 0)){
 				
 				for(Appointment loopAppointment:appointmentList){
 					if (loopAppointment.getTimeOfAppointment().compareTo(iTime)==0){
 						eachAppointment.setAppointmentDuration(loopAppointment.getAppointmentDuration());
 						eachAppointment.setHeadline(loopAppointment.getHeadline());
 						eachAppointment.setComments(loopAppointment.getComments());					
-						eachAppointment.setAppointmentID(loopAppointment.getAppointmentID());					
-						appointmentEndTime.setTime(eachAppointment.getTimeOfAppointment().getTime()+eachAppointment.getAppointmentDuration().getTime());
+						eachAppointment.setAppointmentID(loopAppointment.getAppointmentID());	
+						appointmentEndTime.setTime(loopAppointment.getAppointmentEndTime().getTime());
 					}
 					if(personType.equals(CommonCoreConstants.DOCTOR)){
 						eachAppointment.setDoctorID(loopAppointment.getDoctorID());
 					}
 				}
 			}else{
-				eachAppointment.setHeadline("BLOCKED");
-			}
+				eachAppointment.setHeadline("OOO");
+			}			
 			completeAppointmentList.add(eachAppointment);
 			eachAppointment = new Appointment();
 			Calendar now = Calendar.getInstance();

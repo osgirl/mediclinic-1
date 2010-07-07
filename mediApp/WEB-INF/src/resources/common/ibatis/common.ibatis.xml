@@ -181,16 +181,18 @@
 	 	<result property="doctorWorkStartTime" 	column="work_start_time"/>
 	 	<result property="doctorWorkEndTime" 	column="work_end_time"/>
 	 	<result property="comments"			 	column="appointment_comment"/>
+	 	<result property="appointmentEndTime" 	column="appointment_end_time"/>
 	</resultMap>
 	 	
 	<parameterMap id="Day-Appointment-Parm-Map"   class="java.util.HashMap">
 		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
 	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
-	    <parameter property="PersonID"    			javaType="java.lang.Integer"    mode="IN"/>
+		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
 	</parameterMap>
 
 	<select id="dayAppointment" parameterMap="Day-Appointment-Parm-Map" resultMap="Day-Appointment-Result-Map">
-			select idAppointment_History, appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,work_start_time,work_end_time,appointment_comment
+			select idAppointment_History, appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,work_start_time,work_end_time,appointment_comment,appointment_end_time
 			from appointment_history ah,
 			doctor_details dd,
 			person p
@@ -198,15 +200,8 @@
 			(p.person_type = 'Doctor' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) 
 			and p.idPerson =?
 			and date_of_appointment = date_format(?,'%Y-%m-%d')
-			 union all
-			select 0,'','9999-12-31','23:59:59', '23:59:59',idDoctor_details,work_start_time,work_end_time,''
-			from doctor_details dd,
-			person p
-			where 
-			(p.person_type = 'Doctor' and dd.idPerson=p.idPerson) 
-			and p.idPerson =?
 			union all
-			select 0, 'OOO','9999-12-31','23:59:59', '23:59:59',0,start_time,end_time,'' 
+			select 0, '','9999-12-31','23:59:59', '23:59:59',0,start_time,end_time,'' ,'23:59:59'
 			from doctor_work_timings dwt,
 			doctor_details dd,
 			person p
@@ -235,9 +230,9 @@
 	
 	<insert id="insertNewAppointment">
 		INSERT INTO appointment_history ( idPatient_details,idDoctor_details,date_of_appointment,appointment_type,
-		appointment_confirmation,time_of_appointment,appointment_comment,appointment_duration,appointment_headline ) 
+		appointment_confirmation,time_of_appointment,appointment_comment,appointment_duration,appointment_headline,appointment_end_time ) 
 		VALUES ( (select idpatient_details from patient_details where idPerson=#doctorPersonID#),#doctorID#,#dateOfAppointment#,'R','N',
-		#timeOfAppointment#,#comments#,#appointmentDuration# ,#headline#)
+		#timeOfAppointment#,#comments#,#appointmentDuration# ,#headline#,#appointmentEndTime#)
 	</insert>
 	
 	 <parameterMap id="Personal-Details-Map"   class="java.util.HashMap">
