@@ -55,7 +55,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`address` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 36
+AUTO_INCREMENT = 37
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -97,6 +97,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`appointment_history` (
   `appointment_headline` VARCHAR(500) NULL DEFAULT NULL ,
   `appointment_comment` VARCHAR(4500) NULL DEFAULT NULL ,
   `appointment_duration` TIME NULL DEFAULT NULL ,
+  `appointment_end_time` TIME NULL DEFAULT NULL ,
   PRIMARY KEY (`idAppointment_History`) ,
   INDEX `idPatient` (`idPatient_details` ASC) ,
   INDEX `idDoctor` (`idDoctor_details` ASC) ,
@@ -195,7 +196,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`doctor_work_timings` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 47
+AUTO_INCREMENT = 58
 DEFAULT CHARACTER SET = latin1;
 
 
