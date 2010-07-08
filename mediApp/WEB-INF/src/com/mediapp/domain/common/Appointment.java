@@ -55,6 +55,8 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private String doctorWorkEndTime;
 	
+	private String workingHour;
+	
 	public String getDoctorWorkStartTime() {
 		return doctorWorkStartTime;
 	}
@@ -210,6 +212,14 @@ public class Appointment extends MediAppBaseDomain{
 
 	public void setAppointmentEndTime(Time appointmentEndTime) {
 		this.appointmentEndTime = appointmentEndTime;
+	}
+
+	public String getWorkingHour() {
+		return workingHour;
+	}
+
+	public void setWorkingHour(String workingHour) {
+		this.workingHour = workingHour;
 	}
 
 	

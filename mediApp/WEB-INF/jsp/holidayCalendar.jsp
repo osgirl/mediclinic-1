@@ -12,53 +12,38 @@
             <table width=100 align="left"  border="1" class="layout" > 
            <menu:verticalMenuItemTag></menu:verticalMenuItemTag> 
             </table>
-
             <div id="History"  style="display:block" align="center">
              <table  border=""  class="login" width=800 cellpadding="200" id="tblSample">
               <tr bgcolor="lightblue" >
                Add Holidays
               </tr>
               <tr >
-               <td width="25%">Holiday Date:
-               <td width="15%" align="left">Full Day:
-               </td>
-               <td width="15%" align="left">From Time:
-               </td>
-               <td width="15%" align="left">To Time:
-               </td>
-               <td width="25%" >
+               <td width="40%">Holiday Date:
+               <td width="60%" align="left">Full Day:
                </td>
               </tr>
               
               <tr>
-              <td >
-               <spring:bind path="holidayCalendar.holidays[0].holidayDate">
-                <input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${status.value}"/>"  style="WIDTH: 100px"/>                
-               </spring:bind>
-                 <script language="JavaScript">
-                  new tcal ({
-                   // form name
-                   'formname': 'holidayCalendar',
-                   // input name
-                   'controlname': 'holidays[0].holidayDate'
-                   });
-                 </script>
-              </td>                
-              <td >
-               <spring:bind path="holidayCalendar.holidays[0].fromTime">
-                 <input type="checkbox" name="radioBtn" />
-               </spring:bind>
-              </td>
-              <td >
-               <spring:bind path="holidayCalendar.holidays[0].fromTime">
-                <input type="text" name="${status.expression}" id="${status.expression}"  value="${status.value}" style="WIDTH: 100px"/>                
-               </spring:bind>
-              </td>
-              <td >
-               <spring:bind path="holidayCalendar.holidays[0].fromTime">
-                <input type="text" name="${status.expression}" id="${status.expression}"  value="${status.value}" style="WIDTH: 100px"/>                
-               </spring:bind>
-              </td>
+       <c:forEach items="${holidayCalendar.holidays}" varStatus="holidays">
+                   <td >
+                    <spring:bind path="holidayCalendar.holidays[${holidays.index}].holidayDate">
+                     <input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${status.value}"/>"  style="WIDTH: 100px"/>                
+                    </spring:bind>
+                      <script language="JavaScript">
+                       new tcal ({
+                        // form name
+                        'formname': 'holidayCalendar',
+                        // input name
+                        'controlname': '<c:out value="holidays[${holidays.index}].holidayDate"/>'
+                        });
+                      </script>
+                   </td>                
+                   <td >
+                    <spring:bind path="holidayCalendar.holidays[${holidays.index}].comments">
+                     <input type="text" name="${status.expression}" id="${status.expression}"  value="${status.value}" style="WIDTH: 300px"/>                
+                    </spring:bind>
+                   </td>
+       </c:forEach>
               
               </tr>
              </table>
@@ -86,3 +71,4 @@
   </div>
   
 <%@ include file="/WEB-INF/jsp/footer.jsp" %>
+ 

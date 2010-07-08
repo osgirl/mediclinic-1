@@ -451,52 +451,22 @@ function addRowToCalendar()
 //  el0.style="WIDTH: 100px";
 //  el0.innerHTML=("<script language='JavaScript'>new tcal ({'formname': 'holidayCalendar','controlname': 'holidays[0].holidayDate'});</script>");
   cellLeft.appendChild(el0);
-
   //add script
   var ss = document.createElement('script');   
-  var scr = "new tcal ({ 'formname': 'holidayCalendar', 'controlname': '"+el0.name+"'});";
+  var scr = "new tcal ({ 'formname': 'holidayCalendar', 'controlname': '"+el0.name+"'});";  
   ss.text = scr;
   var hh = document.getElementsByTagName("head")[0];
   hh.appendChild(ss);
   
-  // right cell
-  var cellRight = row.insertCell(1);  
-  var el = document.createElement('input');
-  el.type = 'checkbox';
-  cellRight.appendChild(el);
-  el.name = 'holidays[' + (num -1 )+'].fromTime';
-  el.id =  'holidays[' + (num -1 )+'].fromTime';
-  cellRight.appendChild(el);
-
-  
-  var cellRight = row.insertCell(2);
-  var el0 = document.createElement('input');
-  el0.type = 'text';
-  el0.name = "holidays[" + (num -1 )+ "].holidayDate";
-  el0.id = "holidays[" + (num -1 )+ "].holidayDate";
-  el0.size = 9;
-  cellRight.appendChild(el0);
-  //add script
-  var ss = document.createElement('script');   
-  var scr = "new tcal ({ 'formname': 'holidayCalendar', 'controlname': '"+el0.name+"'});";
-  ss.text = scr;
-  var hh = document.getElementsByTagName('head')[0];
-  hh.appendChild(ss);
-  
-   var cellRight = row.insertCell(3);
-  var el0 = document.createElement('input');
-  el0.type = 'text';
-  el0.name = "holidays[" + (num -1 )+ "].holidayDate";
-  el0.id = "holidays[" + (num -1 )+ "].holidayDate";
-  el0.size = 9;
-  cellRight.appendChild(el0);
-  //add script
-  var ss = document.createElement('script');   
-  var scr = "new tcal ({ 'formname': 'holidayCalendar', 'controlname': '"+el0.name+"'});";
-  ss.text = scr;
-  var hh = document.getElementsByTagName('head')[0];
-  hh.appendChild(ss);
  
+  var cellRight = row.insertCell(1);
+  var el0 = document.createElement('input');
+  el0.type = 'text';
+  el0.name = "holidays[" + (num -1 )+ "].holidayDate";
+  el0.id = "holidays[" + (num -1 )+ "].holidayDate";
+  el0.size = 34;
+  cellRight.appendChild(el0);
+   
 //end
 }
 function removeRowFromCalendar()

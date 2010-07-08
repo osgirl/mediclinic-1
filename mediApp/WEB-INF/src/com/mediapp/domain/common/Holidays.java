@@ -14,6 +14,8 @@ public class Holidays extends MediAppBaseDomain{
 	
 	private String toTime;
 
+	private String comments;
+
 	public Date getHolidayDate() {
 		return holidayDate;
 	}
@@ -37,6 +39,13 @@ public class Holidays extends MediAppBaseDomain{
 	public void setToTime(String toTime) {
 		this.toTime = toTime;
 	}
+
+	public String getComments() {
+	  return comments;
+	}
+	public void setComments(String comments) {
+	  this.comments = comments;
+	 }
 
 	
 }

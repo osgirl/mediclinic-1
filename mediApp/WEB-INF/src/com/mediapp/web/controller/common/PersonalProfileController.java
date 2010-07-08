@@ -26,6 +26,7 @@ import com.mediapp.core.common.business.CommonService;
 import com.mediapp.core.common.business.LoginService;
 import com.mediapp.core.common.business.impl.ScheduleEMail;
 import com.mediapp.domain.common.Address;
+import com.mediapp.domain.common.DoctorWorkTimings;
 import com.mediapp.domain.common.Person;
 import com.mediapp.web.common.CustomTimeEditor;
 import com.mediapp.web.constants.common.CommonWebConstants;
@@ -93,7 +94,26 @@ public class PersonalProfileController extends MediAppBaseController  {
 		}
 	
 	protected void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
-/*		Person logon = (Person) command;
+		 Person logon = (Person) command;
+		 for(DoctorWorkTimings eachTiming : logon.getDoctorWorkTiming()){
+		   if("Sunday".equals(eachTiming.getWorkDayName())){
+		    logon.getDoctorDetails().setSundayWorking("Y");
+		   }else if("Monday".equals(eachTiming.getWorkDayName())){
+		    logon.getDoctorDetails().setMondayWorking("Y");
+		   }else if("Tuesday".equals(eachTiming.getWorkDayName())){
+		    logon.getDoctorDetails().setTuesdayWorking("Y");
+		   }else if("Wednesday".equals(eachTiming.getWorkDayName())){
+		    logon.getDoctorDetails().setWednesdayWorking("Y");
+		   }else if("Thursday".equals(eachTiming.getWorkDayName())){
+		    logon.getDoctorDetails().setThursdayWorking("Y");
+		   }else if("Friday".equals(eachTiming.getWorkDayName())){
+		    logon.getDoctorDetails().setFridayWorking("Y");
+		   }else if("Saturday".equals(eachTiming.getWorkDayName())){
+		    logon.getDoctorDetails().setSaturdayWorking("Y");
+		   }
+		 }  
+		
+		/*		Person logon = (Person) command;
 		List errorsList = errors.getAllErrors();
 		int i = 0;
 		while(i < errorsList.size() ){
