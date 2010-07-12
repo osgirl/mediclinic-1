@@ -431,44 +431,14 @@ function fn_addRowForTime(dayName){
 //calendar UI scripts
 function addRowToCalendar()
 {
- 
-  var numi = document.getElementById('counter');
-  var num = (document.getElementById("counter").value - 1) + 2;
-  numi.value = num;  
-  var tbl = document.getElementById('tblSample');
-  var lastRow = tbl.rows.length;
-  // if there's no header row in the table, then iteration = lastRow + 1
-  var iteration = lastRow;
-  var row = tbl.insertRow(lastRow);
-  
-  // left cell
-  var cellLeft = row.insertCell(0);
-  var el0 = document.createElement('input');
-  el0.type = 'text';
-  el0.name = "holidays[" + (num -1 )+ "].holidayDate";
-  el0.id = "holidays[" + (num -1 )+ "].holidayDate";
-  el0.size = 9;
-//  el0.style="WIDTH: 100px";
-//  el0.innerHTML=("<script language='JavaScript'>new tcal ({'formname': 'holidayCalendar','controlname': 'holidays[0].holidayDate'});</script>");
-  cellLeft.appendChild(el0);
-  //add script
-  var ss = document.createElement('script');   
-  var scr = "new tcal ({ 'formname': 'holidayCalendar', 'controlname': '"+el0.name+"'});";  
-  ss.text = scr;
-  var hh = document.getElementsByTagName("head")[0];
-  hh.appendChild(ss);
-  
- 
-  var cellRight = row.insertCell(1);
-  var el0 = document.createElement('input');
-  el0.type = 'text';
-  el0.name = "holidays[" + (num -1 )+ "].holidayDate";
-  el0.id = "holidays[" + (num -1 )+ "].holidayDate";
-  el0.size = 34;
-  cellRight.appendChild(el0);
-   
+  holidayCalendar.method="post";
+// holidayCalendar.target = "selectFunds";
+    holidayCalendar.submit(); 
 //end
 }
+
+
+
 function removeRowFromCalendar()
 {
   var tbl = document.getElementById('tblSample');
