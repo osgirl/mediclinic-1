@@ -60,6 +60,38 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
+-- Table `mediapp`.`doctor_details`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`doctor_details` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`doctor_details` (
+  `idDoctor_details` INT(11) NOT NULL AUTO_INCREMENT ,
+  `idPerson` INT(11) NULL DEFAULT NULL ,
+  `specialization` VARCHAR(200) NULL DEFAULT NULL ,
+  `work_start_time` TIME NULL DEFAULT NULL ,
+  `work_end_time` TIME NULL DEFAULT NULL ,
+  `monday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `tuesday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `wednesday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `thursday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `friday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `saturday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `sunday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `registration_id` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idDoctor_details`) ,
+  INDEX `idPerson1` (`idPerson` ASC) ,
+  CONSTRAINT `idPerson1`
+    FOREIGN KEY (`idPerson` )
+    REFERENCES `mediapp`.`person` (`idPerson` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = latin1
+COMMENT = '\'doctor detail';
+
+
+-- -----------------------------------------------------
 -- Table `mediapp`.`diagnosis`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mediapp`.`diagnosis` ;
@@ -103,24 +135,15 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`appointment_history` (
   INDEX `idDoctor` (`idDoctor_details` ASC) ,
   INDEX `idDiagnosis` (`idDiagnosis` ASC) ,
   INDEX `idReferenceDoctor` (`reference_doctor_id` ASC) ,
+  INDEX `ahDoctor` (`idDoctor_details` ASC) ,
+  CONSTRAINT `ahDoctor`
+    FOREIGN KEY (`idDoctor_details` )
+    REFERENCES `mediapp`.`doctor_details` (`idDoctor_details` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `idDiagnosis`
     FOREIGN KEY (`idDiagnosis` )
     REFERENCES `mediapp`.`diagnosis` (`idDiagnosis` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `idDoctor`
-    FOREIGN KEY (`idDoctor_details` )
-    REFERENCES `mediapp`.`person` (`idPerson` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `idPatient`
-    FOREIGN KEY (`idPatient_details` )
-    REFERENCES `mediapp`.`person` (`idPerson` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `idReferenceDoctor`
-    FOREIGN KEY (`reference_doctor_id` )
-    REFERENCES `mediapp`.`person` (`idPerson` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -143,38 +166,6 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`code_decode` (
   UNIQUE INDEX `idCode_Decode_UNIQUE` (`idCode_Decode` ASC) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `mediapp`.`doctor_details`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mediapp`.`doctor_details` ;
-
-CREATE  TABLE IF NOT EXISTS `mediapp`.`doctor_details` (
-  `idDoctor_details` INT(11) NOT NULL AUTO_INCREMENT ,
-  `idPerson` INT(11) NULL DEFAULT NULL ,
-  `specialization` VARCHAR(200) NULL DEFAULT NULL ,
-  `work_start_time` TIME NULL DEFAULT NULL ,
-  `work_end_time` TIME NULL DEFAULT NULL ,
-  `monday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `tuesday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `wednesday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `thursday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `friday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `saturday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `sunday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `registration_id` VARCHAR(45) NULL DEFAULT NULL ,
-  PRIMARY KEY (`idDoctor_details`) ,
-  INDEX `idPerson1` (`idPerson` ASC) ,
-  CONSTRAINT `idPerson1`
-    FOREIGN KEY (`idPerson` )
-    REFERENCES `mediapp`.`person` (`idPerson` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = latin1
-COMMENT = '\'doctor detail';
 
 
 -- -----------------------------------------------------
@@ -207,15 +198,16 @@ DROP TABLE IF EXISTS `mediapp`.`holiday_calendar` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`holiday_calendar` (
   `idholiday_calendar` INT(11) NOT NULL ,
-  `idPerson` INT(11) NULL DEFAULT NULL ,
+  `idDoctor` INT(11) NULL DEFAULT NULL ,
   `date_of_holiday` DATE NULL DEFAULT NULL ,
   `start_time` TIME NULL DEFAULT NULL ,
   `end_time` TIME NULL DEFAULT NULL ,
   PRIMARY KEY (`idholiday_calendar`) ,
-  INDEX `hcpersonID` (`idPerson` ASC) ,
-  CONSTRAINT `hcpersonID`
-    FOREIGN KEY (`idPerson` )
-    REFERENCES `mediapp`.`person` (`idPerson` )
+  INDEX `hcpersonID` (`idDoctor` ASC) ,
+  INDEX `hcDoctor` (`idDoctor` ASC) ,
+  CONSTRAINT `hcDoctor`
+    FOREIGN KEY (`idDoctor` )
+    REFERENCES `mediapp`.`doctor_details` (`idDoctor_details` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -318,6 +310,9 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`patient_details` (
   `idPatient_details` INT(11) NOT NULL AUTO_INCREMENT ,
   `idPerson` INT(11) NULL DEFAULT NULL ,
   `idPastHistory` INT(11) NULL DEFAULT NULL ,
+  `weight` INT(11) NULL DEFAULT NULL ,
+  `height` DECIMAL(10,0) NULL DEFAULT NULL ,
+  `blood_group` VARCHAR(4) NULL DEFAULT NULL ,
   PRIMARY KEY (`idPatient_details`) ,
   INDEX `idPerson` (`idPerson` ASC) ,
   CONSTRAINT `idPerson`
@@ -329,6 +324,70 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = latin1
 COMMENT = '\'patient detail';
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`patient_allergies`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`patient_allergies` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`patient_allergies` (
+  `idpatient_allergies` INT(11) NOT NULL AUTO_INCREMENT ,
+  `allergy` VARCHAR(4500) NULL DEFAULT NULL ,
+  `comments` VARCHAR(4500) NULL DEFAULT NULL ,
+  `idPatient_details` INT(11) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idpatient_allergies`) ,
+  INDEX `allergies_to_patient` (`idPatient_details` ASC) ,
+  CONSTRAINT `allergies_to_patient`
+    FOREIGN KEY (`idPatient_details` )
+    REFERENCES `mediapp`.`patient_details` (`idPatient_details` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`patient_document_details`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`patient_document_details` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`patient_document_details` (
+  `idpatient_document_details` INT(11) NOT NULL AUTO_INCREMENT ,
+  `document_name` VARCHAR(1000) NULL DEFAULT NULL ,
+  `document_path` VARCHAR(2000) NULL DEFAULT NULL ,
+  `comments` VARCHAR(4500) NULL DEFAULT NULL ,
+  `idPatient_details` INT(11) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idpatient_document_details`) ,
+  INDEX `document_to_patient` (`idPatient_details` ASC) ,
+  CONSTRAINT `document_to_patient`
+    FOREIGN KEY (`idPatient_details` )
+    REFERENCES `mediapp`.`patient_details` (`idPatient_details` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`patient_prescription`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`patient_prescription` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`patient_prescription` (
+  `idpatient_prescription` INT(11) NOT NULL AUTO_INCREMENT ,
+  `prescription_name` VARCHAR(1000) NULL DEFAULT NULL ,
+  `dosage` VARCHAR(45) NULL DEFAULT NULL ,
+  `idDiagnosis` INT(11) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idpatient_prescription`) ,
+  INDEX `prescription_to_diagnosis` (`idDiagnosis` ASC) ,
+  CONSTRAINT `prescription_to_diagnosis`
+    FOREIGN KEY (`idDiagnosis` )
+    REFERENCES `mediapp`.`diagnosis` (`idDiagnosis` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
@@ -405,7 +464,13 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`tests` (
   `test_Result_Unit` VARCHAR(45) NULL DEFAULT NULL ,
   `fDiagnosis` INT(11) NULL DEFAULT NULL ,
   PRIMARY KEY (`idTests`) ,
-  INDEX `fDiagnosis` (`fDiagnosis` ASC) )
+  INDEX `fDiagnosis` (`fDiagnosis` ASC) ,
+  INDEX `tests_diagnosis` (`fDiagnosis` ASC) ,
+  CONSTRAINT `tests_diagnosis`
+    FOREIGN KEY (`fDiagnosis` )
+    REFERENCES `mediapp`.`diagnosis` (`idDiagnosis` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = latin1;
