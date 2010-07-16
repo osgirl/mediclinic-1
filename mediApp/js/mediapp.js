@@ -307,9 +307,18 @@ function removeRowFromTable()
 }
 
 function fn_uploadFile(){
-	 window.name = "Parent"; 
-	 var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1500px;status:no;edge:sunken'; 
-	    var c = window.showModalDialog('/uploadFile.htm', window, WinSettings);
+	 window.name = "ParentWindow"; 
+	 var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:300px;dialogWidth:700px;status:no;edge:sunken'; 
+    var c = window.showModalDialog('/uploadFile.htm', window, WinSettings);
+}
+
+function fn_uploadSelectedFile(){
+	 document.forms['uploadFile'].target="ParentWindow";
+    document.forms["uploadFile"].submit();
+	 document.forms['uploadFile'].method ="post";
+	 document.forms['uploadFile'].action="pastHistory.htm"; 
+	 document.forms['uploadFile'].submit();
+	 self.close();
 }
 
 //new script
