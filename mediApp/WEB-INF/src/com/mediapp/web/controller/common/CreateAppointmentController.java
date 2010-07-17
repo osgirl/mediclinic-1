@@ -55,14 +55,15 @@ public class CreateAppointmentController extends MediAppBaseController{
 
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		Appointment newAppointment =  (Appointment) command;
+		System.out.println("appointment "+newAppointment.getHeadline());
 //		newAppointment.setTimeOfAppointment(Time.valueOf(newAppointment.getsTimeOfAppointment()));
-		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);		
+		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);	
+		newAppointment.setPatientPersonID(sessionPerson.getIdPerson());
 		//newAppointment.setAppointmentSetter(sessionPerson.getIdPerson());
 		commonService.insertNewAppointment(newAppointment);
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy"); 
 		String sdate = sdf.format(newAppointment.getDateOfAppointment());
-		 
-		return new ModelAndView("redirect:/dayAppointment.htm?PersonID="+newAppointment.getDoctorPersonID()+"&AppointmentDate="+ sdate );
+		return null;
     }
 	
 @Override

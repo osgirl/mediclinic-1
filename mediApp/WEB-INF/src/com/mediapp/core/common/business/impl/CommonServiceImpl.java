@@ -15,6 +15,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.dao.DataAccessException;
 
 import com.mediapp.core.common.business.CommonService;
 import com.mediapp.core.common.constants.CommonCoreConstants;
@@ -23,6 +24,9 @@ import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.DoctorWorkTimings;
+import com.mediapp.domain.common.HolidayCalendarList;
+import com.mediapp.domain.common.MultiPartFileUploadBean;
+import com.mediapp.domain.common.PatientDetails;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
@@ -89,8 +93,16 @@ public class CommonServiceImpl implements CommonService{
 			appointmentList.get(0).setDoctorWorkStartTime(startTiming);
 			appointmentList.get(0).setDoctorWorkEndTime(endTiming);
 		}else{
-			appointmentList.get(0).setDoctorWorkStartTime(CommonCoreConstants.WORK_START_TIME);
-			appointmentList.get(0).setDoctorWorkEndTime(CommonCoreConstants.WORK_END_TIME);
+			if (appointmentList.size() > 0){
+				appointmentList.get(0).setDoctorWorkStartTime(CommonCoreConstants.WORK_START_TIME);
+				appointmentList.get(0).setDoctorWorkEndTime(CommonCoreConstants.WORK_END_TIME);
+			}else{
+				appointmentList = new ArrayList<Appointment>();	
+				appointmentList.add(new Appointment());
+				appointmentList.get(0).setDoctorWorkStartTime(CommonCoreConstants.WORK_START_TIME);
+				appointmentList.get(0).setDoctorWorkEndTime(CommonCoreConstants.WORK_END_TIME);
+
+			}
 		}
 		
 		List <Appointment> completeAppointmentList = new ArrayList();		
@@ -103,7 +115,7 @@ public class CommonServiceImpl implements CommonService{
 			if ( (iTime.getTime()-appointmentEndTime.getTime() > 0)){
 				
 				for(Appointment loopAppointment:appointmentList){
-					if (loopAppointment.getTimeOfAppointment().compareTo(iTime)==0){
+					if (loopAppointment.getHeadline()!=null && iTime.compareTo(loopAppointment.getTimeOfAppointment())==0){
 						eachAppointment.setAppointmentDuration(loopAppointment.getAppointmentDuration());
 						eachAppointment.setHeadline(loopAppointment.getHeadline());
 						eachAppointment.setComments(loopAppointment.getComments());					
@@ -220,5 +232,28 @@ public class CommonServiceImpl implements CommonService{
 	public boolean updateDiagnosisAndTests(Appointment appointment) {
 		return commonDAO.updateDiagnosisAndTests(appointment);
 	}
+
+	public PatientDetails getPatientDetails(int idPerson){
+		return commonDAO.getPatientDetails(idPerson);
+	}
+
+	public boolean updatePatientDetails(PatientDetails patientDetails){
+		return commonDAO.updatePatientDetails(patientDetails);
+	}
 	
+	public List <CodeDecode> getCodeDecode(String codeCategory) {
+		return commonDAO.getCodeDecode(codeCategory);
+	}
+
+	public HolidayCalendarList getHolidays(int idPerson){
+		return commonDAO.getHolidays(idPerson);
+	}
+	
+	public boolean insertHolidays(HolidayCalendarList holidayList) {
+		return commonDAO.insertHolidays(holidayList);
+	}
+
+	public boolean insertPatientDocumentDetials(MultiPartFileUploadBean fileDetails) {
+		return commonDAO.insertPatientDocumentDetials(fileDetails);
+	}
 }

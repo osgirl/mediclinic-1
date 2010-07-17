@@ -201,7 +201,7 @@
 			and p.idPerson =?
 			and date_of_appointment = date_format(?,'%Y-%m-%d')
 			union all
-			select 0, '','9999-12-31','23:59:59', '23:59:59',0,start_time,end_time,'' ,'23:59:59'
+			select 0, '','9999-12-31','23:59:59', '23:59:59',idDoctor_details,start_time,end_time,'' ,'23:59:59'
 			from doctor_work_timings dwt,
 			doctor_details dd,
 			person p
@@ -212,9 +212,24 @@
 			
  	</select>
 
+ 	<resultMap class="com.mediapp.domain.common.Appointment" id="Day-Appointment-Patient-Result-Map">
+	 	<result property="appointmentID" 		column="idAppointment_History"/> 	
+	 	<result property="headline" 			column="appointment_headline"/>
+	 	<result property="dateOfAppointment" 	column="date_of_appointment"/>
+	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
+	 	<result property="appointmentDuration" 	column="appointment_duration"/>
+	 	<result property="doctorID" 			column="idDoctor_details"/>
+	 	<result property="comments"			 	column="appointment_comment"/>
+	 	<result property="appointmentEndTime" 	column="appointment_end_time"/>
+	</resultMap>
 
-	<select id="dayAppointmentForPatient" parameterMap="Day-Appointment-Parm-Map" resultMap="Day-Appointment-Result-Map">
-			select idAppointment_History, appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,appointment_comment
+	<parameterMap id="Day-Appointment-Patient-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
+	</parameterMap>
+
+	<select id="dayAppointmentForPatient" parameterMap="Day-Appointment-Patient-Parm-Map" resultMap="Day-Appointment-Patient-Result-Map">
+			select idAppointment_History, appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,appointment_comment,appointment_end_time
 			from appointment_history ah,
 			patient_details pd,
 			person p
@@ -231,8 +246,8 @@
 	<insert id="insertNewAppointment">
 		INSERT INTO appointment_history ( idPatient_details,idDoctor_details,date_of_appointment,appointment_type,
 		appointment_confirmation,time_of_appointment,appointment_comment,appointment_duration,appointment_headline,appointment_end_time ) 
-		VALUES ( (select idpatient_details from patient_details where idPerson=#doctorPersonID#),#doctorID#,#dateOfAppointment#,'R','N',
-		#timeOfAppointment#,#comments#,#appointmentDuration# ,#headline#,#appointmentEndTime#)
+		VALUES ( (select idpatient_details from patient_details where idPerson=#patientPersonID#),#doctorID#,date_format(#dateOfAppointment#, '%y-%m-%d'),'R','N',
+		#timeOfAppointment#,#comments#,#appointmentDuration# ,#headline#,addtime(#timeOfAppointment#,#appointmentDuration#))
 	</insert>
 	
 	 <parameterMap id="Personal-Details-Map"   class="java.util.HashMap">
@@ -482,5 +497,119 @@
 		and work_day = DATE_FORMAT(?, '%W');
 	</select>
 
+	<resultMap class="com.mediapp.domain.common.CodeDecode" id="Code-Decode-Result-Map">
+	 	<result property="codeDecode" column="code_val"/>
+	 	<result property="codeDescription" column="code_desc"/>
+	</resultMap>
+	 	
+	<parameterMap id="Code-Decode-Map"   class="java.util.HashMap">
+		<parameter property="Category"    	javaType="java.lang.String"    mode="IN"/>
+	</parameterMap>
+
+	<select id="codeDecode" parameterMap="Code-Decode-Map" resultMap="Code-Decode-Result-Map">
+           SELECT code_val,code_desc FROM code_decode where code_ctg = ? ;
+ 	</select>
+
+
+	<resultMap class="com.mediapp.domain.common.Holidays" id="Holidays-Result-Map">
+	 	<result property="holidayDate" column="date_of_holiday"/>
+	 	<result property="comments" column="comments"/>
+	 	<result property="idDoctor" column="idDoctor"/>
+	</resultMap>
+	 	
+	<parameterMap id="Holidays-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    	javaType="java.lang.Integer"    mode="IN"/>
+	</parameterMap>
+
+	<select id="getHolidays" parameterMap="Holidays-Parm-Map" resultMap="Holidays-Result-Map">
+           select date_of_holiday, comments, idDoctor
+			from holiday_calendar hc,
+				doctor_details dd
+			where 
+				dd.idDoctor_details = hc.idDoctor
+				and idPerson = ?;
+ 	</select>
+
+	<insert id="insertHolidays" >
+			insert into holiday_calendar 
+				(idholiday_calendar, date_of_holiday,idDoctor,comments) values
+				(nextval('s_holiday_calendar'),#holidayDate#,#idDoctor#,#comments#)
+			on duplicate key 
+			update date_of_holiday= #holidayDate# , comments =#comments#;
+	</insert>
+
+
+	<insert id="insertPatientDocument" >
+			insert into patient_document_details 
+				(document_name,document_path,comments,idPatient_details) values
+				(#fileName#,#filePath#,#comments#,#idPatient#);
+	</insert>
+
+	<resultMap class="com.mediapp.domain.common.PatientDetails" id="PatientDetails-Result-Map">
+	 	<result property="idPatient" 	column="idPatient_details"/>
+	 	<result property="weight" 		column="weight"/>
+	 	<result property="height" 		column="height"/>
+	 	<result property="bloodGroup" 	column="blood_group"/>
+	</resultMap>
+
+	<parameterMap id="PatientDetails-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    	javaType="java.lang.Integer"    mode="IN"/>
+	</parameterMap>
+
+	<select id="getPatientDetails" parameterMap="PatientDetails-Parm-Map" resultMap="PatientDetails-Result-Map">
+			select idPatient_details, weight,height,blood_group 
+			from patient_details
+			where idPerson =?;
+ 	</select>
+
+
+	<parameterMap id="PatientAllergies-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    	javaType="java.lang.Integer"    mode="IN"/>
+	</parameterMap>
+
+	<select id="getAllergies" parameterMap="PatientAllergies-Parm-Map" resultClass="java.lang.String">
+			select allergy
+			from 	patient_allergies pa,
+					patient_details pd
+			where pd.idPatient_details = pa.idPatient_details
+				and idPerson=?;
+ 	</select>
+
+
+	<resultMap class="com.mediapp.domain.common.MultiPartFileUploadBean" id="UploadFiles-Result-Map">
+	 	<result property="fileName" 		column="document_name"/>
+	 	<result property="filePath" 		column="document_path"/>
+	 	<result property="comments" 		column="comments"/>
+	 	<result property="idPatient" 		column="idPatient"/>
+	</resultMap>
+
+	<parameterMap id="UploadFiles-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    	javaType="java.lang.Integer"    mode="IN"/>
+	</parameterMap>
+
+	<select id="getuploadedFiles" parameterMap="UploadFiles-Parm-Map" resultMap="UploadFiles-Result-Map">
+		select document_name,document_path, comments, pdd.idPatient_details as idPatient
+		from patient_document_details pdd,
+		patient_details pd
+		where 
+		pd.idPatient_Details = pdd.idPatient_details
+		and idPerson = ?;
+ 	</select>
+
+	<update id="updatePatientDetails" >
+		UPDATE patient_details set weight=#weight#,height=#height#,blood_group=#bloodGroup#
+		where idPatient_details = #idPatient#;
+	</update>
+
+	<parameterMap id="InsertAllergies-Parm-Map"   class="java.util.HashMap">
+		<parameter property="Allergy"    	javaType="java.lang.String"    mode="IN"/>
+		<parameter property="PatientID"    	javaType="java.lang.Integer"    mode="IN"/>
+	</parameterMap>
+
+
+	<insert id="insertAllergies"  parameterMap="InsertAllergies-Parm-Map">
+			insert into patient_allergies (allergy,idPatient_details) values
+			(?,?);
+	</insert>
 	
 </sqlMap>

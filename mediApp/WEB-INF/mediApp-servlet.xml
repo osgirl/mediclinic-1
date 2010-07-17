@@ -49,6 +49,10 @@
         <property name="commandClass"><value>com.mediapp.domain.common.PatientDetails</value></property>
         <property name="formView"><value>pastHistory</value></property>
         <property name="successView"><value>pastHistory</value></property>
+        <property name="commonService">
+			<ref bean="commonService"/>
+		</property>
+        
 	</bean>
 
     <bean id="uploadFile" class="com.mediapp.web.controller.common.MultiPartFileUploadController">
@@ -57,6 +61,9 @@
         <property name="commandClass"><value>com.mediapp.domain.common.MultiPartFileUploadBean</value></property>
         <property name="formView"><value>uploadFile</value></property>
         <property name="successView"><value>uploadFile</value></property>
+        <property name="commonService">
+			<ref bean="commonService"/>
+		</property>
     </bean>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
@@ -67,6 +74,10 @@
         <property name="commandClass"><value>com.mediapp.domain.common.HolidayCalendarList</value></property>
         <property name="formView"><value>holidayCalendar</value></property>
         <property name="successView"><value>holidayCalendar</value></property>
+        <property name="commonService">
+			<ref bean="commonService"/>
+		</property>
+        
 	</bean>
 
 	<bean id="personalProfileForm" class="com.mediapp.web.controller.common.PersonalProfileController">

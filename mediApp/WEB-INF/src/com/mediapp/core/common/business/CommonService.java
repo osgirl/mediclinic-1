@@ -10,6 +10,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.CodeDecode;
+import com.mediapp.domain.common.HolidayCalendarList;
+import com.mediapp.domain.common.MultiPartFileUploadBean;
+import com.mediapp.domain.common.PatientDetails;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
@@ -34,6 +37,15 @@ public interface CommonService {
 	
 	public boolean updateDiagnosisAndTests(Appointment appointment) ;
 
+	public PatientDetails getPatientDetails(int idPerson);	
+
+	public boolean updatePatientDetails(PatientDetails patientDetails) ;
+
+	public List <CodeDecode> getCodeDecode(String codeCategory);
+
+	public HolidayCalendarList getHolidays(int idPerson);
+
+	public boolean insertHolidays(HolidayCalendarList holidayList);
 	
-	
+	public boolean insertPatientDocumentDetials(MultiPartFileUploadBean fileDetails);
 }

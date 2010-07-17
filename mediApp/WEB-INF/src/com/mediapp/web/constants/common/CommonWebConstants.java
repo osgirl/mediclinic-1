@@ -31,4 +31,8 @@ public interface CommonWebConstants {
 	 String VERTICAL_MENU_BUTTON_AFTER_VALUE_TAG = "' class='gsubmit'    /></td></tr> ";
 	 
 	// String MENU_TABLE_END_TAG = "</table></td></tr>";
+
+	 String PATIENT_DETAILS = "patientDetails";
+
+	 String DOCTOR = "Doctor";
 }

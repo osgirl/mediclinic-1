@@ -16,17 +16,29 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import com.mediapp.core.common.business.CommonService;
 import com.mediapp.domain.common.HolidayCalendarList;
 import com.mediapp.domain.common.Holidays;
+import com.mediapp.domain.common.Person;
 import com.mediapp.web.common.CustomTimeEditor;
 import com.mediapp.web.constants.common.CommonWebConstants;
 
 public class HolidayCalendarController extends MediAppBaseController  {
- 
+	CommonService commonService;
+	
+	
+	public CommonService getCommonService() {
+		return commonService;
+	}
+
+	public void setCommonService(CommonService commonService) {
+		this.commonService = commonService;
+	}
+
  @Override
  protected Map referenceData(HttpServletRequest request, Object command,
    Errors errors) throws Exception {
-  HolidayCalendarList holidays = (HolidayCalendarList)command;
+	 HolidayCalendarList holidays = (HolidayCalendarList)command;
      Map < String , Object > holidayMap = new HashMap < String , Object > ();
      HolidayCalendarList holidayCalendar = new HolidayCalendarList();
      List <Holidays> holiday = new ArrayList();
@@ -34,35 +46,59 @@ public class HolidayCalendarController extends MediAppBaseController  {
       holiday.add(h);
      }
      int currentSize = holidays.getHolidays().size();
-     for(int i =0;i < 5;i++){
-      Holidays hld = new Holidays();
-      holiday.add(hld);
+     if (currentSize ==0){
+ 		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
+		int idPerson = sessionPerson.getIdPerson(); 
+    	holidays = commonService.getHolidays(idPerson) ;
      }
-//     holidayCalendar.setHolidays(holiday);
-     holidays.setHolidays(holiday);
+     currentSize = holidays.getHolidays().size();
+     if (currentSize < 5 ){
+         for(int i =0;i < 5;i++){
+             Holidays hld = new Holidays();
+        	 if (i<currentSize ){
+        		 hld = holidays.getHolidays().get(i);
+        		 
+        	 }else{
+                 hld = new Holidays();
+
+        	 }
+             holiday.add(hld);
+             
+            }
+            holidays.setHolidays(holiday);
+     }
      holidayMap.put("holidayCalendar", holidays);
      return holidayMap;
  }
 
 
  public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
-  HolidayCalendarList holidays = (HolidayCalendarList)command;
-     Map < String , Object > holidayMap = new HashMap < String , Object > ();
-     HolidayCalendarList holidayCalendar = new HolidayCalendarList();
-     List <Holidays> holiday = new ArrayList();
-     for (Holidays h : holidays.getHolidays()){
-      holiday.add(h);
-     }
-     int currentSize = holidays.getHolidays().size();
-     for(int i =0;i < 5;i++){
-      Holidays hld = new Holidays();
-      holiday.add(hld);
-     }
-     holidays.setHolidays(holiday);
-     holidayMap.put("holidayCalendar", holidays);
-  
-  return new ModelAndView(getSuccessView(),"holidayCalendar", holidays );
- }
+	  HolidayCalendarList holidays = (HolidayCalendarList)command;
+	  String operationName = request.getParameter("AddOperation");
+	  boolean insertStatus = false;
+	  if ("Y".equals(operationName)){
+	      Map < String , Object > holidayMap = new HashMap < String , Object > ();
+	      HolidayCalendarList holidayCalendar = new HolidayCalendarList();
+	      List <Holidays> holiday = new ArrayList();
+	      for (Holidays h : holidays.getHolidays()){
+	       holiday.add(h);
+	      }
+	      int currentSize = holidays.getHolidays().size();     
+	      for(int i =0;i < 5;i++){
+	       Holidays hld = new Holidays();
+	       holiday.add(hld);
+	      }
+	      holidays.setHolidays(holiday);
+	      holidayMap.put("holidayCalendar", holidays);
+	   
+	   //return new ModelAndView(getSuccessView(),"holidayCalendar", holidays );
+	   
+	  }else{
+		  insertStatus=commonService.insertHolidays(holidays);
+	  }
+	  return new ModelAndView(getSuccessView(),"holidayCalendar", holidays );
+	 }  
+
 
  @Override
  protected void initBinder(HttpServletRequest request,

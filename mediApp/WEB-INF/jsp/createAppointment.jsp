@@ -83,9 +83,11 @@
 							<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.appointmentEndTime}"/>"/>					
 						</spring:bind>
 						<spring:bind path="appointment.doctorPersonID">
-							<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorPersonID}"/>"/>					
+							<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorPersonID}"/>"/>
 						</spring:bind>
-						
+						<input type="hidden" name="PersonID"  value="<c:out value="${appointment.doctorPersonID}"/>"/>
+						<input type="hidden" name="AppointmentDate"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>"/>
+						<input type="hidden" name="TakeAppointment"  value="Y"/>
 					<tr>
 						<td align="center" colspan="2">															
 						<input type="button"  onClick="javascript:fn_addAppointment();" alignment="center" value="Add" class="bsubmit"  width="75"/>

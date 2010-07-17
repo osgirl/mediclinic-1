@@ -51,10 +51,11 @@
           </tr>
            <tr>
             <td align="center" colspan="2">
-            <input type="hidden" value="1" id="counter"/>
-            <input type="button" onclick="addRowToCalendar();"  value="Add Row"  alignment="center"  class="bsubmit" id="beforeThis"/>
-            <input type="button" onclick="removeRowToCalendar();"  value="Remove Row"  alignment="center"  class="bsubmit" id="remove"/>               
-            <input type="button"  onClick="javascript:fn_updateAppointmentDetails();" alignment="center" value="Save" class="bsubmit"  width="75"/>
+	            <input type="hidden" value="1" id="counter"/>
+	            <input type="hidden" value="N" id="AddOperation" name="AddOperation"/>
+	            <input type="button" onclick="addRowToCalendar();"  value="Add Row"  alignment="center"  class="bsubmit" id="beforeThis"/>
+	            <input type="button" onclick="removeRowToCalendar();"  value="Remove Row"  alignment="center"  class="bsubmit" id="remove"/>               
+	            <input type="button"  onClick="javascript:fn_updateHolidayCalendar();" alignment="center" value="Save" class="bsubmit"  width="75"/>
             </td>
            </tr>
           

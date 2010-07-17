@@ -39,21 +39,33 @@
 	</tr>
 	<tr>
 		<td>Select File:</td>
-		<td><input type="file" name="file" style="WIDTH: 500px" /></td>
+		<td>
+			<spring:bind path="fileUpload.file">
+				<input type="file" name="${status.expression}" style="WIDTH: 500px" />
+			</spring:bind>
+		</td>
 	</tr>
 	<tr>
 		<td>Document Type:</td>
-		<td><select id="DocumentType" name="DocumentType"
-			style="WIDTH: 250px">
-			<option value='Medical Report'>Medical Report</option>
-			<option value='X-Ray Report'>X-Ray Report</option>
+		<td>
+			<spring:bind path="fileUpload.fileName">
+				<select id="${status.expression}" name="${status.expression}" style="WIDTH: 250px">
+					<c:forEach items="${DocumentType}" var="data">
+						<option value='${data.codeDecode}' >${data.codeDecode}</option>
+					</c:forEach>
+				</select>
+			</spring:bind>
 
-		</select></td>
+		</td>
 	</tr>
 	<tr>
 		<td>Comments:</td>
-		<td><textarea name="comments" value="" rows="4" cols="50">
-        </textarea></td>
+		<td>
+			<spring:bind path="fileUpload.comments">
+				<textarea name="${status.expression}" value="" rows="4" cols="50">
+        		</textarea>
+        	</spring:bind>
+        </td>
 	</tr>
 	<tr>
 		<td align="center" colspan="2"><input type="button"

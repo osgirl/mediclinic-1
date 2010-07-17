@@ -64,22 +64,28 @@ function fn_searchDoctor(){
 }
 
 function fn_dayAppointment(personID){	
-	 window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('searchCriteria.dateOfAppointment').value;
+	 window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('searchCriteria.dateOfAppointment').value+"&TakeAppointment=Y";
 }
 
 function fn_createAppointment(personID,doctorID,timeOfAppointment,appointmentDate){
-	window.name = "Parent";
-	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:430px;dialogWidth:630px;status:no;edge:sunken';	
-    var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment, window, WinSettings);
+	if (doctorID > 0){
+		window.name = "Parent";
+		var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:430px;dialogWidth:630px;status:no;edge:sunken';	
+	    var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment, window, WinSettings);
+	}else{
+		alert("Please take appointment by going through Search Doctor.");
+	}
 }
 
 function fn_addAppointment(){	
 	document.getElementById('dateOfAppointment').disabled=false;
 	document.getElementById('timeOfAppointment').disabled=false;
-	document.forms["createAppointment"].target='Parent'; 
-	window.location = window.location;	
-	window.close();
-	document.forms["createAppointment"].submit();
+	document.forms['createAppointment'].target="Parent";
+    document.forms["createAppointment"].submit();
+	document.forms['createAppointment'].method ="get";	
+	document.forms['createAppointment'].action="dayAppointment.htm"; 
+	document.forms['createAppointment'].submit();
+	 self.close();
 }
 
 function fn_GetMonthView(indicator){
@@ -129,14 +135,18 @@ function fn_updateAppointmentDetails(){
     	document.getElementById("diagnosis["+i+"].prescription").disabled = false;
     	document.getElementById("diagnosis["+i+"].diagnosisTest").disabled = false;
     } 
+	document.forms['updateAppointment'].target="Parent";
     document.forms["updateAppointment"].submit();
-    window.close();
+	document.forms['updateAppointment'].method ="post";
+	document.forms['updateAppointment'].action="dayAppointment.htm"; 
+	document.forms['updateAppointment'].submit();
+	 self.close();
 }
 
 function fn_addToSelect(selectName,tempName){
 	//alert(selectName,tempName);
 	if(document.getElementById(tempName).value == ""){
-		alert("please enter the text to be added.");
+		alert("Please enter the text to be added.");
 		document.getElementById(tempName).focus();
 	}else{
 		//alert();
@@ -312,9 +322,14 @@ function fn_uploadFile(){
     var c = window.showModalDialog('/uploadFile.htm', window, WinSettings);
 }
 
+function fn_saveHistory(){
+	document.getElementById("allergies").disabled = false;
+	document.forms['pastHistory'].submit();
+}
+
 function fn_uploadSelectedFile(){
 	 document.forms['uploadFile'].target="ParentWindow";
-    document.forms["uploadFile"].submit();
+     document.forms["uploadFile"].submit();
 	 document.forms['uploadFile'].method ="post";
 	 document.forms['uploadFile'].action="pastHistory.htm"; 
 	 document.forms['uploadFile'].submit();
@@ -440,13 +455,20 @@ function fn_addRowForTime(dayName){
 //calendar UI scripts
 function addRowToCalendar()
 {
-  holidayCalendar.method="post";
+   document.getElementById('AddOperation').value = "Y";
+    holidayCalendar.method="post";
 // holidayCalendar.target = "selectFunds";
     holidayCalendar.submit(); 
 //end
 }
 
+function fn_updateHolidayCalendar(){
+   document.getElementById('AddOperation').value = "N";
+    holidayCalendar.method="post";
+// holidayCalendar.target = "selectFunds";
+    holidayCalendar.submit(); 
 
+}
 
 function removeRowFromCalendar()
 {
@@ -500,7 +522,7 @@ window.location.href = "/dayAppointment.htm?selectedDate="+myElement.children["c
       }
    }
 }
-function getAppointment(personID,appointmentDate){
+function getAppointment(personID,appointmentDate){	
 	window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate;	
 }
 

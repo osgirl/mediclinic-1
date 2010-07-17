@@ -27,6 +27,16 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private int patientID;
 	
+	private int patientPersonID;
+	
+	public int getPatientPersonID() {
+		return patientPersonID;
+	}
+
+	public void setPatientPersonID(int patientPersonID) {
+		this.patientPersonID = patientPersonID;
+	}
+
 	private int doctorPersonID;
 	
 	private int doctorID;

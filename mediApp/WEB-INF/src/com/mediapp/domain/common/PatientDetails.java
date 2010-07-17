@@ -12,6 +12,8 @@ public class PatientDetails extends MediAppBaseDomain{
 	 */
 	private static final long serialVersionUID = 1332232L; 
 	
+	private int idPatient;
+	
 	private String weight;
 
 	private String height;
@@ -22,9 +24,26 @@ public class PatientDetails extends MediAppBaseDomain{
 				new ArrayList < String > (),
 			FactoryUtils.instantiateFactory(String.class)); 
 
-    private List<String> fileNames = LazyList.decorate(
-			new ArrayList < String > (),
-		FactoryUtils.instantiateFactory(String.class));
+    private List<MultiPartFileUploadBean> uploadedFiles = LazyList.decorate(
+			new ArrayList < MultiPartFileUploadBean > (),
+		FactoryUtils.instantiateFactory(MultiPartFileUploadBean.class));
+
+	public int getIdPatient() {
+		return idPatient;
+	}
+
+	public void setIdPatient(int idPatient) {
+		this.idPatient = idPatient;
+	}
+
+
+    public List<MultiPartFileUploadBean> getUploadedFiles() {
+		return uploadedFiles;
+	}
+
+	public void setUploadedFiles(List<MultiPartFileUploadBean> uploadedFiles) {
+		this.uploadedFiles = uploadedFiles;
+	}
 
 	public String getWeight() {
 		return weight;
@@ -57,14 +76,6 @@ public class PatientDetails extends MediAppBaseDomain{
 	public void setAllergies(List<String> allergies) {
 		this.allergies = allergies;
 	}
-
-	public List<String> getFileNames() {
-		return fileNames;
-	}
-
-	public void setFileNames(List<String> fileNames) {
-		this.fileNames = fileNames;
-	} 
 
     
 }

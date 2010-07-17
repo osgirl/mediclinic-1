@@ -1,16 +1,14 @@
 package com.mediapp.core.common.dao.impl;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.text.DefaultEditorKit.InsertContentAction;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,9 +21,14 @@ import com.mediapp.domain.common.AppointmentTO;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Diagnosis;
 import com.mediapp.domain.common.DoctorWorkTimings;
+import com.mediapp.domain.common.HolidayCalendarList;
+import com.mediapp.domain.common.Holidays;
+import com.mediapp.domain.common.MultiPartFileUploadBean;
+import com.mediapp.domain.common.PatientDetails;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
+
 
 
 public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
@@ -194,7 +197,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	}
 
 	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment,String personType) throws DataAccessException{
-		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;		
 		Integer idPersonInt = new Integer(idPerson);
 		criteria.put("PersonID", idPersonInt);		
 		criteria.put("DateOfAppointment", dateOfAppointment);	
@@ -414,4 +417,81 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return   workTimings;
 	}
 	
+	public PatientDetails getPatientDetails(int idPerson) throws DataAccessException{
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		Integer idPersonInt = new Integer(idPerson);
+		criteria.put("PersonID", idPersonInt);		
+		PatientDetails patientDetails = (PatientDetails)getObject("common.getPatientDetails", criteria);		
+		List<String> allegeries = (ArrayList<String>) getList("common.getAllergies", criteria);
+		patientDetails.setAllergies(allegeries);
+		List<MultiPartFileUploadBean> uploadedFiles = (ArrayList<MultiPartFileUploadBean>) getList("common.getuploadedFiles", criteria);
+		patientDetails.setUploadedFiles(uploadedFiles);
+		return patientDetails;
+	}
+
+	public boolean updatePatientDetails(PatientDetails patientDetails) throws DataAccessException{
+ 		int count = updateObject("common.updatePatientDetails", patientDetails); 		
+ 		boolean flag=false;
+ 		if (count > 0){
+ 			try { 
+ 				this.getSqlMapClient().startBatch(); 
+ 				Map<String,Object> criteria =  new HashMap < String, Object > () ;
+ 				for (int i =0;i < patientDetails.getAllergies().size();i++){
+ 					criteria =  new HashMap < String, Object > () ;
+ 					criteria.put("PatientID", new Integer (patientDetails.getIdPatient()));
+ 					criteria.put("Allergy", patientDetails.getAllergies().get(i));
+ 					getSqlMapClient().insert("common.insertAllergies",
+ 							criteria);
+ 				}
+ 				count = this.getSqlMapClient().executeBatch();
+ 				if (count > 0){
+ 					flag = true;
+ 				}
+ 			}catch (SQLException e) { 
+ 				throw new DataIntegrityViolationException(e.getMessage()); 
+ 			} 			
+ 		}
+ 		return flag;
+	}
+
+	public List <CodeDecode> getCodeDecode(String codeCategory) throws DataAccessException {
+		Map<String,String> criteria =  new HashMap < String, String > () ;
+		criteria.put("Category", codeCategory);
+		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.codeDecode",criteria );	
+		return codeValueList;
+	}
+
+	public HolidayCalendarList getHolidays(int idPerson){
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		Integer idPersonInt = new Integer(idPerson);
+		criteria.put("PersonID", idPersonInt);		
+		List <Holidays> holidays = (ArrayList <Holidays>) getList("common.getHolidays", criteria);
+		HolidayCalendarList holidayList = new HolidayCalendarList();
+		holidayList.setHolidays(holidays);
+		return holidayList;
+	}
+
+	public boolean insertHolidays(HolidayCalendarList holidayList) throws DataAccessException{
+ 		int count = 0;
+ 		boolean flag=false;
+		try { 
+			this.getSqlMapClient().startBatch(); 
+			for (Holidays holidays : holidayList.getHolidays()){
+				getSqlMapClient().insert("common.insertHolidays",
+						holidays);
+			}
+			count = this.getSqlMapClient().executeBatch();
+			if (count > 0){
+				flag = true;
+			}
+		}catch (SQLException e) { 
+			throw new DataIntegrityViolationException(e.getMessage()); 
+		} 			
+ 		return flag;
+	}
+
+	public boolean insertPatientDocumentDetials(MultiPartFileUploadBean fileDetails) throws DataAccessException{
+		return insertObject("common.insertPatientDocumentDetails",fileDetails );
+	}
+
 }

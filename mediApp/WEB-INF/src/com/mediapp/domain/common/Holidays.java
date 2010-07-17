@@ -15,6 +15,16 @@ public class Holidays extends MediAppBaseDomain{
 	private String toTime;
 
 	private String comments;
+	
+	private int idDoctor;
+
+	public int getIdDoctor() {
+		return idDoctor;
+	}
+
+	public void setIdDoctor(int idDoctor) {
+		this.idDoctor = idDoctor;
+	}
 
 	public Date getHolidayDate() {
 		return holidayDate;
