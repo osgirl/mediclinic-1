@@ -198,11 +198,12 @@ DROP TABLE IF EXISTS `mediapp`.`holiday_calendar` ;
 
 CREATE  TABLE IF NOT EXISTS `mediapp`.`holiday_calendar` (
   `idholiday_calendar` INT(11) NOT NULL ,
-  `idDoctor` INT(11) NULL DEFAULT NULL ,
-  `date_of_holiday` DATE NULL DEFAULT NULL ,
+  `idDoctor` INT(11) NOT NULL ,
+  `date_of_holiday` DATE NOT NULL ,
   `start_time` TIME NULL DEFAULT NULL ,
   `end_time` TIME NULL DEFAULT NULL ,
-  PRIMARY KEY (`idholiday_calendar`) ,
+  `comments` VARCHAR(200) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idDoctor`, `date_of_holiday`) ,
   INDEX `hcpersonID` (`idDoctor` ASC) ,
   INDEX `hcDoctor` (`idDoctor` ASC) ,
   CONSTRAINT `hcDoctor`
