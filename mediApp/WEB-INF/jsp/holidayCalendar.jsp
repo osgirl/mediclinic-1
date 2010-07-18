@@ -19,33 +19,35 @@
               </tr>
               <tr >
                <td width="40%">Holiday Date:
-               <td width="60%" align="left">Full Day:
+               <td width="60%" align="left">Comments:
                </td>
               </tr>
               
-              <tr>
-       <c:forEach items="${holidayCalendar.holidays}" varStatus="holidays">
-                   <td >
-                    <spring:bind path="holidayCalendar.holidays[${holidays.index}].holidayDate">
-                     <input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${status.value}"/>"  style="WIDTH: 100px"/>                
-                    </spring:bind>
-                      <script language="JavaScript">
-                       new tcal ({
-                        // form name
-                        'formname': 'holidayCalendar',
-                        // input name
-                        'controlname': '<c:out value="holidays[${holidays.index}].holidayDate"/>'
-                        });
-                      </script>
-                   </td>                
-                   <td >
-                    <spring:bind path="holidayCalendar.holidays[${holidays.index}].comments">
-                     <input type="text" name="${status.expression}" id="${status.expression}"  value="${status.value}" style="WIDTH: 300px"/>                
-                    </spring:bind>
-                   </td>
-       </c:forEach>
+             
+		       <c:forEach items="${holidayCalendar.holidays}" varStatus="holidays">
+			        <tr>
+	                   <td >
+	                    <spring:bind path="holidayCalendar.holidays[${holidays.index}].holidayDate">
+	                     <input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${holidayCalendar.holidays[holidays.index].holidayDate}"/>"  style="WIDTH: 100px"/>                
+	                    </spring:bind>
+	                      <script language="JavaScript">
+	                       new tcal ({
+	                        // form name
+	                        'formname': 'holidayCalendar',
+	                        // input name
+	                        'controlname': '<c:out value="holidays[${holidays.index}].holidayDate"/>'
+	                        });
+	                      </script>
+	                   </td>                
+	                   <td >
+	                    <spring:bind path="holidayCalendar.holidays[${holidays.index}].comments">
+	                     <input type="text" name="${status.expression}" id="${status.expression}"  value="${holidayCalendar.holidays[holidays.index].comments}" style="WIDTH: 300px"/>                
+	                    </spring:bind>
+	                   </td>
+		         	</tr>
+		       </c:forEach>
               
-              </tr>
+            
              </table>
             </div>
           </tr>

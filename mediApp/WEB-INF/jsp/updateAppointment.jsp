@@ -135,10 +135,10 @@
 										</td>																		
 										<td >
 											
-											<spring:bind  path="appointment.diagnosis[${diagnosisAndtest.index}].prescription">
+											<spring:bind  path="appointment.diagnosis[${diagnosisAndtest.index}].prescriptionList">
 												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple disabled="disabled">
-													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescription}" varStatus="legg">
-														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}"/></option>		
+													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}" varStatus="legg">
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList[legg.index]}"/></option>		
 													</c:forEach>
 												</select>
 											</spring:bind>
@@ -158,10 +158,10 @@
 										</td>
 																		
 										<td >
-											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].diagnosisTest">
+											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].testList">
 												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple disabled="disabled">
-													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}" varStatus="legg">
-														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}"/></option>		
+													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].testList}" varStatus="legg">
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList[legg.index]}"/></option>		
 													</c:forEach>
 												</select>
 											</spring:bind>

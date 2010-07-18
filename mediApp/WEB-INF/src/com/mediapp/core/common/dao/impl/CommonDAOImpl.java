@@ -131,12 +131,13 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
 	public List <SearchResult> getDoctors(SearchCriteria searchCriteria) throws DataAccessException{
 		Person person = null;		
-		Map<String,String> criteria =  new HashMap < String, String > () ;		
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;		
 		criteria.put("FirstName", searchCriteria.getDoctorFirstName());
 		criteria.put("LastName", searchCriteria.getDoctorLastName());
 		criteria.put("MiddleInitial", searchCriteria.getDoctorMiddleInitial());
 		criteria.put("Speciality", searchCriteria.getSpeciality());
 		criteria.put("Locality", searchCriteria.getLocality());		
+		criteria.put("HolidayDate", searchCriteria.getDateOfAppointment());
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(searchCriteria.getDateOfAppointment());
 		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);		
@@ -242,17 +243,29 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		criteria.put("AppointmentID", idAppointment);		
 		List<AppointmentTO> appointment = (ArrayList<AppointmentTO>) getList("common.getAppointment",criteria );
 		Appointment appointmentLast = new Appointment();
+		appointmentLast.setHeadline(appointment.get(0).getHeadline());
+		appointmentLast.setComments(appointment.get(0).getComments());
+		appointmentLast.setConfirmedIndicator(appointment.get(0).getConfirmedIndicator());
 		appointmentLast.setAppointmentID(appointment.get(0).getAppointmentID());
 		appointmentLast.setDateOfAppointment(appointment.get(0).getDateOfAppointment());
 		appointmentLast.setTimeOfAppointment(appointment.get(0).getTimeOfAppointment());
 		List <Diagnosis> diagnosis = new ArrayList();
+		int currentIDDiagnosis = 0;
+		Diagnosis eachDiagnosis = new Diagnosis();
+		List <String> prescriptionList = new ArrayList<String>();
+		List <String> testList = new ArrayList<String>();
 		for(AppointmentTO  eachAppointment: appointment){
-			Diagnosis eachDiagnosis = new Diagnosis();
-			eachDiagnosis.setCodeICD(eachAppointment.getCodeICD());
-			eachDiagnosis.setDiagnosis(eachAppointment.getDiagnosis());
-			eachDiagnosis.setDiagnosisTest(eachAppointment.getDiagnosisTest());
-			eachDiagnosis.setPrescription(eachAppointment.getPrescription());
-			diagnosis.add(eachDiagnosis);
+			if (eachAppointment.getDiagnosisID()!= currentIDDiagnosis){
+				eachDiagnosis.setPrescriptionList(prescriptionList);
+				eachDiagnosis.setTestList(testList);
+				diagnosis.add(eachDiagnosis); 
+				eachDiagnosis= new Diagnosis();
+				 currentIDDiagnosis = eachAppointment.getDiagnosisID();
+				 eachDiagnosis.setCodeICD(eachAppointment.getCodeICD());
+				 
+			}
+			prescriptionList.add(eachAppointment.getPrescription());
+			testList.add(eachAppointment.getDiagnosisTest());
 		}
 		appointmentLast.setDiagnosis(diagnosis);
 		return appointmentLast;
@@ -474,11 +487,18 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	public boolean insertHolidays(HolidayCalendarList holidayList) throws DataAccessException{
  		int count = 0;
  		boolean flag=false;
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		Integer idPersonInt = new Integer(holidayList.getIdDoctorPerson());
+		criteria.put("PersonID", idPersonInt);		
+		Person completeDetails = (Person) getObject("common.getPersonalProfile",criteria );		
 		try { 
 			this.getSqlMapClient().startBatch(); 
 			for (Holidays holidays : holidayList.getHolidays()){
-				getSqlMapClient().insert("common.insertHolidays",
-						holidays);
+				if(holidays.getHolidayDate() !=null){
+					holidays.setIdDoctor(completeDetails.getDoctorDetails().getIdDoctor());
+					getSqlMapClient().insert("common.insertHolidays",
+							holidays);
+				}
 			}
 			count = this.getSqlMapClient().executeBatch();
 			if (count > 0){

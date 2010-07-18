@@ -25,6 +25,16 @@ public class HolidayCalendarList extends MediAppBaseDomain{
 		this.holidays = holidays;
 	}
 
+	private int idDoctorPerson;
+
+	public int getIdDoctorPerson() {
+		return idDoctorPerson;
+	}
+
+	public void setIdDoctorPerson(int idDoctorPerson) {
+		this.idDoctorPerson = idDoctorPerson;
+	}
+
 
 
 }

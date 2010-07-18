@@ -1,5 +1,11 @@
 package com.mediapp.domain.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.collections.FactoryUtils;
+import org.apache.commons.collections.list.LazyList;
+
 public class Diagnosis extends MediAppBaseDomain{
 	
 	private static final long serialVersionUID = 4L;
@@ -26,6 +32,31 @@ public class Diagnosis extends MediAppBaseDomain{
 	private String allergy;
 	
 	private int testID;
+	
+    private List<String> prescriptionList = LazyList.decorate(
+				new ArrayList < String > (),
+			FactoryUtils.instantiateFactory(String.class)); 
+
+    private List<String> testList = LazyList.decorate(
+			new ArrayList < String > (),
+		FactoryUtils.instantiateFactory(String.class)); 
+
+
+	public List<String> getPrescriptionList() {
+		return prescriptionList;
+	}
+
+	public void setPrescriptionList(List<String> prescriptionList) {
+		this.prescriptionList = prescriptionList;
+	}
+
+	public List<String> getTestList() {
+		return testList;
+	}
+
+	public void setTestList(List<String> testList) {
+		this.testList = testList;
+	}
 
 	public int getDiagnosisID() {
 		return diagnosisID;

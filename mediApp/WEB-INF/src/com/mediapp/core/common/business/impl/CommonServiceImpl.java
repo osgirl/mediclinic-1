@@ -112,8 +112,7 @@ public class CommonServiceImpl implements CommonService{
 		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss"); 
 		while (iTime.compareTo(Time.valueOf(appointmentList.get(0).getDoctorWorkEndTime()))<= 0){			
 			eachAppointment.setTimeOfAppointment(iTime);
-			if ( (iTime.getTime()-appointmentEndTime.getTime() > 0)){
-				
+			if ( (iTime.getTime()-appointmentEndTime.getTime() >= 0)){
 				for(Appointment loopAppointment:appointmentList){
 					if (loopAppointment.getHeadline()!=null && iTime.compareTo(loopAppointment.getTimeOfAppointment())==0){
 						eachAppointment.setAppointmentDuration(loopAppointment.getAppointmentDuration());

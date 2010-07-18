@@ -69,7 +69,7 @@
 																			// form name
 																			'formname': 'searchDoctor',
 																			// input name
-																			'controlname': 'dateOfAppointment'
+																			'controlname': 'searchCriteria.dateOfAppointment'
 																			});
 																	</script>
 																

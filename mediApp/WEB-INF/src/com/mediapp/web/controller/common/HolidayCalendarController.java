@@ -94,6 +94,9 @@ public class HolidayCalendarController extends MediAppBaseController  {
 	   //return new ModelAndView(getSuccessView(),"holidayCalendar", holidays );
 	   
 	  }else{
+			Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
+			int idPerson = sessionPerson.getIdPerson();
+			holidays.setIdDoctorPerson(idPerson);			
 		  insertStatus=commonService.insertHolidays(holidays);
 	  }
 	  return new ModelAndView(getSuccessView(),"holidayCalendar", holidays );

@@ -141,7 +141,10 @@
 	    <parameter property="LastName"    		javaType="java.lang.String"    mode="IN"/>
 	    <parameter property="LastName"    		javaType="java.lang.String"    mode="IN"/>
 	    <parameter property="MiddleInitial"		javaType="java.lang.String"    mode="IN"/>
-	    <parameter property="MiddleInitial"		javaType="java.lang.String"    mode="IN"/>	    
+	    <parameter property="MiddleInitial"		javaType="java.lang.String"    mode="IN"/>	
+	    <parameter property="Speciality"		javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="Speciality"		javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="HolidayDate"		javaType="java.util.Date"    mode="IN"/>
 	</parameterMap>
 
 	<select id="searchDoctor" parameterMap="Search-Input-Map" resultMap="Search-Result-Map">
@@ -164,11 +167,14 @@
             and (dd.friday_working = ? or ifnull(?,'')='')
             and (dd.saturday_working = ? or ifnull(?,'')='')
             and (dd.sunday_working = ? or ifnull(?,'')='')
-            and (Locality =? or ifnull(?,'')='')
-    		and (first_name = ? or ifnull(?,'')='')
-    		and (last_name = ? or ifnull(?,'')='')
-    		and (middle_name = ? or ifnull(?,'')='')        
+            and (Locality =trim(upper(?)) or ifnull(?,'')='')
+    		and (first_name = trim(upper(?)) or ifnull(?,'')='')
+    		and (last_name = trim(upper(?)) or ifnull(?,'')='')
+    		and (middle_name = trim(upper(?)) or ifnull(?,'')='')        
             and person_type = 'Doctor' 	
+            and (specialization = trim(upper(?)) or ifnull(?,'')='')
+            and (date_format('2010-07-20','%Y-%m-%d') not in
+            (select date_of_holiday from holiday_calendar where dd.idDoctor_details = idDoctor))
       </select>
 
  	<resultMap class="com.mediapp.domain.common.Appointment" id="Day-Appointment-Result-Map">
@@ -293,13 +299,15 @@
 	
 	<resultMap class="com.mediapp.domain.common.AppointmentTO" id="Get-Appointment-Result-Map">
 		<result property="appointmentID" 				column="idAppointment_history"/>
+		<result property="diagnosisID" 					column="idAppointment_history"/>
 	 	<result property="headline" 					column="appointment_headline"/>
 	 	<result property="dateOfAppointment" 			column="date_of_appointment"/>
 	 	<result property="timeOfAppointment" 			column="time_of_appointment"/>
 	 	<result property="appointmentDuration" 			column="appointment_duration"/>
 	 	<result property="doctorID" 					column="idDoctor_details"/>
 	 	<result property="codeICD" 						column="ICD_code"/>
-	 	<result property="prescription" 				column="Prescription"/>
+	 	<result property="prescription" 				column="Prescription_name"/>
+	 	<result property="dosage"		 				column="dosage"/>
 	 	<result property="diagnosisTest" 				column="suggested_test"/>
 	 	<result property="diagnosisTestResultUnit" 		column="test_result_value"/>
 	 	<result property="diagnosisTestResultValue" 	column="test_result_unit"/>
@@ -310,8 +318,8 @@
 	</parameterMap>
 
 	<select id="getAppointment" parameterMap="Get-Appointment-Parm-Map" resultMap="Get-Appointment-Result-Map">
-			select idAppointment_history,appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,
-                    ICD_code,Prescription,suggested_test,test_result_value,test_result_unit				
+			select idAppointment_history,d.idDiagnosis,appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,
+                    ICD_code,Prescription_name,dosage,suggested_test,test_result_value,test_result_unit				
 			from person p
 			left OUTER join doctor_details dd on dd.idPerson=p.idPerson
 			left OUTER join appointment_history ah on 
@@ -319,6 +327,7 @@
 					(p.person_type = 'Patient' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) )
 			left OUTER join diagnosis d on d.idAppointment = ah.idAppointment_History
 			left OUTER join tests t on t.fDiagnosis= d.idDiagnosis
+			left OUTER join patient_prescription pp on pp.idDiagnosis= d.idDiagnosis
 			where ah.idAppointment_History=?;
  	</select>
 
