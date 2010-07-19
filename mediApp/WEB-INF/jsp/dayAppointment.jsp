@@ -50,6 +50,14 @@
 																			</c:if>
 																		</c:if>
 																	</td>
+																	<c:if test='${appointments.headline != "OOO"}'>
+																		<td align="left" width="33%" bgcolor="#3399FF">
+																			<a href="#" onclick="fn_GetYearView(1);" style="text-decoration:none"  >
+																				<font color="#FF9933"><b>R</b></font>
+																			</a>
+																			</td>
+																	</c:if>
+
 																</c:if>														
 																<c:if test='${empty appointments.headline}'>
 																	<td width="90%" bgcolor="#E0E0F8" bordercolor="black">															
@@ -70,15 +78,26 @@
 																</td>
 															</c:if>
 															
-															<c:if test='${not empty appointments.headline}'>
-																
+															<c:if test='${not empty appointments.headline}'>																
 																<td width="90%" bgcolor="#FFCCCC" bordercolor="black">	
 																	<c:if test='${appointments.headline != "OOO"}'>
 																	<a href="javascript:fn_openAppointment(${personID},'${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>',${appointments.appointmentID})" >
 																		<c:out value="${appointments.headline}"/>
-																	</a>
+																	</a>																	
 																	</c:if>
 																</td>
+																<c:if test='${appointments.headline != "OOO"}'>
+																	<td align="left" width="33%" bgcolor="#3399FF">
+																		<a href="#" onclick="fn_GetYearView(1);" style="text-decoration:none"  >
+																			<font color="#FF9933" ><b>C</b></font>
+																		</a>
+																	</td>
+																	<td align="left" width="33%" bgcolor="#3399FF">
+																		<a href="#" onclick="fn_GetYearView(1);" style="text-decoration:none"  >
+																			<font color="#FF9933"><b>R</b></font>
+																			</a>
+																	</td>
+																</c:if>
 															</c:if>
 															<c:if test='${empty appointments.headline}'>
 																<td width="90%" bgcolor="#E0E0F8" bordercolor="black">	

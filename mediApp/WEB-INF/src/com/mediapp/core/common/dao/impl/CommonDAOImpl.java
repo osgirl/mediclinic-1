@@ -254,19 +254,33 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		Diagnosis eachDiagnosis = new Diagnosis();
 		List <String> prescriptionList = new ArrayList<String>();
 		List <String> testList = new ArrayList<String>();
+		String previousPrescription =null;
+		String previousTest=null;
 		for(AppointmentTO  eachAppointment: appointment){
 			if (eachAppointment.getDiagnosisID()!= currentIDDiagnosis){
-				eachDiagnosis.setPrescriptionList(prescriptionList);
-				eachDiagnosis.setTestList(testList);
-				diagnosis.add(eachDiagnosis); 
+				if(currentIDDiagnosis!=0){
+					eachDiagnosis.setPrescriptionList(prescriptionList);
+					eachDiagnosis.setTestList(testList);
+					diagnosis.add(eachDiagnosis); 
+				}
 				eachDiagnosis= new Diagnosis();
-				 currentIDDiagnosis = eachAppointment.getDiagnosisID();
-				 eachDiagnosis.setCodeICD(eachAppointment.getCodeICD());
+				currentIDDiagnosis = eachAppointment.getDiagnosisID();
+				eachDiagnosis.setCodeICD(eachAppointment.getCodeICD());
 				 
 			}
-			prescriptionList.add(eachAppointment.getPrescription());
-			testList.add(eachAppointment.getDiagnosisTest());
+			if(!eachAppointment.getPrescription().equals(previousPrescription)){
+				prescriptionList.add(eachAppointment.getPrescription());
+				previousPrescription= eachAppointment.getPrescription();
+			}
+			if(!eachAppointment.getDiagnosisTest().equals(previousTest)){
+				testList.add(eachAppointment.getDiagnosisTest());
+				previousTest= eachAppointment.getDiagnosisTest();
+			}
+			
 		}
+		eachDiagnosis.setPrescriptionList(prescriptionList);
+		eachDiagnosis.setTestList(testList);
+		diagnosis.add(eachDiagnosis); 
 		appointmentLast.setDiagnosis(diagnosis);
 		return appointmentLast;
 		

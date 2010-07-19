@@ -173,7 +173,7 @@
     		and (middle_name = trim(upper(?)) or ifnull(?,'')='')        
             and person_type = 'Doctor' 	
             and (specialization = trim(upper(?)) or ifnull(?,'')='')
-            and (date_format('2010-07-20','%Y-%m-%d') not in
+            and (date_format(?,'%Y-%m-%d') not in
             (select date_of_holiday from holiday_calendar where dd.idDoctor_details = idDoctor))
       </select>
 
@@ -328,7 +328,8 @@
 			left OUTER join diagnosis d on d.idAppointment = ah.idAppointment_History
 			left OUTER join tests t on t.fDiagnosis= d.idDiagnosis
 			left OUTER join patient_prescription pp on pp.idDiagnosis= d.idDiagnosis
-			where ah.idAppointment_History=?;
+			where ah.idAppointment_History=?
+			order by Prescription_name,suggested_test;
  	</select>
 
 	<resultMap class="com.mediapp.domain.common.AppointmentForMonth" id="Get-MonthAppointment-Result-Map">
