@@ -48,4 +48,6 @@ public interface CommonService {
 	public boolean insertHolidays(HolidayCalendarList holidayList);
 	
 	public boolean insertPatientDocumentDetials(MultiPartFileUploadBean fileDetails);
+	
+	public boolean updateAppointmentConfirmation (int appointmentID) ;
 }

@@ -6,6 +6,9 @@
 						<div id="entries">
 							<div class="entryAlone">
 								<form name="dayAppointment" id="dayAppointment" method="post" >
+									<input type="hidden" name="AppointmentID"  id="AppointmentID" value=""/>
+									<input type="hidden" name="PersonID"  id="PersonID" value="${personID}"/>
+									<input type="hidden" name="AppointmentDate"  id="AppointmentDate" value="${appointmentDate}"/>
 									<c:set var="PersonType" />
 									<c:set var="PersonID" />
 									<%	 pageContext.setAttribute("PersonType",p.getPersonTypeString());
@@ -78,8 +81,8 @@
 																</td>
 															</c:if>
 															
-															<c:if test='${not empty appointments.headline}'>																
-																<td width="90%" bgcolor="#FFCCCC" bordercolor="black">	
+															<c:if test='${not empty appointments.headline}'>
+																<td width="90%" bgcolor="#FFCCCC" bordercolor="black">
 																	<c:if test='${appointments.headline != "OOO"}'>
 																	<a href="javascript:fn_openAppointment(${personID},'${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>',${appointments.appointmentID})" >
 																		<c:out value="${appointments.headline}"/>
@@ -87,13 +90,15 @@
 																	</c:if>
 																</td>
 																<c:if test='${appointments.headline != "OOO"}'>
+																	<c:if test='${appointments.confirmedIndicator == "N"}'>
+																		<td align="left" width="33%" bgcolor="#3399FF">
+																			<a href="#" onclick="fn_UpdateAppointment(${appointments.appointmentID});" style="text-decoration:none"  >
+																				<font color="#FF9933" ><b>C</b></font>
+																			</a>
+																		</td>
+																	</c:if>
 																	<td align="left" width="33%" bgcolor="#3399FF">
-																		<a href="#" onclick="fn_GetYearView(1);" style="text-decoration:none"  >
-																			<font color="#FF9933" ><b>C</b></font>
-																		</a>
-																	</td>
-																	<td align="left" width="33%" bgcolor="#3399FF">
-																		<a href="#" onclick="fn_GetYearView(1);" style="text-decoration:none"  >
+																		<a href="#" onclick="alert(work in progress)" style="text-decoration:none"  >
 																			<font color="#FF9933"><b>R</b></font>
 																			</a>
 																	</td>

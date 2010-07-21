@@ -74,7 +74,7 @@
                    // form name
                    'formname': 'personalProfile',
                    // input name
-                   'controlname': 'dateOOfBirth'
+                   'controlname': 'dateOfBirth'
                    });
                  </script>
               </td>

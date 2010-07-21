@@ -78,4 +78,6 @@ public interface CommonDAO {
 	public boolean insertHolidays(HolidayCalendarList holidayList) throws DataAccessException;
 	
 	public boolean insertPatientDocumentDetials(MultiPartFileUploadBean fileDetails) throws DataAccessException;
+
+	public boolean updateAppointmentConfirmation (int appointmentID) throws DataAccessException;
 }

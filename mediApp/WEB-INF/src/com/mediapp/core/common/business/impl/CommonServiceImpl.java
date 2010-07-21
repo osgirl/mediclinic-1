@@ -118,6 +118,7 @@ public class CommonServiceImpl implements CommonService{
 						eachAppointment.setAppointmentDuration(loopAppointment.getAppointmentDuration());
 						eachAppointment.setHeadline(loopAppointment.getHeadline());
 						eachAppointment.setComments(loopAppointment.getComments());					
+						eachAppointment.setConfirmedIndicator(loopAppointment.getConfirmedIndicator());
 						eachAppointment.setAppointmentID(loopAppointment.getAppointmentID());	
 						appointmentEndTime.setTime(loopAppointment.getAppointmentEndTime().getTime());
 					}
@@ -254,5 +255,9 @@ public class CommonServiceImpl implements CommonService{
 
 	public boolean insertPatientDocumentDetials(MultiPartFileUploadBean fileDetails) {
 		return commonDAO.insertPatientDocumentDetials(fileDetails);
+	}
+	
+	public boolean updateAppointmentConfirmation (int appointmentID) {
+		return commonDAO.updateAppointmentConfirmation(appointmentID);
 	}
 }

@@ -54,6 +54,16 @@ public class AppointmentTO extends MediAppBaseDomain{
 
 	private String dosage;
 	
+	private String confirmationIndicator;
+	
+	public String getConfirmationIndicator() {
+		return confirmationIndicator;
+	}
+
+	public void setConfirmationIndicator(String confirmationIndicator) {
+		this.confirmationIndicator = confirmationIndicator;
+	}
+
 	public String getDosage() {
 		return dosage;
 	}

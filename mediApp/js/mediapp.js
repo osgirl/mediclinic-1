@@ -450,7 +450,10 @@ function fn_addRowForTime(dayName){
 
 //end new script
 
-
+function fn_UpdateAppointment(appointmentID){
+	document.getElementById('AppointmentID').value=appointmentID;
+	document.forms["dayAppointment"].submit();
+}
 
 //calendar UI scripts
 function addRowToCalendar()

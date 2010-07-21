@@ -25,6 +25,15 @@
     </bean>
 	<!-- Development datasource -->
 
+	<bean id="JasperJdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="org.gjt.mm.mysql.Driver"/>
+  		<property name="url" value="jdbc:mysql://localhost:3306/mediapp"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+        <property name="initialSize" value="1"/>
+        <property name="maxActive" value="20"/>
+    </bean> 
+
     <!-- Production datasource commented for now --><!--
     <bean id="JndiDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="$mediAppDataSource{mediApp.jdbc.datasource}" />

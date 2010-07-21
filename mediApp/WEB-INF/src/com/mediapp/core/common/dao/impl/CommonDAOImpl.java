@@ -6,9 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -74,6 +76,10 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			person.setPersonTypeString(person.getPersonType().getCodeDecode());
 			person.setPassword("mediApp");			
 			boolean insertStatus = false;
+			Map<String,Object> criteria =  new HashMap < String, Object > () ;
+			criteria.put("SequenceName","s_person_id" );
+			Integer personID =  (Integer)getObject("common.getNextVal",criteria );
+			person.setIdPerson(personID.intValue());
 			insertStatus=insertObject("common.insertNewPerson",person );
 			if (insertStatus){
 				if (person.getPersonTypeString() == CommonCoreConstants.DOCTOR){
@@ -249,6 +255,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		appointmentLast.setAppointmentID(appointment.get(0).getAppointmentID());
 		appointmentLast.setDateOfAppointment(appointment.get(0).getDateOfAppointment());
 		appointmentLast.setTimeOfAppointment(appointment.get(0).getTimeOfAppointment());
+		appointmentLast.setConfirmedIndicator(appointment.get(0).getConfirmationIndicator());
 		List <Diagnosis> diagnosis = new ArrayList();
 		int currentIDDiagnosis = 0;
 		Diagnosis eachDiagnosis = new Diagnosis();
@@ -268,18 +275,20 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 				eachDiagnosis.setCodeICD(eachAppointment.getCodeICD());
 				 
 			}
-			if(!eachAppointment.getPrescription().equals(previousPrescription)){
 				prescriptionList.add(eachAppointment.getPrescription());
-				previousPrescription= eachAppointment.getPrescription();
-			}
-			if(!eachAppointment.getDiagnosisTest().equals(previousTest)){
 				testList.add(eachAppointment.getDiagnosisTest());
-				previousTest= eachAppointment.getDiagnosisTest();
-			}
+		}
+		if (prescriptionList.size()>0){
+			Set prescriptionSet = new HashSet(prescriptionList);
+			ArrayList uniquePrescriptionList = new ArrayList(prescriptionSet);
+			eachDiagnosis.setPrescriptionList(uniquePrescriptionList);
+		}
+		if(testList.size()>0){
+			Set testSet = new HashSet(testList);
+			ArrayList uniquetestList = new ArrayList(testSet);
+			eachDiagnosis.setTestList(uniquetestList);
 			
 		}
-		eachDiagnosis.setPrescriptionList(prescriptionList);
-		eachDiagnosis.setTestList(testList);
 		diagnosis.add(eachDiagnosis); 
 		appointmentLast.setDiagnosis(diagnosis);
 		return appointmentLast;
@@ -528,4 +537,12 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return insertObject("common.insertPatientDocumentDetails",fileDetails );
 	}
 
+	public boolean updateAppointmentConfirmation (int appointmentID) throws DataAccessException{
+		int numberOfRecords =updateObject("common.updateAppointmentConfirmation", appointmentID);
+		boolean flag = false;
+		if(numberOfRecords==1){
+			flag=true;
+		}
+		return flag;
+	}
 }

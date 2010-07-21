@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mediapp.core.common.business.CommonService;
 import com.mediapp.domain.common.Appointment;
@@ -46,6 +49,18 @@ public class DayAppointmentController extends MediAppBaseController{
 	    appointmentMap.put("appointmentDate", dateOfAppointment);
 	    return appointmentMap;
 	}
+
+	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception{
+		String sidAppointmentID = request.getParameter("AppointmentID");		
+		int appointmentID = Integer.parseInt(sidAppointmentID);
+		commonService.updateAppointmentConfirmation(appointmentID);
+		String sidPerson = request.getParameter("PersonID");		
+		int idPerson = Integer.parseInt(sidPerson);
+		String sAppointmentDate = request.getParameter("AppointmentDate");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
+
+		return new ModelAndView("redirect:/dayAppointment.htm?PersonID="+idPerson+"&AppointmentDate="+sAppointmentDate);
+    }
 
 	public CommonService getCommonService() {
 		return commonService;
