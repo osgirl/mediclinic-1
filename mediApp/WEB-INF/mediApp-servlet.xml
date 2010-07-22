@@ -222,16 +222,27 @@
 				<entry key="uploadFile.htm">
 					<ref bean="uploadFile" />
 				</entry>
-				
 			</map>
 		</property>
+		<property name="mappings">
+			<props>
+				<prop key="/*.pdf">controller</prop>
+			</props>
+		</property>
+		
 	</bean>
 	
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass"><value>org.springframework.web.servlet.view.JstlView</value></property>
-        <property name="prefix"><value>/WEB-INF/jsp/</value></property>
-        <property name="suffix"><value>.jsp</value></property>
-    </bean>
+	 <bean id="ClientView" class="com.mediapp.web.common.FallbackJstlViewResolver">
+	  <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+	  <property name="prefix" value="/WEB-INF/jsp/"/>
+	  <property name="suffix" value=".jsp"/>  
+	  <property name="order" value="1"/>
+	 </bean>
+	 
+	 <bean id="rViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+	     <property name="order" value="2"/>
+	     <property name="basename" value="views"/>
+	 </bean>
     
     <!-- Generic Exception Handler  -->
 	<bean id="exceptionHandler" class="com.mediapp.web.common.MediApplBaseExceptionResolver">
@@ -280,5 +291,27 @@
          </value>
       </property>
    </bean>
+	<bean id="controller" class="com.mediapp.web.controller.common.ReportController">
+		<property name="methodNameResolver">
+			<ref local="resolver"/>
+		</property>
+	</bean>
+
+	<bean id="resolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/simpleReport.pdf">handleSimpleReport</prop>
+				<prop key="/simpleReportPost.pdf">handleSimpleReportPost</prop>
+				<prop key="/simpleReportPost.action">handleSimpleReportPost</prop>
+				<prop key="/simpleReportCompile.pdf">handleSimpleReportCompile</prop>
+				<prop key="/simpleReportHtml.html">handleSimpleReportHtml</prop>
+				<prop key="/simpleReportCsv.csv">handleSimpleReportCsv</prop>
+				<prop key="/simpleReportExcel.xls">handleSimpleReportExcel</prop>
+				<prop key="/simpleReportMulti.*">handleSimpleReportMulti</prop>
+				<prop key="/subReport.pdf">handleSubReport</prop>
+				<prop key="/exporterParameters.html">handleExporterParameters</prop>
+			</props>
+		</property>
+	</bean>
 
 </beans>

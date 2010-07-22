@@ -249,6 +249,7 @@
 						<input type="button" onclick="addRowToTable();"  value="Add Row"  alignment="center"  class="bsubmit" id="beforeThis"/>
 						<input type="button" onclick="removeRowFromTable();"  value="Remove Row"  alignment="center"  class="bsubmit" id="remove"/>															
 						<input type="button"  onClick="javascript:fn_updateAppointmentDetails();" alignment="center" value="Save" class="bsubmit"  width="75"/>
+						<input type="button"  onClick="javascript:fn_Print();" alignment="center" value="Print" class="bsubmit"  width="75"/>
 						</td>
 					</tr>
 				</table>

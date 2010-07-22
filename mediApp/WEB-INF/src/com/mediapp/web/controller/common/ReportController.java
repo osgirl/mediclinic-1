@@ -51,8 +51,10 @@ public class ReportController extends MultiActionController {
 
  public ModelAndView handleSimpleReportCompile(HttpServletRequest request,
    HttpServletResponse response) throws Exception {
+	String sidAppointment = request.getParameter("AppointmentID");		
+	Integer idAppointment = new Integer(sidAppointment);
 
-  return new ModelAndView("simpleReportCompile", getModel());
+  return new ModelAndView("simpleReportCompile", getModel(idAppointment));
  }
 
  public ModelAndView handleSimpleReportHtml(HttpServletRequest request,
@@ -98,6 +100,17 @@ public class ReportController extends MultiActionController {
   return model;
  }
 
+ private Map getModel(Integer appointmentID) {
+	  Map model = new HashMap();
+	  model.put("ReportTitle", "Dear Lord!");
+	  model.put("dataSource", "JasperJdbcDataSource");
+	  model.put("AppointmentID",appointmentID);
+
+
+	  return model;
+	 }
+
+ 
  private List getData() {
   List list = new ArrayList();
   return list;
