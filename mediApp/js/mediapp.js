@@ -129,6 +129,15 @@ function fn_openAppointment(personID,timeOfAppointment,appointmentDate,appointme
 	
 }
 
+function fn_Print(){
+	window.open("about:blank","reportWindow");
+	document.forms['updateAppointment'].target="reportWindow";
+	document.forms['updateAppointment'].method ="post";
+	document.forms['updateAppointment'].action="simpleReportCompile.pdf"; 
+	document.forms['updateAppointment'].submit();
+	
+}
+
 function fn_updateAppointmentDetails(){
     var num = (document.getElementById("counter").value - 1) + 1 ;    
     for(var i=0;i<num;i++) {    	
