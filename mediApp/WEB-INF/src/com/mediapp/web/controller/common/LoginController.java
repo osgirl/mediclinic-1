@@ -88,16 +88,20 @@ public class LoginController extends MediAppBaseController  {
 					//	errorList.add("error.register.success");
 						request.setAttribute("SuccessMessage", SuccessMessage);
 						//CommonWebUtil.addErrorMessagesInReq(request, errorList);
-						logger.info(" Login sucess!");					
-				}
-				return new ModelAndView("redirect:/logon.htm",CommonWebConstants.USER_ID, person);
+						logger.info(" Login success!");					
+				}					
+				return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
 			}
 		}
 		CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);		
 		HttpSession sessionObj = request.getSession(true);
 		sessionObj.setAttribute("menuItems", loginService.getMenuItems(personType));
-
-		return new ModelAndView("redirect:/personalProfile.htm",CommonWebConstants.USER_ID, person);
+		if(person.getLastName()!= null){
+			return new ModelAndView("redirect:/takeAppointment.htm",CommonWebConstants.USER_ID, person);	
+		}else{
+			return new ModelAndView("redirect:/personalProfile.htm",CommonWebConstants.USER_ID, person);
+		}
+		
     }
 	/**
 	 * @param loginService the loginService to set

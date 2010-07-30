@@ -28,6 +28,7 @@ import com.mediapp.domain.common.Holidays;
 import com.mediapp.domain.common.MultiPartFileUploadBean;
 import com.mediapp.domain.common.PatientDetails;
 import com.mediapp.domain.common.Person;
+import com.mediapp.domain.common.ScheduleJob;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
 
@@ -82,7 +83,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			person.setIdPerson(personID.intValue());
 			insertStatus=insertObject("common.insertNewPerson",person );
 			if (insertStatus){
-				if (person.getPersonTypeString() == CommonCoreConstants.DOCTOR){
+				if (person.getPersonTypeString().equals(CommonCoreConstants.DOCTOR)){
 					insertStatus= insertObject("common.insertDoctor",person );
 				}else{
 					insertStatus=insertObject("common.insertPatient",person );
@@ -544,5 +545,10 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			flag=true;
 		}
 		return flag;
+	}
+	
+	public ScheduleJob getJobsToRun (int appointmentID) throws DataAccessException{
+		return (ScheduleJob) getObject("common.getJobDetails",null);
+		
 	}
 }

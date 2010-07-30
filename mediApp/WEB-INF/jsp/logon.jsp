@@ -9,9 +9,10 @@
 		<form name="logon" id="logon" method="post">
 		<input type="hidden" id="hPersonType" name="hPersonType"></input>
 		<input type="hidden" id="hRegisterMe" name="hRegisterMe"></input>		
-		<table width=500 align="center">	
+		<table width=800 border="0"  >	
 		<tr>
 		<td>	
+		<font color="red"><c:out value="${SuccessMessage}" /></font>
 		<div id="Login" style="display:block" align="center">
 		<table  border=""  class="login" width=250>
 			<tr>
@@ -25,7 +26,7 @@
 							<td width="33%" align="right">Username: </td>
 							<td width="66%" align="left">
 								<spring:bind path="person.username">
-									<input type="text" name="username"    value="<c:out value="${status.value}"/>"/>		
+									<input type="text" name="username"  id="username"  value="<c:out value="${status.value}"/>"/>		
 								</spring:bind>
 							</td>
 							
@@ -42,7 +43,7 @@
 							<td width="33%" align="right" >Password: </td>
 							<td width="66%" align="left">
 								<spring:bind	path="person.password">
-									<input type="password" name="password" />
+									<input type="password" name="password" id="password"/>
 								</spring:bind>
 							</td>
 							<td colspan="2" align="center">
@@ -59,7 +60,7 @@
 						<td width="33%" align="right">Type: </td>
 							<td width="66%" align="left">
 							
-								<select id="PersonType" name="PersonType" style="WIDTH: 150px">
+								<select id="PersonType" name="PersonType" id="PersonType" style="WIDTH: 150px">
 									<c:forEach items="${logonCriteria}" var="data">
 										<option value='${data.codeDecode}' >${data.codeDecode}</option>
 									</c:forEach>
@@ -69,7 +70,7 @@
 						
 						<tr>
 							<td align="center" colspan="2">
-								<input type="button" onClick="javascript:fn_submitLogin();" alignment="center" value="Logon" class="bsubmit"  width="75"/>
+								<input type="button" onClick="javascript:fn_submitLogin();" alignment="center" value="Logon" name="LoginButton" id="LoginButton" class="bsubmit"  width="75"/>
 							</td>
 						</tr>
 					</table>
@@ -77,8 +78,12 @@
 				</td>
 			</tr>
 		</table>
-		<br/> Don't have an account yet? 
-		<table  border="" class="login"  width=250>
+		</div>
+		</td>
+		
+		<td>
+		Don't have an account yet? 
+		<table  border="" class="login"  width=250 >
 			<tr>
 				<td align="center" bgcolor="lightblue">Register Now</td>
 			</tr>
@@ -110,9 +115,9 @@
 		</table>
 		</td>
 		</tr>
-		</table>
-		
-		<div id="RegistrationForm" style="display:none" align="center" >
+		<tr>
+		<td>
+		<div id="RegistrationForm" style="display:none" align="right" >
 		<table  border="" id="RegistrationForm"  class="login" width=400>
 			<tr>
 				<td align="center" bgcolor="lightblue">Registration Form</td>
@@ -125,7 +130,7 @@
 							<td width="30%" align="right">Email: </td>
 							<td width="70%" align="left">
 							<spring:bind path="person.emailID">
-								<input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>		
+								<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>		
 							</spring:bind>
 							</td>
 							
@@ -134,7 +139,7 @@
 							<td width="30%" align="right">Cell Phone Number: </td>
 							<td width="70%" align="left">
 							<spring:bind path="person.cellPhoneNumber">
-								<input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>		
+								<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>		
 							</spring:bind>
 							</td>
 							
@@ -150,6 +155,18 @@
 			</tr>
 		</table>
 		</div>
+		</td>
+		</tr>
+		
+		</table>
+		<script>
+			if ('<c:out value="${SuccessMessage}" />' !=""){
+				document.getElementById("emailID").value="";
+				document.getElementById("cellPhoneNumber").value="";
+				
+				}
+		</script>
+		
 	</form>
 						
 							</div>

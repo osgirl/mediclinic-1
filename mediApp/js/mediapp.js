@@ -1,4 +1,10 @@
-function hide(menu){ 
+IE7 = (navigator.appVersion.indexOf("MSIE 7.")==-1) ? false : true;
+IE8 = (navigator.appVersion.indexOf("MSIE 8.")==-1) ? false : true;
+
+if(!(IE7  || IE8)){
+	alert("This application is tested on Internet Explorer 7 and higher. It may not work properly on this browser.");
+}
+/*function hide(menu){ 
 	var menuStyle=document.getElementById(menu).style; 
 	menuStyle.display="none";
 } 
@@ -6,12 +12,19 @@ function show(menu) {
 	var menuStyle=document.getElementById(menu).style; 
 	menuStyle.display="block";
 }
+*/
 function fn_showPatientRgFrm(){	
 //	fn_hideDoctorRgFrm();
 	var menuStyle=document.getElementById("RegistrationForm").style; 
 	document.all("PersonType").selectedIndex = 1;
 	menuStyle.display="block";
 	document.getElementById("hRegisterMe").value ="Y";
+	document.getElementById("username").value = "";
+	document.getElementById("password").value="";
+	document.getElementById("LoginButton").disabled = true;
+	document.getElementById("username").disabled = true;
+	document.getElementById("password").disabled= true;
+	document.getElementById("PersonType").disabled = true;
 	//alert(document.getElementById("hRegisterMe").value);
 }
 function fn_hidePatientRgFrm(){
@@ -26,6 +39,13 @@ function fn_showDoctorRgFrm(){
 	var menuStyle=document.getElementById("RegistrationForm").style; 
 	menuStyle.display="block";
 	document.getElementById("hRegisterMe").value ="Y";
+	document.getElementById("username").value = "";
+	document.getElementById("password").value="";
+	document.getElementById("LoginButton").disabled = true;
+	document.getElementById("username").disabled = true;
+	document.getElementById("password").disabled= true;
+	document.getElementById("PersonType").disabled = true;
+
 
 }
 function fn_hideDoctorRgFrm(){
@@ -44,6 +64,7 @@ function fn_showMessage(){
 	//document.all("personTypeString").value=document.all("PersonType")[indexValue].value;
 	//alert(document.all("personTypeString").value);
 	//alert(document.getElementById("hRegisterMe").value);
+	document.getElementById("PersonType").disabled = false;
 	document.forms["logon"].submit();
 }
 function fn_submitLogin(){
@@ -454,7 +475,7 @@ function fn_addRowForTime(dayName){
 	  }
 		//alert(document.all.sundayWorking.checked);
 	  numi.value = num;	  
-	 show("tblWorkHours");
+//	 show("tblWorkHours");
 }
 
 //end new script

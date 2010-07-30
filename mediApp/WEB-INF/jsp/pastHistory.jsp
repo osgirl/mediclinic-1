@@ -47,7 +47,7 @@
                <td >Blood Group: </td>
                <td >
                 <spring:bind path="patientDetails.bloodGroup">
-                 <select id="bloodGroup" name="bloodGroup" style="WIDTH: 80px">
+                 <select id="bloodGroup" name="bloodGroup" style="WIDTH: 80px">                 	
                    <option value='A+' ${patientDetails.bloodGroup=='A+'?"selected=\"selected\"":"" }>A+</option>
                    <option value='A-' ${patientDetails.bloodGroup=='A-'?"selected=\"selected\"":"" }>A-</option>
                    <option value='B+' ${patientDetails.bloodGroup=='B+'?"selected=\"selected\"":"" } >B+</option>

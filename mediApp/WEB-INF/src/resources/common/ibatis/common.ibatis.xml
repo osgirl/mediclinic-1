@@ -423,7 +423,7 @@
 	 </parameterMap>
 
 	<insert id="insertJobInputs" parameterMap="Insert-JobInputs-Parm-Map">
-		INSERT INTO job_inputs (idschedule_job, input_parmeter_name,input_paramenter_id ) 
+		INSERT INTO job_inputs (idschedule_job, input_parameter_name,input_parameter_value ) 
 		VALUES (?,?,?)
 	</insert>
 	<parameterMap id="Menu-Item-Map"   class="java.util.HashMap">
@@ -646,4 +646,26 @@
 	<update id="updateAppointmentConfirmation" >
 		update appointment_history set appointment_confirmation = 'Y' where idAppointment_history=#appointmentID#
 	</update>
+
+	<resultMap class="com.mediapp.domain.common.ScheduleJob" id="Get-Job-Details-Result-Map">
+	 	<result property="jobId" 			column="document_name"/>
+	 	<result property="actionToPerform" 	column="document_name"/>
+	 	<result property="comments" 		column="document_name"/>
+	 	<result property="parameterName" 	column="document_name"/>
+	 	<result property="parameterValue"	column="document_name"/>
+	</resultMap>
+
+
+	<select id="getJobDetails"  resultMap="Get-Job-Details-Result-Map">
+			select sj.idschedule_job, action,comments,input_parameter_name,input_parameter_name
+				from schedule_job sj
+				left join job_inputs ji
+					on sj.idschedule_job =ji.idschedule_job
+				where 
+				job_status != ('CMPL')
+				and effectiveDate <![CDATA[ < ]]>=now() ;
+
+ 	</select>
+	
+	
 </sqlMap>

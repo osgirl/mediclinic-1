@@ -163,6 +163,15 @@
 		</property>
 	</bean>
 
+    <bean id="logOut" class="com.mediapp.web.controller.common.LogoutController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>person</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="formView"><value>logOut</value></property>
+        <property name="successView"><value>logOut</value></property>
+    </bean>
+
+
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename"><value>messages</value></property>
     </bean>
@@ -222,6 +231,9 @@
 				<entry key="uploadFile.htm">
 					<ref bean="uploadFile" />
 				</entry>
+			     <entry key="logOut.htm">
+     				<ref bean="logOut" />
+    			</entry>
 			</map>
 		</property>
 		<property name="mappings">
