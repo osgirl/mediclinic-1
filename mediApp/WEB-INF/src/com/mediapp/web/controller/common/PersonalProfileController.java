@@ -95,7 +95,8 @@ public class PersonalProfileController extends MediAppBaseController  {
 	
 	protected void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
 		 Person logon = (Person) command;
-		 for(DoctorWorkTimings eachTiming : logon.getDoctorWorkTiming()){
+		 //logon.getDoctorWorkTiming().remove(logon.getDoctorWorkTiming().size()-1);
+		 for(DoctorWorkTimings eachTiming : logon.getDoctorWorkTiming()){			
 		   if("Sunday".equals(eachTiming.getWorkDayName())){
 		    logon.getDoctorDetails().setSundayWorking("Y");
 		   }else if("Monday".equals(eachTiming.getWorkDayName())){

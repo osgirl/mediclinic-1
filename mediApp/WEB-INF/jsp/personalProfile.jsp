@@ -308,7 +308,7 @@
     </c:if>
              <tr>
               <td align="center" colspan="2">
-               <input id="saveProfile" name ="saveProfile" type="submit"  alignment="center" value="Save" class="bsubmit"  width="75"/>
+               <input  type="button" onClick="javascript:saveProfile();"  alignment="center" value="Save" class="bsubmit"  width="75"/>
               </td>
              </tr>
             </table>

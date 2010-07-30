@@ -90,6 +90,7 @@ public class LoginController extends MediAppBaseController  {
 						//CommonWebUtil.addErrorMessagesInReq(request, errorList);
 						logger.info(" Login success!");					
 				}					
+					
 				return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
 			}
 		}
