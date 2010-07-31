@@ -37,6 +37,58 @@
 		</property>
 	</bean>
 
+     <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+      <property name="corePoolSize" value="5" />
+      <property name="maxPoolSize" value="10" />
+      <property name="queueCapacity" value="25" />
+    </bean>
+	<bean id="scheduledJob" class="com.mediapp.core.common.business.impl.ScheduledJob">
+		<property name="commonDAO">
+			<ref bean="commonDAO"/>
+		</property>
+		<property name="sendEmail">
+			<ref bean="scheduleEmail"/>
+		</property>
+		<property name="taskExecutor">
+			<ref bean="taskExecutor"/>
+		</property>
+    </bean>
+    
+	<bean id="jobScheduler"	class="com.mediapp.core.common.business.impl.JobScheduler">
+		<property name="taskExecutor">
+			<ref bean="taskExecutor" />
+		</property>
+		<property name="commonDAO">
+			<ref bean="commonDAO"/>
+		</property>
+		<property name="scheduledJob">
+			<ref bean="scheduledJob" />
+		</property>
+		
+	</bean>
+
+	<bean id="scheduledTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+	    <!-- wait 10 seconds before starting repeated execution -->
+	    <property name="delay" value="10000" />
+	    <!-- run every 50 seconds -->
+	    <property name="period" value="50000" />
+	    <property name="timerTask" ref="methodToInvoke"/>
+	    	    
+	</bean>  
+	
+	<bean id="methodToInvoke" class="org.springframework.scheduling.timer.MethodInvokingTimerTaskFactoryBean">
+    	<property name="targetObject" ref="jobScheduler" />
+    	<property name="targetMethod" value="executeJob" />
+	</bean>
+	 
+	<bean id="timerFactory" class="org.springframework.scheduling.timer.TimerFactoryBean">
+    	<property name="scheduledTimerTasks">
+        	<list>
+            	<ref bean="scheduledTask" />
+        	</list>
+    	</property>
+	</bean>
+	
 	
 	<bean id="commonDAO" class="com.mediapp.core.common.dao.impl.CommonDAOImpl" parent = "mediAppBaseDAOImpl">
 	</bean>

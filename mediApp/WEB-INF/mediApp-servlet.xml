@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>  
@@ -180,7 +179,6 @@
     
      <bean id="mediAppHandlerInterceptor" class="com.mediapp.web.common.MediAppHandlerInterceptor"/>
     
-	   
 	<!-- you can have more than one handler defined -->
 	<bean id="urlMapping" 
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -267,7 +265,7 @@
    		<property name="host" value="smtp.gmail.com" />
    		<property name="port" value="465" />
 		<property name="protocol" value="smtps" />
-		<property name="username" value="padmaraj.m@gmail.com"/>
+		<property name="username" value="mediappindia@gmail.com"/>
 		<property name="password" value="mh12ac830"/>
 		<property name="javaMailProperties">
 		<props>

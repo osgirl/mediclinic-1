@@ -648,24 +648,43 @@
 	</update>
 
 	<resultMap class="com.mediapp.domain.common.ScheduleJob" id="Get-Job-Details-Result-Map">
-	 	<result property="jobId" 			column="document_name"/>
-	 	<result property="actionToPerform" 	column="document_name"/>
-	 	<result property="comments" 		column="document_name"/>
-	 	<result property="parameterName" 	column="document_name"/>
-	 	<result property="parameterValue"	column="document_name"/>
+	 	<result property="jobId" 			column="idschedule_job"/>
+	 	<result property="actionToPerform" 	column="action"/>
+	 	<result property="comments" 		column="comments"/>
+	 	<result property="parameterName" 	column="input_parameter_name"/>
+	 	<result property="parameterValue"	column="input_parameter_value"/>
 	</resultMap>
 
 
 	<select id="getJobDetails"  resultMap="Get-Job-Details-Result-Map">
-			select sj.idschedule_job, action,comments,input_parameter_name,input_parameter_name
-				from schedule_job sj
-				left join job_inputs ji
-					on sj.idschedule_job =ji.idschedule_job
+			select sj.idschedule_job , action,comments,input_parameter_name,input_parameter_value
+				from schedule_job sj,
+				job_inputs ji
 				where 
-				job_status != ('CMPL')
-				and effectiveDate <![CDATA[ < ]]>=now() ;
+				ji.idschedule_job = sj.idschedule_job
+				and job_status != ('CMPL')
+				and effectiveDate <![CDATA[ <= ]]>now() 
+				order by sj.idschedule_job;
 
  	</select>
 	
+	<select id="getJobParms"  resultClass="java.util.HashMap">
+			select input_parameter_name,input_parameter_value
+				from job_inputs ji,
+				 schedule_job sj
+				where 
+				ji.idschedule_job = sj.idschedule_job
+				and job_status != ('CMPL')
+				and effectiveDate <![CDATA[ <= ]]>now() ;
+
+ 	</select>
+ 	
+ 	<update id="updateJobCompletionStatus" >
+		UPDATE schedule_job set job_status='CMPL'
+		where idschedule_job=#jobId#
+		
+	</update>
+ 	
+
 	
 </sqlMap>

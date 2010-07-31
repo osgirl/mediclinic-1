@@ -401,7 +401,7 @@ function fn_addRowForWorkHours()
 	  }
 	  if(document.getElementById('saturdayWorking').checked ==true ){
 		  fn_addRowForTime("Saturday"); 
-	  }	  
+	  }	
   	}else{
 	  if(document.getElementById('sundayWorking').checked ==false & 
 			  document.getElementById('mondayWorking').checked ==false & 
@@ -421,11 +421,14 @@ function fn_addRowForWorkHours()
 
 	  
   	}
+  var numi = document.getElementById('counter').value;
+  var num = (document.getElementById("counter").value - 1) + 1 -1;
+
 }
 
 function fn_addRowForTime(dayName){
 	  var numi = document.getElementById('counter');	  
-	  var num = (document.getElementById("counter").value - 1) + 2;	    
+	  var num = (document.getElementById("counter").value - 1) + 1;	    
 	  var tbl = document.getElementById('tblWorkHours');
 	  var lastRow = tbl.rows.length;
 	  if (numi.value==1){
@@ -437,12 +440,13 @@ function fn_addRowForTime(dayName){
 		  document.getElementById("doctorWorkTiming[0].endTime").value= document.getElementById("endTime").value;
 		  document.getElementById("doctorWorkTiming[0].endTime").size=10;
 	  }else{		  
-	  // if there's no header row in the table, then iteration = lastRow + 1		  
+	  // if there's no header row in the table, then iteration = lastRow + 1
+		  
 		  var iteration = lastRow;
 		  var row = tbl.insertRow(lastRow);
 		  var cellLeft = row.insertCell(0);
 		  var el0 = document.createElement('input');
-		  el0.type = 'text';
+		  el0.type = 'text';		  
 		  el0.name = "doctorWorkTiming[" + (num -1 )+ "].workDayName";
 		  el0.id = "doctorWorkTiming[" + (num -1 )+ "].workDayName";
 		  el0.size = 10;
@@ -474,10 +478,17 @@ function fn_addRowForTime(dayName){
 		  document.getElementById(el0.id).value= document.getElementById("endTime").value;
 	  }
 		//alert(document.all.sundayWorking.checked);
-	  numi.value = num;	  
+	  numi.value = num+1;
 //	 show("tblWorkHours");
 }
 
+function saveProfile(){
+	  var numi = document.getElementById('counter');	  
+	  var num = (document.getElementById("counter").value - 1) + 1 - 1;
+	  numi.value=num;
+	  
+	  document.forms["personalProfile"].submit();
+}
 //end new script
 
 function fn_UpdateAppointment(appointmentID){

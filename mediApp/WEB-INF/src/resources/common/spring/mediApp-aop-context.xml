@@ -13,7 +13,7 @@
   	<description>MediApp AOP Configuration</description>
        
 	
-	<aop:config>
+	<aop:config proxy-target-class="true">
 		<!-- Exception Interceptor Configuration -->
 	    <aop:advisor pointcut="execution(* com.mediapp.core..*.*(..))"  					advice-ref="mediAppExceptionInterceptor"/>
 	  

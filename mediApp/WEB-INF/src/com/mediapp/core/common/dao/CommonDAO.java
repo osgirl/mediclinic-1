@@ -15,6 +15,7 @@ import com.mediapp.domain.common.HolidayCalendarList;
 import com.mediapp.domain.common.MultiPartFileUploadBean;
 import com.mediapp.domain.common.PatientDetails;
 import com.mediapp.domain.common.Person;
+import com.mediapp.domain.common.ScheduleJob;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
 
@@ -80,4 +81,10 @@ public interface CommonDAO {
 	public boolean insertPatientDocumentDetials(MultiPartFileUploadBean fileDetails) throws DataAccessException;
 
 	public boolean updateAppointmentConfirmation (int appointmentID) throws DataAccessException;
+
+	public List <ScheduleJob> getJobsToRun () throws DataAccessException;
+
+	public Map getJobParms() throws DataAccessException;
+	
+	public boolean updateJobCompletionStatus (ScheduleJob job) throws DataAccessException;
 }

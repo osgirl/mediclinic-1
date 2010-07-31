@@ -1,5 +1,7 @@
 package com.mediapp.domain.common;
 
+import java.util.HashMap;
+
 public class ScheduleJob extends MediAppBaseDomain{
 	
 	private static final long serialVersionUID = 411L;
@@ -10,10 +12,13 @@ public class ScheduleJob extends MediAppBaseDomain{
 	
 	private String comments;
 	
+	private HashMap <String, String> parameters;
+	
 	private String parameterName;
 	
 	private String parameterValue;
-
+	
+	
 	public int getJobId() {
 		return jobId;
 	}
@@ -38,6 +43,14 @@ public class ScheduleJob extends MediAppBaseDomain{
 		this.comments = comments;
 	}
 
+	public HashMap<String, String> getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(HashMap<String, String> parameters) {
+		this.parameters = parameters;
+	}
+
 	public String getParameterName() {
 		return parameterName;
 	}
@@ -53,5 +66,6 @@ public class ScheduleJob extends MediAppBaseDomain{
 	public void setParameterValue(String parameterValue) {
 		this.parameterValue = parameterValue;
 	}
+
 
 }

@@ -547,8 +547,22 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return flag;
 	}
 	
-	public ScheduleJob getJobsToRun (int appointmentID) throws DataAccessException{
-		return (ScheduleJob) getObject("common.getJobDetails",null);
-		
+	public List <ScheduleJob> getJobsToRun () throws DataAccessException{
+		//getMap("common.getMenuItems", criteria,"menu_name", "menu_url");
+		return (ArrayList<ScheduleJob>) getList("common.getJobDetails",null);
 	}
+
+	public Map getJobParms() throws DataAccessException{
+		return  getMap("common.getMenuItems", null,"input_parameter_name", "input_parameter_value");		
+	}
+
+	public boolean updateJobCompletionStatus (ScheduleJob job) throws DataAccessException{
+		int numberOfRecords =updateObject("common.updateJobCompletionStatus", job);
+		boolean flag = false;
+		if(numberOfRecords==1){
+			flag=true;
+		}
+		return flag;
+	}
+
 }

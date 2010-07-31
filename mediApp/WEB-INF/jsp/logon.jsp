@@ -11,6 +11,40 @@
 		<input type="hidden" id="hRegisterMe" name="hRegisterMe"></input>		
 		<table width=800 border="0"  >	
 		<tr>
+		<td>
+		Don't have an account yet? 
+		<table  border="" class="login"  width=400 >
+			<tr>
+				<td align="center" bgcolor="lightblue">Register Now</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<spring:bind	path="person.emailID">
+						<font color="red"><c:out value="${status.errorMessage}" /></font>
+					</spring:bind>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table border="0" width="100%" >						
+						
+						<tr>
+							<td align="center" colspan="5">
+								<input type="button" class="bsubmit" alignment="center" onClick="javascript:fn_showPatientRgFrm();" value="Patient Registration" />
+							</td>
+						</tr>
+						<tr>
+							<td align="center" colspan="2">
+								<input type="button" class="bsubmit" alignment="center" value="Doctor Registration" onClick="javascript:fn_showDoctorRgFrm();" />
+							</td>							
+						</tr>
+					</table>
+					
+				</td>
+			</tr>
+		</table>
+		</td>
+		
 		<td>	
 		<font color="red"><c:out value="${SuccessMessage}" /></font>
 		<div id="Login" style="display:block" align="center">
@@ -81,44 +115,11 @@
 		</div>
 		</td>
 		
-		<td>
-		Don't have an account yet? 
-		<table  border="" class="login"  width=250 >
-			<tr>
-				<td align="center" bgcolor="lightblue">Register Now</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<spring:bind	path="person.emailID">
-						<font color="red"><c:out value="${status.errorMessage}" /></font>
-					</spring:bind>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<table border="0" width="100%" >						
-						
-						<tr>
-							<td align="center" colspan="5">
-								<input type="button" class="bsubmit" alignment="center" onClick="javascript:fn_showPatientRgFrm();" value="Patient Registration" />
-							</td>
-						</tr>
-						<tr>
-							<td align="center" colspan="2">
-								<input type="button" class="bsubmit" alignment="center" value="Doctor Registration" onClick="javascript:fn_showDoctorRgFrm();" />
-							</td>							
-						</tr>
-					</table>
-					
-				</td>
-			</tr>
-		</table>
-		</td>
 		</tr>
 		<tr>
 		<td>
-		<div id="RegistrationForm" style="display:none" align="right" >
-		<table  border="" id="RegistrationForm"  class="login" width=400>
+		<div id="RegistrationForm" style="display:none" >
+		<table  border="" id="RegistrationForm"  class="login" width=400 >
 			<tr>
 				<td align="center" bgcolor="lightblue">Registration Form</td>
 			</tr>
