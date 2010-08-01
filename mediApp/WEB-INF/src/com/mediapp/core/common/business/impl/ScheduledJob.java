@@ -7,8 +7,11 @@ import java.util.Map;
 
 import org.springframework.core.task.TaskExecutor;
 
+import com.mediapp.core.common.constants.CommonCoreConstants;
 import com.mediapp.core.common.dao.CommonDAO;
 import com.mediapp.core.common.dao.impl.CommonDAOImpl;
+import com.mediapp.domain.common.Appointment;
+import com.mediapp.domain.common.NotificationDetails;
 import com.mediapp.domain.common.ScheduleJob;
 
 public class ScheduledJob {
@@ -71,17 +74,60 @@ public class ScheduledJob {
 			}
 			
 		    public void run() {
-		      if ("Email".equals(eachJob.getActionToPerform()) ){
-				  //ScheduleEMail sendEmail = new ScheduleEMail( );
-				  sendEmail.send(eachJob.getParameters().get("EmailTo"), eachJob.getParameters().get("EmailType"));
-				  //CommonDAO dao = new CommonDAOImpl();
-				  
-		      }else if("SMS".equals(eachJob.getActionToPerform())){
-		    	  
-		      }
-		      boolean status =commonDAO.updateJobCompletionStatus(eachJob);
-		    }
+		        if ("Email".equals(eachJob.getActionToPerform()) ){
+		  		  ScheduleEMail sendEmail = new ScheduleEMail( );
+		      	  if(CommonCoreConstants.REG_EMAIL_TYPE.equals(eachJob.getParameters().get("EmailType"))){
+		      		  sendEmail.sendEmailForRegistration(eachJob.getParameters().get("EmailTo"));
+		      	  }else if("newAppointment".equals(eachJob.getParameters().get("EmailType"))){
+		      		  Integer iAppointmentID = new Integer(eachJob.getParameters().get("AppointmentID"));		      		  
+		      		  Appointment appointment = commonDAO.getAppointment(iAppointmentID.intValue());		      		  
+		      		  NotificationDetails notification = commonDAO.getNotificationDetails(iAppointmentID);
+		      		  sendEmail.sendEmailForNewAppointment(appointment, notification);
+		      	  }else if("appointmentConfirmation".equals(eachJob.getParameters().get("EmailType"))){
+		      		  Integer iAppointmentID = new Integer(eachJob.getParameters().get("AppointmentID"));		      		  
+		      		  Appointment appointment = commonDAO.getAppointment(iAppointmentID.intValue());		      		  
+		      		  NotificationDetails notification = commonDAO.getNotificationDetails(iAppointmentID);
+		      		  sendEmail.sendEmailForAppointmentConfirmation(appointment, notification);
+		      	  }
+		        }else if ("SMS".equals(eachJob.getActionToPerform()) ){
+		  		  SendSMS sendSMS = new SendSMS( );
+		      	  if(CommonCoreConstants.REG_EMAIL_TYPE.equals(eachJob.getParameters().get("SMSType"))){
+		      		  try{
+		      			  sendSMS.sendSMSForRegistration(eachJob.getParameters().get("PhoneNumber")) ;  
+		      		  }catch (Exception se){
+		      			System.out.println(se.toString());
+		    			System.err.println("stacktrace"+se);
 
+		      		  }
+		      	  }else if("newAppointment".equals(eachJob.getParameters().get("SMSType"))){
+		      		  Integer iAppointmentID = new Integer(eachJob.getParameters().get("AppointmentID"));		      		  
+		      		  Appointment appointment = commonDAO.getAppointment(iAppointmentID.intValue());		      		  
+		      		  NotificationDetails notification = commonDAO.getNotificationDetails(iAppointmentID);
+		      		  try{
+		      			  sendSMS.sendSMSForNewAppointment(appointment, notification) ;  
+		      		  }catch (Exception se){
+		      			System.out.println(se.toString());
+		    			System.err.println("stacktrace"+se);
+
+		      		  }
+		      		  
+		      	  }else if("appointmentConfirmation".equals(eachJob.getParameters().get("SMSType"))){
+		      		  Integer iAppointmentID = new Integer(eachJob.getParameters().get("AppointmentID"));		      		  
+		      		  Appointment appointment = commonDAO.getAppointment(iAppointmentID.intValue());		      		  
+		      		  NotificationDetails notification = commonDAO.getNotificationDetails(iAppointmentID);
+		      		  try{
+		      			  sendSMS.sendSMSForAppointmentConfirmation(appointment, notification) ;  
+		      		  }catch (Exception se){
+		      			System.out.println(se.toString());
+		    			System.err.println("stacktrace"+se);
+
+		      		  }
+		      		  
+		      	  }
+
+		        }
+	        	boolean status =commonDAO.updateJobCompletionStatus(eachJob);
+		      }
 		  }
 
 	  
@@ -92,9 +138,11 @@ public class ScheduledJob {
 		  HashMap <String,String> parmObject =  new HashMap < String, String > () ;
 		  ScheduleJob tempScheduleJob = new ScheduleJob();
 		  for(ScheduleJob eachjobToSchedule: jobDetails) {
-	       	if(prevJobId !=  eachjobToSchedule.getJobId()){
-	       		tempScheduleJob.setParameters(parmObject);
-	       		jobDetailsToUse.add(tempScheduleJob);
+	       	if(prevJobId !=  eachjobToSchedule.getJobId()){	       		
+	       		if(prevJobId > 0){
+	       			tempScheduleJob.setParameters(parmObject);
+	       			jobDetailsToUse.add(tempScheduleJob);	
+	       		}	       		
 	       		prevJobId = eachjobToSchedule.getJobId();
 	       		tempScheduleJob = new ScheduleJob();
 	       		parmObject =  new HashMap < String, String > () ;
@@ -106,6 +154,8 @@ public class ScheduledJob {
 	       		parmObject.put(eachjobToSchedule.getParameterName(), eachjobToSchedule.getParameterValue());
 	       	}
 		  }
+		  tempScheduleJob.setParameters(parmObject);
+		  jobDetailsToUse.add(tempScheduleJob);
 		  for(ScheduleJob eachScheduleJob: jobDetailsToUse){
         	taskExecutor.execute(new ProcessJobInner(eachScheduleJob));
 		  }

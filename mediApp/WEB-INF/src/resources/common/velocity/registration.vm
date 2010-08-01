@@ -1,0 +1,15 @@
+<html>
+<body>
+<h3>Hi</h3>
+
+<div>
+   Thank you for registering with mediApp. Please use the following password to logon.</br>
+	$password?</br>
+	
+Thanks and Regards,</br>
+MediApp Team.
+
+</div>
+</body>
+
+</html>

@@ -83,8 +83,8 @@ public class LoginController extends MediAppBaseController  {
 					boolean state =loginService.addNewMember(person);
 					if(state){
 						//sendeMail.send(eMailID, CommonWebConstants.REG_EMAIL_TYPE);
-						sendeMail.schedule(eMailID, CommonWebConstants.REG_EMAIL_TYPE,person.getIdPerson());
-						sendSMS.schedule(person.getCellPhoneNumber(), CommonWebConstants.REG_EMAIL_TYPE, person.getIdPerson());
+						sendeMail.scheduleRegistration(eMailID, CommonWebConstants.REG_EMAIL_TYPE,person.getIdPerson());
+						sendSMS.scheduleRegistration(person.getCellPhoneNumber(), CommonWebConstants.REG_EMAIL_TYPE, person.getIdPerson());
 					//	errorList.add("error.register.success");
 						request.setAttribute("SuccessMessage", SuccessMessage);
 						//CommonWebUtil.addErrorMessagesInReq(request, errorList);

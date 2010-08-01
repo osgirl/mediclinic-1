@@ -117,6 +117,13 @@
         <property name="commonService">
 			<ref bean="commonService"/>
 		</property>
+		<property name="sendeMail">
+			<ref bean="sendeMail"/>
+		</property>
+		<property name="sendSMS">
+			<ref bean="sendSMS"/>
+		</property>
+		
 	</bean>
 
 	<bean id="updateAppointment" class="com.mediapp.web.controller.common.UpdateAppointmentController">
@@ -148,7 +155,14 @@
         <property name="successView"><value>dayAppointment</value></property>
         <property name="commonService">
 			<ref bean="commonService"/>
-		</property>        
+		</property> 
+		<property name="sendeMail">
+			<ref bean="sendeMail"/>
+		</property>
+		<property name="sendSMS">
+			<ref bean="sendSMS"/>
+		</property>
+		       
 	</bean>
 
 	<bean id="appointmentPopUpForm" class="com.mediapp.web.controller.common.AppointmentPopUpController">

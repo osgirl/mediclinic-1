@@ -15,7 +15,9 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import com.mediapp.core.common.constants.CommonCoreConstants;
 import com.mediapp.core.common.dao.CommonDAO;
+import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.CodeDecode;
+import com.mediapp.domain.common.NotificationDetails;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -44,7 +46,7 @@ public class ScheduleEMail {
 	     * @param   msg                 The e-mail message to be sent, except for the body.
 	     * @param   hTemplateVariables  Variables to use when processing the template. 
 	     */
-	    public  void send(final String emailTo,final String emailType) {
+	    public  void sendEmailForRegistration(final String emailTo) {
 	        MimeMessagePreparator preparator = new MimeMessagePreparator() {	        	
 	            public void prepare(MimeMessage mimeMessage) throws MessagingException {	            	
 	            	Map model = new HashMap();
@@ -53,8 +55,7 @@ public class ScheduleEMail {
 	            	model.put("password", "mediApp");
 	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 	               message.setTo(emailTo);
-	               if(CommonCoreConstants.REG_EMAIL_TYPE.equals(emailType)){
-		               message.setSubject("Welcome to MediApp");
+	                   message.setSubject("Welcome to MediApp");
 		               String body = null;
 		               if(velocityEngine==null){		            	   
 		            	   VelocityEngine velocityEngine = new VelocityEngine();
@@ -62,12 +63,11 @@ public class ScheduleEMail {
 		            	   velocityEngine.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 		            	   //velocityEngine.setProperty("file.resource.loader.path","C:\\Documents and Settings\\Administrator\\Desktop\\padmaraj\\demo\\mediclinic\\workspace\\with search\\work1\\mediApp\\WEB-INF\\classes\\resources\\common\\velocity\\");
 		            	   
-		            	   body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/resources/common/velocity/template.vm", model);
+		            	   body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/resources/common/velocity/registration.vm", model);
 		               }else{
-		            	   body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/resources/common/velocity/template.vm", model);
+		            	   body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/resources/common/velocity/registration.vm", model);
 		               }   
 		               message.setText(body, true);		               
-	               }
             		
 	            }
 	        };
@@ -86,7 +86,7 @@ public class ScheduleEMail {
 	        		properties.setProperty("mail.smtps.debug", "true");
 	        		mailSender.setJavaMailProperties(properties);
 	        		mailSender.send(preparator);
-	        		System.out.println("Emailed "+emailTo  + "for " + emailType);
+	        		System.out.println("Emailed "+emailTo  );
 	        	}else{
 	        		mailSender.send(preparator);
 	        	}
@@ -100,6 +100,128 @@ public class ScheduleEMail {
 
 	       
 	    }
+	    
+	    public  void sendEmailForNewAppointment(final Appointment  appointment,final NotificationDetails notificationDetails) {
+	        MimeMessagePreparator preparator = new MimeMessagePreparator() {	        	
+	            public void prepare(MimeMessage mimeMessage) throws MessagingException {	            	
+	            	Map model = new HashMap();
+	            	model.put("doctorName", notificationDetails.getDoctorName());
+	            	model.put("patientName", notificationDetails.getPatientName());
+	            	model.put("headline", appointment.getHeadline());
+	            	model.put("date", appointment.getDateOfAppointment());
+	            	model.put("time", appointment.getTimeOfAppointment());
+	            	model.put("duration", appointment.getAppointmentDuration());
+	            	model.put("comments", appointment.getComments());	            	
+	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+	               message.setTo(notificationDetails.getDoctorEmailAddress());
+	               message.setCc(notificationDetails.getPatientEmailAddress());
+	                   message.setSubject("New Appointment Notification");
+		               String body = null;
+		               if(velocityEngine==null){		            	   
+		            	   VelocityEngine velocityEngine = new VelocityEngine();
+		            	   velocityEngine.setProperty("resource.loader","class");
+		            	   velocityEngine.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+		            	   //velocityEngine.setProperty("file.resource.loader.path","C:\\Documents and Settings\\Administrator\\Desktop\\padmaraj\\demo\\mediclinic\\workspace\\with search\\work1\\mediApp\\WEB-INF\\classes\\resources\\common\\velocity\\");
+		            	   
+		            	   body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/resources/common/velocity/newAppointment.vm", model);
+		               }else{
+		            	   body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/resources/common/velocity/newAppointment.vm", model);
+		               }   
+		               message.setText(body, true);		               
+            		
+	            }
+	        };
+	         
+	         try{
+	        	if (mailSender == null){
+	        		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+	        		mailSender.setHost("smtp.gmail.com");
+	        		mailSender.setPort(465);
+	        		mailSender.setProtocol("smtps");
+	        		mailSender.setUsername("mediappindia@gmail.com");
+	        		mailSender.setPassword("mh12ac830");
+	        		Properties properties = new Properties();
+	        		properties.setProperty("mail.smtps.auth", "true");
+	        		properties.setProperty("mail.smtps.starttls.enable", "true");
+	        		properties.setProperty("mail.smtps.debug", "true");
+	        		mailSender.setJavaMailProperties(properties);
+	        		mailSender.send(preparator);	        		
+	        	}else{
+	        		mailSender.send(preparator);
+	        	}
+	            
+	         }catch (Exception se) {
+	             //log it and go on
+	 			//System.out.println(se.toString());
+				System.err.println("stacktrace"+se);
+            
+	         }
+
+	         
+	       
+	    }
+	    
+
+	    public  void sendEmailForAppointmentConfirmation(final Appointment  appointment,final NotificationDetails notificationDetails) {
+	        MimeMessagePreparator preparator = new MimeMessagePreparator() {	        	
+	            public void prepare(MimeMessage mimeMessage) throws MessagingException {	            	
+	            	Map model = new HashMap();
+	            	model.put("doctorName", notificationDetails.getDoctorName());
+	            	model.put("patientName", notificationDetails.getPatientName());
+	            	model.put("headline", appointment.getHeadline());
+	            	model.put("date", appointment.getDateOfAppointment());
+	            	model.put("time", appointment.getTimeOfAppointment());
+	            	model.put("duration", appointment.getAppointmentDuration());
+	            	model.put("comments", appointment.getComments());	            	
+	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+	               message.setTo(notificationDetails.getPatientEmailAddress());
+	               message.setCc(notificationDetails.getDoctorEmailAddress());
+                   message.setSubject("Appointment Confirmation");
+		               String body = null;
+		               if(velocityEngine==null){		            	   
+		            	   VelocityEngine velocityEngine = new VelocityEngine();
+		            	   velocityEngine.setProperty("resource.loader","class");
+		            	   velocityEngine.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+		            	   //velocityEngine.setProperty("file.resource.loader.path","C:\\Documents and Settings\\Administrator\\Desktop\\padmaraj\\demo\\mediclinic\\workspace\\with search\\work1\\mediApp\\WEB-INF\\classes\\resources\\common\\velocity\\");
+		            	   
+		            	   body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/resources/common/velocity/appointmentConfirmation.vm", model);
+		               }else{
+		            	   body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/resources/common/velocity/appointmentConfirmation.vm", model);
+		               }   
+		               message.setText(body, true);		               
+            		
+	            }
+	        };
+	         
+	         try{
+	        	if (mailSender == null){
+	        		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+	        		mailSender.setHost("smtp.gmail.com");
+	        		mailSender.setPort(465);
+	        		mailSender.setProtocol("smtps");
+	        		mailSender.setUsername("mediappindia@gmail.com");
+	        		mailSender.setPassword("mh12ac830");
+	        		Properties properties = new Properties();
+	        		properties.setProperty("mail.smtps.auth", "true");
+	        		properties.setProperty("mail.smtps.starttls.enable", "true");
+	        		properties.setProperty("mail.smtps.debug", "true");
+	        		mailSender.setJavaMailProperties(properties);
+	        		mailSender.send(preparator);	        		
+	        	}else{
+	        		mailSender.send(preparator);
+	        	}
+	            
+	         }catch (Exception se) {
+	             //log it and go on
+	 			//System.out.println(se.toString());
+				System.err.println("stacktrace"+se);
+            
+	         }
+
+	         
+	       
+	    }
+
 
 		private CommonDAO commonDAO;
 
@@ -112,7 +234,7 @@ public class ScheduleEMail {
 		}
 	    
 	    @SuppressWarnings("unchecked")
-		public boolean schedule( String emailTo, String emailType,  int personID) {
+		public boolean scheduleRegistration( String emailTo, String emailType,  int personID) {
 	    	Map<String,String> criteria =  new HashMap < String, String > () ;
 	    	criteria.put("EmailTo", emailTo);
 	    	criteria.put("EmailType", emailType);
@@ -123,8 +245,28 @@ public class ScheduleEMail {
 	    	return status;
 	    }
 	    
+	    @SuppressWarnings("unchecked")
+		public boolean scheduleNewAppointment( Appointment newAppointment) {
+	    	Map<String,String> criteria =  new HashMap < String, String > () ;
+	    	criteria.put("EmailType", "newAppointment");
+	    	Integer iAppointmentID = new Integer(newAppointment.getAppointmentID());
+	    	String sAppointmentID = iAppointmentID.toString();
+	    	criteria.put("AppointmentID",sAppointmentID );
+	    	boolean status = commonDAO.scheduleJob("Email", criteria, "Emailing");
+	    	return status;
+	    }
 
-		public JavaMailSender getMailSender() {
+		public boolean scheduleAppointmentConfirmation( int appointmentID) {
+	    	Map<String,String> criteria =  new HashMap < String, String > () ;
+	    	criteria.put("EmailType", "appointmentConfirmation");
+	    	Integer iAppointmentID = new Integer(appointmentID);
+	    	String sAppointmentID = iAppointmentID.toString();
+	    	criteria.put("AppointmentID",sAppointmentID );
+	    	boolean status = commonDAO.scheduleJob("Email", criteria, "Emailing");
+	    	return status;
+	    }
+
+	    public JavaMailSender getMailSender() {
 			return mailSender;
 		}
 

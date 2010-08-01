@@ -13,6 +13,7 @@ import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.DoctorWorkTimings;
 import com.mediapp.domain.common.HolidayCalendarList;
 import com.mediapp.domain.common.MultiPartFileUploadBean;
+import com.mediapp.domain.common.NotificationDetails;
 import com.mediapp.domain.common.PatientDetails;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.ScheduleJob;
@@ -50,7 +51,7 @@ public interface CommonDAO {
 	
 	public Person getPersonalProfile(int idPerson) throws DataAccessException;
 	
-	public Appointment getAppointment(int idPerson,Date dateOfAppointment, int idAppointment) throws DataAccessException;
+	public Appointment getAppointment(int idAppointment) throws DataAccessException;
 	
 	public List <AppointmentForMonth> getMonthAppointment(int idPerson, Date dateOfAppointment) throws DataAccessException;
 
@@ -87,4 +88,6 @@ public interface CommonDAO {
 	public Map getJobParms() throws DataAccessException;
 	
 	public boolean updateJobCompletionStatus (ScheduleJob job) throws DataAccessException;
+
+	public NotificationDetails getNotificationDetails(Integer AppointmentID) throws DataAccessException;
 }

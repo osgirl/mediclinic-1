@@ -47,10 +47,11 @@ public class SendMessage
 		System.out.println("  Battery Level: " + gateway.getBatteryLevel() + "%");
 		System.out.println();
 		// Send a message synchronously.
-		srv.createGroup("TestGroup");
-		srv.addToGroup("TestGroup", "+919538885476");
-		msg = new OutboundMessage("TestGroup", "Hello from MediApp!");
-//		msg = new OutboundMessage("+919538885476", "Hello from MediApp!");
+	//	srv.createGroup("TestGroup");
+	//	srv.addToGroup("TestGroup", "+919538885476");
+	//	msg = new OutboundMessage("TestGroup", "Hello from MediApp!");
+		//msg = new OutboundMessage("+919900409630", "Hello from MediApp!");
+		msg = new OutboundMessage("+919538885476", "Hello from MediApp!");
 		srv.sendMessage(msg);
 		System.out.println(msg);
 		// Or, send out a WAP SI message.

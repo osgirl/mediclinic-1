@@ -17,6 +17,8 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mediapp.core.common.business.CommonService;
+import com.mediapp.core.common.business.impl.ScheduleEMail;
+import com.mediapp.core.common.business.impl.ScheduleSMS;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.DoctorSearch;
@@ -27,6 +29,23 @@ import com.mediapp.web.constants.common.CommonWebConstants;
 
 public class CreateAppointmentController extends MediAppBaseController{
 	CommonService commonService;
+	ScheduleEMail sendeMail;
+	public ScheduleEMail getSendeMail() {
+		return sendeMail;
+	}
+	public void setSendeMail(ScheduleEMail sendeMail) {
+		this.sendeMail = sendeMail;
+	}
+
+	ScheduleSMS sendSMS;
+	
+	
+	public ScheduleSMS getSendSMS() {
+		return sendSMS;
+	}
+	public void setSendSMS(ScheduleSMS sendSMS) {
+		this.sendSMS = sendSMS;
+	}
 	
 	
 	@Override
@@ -61,6 +80,8 @@ public class CreateAppointmentController extends MediAppBaseController{
 		newAppointment.setPatientPersonID(sessionPerson.getIdPerson());
 		//newAppointment.setAppointmentSetter(sessionPerson.getIdPerson());
 		commonService.insertNewAppointment(newAppointment);
+		sendeMail.scheduleNewAppointment(newAppointment);
+		sendSMS.scheduleNewAppointment(newAppointment);
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy"); 
 		String sdate = sdf.format(newAppointment.getDateOfAppointment());
 		return null;

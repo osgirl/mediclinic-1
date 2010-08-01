@@ -15,7 +15,7 @@ public class FallbackJstlViewResolver extends InternalResourceViewResolver {
 
 		View lView =null; 
 		boolean redirectExists= pViewName.toUpperCase().contains("REDIRECT:");
-		int redirectIndex =pViewName.lastIndexOf("/");
+		int redirectIndex =pViewName.indexOf("/");
 		int dotIndex =pViewName.lastIndexOf(".");		
 		String lResourecePath=null;
 		if (redirectExists){

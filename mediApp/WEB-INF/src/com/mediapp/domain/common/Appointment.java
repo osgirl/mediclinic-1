@@ -29,13 +29,6 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private int patientPersonID;
 	
-	public int getPatientPersonID() {
-		return patientPersonID;
-	}
-
-	public void setPatientPersonID(int patientPersonID) {
-		this.patientPersonID = patientPersonID;
-	}
 
 	private int doctorPersonID;
 	
@@ -43,7 +36,8 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private String confirmedIndicator;
 	
-    private List<Diagnosis> diagnosis = LazyList.decorate(
+	
+	private List<Diagnosis> diagnosis = LazyList.decorate(
  				new ArrayList < Diagnosis > (),
 				FactoryUtils.instantiateFactory(Diagnosis.class)); 
         
@@ -66,6 +60,35 @@ public class Appointment extends MediAppBaseDomain{
 	private String doctorWorkEndTime;
 	
 	private String workingHour;
+	
+	private String patientName;
+	
+	private String doctorName;
+	
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
+	}
+
+	public String getDoctorName() {
+		return doctorName;
+	}
+
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
+	}
+
+	public int getPatientPersonID() {
+		return patientPersonID;
+	}
+
+	public void setPatientPersonID(int patientPersonID) {
+		this.patientPersonID = patientPersonID;
+	}
+
 	
 	public String getDoctorWorkStartTime() {
 		return doctorWorkStartTime;

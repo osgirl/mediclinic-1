@@ -15,12 +15,31 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mediapp.core.common.business.CommonService;
+import com.mediapp.core.common.business.impl.ScheduleEMail;
+import com.mediapp.core.common.business.impl.ScheduleSMS;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.Person;
 import com.mediapp.web.constants.common.CommonWebConstants;
 
 public class DayAppointmentController extends MediAppBaseController{
 	CommonService commonService;
+	ScheduleEMail sendeMail;
+	public ScheduleEMail getSendeMail() {
+		return sendeMail;
+	}
+	public void setSendeMail(ScheduleEMail sendeMail) {
+		this.sendeMail = sendeMail;
+	}
+
+	ScheduleSMS sendSMS;
+	
+	
+	public ScheduleSMS getSendSMS() {
+		return sendSMS;
+	}
+	public void setSendSMS(ScheduleSMS sendSMS) {
+		this.sendSMS = sendSMS;
+	}
 	
 	
 	@Override
@@ -58,7 +77,8 @@ public class DayAppointmentController extends MediAppBaseController{
 		int idPerson = Integer.parseInt(sidPerson);
 		String sAppointmentDate = request.getParameter("AppointmentDate");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
-
+		sendeMail.scheduleAppointmentConfirmation(appointmentID);
+		sendSMS.scheduleAppointmentConfirmation(appointmentID);
 		return new ModelAndView("redirect:/dayAppointment.htm?PersonID="+idPerson+"&AppointmentDate="+sAppointmentDate);
     }
 

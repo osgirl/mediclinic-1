@@ -26,6 +26,7 @@ import com.mediapp.domain.common.DoctorWorkTimings;
 import com.mediapp.domain.common.HolidayCalendarList;
 import com.mediapp.domain.common.Holidays;
 import com.mediapp.domain.common.MultiPartFileUploadBean;
+import com.mediapp.domain.common.NotificationDetails;
 import com.mediapp.domain.common.PatientDetails;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.ScheduleJob;
@@ -220,7 +221,11 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		
 		
 	}	
-	public boolean insertNewAppointment(Appointment appointment) throws DataAccessException{		
+	public boolean insertNewAppointment(Appointment appointment) throws DataAccessException{
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		criteria.put("SequenceName","s_appointment_id" );
+		Integer appointmentID =  (Integer)getObject("common.getNextVal",criteria );
+		appointment.setAppointmentID(appointmentID.intValue());
 		insertObject("common.insertNewAppointment",appointment );
 		return true;		
 	}	
@@ -245,7 +250,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return completeDetails;		
 	}
 	
-	public Appointment getAppointment(int idPerson,Date dateOfAppointment, int idAppointment) throws DataAccessException{
+	public Appointment getAppointment( int idAppointment) throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		criteria.put("AppointmentID", idAppointment);		
 		List<AppointmentTO> appointment = (ArrayList<AppointmentTO>) getList("common.getAppointment",criteria );
@@ -563,6 +568,13 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			flag=true;
 		}
 		return flag;
+	}
+
+	
+	public NotificationDetails getNotificationDetails(Integer appointmentID) throws DataAccessException{
+		Map<String,Integer> criteria =  new HashMap < String, Integer> () ;
+		criteria.put("AppointmentID", appointmentID);
+		return  (NotificationDetails) getObject("common.getDetailsForNotification", criteria);		
 	}
 
 }

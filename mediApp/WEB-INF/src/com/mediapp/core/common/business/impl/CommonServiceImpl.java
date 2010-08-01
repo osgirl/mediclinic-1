@@ -156,7 +156,7 @@ public class CommonServiceImpl implements CommonService{
 	}
 	
 	public Appointment getAppointment(int idPerson,Date dateOfAppointment, int idAppointment) {
-		return commonDAO.getAppointment(idPerson, dateOfAppointment,idAppointment);
+		return commonDAO.getAppointment(idAppointment);
 	}
 	
 	public List <CodeDecode> getCodeValue(String codeCategory){

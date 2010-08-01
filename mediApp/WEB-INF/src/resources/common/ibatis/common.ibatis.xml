@@ -253,9 +253,9 @@
 	</parameterMap>
 	
 	<insert id="insertNewAppointment">
-		INSERT INTO appointment_history ( idPatient_details,idDoctor_details,date_of_appointment,appointment_type,
+		INSERT INTO appointment_history ( idAppointment_History, idPatient_details,idDoctor_details,date_of_appointment,appointment_type,
 		appointment_confirmation,time_of_appointment,appointment_comment,appointment_duration,appointment_headline,appointment_end_time ) 
-		VALUES ( (select idpatient_details from patient_details where idPerson=#patientPersonID#),#doctorID#,date_format(#dateOfAppointment#, '%y-%m-%d'),'R','N',
+		VALUES ( #appointmentID#,(select idpatient_details from patient_details where idPerson=#patientPersonID#),#doctorID#,date_format(#dateOfAppointment#, '%y-%m-%d'),'R','N',
 		#timeOfAppointment#,#comments#,#appointmentDuration# ,#headline#,addtime(#timeOfAppointment#,#appointmentDuration#))
 	</insert>
 	
@@ -412,8 +412,8 @@
 	 </parameterMap>
 
 	<insert id="insertScheduleJob" parameterMap="Insert-ScheduleJob-Parm-Map">
-		INSERT INTO schedule_job (idschedule_job,action,comments ) 
-		VALUES (?,?,?)
+		INSERT INTO schedule_job (idschedule_job,action,comments,effectiveDate ) 
+		VALUES (?,?,?,now())
 	</insert>
 
 	 <parameterMap id="Insert-JobInputs-Parm-Map"   class="java.util.HashMap">
@@ -684,6 +684,38 @@
 		where idschedule_job=#jobId#
 		
 	</update>
+ 	
+ 	<resultMap class="com.mediapp.domain.common.NotificationDetails" id="Notification-Result-Map">
+	 	<result property="patientName" 			column="PatientName"/>
+	 	<result property="patientEmailAddress" 	column="PatientEmailAddress"/>
+	 	<result property="patientMobileNumber" 	column="PatientMobile"/>
+	 	<result property="doctorName" 			column="DoctorName"/>
+	 	<result property="doctorEmailAddress" 	column="DoctorEmailAddress"/>
+	 	<result property="doctorMobileNumber" 	column="DoctorMobile"/>
+	</resultMap>
+
+	<parameterMap id="Notification-Parm-Map"   class="java.util.HashMap">
+	    <parameter property="AppointmentID" 		javaType="java.lang.Integer"    mode="IN"/>
+	 </parameterMap>
+
+
+	<select id="getDetailsForNotification" parameterMap="Notification-Parm-Map" resultMap="Notification-Result-Map">
+			select concat(patient.first_name," " , patient.middle_name, ". ", patient.last_name) as PatientName, patient.email_address as PatientEmailAddress,
+			patient.mobile_phone_number as PatientMobile,
+			concat(doctor.first_name," " , doctor.middle_name, ". ", doctor.last_name) as DoctorName, doctor.email_address as DoctorEmailAddress,
+			doctor.mobile_phone_number as DoctorMobile
+			from person patient,
+			person doctor,
+			patient_details pd,
+			doctor_details dd,
+			appointment_history ah
+			where 
+			ah.idPatient_details = dd.idDoctor_details
+			and ah.idDoctor_details =pd.idPatient_details
+			and pd.idPerson = patient.idPerson
+			and dd.idPerson = doctor.idPerson
+			and ah.idAppointment_History =? 	
+	</select>
  	
 
 	
