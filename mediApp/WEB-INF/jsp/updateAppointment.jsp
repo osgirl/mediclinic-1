@@ -58,9 +58,6 @@
 									</textarea>													
 								</spring:bind>
 							</td>
-							<td align="center" >
-								<input type="button"  onClick="javascript:fn_addToSelect();" alignment="center" value="Reschedule" class="bsubmit" id="btnReschedule" width="75" />							
-							</td>
 						</tr>
 							<spring:bind path="appointment.doctorID">
 								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorID}"/>"/>					

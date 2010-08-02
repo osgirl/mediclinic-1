@@ -162,6 +162,7 @@
               	<spring:bind path="person.address.country">
                 	<input type="text" name="${status.expression}" id="${status.expression}"  value="${person.address.country}"/>
                 </spring:bind>
+                
               </td>
              </tr>
              <tr>
@@ -205,7 +206,7 @@
                 	<input type="text" name="${status.expression}" id="${status.expression}"  value="${person.doctorDetails.specialization}" style="WIDTH: 300px"/>
                 	</spring:bind>  
                 <script type="text/javascript">
-                 new Autocomplete('doctorDetails.specialization', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALITY');
+                 new Autocomplete('doctorDetails.specialization', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
                 </script>
                </td>
               </tr>

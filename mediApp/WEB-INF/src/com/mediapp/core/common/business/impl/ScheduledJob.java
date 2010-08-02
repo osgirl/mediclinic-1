@@ -126,7 +126,9 @@ public class ScheduledJob {
 		      	  }
 
 		        }
-	        	boolean status =commonDAO.updateJobCompletionStatus(eachJob);
+		        if (eachJob.getActionToPerform()!=null ){
+		        	boolean status =commonDAO.updateJobCompletionStatus(eachJob);
+		        }
 		      }
 		  }
 

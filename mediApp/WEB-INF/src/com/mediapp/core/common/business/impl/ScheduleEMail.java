@@ -52,6 +52,7 @@ public class ScheduleEMail {
 	            	Map model = new HashMap();
 	            	model.put("email.sender", "mediApp");
 	            	model.put("email.user", emailTo);
+	            	model.put("username", emailTo);
 	            	model.put("password", "mediApp");
 	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 	               message.setTo(emailTo);
