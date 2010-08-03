@@ -11,8 +11,6 @@ public class FallbackJstlViewResolver extends InternalResourceViewResolver {
 	private InternalResourceViewResolver mFallBackViewResolver ;
 
 	public View resolveViewName(String pViewName , Locale pLocale)throws Exception{
-		System.out.println("ChainableJstlViewResolver "+pViewName+" "+pLocale);
-
 		View lView =null; 
 		boolean redirectExists= pViewName.toUpperCase().contains("REDIRECT:");
 		int redirectIndex =pViewName.indexOf("/");
@@ -25,18 +23,15 @@ public class FallbackJstlViewResolver extends InternalResourceViewResolver {
 			lResourecePath = getPrefix()+pViewName+getSuffix();	
 		}
 		
-		if (!getApplicationContext().getResource(lResourecePath).exists()){
-			System.out.println("Inside If : "+lResourecePath+"Not found");
+		if (!getApplicationContext().getResource(lResourecePath).exists()){			
 			if (mFallBackViewResolver == null){
 				System.out.print("No fall back view resolver configured");
 				//lView = super.resolveViewName(pViewName, pLocale);
 			}else{
-				System.out.print("Resolving view using fallback view resolver");
 				lView = mFallBackViewResolver.resolveViewName(pViewName, pLocale);
 			}
 
 		}else{
-			System.out.println("Inside Else");
 			lView = super.resolveViewName(pViewName, pLocale);
 
 		}

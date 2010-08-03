@@ -109,7 +109,7 @@ public class AppointmentPopUpController extends MediAppBaseController  {
 		}
 		
 		
-		return new ModelAndView("redirect:/appointmentPopUp.htm");
+		return new ModelAndView(getSuccessView());
     }
 	/**
 	 * @param loginService the loginService to set
