@@ -199,7 +199,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		Person person = null;		
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("Category", codeCategory);
-		String codeLike = "%"+code+"%";
+		String codeLike = code+"%";
 		criteria.put("Code", codeLike);
 		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.autoComplete",criteria );	
 		return codeValueList;
@@ -577,4 +577,37 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return  (NotificationDetails) getObject("common.getDetailsForNotification", criteria);		
 	}
 
+	public List <CodeDecode> getDiagnosis(String code) throws DataAccessException {
+		Person person = null;		
+		Map<String,String> criteria =  new HashMap < String, String > () ;
+		//criteria.put("Category", codeCategory);
+		String codeLike = code+"%";
+		criteria.put("Code", codeLike);
+		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.getICDCode",criteria );	
+		return codeValueList;
+	}
+
+	
+	public List <CodeDecode> getPrescription(String code) throws DataAccessException {
+		Person person = null;		
+		Map<String,String> criteria =  new HashMap < String, String > () ;
+		//criteria.put("Category", codeCategory);
+		String codeLike = code+"%";
+		criteria.put("Code", codeLike);
+		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.getPrescription",criteria );	
+		return codeValueList;
+	}
+
+	public List <CodeDecode> getTests(String code) throws DataAccessException {
+		Person person = null;		
+		Map<String,String> criteria =  new HashMap < String, String > () ;
+		//criteria.put("Category", codeCategory);
+		String codeLike = code+"%";
+		criteria.put("Code", codeLike);
+		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.getTests",criteria );	
+		return codeValueList;
+	}
+
+	
+	
 }

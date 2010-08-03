@@ -260,4 +260,16 @@ public class CommonServiceImpl implements CommonService{
 	public boolean updateAppointmentConfirmation (int appointmentID) {
 		return commonDAO.updateAppointmentConfirmation(appointmentID);
 	}
+
+	public List <CodeDecode> getDiagnosis(String code){
+		return commonDAO.getDiagnosis(code);
+	}
+
+	public List <CodeDecode> getPrescription(String code){
+		return commonDAO.getPrescription(code);
+	}
+
+	public List <CodeDecode> getTests(String code) {
+		return commonDAO.getTests(code);
+	}
 }

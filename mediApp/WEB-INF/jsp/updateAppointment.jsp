@@ -112,7 +112,7 @@
 												
 												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].codeICD}"/>" />
 												<script type="text/javascript">
-														new Autocomplete('<c:out value="diagnosis[${diagnosisAndtest.index}].codeICD"/>', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+														new Autocomplete('<c:out value="diagnosis[${diagnosisAndtest.index}].codeICD"/>', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
 												</script>
 												
 																									
@@ -121,7 +121,7 @@
 										<td >
 												<input type="text" name="findPrescription[${diagnosisAndtest.index}]"  id="findPrescription[0]" value=""/>
 												<script type="text/javascript">
-														new Autocomplete('<c:out value="findPrescription[${diagnosisAndtest.index}]"/>', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+														new Autocomplete('<c:out value="findPrescription[${diagnosisAndtest.index}]"/>', { serviceUrl:'/appointmentPopUp.htm' },'table.PRESCRIPTION');
 												</script>
 												
 										</td>
@@ -145,7 +145,7 @@
 												<input type="text" name="findTest[${diagnosisAndtest.index}]"  value=""/>
 										</td>
 										<script type="text/javascript">
-												new Autocomplete('<c:out value="findTest[${diagnosisAndtest.index}]"/>', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+												new Autocomplete('<c:out value="findTest[${diagnosisAndtest.index}]"/>', { serviceUrl:'/appointmentPopUp.htm' },'table.TEST');
 										</script>
 										
 										<td >
@@ -178,7 +178,7 @@
 											<spring:bind path="appointment.diagnosis[0].codeICD">
 												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${status.value}"/>"/>
 												<script type="text/javascript">
-														new Autocomplete('<c:out value="diagnosis[0].codeICD"/>', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+														new Autocomplete('<c:out value="diagnosis[0].codeICD"/>', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
 												</script>
 																									
 											</spring:bind>
@@ -186,7 +186,7 @@
 										<td >
 												<input type="text" name="findPrescription[0]"  value=""/>
 												<script type="text/javascript">
-														new Autocomplete('findPrescription[0]', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+														new Autocomplete('findPrescription[0]', { serviceUrl:'/appointmentPopUp.htm' },'table.PRESCRIPTION');
 												</script>
 												
 										</td>
@@ -211,7 +211,7 @@
 												<input type="text" name="findTest[0]"  value=""/>
 										</td>
 										<script type="text/javascript">
-												new Autocomplete('findTest[0]', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
+												new Autocomplete('findTest[0]', { serviceUrl:'/appointmentPopUp.htm' },'table.TEST');
 										</script>
 										
 										<td >

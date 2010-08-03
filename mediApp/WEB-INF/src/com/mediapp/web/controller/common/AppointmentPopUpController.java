@@ -63,7 +63,17 @@ public class AppointmentPopUpController extends MediAppBaseController  {
 		String codeCategory =  (String) request.getParameter(CommonWebConstants.CODE_CATEGORY);
 		String code =  (String) request.getParameter(CommonWebConstants.CODE_QUERY);
 		//System.out.println("code is "+ request.getParameter("codeCategory"));
-		List <CodeDecode> codes = commonService.getAutoComplete(codeCategory, code);
+		List <CodeDecode> codes = new ArrayList<CodeDecode>();
+		if ("SPECIALTITY".equals(codeCategory)){
+			 codes = commonService.getAutoComplete(codeCategory, code);	
+		}else if("table.DIAGNOSIS".equals(codeCategory)){
+			codes = commonService.getDiagnosis(code);
+		}else if("table.PRESCRIPTION".equals(codeCategory)){
+			codes = commonService.getPrescription(code);
+		}else if("table.TEST".equals(codeCategory)){
+			codes = commonService.getTests(code);
+		}
+		
 		try{
 			response.flushBuffer();
 			response.setContentType("text/html; charset=UTF-8");

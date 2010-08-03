@@ -169,7 +169,7 @@
               <td >Phone Number(Landline): </td>
               <td >
               <spring:bind path="person.landlinePhoneNumber">
-               <input type="text" name="${status.expression}" id="${status.expression}"  value="${person.landlinePhoneNumber}"/>
+               <input type="text" name="${status.expression}" id="${status.expression}"  value="${person.landlinePhoneNumber}" onKeyUp="if(this.value.match(/\D/))this.value=this.value.replace(/\D/g,'')" onblur="if(this.value.match(/\D/))this.value=this.value.replace(/\D/g,'')"/>
               </spring:bind>  
               </td>
              </tr>
@@ -177,7 +177,7 @@
               <td >Cell Number: <font color="red">*</font></td>
               <td >
               <spring:bind path="person.cellPhoneNumber">
-               <input type="text" name="${status.expression}" id="${status.expression}"  value="${person.cellPhoneNumber}"/>
+               <input type="text" name="${status.expression}" id="${status.expression}"  value="${person.cellPhoneNumber}" onKeyUp="if(this.value.match(/\D/))this.value=this.value.replace(/\D/g,'')" onblur="if(this.value.match(/\D/))this.value=this.value.replace(/\D/g,'')"/>
               </spring:bind>  
               </td>
              </tr>

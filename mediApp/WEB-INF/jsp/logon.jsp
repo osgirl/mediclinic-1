@@ -140,7 +140,7 @@
 							<td width="30%" align="right">Cell Phone Number: </td>
 							<td width="70%" align="left">
 							<spring:bind path="person.cellPhoneNumber">
-								<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>		
+								<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" onKeyUp="if(this.value.match(/\D/))this.value=this.value.replace(/\D/g,'')" onblur="if(this.value.match(/\D/))this.value=this.value.replace(/\D/g,'')"/>		
 							</spring:bind>
 							</td>
 							

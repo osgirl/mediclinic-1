@@ -90,4 +90,10 @@ public interface CommonDAO {
 	public boolean updateJobCompletionStatus (ScheduleJob job) throws DataAccessException;
 
 	public NotificationDetails getNotificationDetails(Integer AppointmentID) throws DataAccessException;
+
+	public List <CodeDecode> getDiagnosis(String code) throws DataAccessException;
+	
+	public List <CodeDecode> getPrescription(String code) throws DataAccessException;
+	
+	public List <CodeDecode> getTests(String code) throws DataAccessException;
 }

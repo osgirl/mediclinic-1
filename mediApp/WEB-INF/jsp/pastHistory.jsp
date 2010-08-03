@@ -26,7 +26,7 @@
                <td >Weight: </td>
                <td >
                 <spring:bind path="patientDetails.weight">                               
-                 <input type="text"  name="weight"  value="<c:out value="${patientDetails.weight}"/>" style="WIDTH: 50px"/>
+                 <input type="text"  name="weight"  value="<c:out value="${patientDetails.weight}"/>" style="WIDTH: 50px" onKeyUp="if(this.value.match(/\D/))this.value=this.value.replace(/\D/g,'')" onblur="if(this.value.match(/\D/))this.value=this.value.replace(/\D/g,'')" maxlength="3"/>
                  kg
                  <font color="red"><c:out value="${status.errorMessage}" /></font>
                 </spring:bind>
@@ -35,7 +35,7 @@
                <td >Height: </td>
                <td >
                 <spring:bind path="patientDetails.height">                               
-                 <input type="text"  name="height"  value="<c:out value="${patientDetails.height}"/>" style="WIDTH: 50px"/>
+                 <input type="text"  name="height"  value="<c:out value="${patientDetails.height}"/>" style="WIDTH: 50px" onKeyUp="if(this.value.match(/\D/))this.value=this.value.replace(/\D/g,'')" onblur="if(this.value.match(/\D/))this.value=this.value.replace(/\D/g,'')" maxlength="3"/>
                  cm
                  <font color="red"><c:out value="${status.errorMessage}" /></font>
                 </spring:bind>

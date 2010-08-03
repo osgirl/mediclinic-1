@@ -718,5 +718,43 @@
 	</select>
  	
 
+ 	<resultMap class="com.mediapp.domain.common.CodeDecode" id="Get-Diagnosis-Result-Map">
+	 	<result property="codeDecode" column="icd_10_code"/>
+	 	<result property="codeDescription" column="icd_10_label"/>
+	</resultMap>
+	 	
+	<parameterMap id="Get-Diagnosis-Map"   class="java.util.HashMap">
+	    <parameter property="Code"    		javaType="java.lang.String"    mode="IN"/>
+	</parameterMap>
+
+	<select id="getICDCode" parameterMap="Get-Diagnosis-Map" resultMap="Get-Diagnosis-Result-Map">
+           SELECT icd_10_code, icd_10_label FROM icd_code_10 where  icd_10_label like ?
+ 	</select>
+
+ 	<resultMap class="com.mediapp.domain.common.CodeDecode" id="Get-Prescription-Result-Map">
+	 	<result property="codeDecode" column="prescription"/>
+	 	<result property="codeDescription" column="prescription"/>
+	</resultMap>
+	 	
+	<parameterMap id="Get-Prescription-Map"   class="java.util.HashMap">
+	    <parameter property="Code"    		javaType="java.lang.String"    mode="IN"/>
+	</parameterMap>
+
+	<select id="getPrescription" parameterMap="Get-Prescription-Map" resultMap="Get-Prescription-Result-Map">
+           SELECT prescription, prescription FROM prescription_meta_data where  prescription like ?
+ 	</select>
+
+ 	<resultMap class="com.mediapp.domain.common.CodeDecode" id="Get-Tests-Result-Map">
+	 	<result property="codeDecode" column="test_description"/>
+	 	<result property="codeDescription" column="test_description"/>
+	</resultMap>
+	 	
+	<parameterMap id="Get-Tests-Map"   class="java.util.HashMap">
+	    <parameter property="Code"    		javaType="java.lang.String"    mode="IN"/>
+	</parameterMap>
+
+	<select id="getTests" parameterMap="Get-Tests-Map" resultMap="Get-Tests-Result-Map">
+           SELECT test_description, test_description FROM test_meta_data where  test_description like ?
+ 	</select>
 	
 </sqlMap>
