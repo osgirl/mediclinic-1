@@ -110,6 +110,7 @@ public class CommonServiceImpl implements CommonService{
 		Time iTime = Time.valueOf(appointmentList.get(0).getDoctorWorkStartTime());
 		Time appointmentEndTime = Time.valueOf("00:00:00"); 
 		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss"); 
+		boolean workingOrNot =true;
 		while (iTime.compareTo(Time.valueOf(appointmentList.get(0).getDoctorWorkEndTime()))<= 0){			
 			eachAppointment.setTimeOfAppointment(iTime);
 			if ( (iTime.getTime()-appointmentEndTime.getTime() >= 0)){
@@ -125,6 +126,21 @@ public class CommonServiceImpl implements CommonService{
 					if(personType.equals(CommonCoreConstants.DOCTOR)){
 						eachAppointment.setDoctorID(loopAppointment.getDoctorID());
 					}
+				}
+				workingOrNot =true;
+				for(DoctorWorkTimings eachWorkTiming:workTimings){
+					if(iTime.compareTo(eachWorkTiming.getEndTime())>0){
+						if(workingOrNot ){
+							workingOrNot=false;
+						}
+					}else{
+						if(!workingOrNot && iTime.compareTo(eachWorkTiming.getStartTime())>= 0){
+							workingOrNot=true;
+						}
+					}
+				}
+				if(!workingOrNot){
+					eachAppointment.setHeadline("OOO");
 				}
 			}else{
 				eachAppointment.setHeadline("OOO");
