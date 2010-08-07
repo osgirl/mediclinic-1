@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import com.mediapp.core.common.business.CommonService;
+import com.mediapp.core.common.business.impl.ScheduleEMail;
+import com.mediapp.core.common.business.impl.ScheduleSMS;
 import com.mediapp.domain.common.HolidayCalendarList;
 import com.mediapp.domain.common.Holidays;
 import com.mediapp.domain.common.Person;
@@ -33,6 +35,24 @@ public class HolidayCalendarController extends MediAppBaseController  {
 
 	public void setCommonService(CommonService commonService) {
 		this.commonService = commonService;
+	}
+
+	ScheduleEMail sendeMail;
+	public ScheduleEMail getSendeMail() {
+		return sendeMail;
+	}
+	public void setSendeMail(ScheduleEMail sendeMail) {
+		this.sendeMail = sendeMail;
+	}
+
+	ScheduleSMS sendSMS;
+	
+	
+	public ScheduleSMS getSendSMS() {
+		return sendSMS;
+	}
+	public void setSendSMS(ScheduleSMS sendSMS) {
+		this.sendSMS = sendSMS;
 	}
 
  @Override
@@ -97,7 +117,10 @@ public class HolidayCalendarController extends MediAppBaseController  {
 			Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
 			int idPerson = sessionPerson.getIdPerson();
 			holidays.setIdDoctorPerson(idPerson);			
-		  insertStatus=commonService.insertHolidays(holidays);
+			insertStatus=commonService.insertHolidays(holidays);
+			sendeMail.scheduleAppointmentCancellation(holidays);
+			sendSMS.scheduleAppointmentCancellation(holidays);
+
 	  }
 	  return new ModelAndView(getSuccessView(),"holidayCalendar", holidays );
 	 }  

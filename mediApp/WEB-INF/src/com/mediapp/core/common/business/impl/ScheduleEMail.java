@@ -17,6 +17,7 @@ import com.mediapp.core.common.constants.CommonCoreConstants;
 import com.mediapp.core.common.dao.CommonDAO;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.CodeDecode;
+import com.mediapp.domain.common.HolidayCalendarList;
 import com.mediapp.domain.common.NotificationDetails;
 
 import javax.mail.MessagingException;
@@ -162,6 +163,65 @@ public class ScheduleEMail {
 	       
 	    }
 	    
+	    public  void sendEmailForRescheduledAppointment(final Appointment  appointment,final NotificationDetails notificationDetails) {
+	        MimeMessagePreparator preparator = new MimeMessagePreparator() {	        	
+	            public void prepare(MimeMessage mimeMessage) throws MessagingException {	            	
+	            	Map model = new HashMap();
+	            	model.put("doctorName", notificationDetails.getDoctorName());
+	            	model.put("patientName", notificationDetails.getPatientName());
+	            	model.put("headline", appointment.getHeadline());
+	            	model.put("date", appointment.getDateOfAppointment());
+	            	model.put("time", appointment.getTimeOfAppointment());
+	            	model.put("duration", appointment.getAppointmentDuration());
+	            	model.put("comments", appointment.getComments());	            	
+	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+	               message.setTo(notificationDetails.getDoctorEmailAddress());
+	               message.setCc(notificationDetails.getPatientEmailAddress());
+	                   message.setSubject("New Appointment Notification");
+		               String body = null;
+		               if(velocityEngine==null){		            	   
+		            	   VelocityEngine velocityEngine = new VelocityEngine();
+		            	   velocityEngine.setProperty("resource.loader","class");
+		            	   velocityEngine.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+		            	   //velocityEngine.setProperty("file.resource.loader.path","C:\\Documents and Settings\\Administrator\\Desktop\\padmaraj\\demo\\mediclinic\\workspace\\with search\\work1\\mediApp\\WEB-INF\\classes\\resources\\common\\velocity\\");
+		            	   
+		            	   body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/resources/common/velocity/rescheduledAppointment.vm", model);
+		               }else{
+		            	   body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/resources/common/velocity/rescheduledAppointment.vm", model);
+		               }   
+		               message.setText(body, true);		               
+            		
+	            }
+	        };
+	         
+	         try{
+	        	if (mailSender == null){
+	        		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+	        		mailSender.setHost("smtp.gmail.com");
+	        		mailSender.setPort(465);
+	        		mailSender.setProtocol("smtps");
+	        		mailSender.setUsername("mediappindia@gmail.com");
+	        		mailSender.setPassword("mh12ac830");
+	        		Properties properties = new Properties();
+	        		properties.setProperty("mail.smtps.auth", "true");
+	        		properties.setProperty("mail.smtps.starttls.enable", "true");
+	        		properties.setProperty("mail.smtps.debug", "true");
+	        		mailSender.setJavaMailProperties(properties);
+	        		mailSender.send(preparator);	        		
+	        	}else{
+	        		mailSender.send(preparator);
+	        	}
+	            
+	         }catch (Exception se) {
+	             //log it and go on
+	 			//System.out.println(se.toString());
+				System.err.println("stacktrace"+se);
+            
+	         }
+
+	         
+	       
+	    }
 
 	    public  void sendEmailForAppointmentConfirmation(final Appointment  appointment,final NotificationDetails notificationDetails) {
 	        MimeMessagePreparator preparator = new MimeMessagePreparator() {	        	
@@ -257,6 +317,17 @@ public class ScheduleEMail {
 	    	return status;
 	    }
 
+	    @SuppressWarnings("unchecked")
+		public boolean scheduleRescheduleAppointment( Appointment newAppointment) {
+	    	Map<String,String> criteria =  new HashMap < String, String > () ;
+	    	criteria.put("EmailType", "rescheduledAppointment");
+	    	Integer iAppointmentID = new Integer(newAppointment.getAppointmentID());
+	    	String sAppointmentID = iAppointmentID.toString();
+	    	criteria.put("AppointmentID",sAppointmentID );
+	    	boolean status = commonDAO.scheduleJob("Email", criteria, "Emailing");
+	    	return status;
+	    }
+
 		public boolean scheduleAppointmentConfirmation( int appointmentID) {
 	    	Map<String,String> criteria =  new HashMap < String, String > () ;
 	    	criteria.put("EmailType", "appointmentConfirmation");
@@ -266,6 +337,11 @@ public class ScheduleEMail {
 	    	boolean status = commonDAO.scheduleJob("Email", criteria, "Emailing");
 	    	return status;
 	    }
+		
+	    public boolean scheduleAppointmentCancellation(HolidayCalendarList holidays){
+	    	return true;
+	    }
+
 
 	    public JavaMailSender getMailSender() {
 			return mailSender;

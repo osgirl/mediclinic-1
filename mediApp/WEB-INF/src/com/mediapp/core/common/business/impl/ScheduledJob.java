@@ -87,7 +87,12 @@ public class ScheduledJob {
 		      		  Integer iAppointmentID = new Integer(eachJob.getParameters().get("AppointmentID"));		      		  
 		      		  Appointment appointment = commonDAO.getAppointment(iAppointmentID.intValue());		      		  
 		      		  NotificationDetails notification = commonDAO.getNotificationDetails(iAppointmentID);
-		      		  sendEmail.sendEmailForAppointmentConfirmation(appointment, notification);
+		      		  sendEmail.sendEmailForRescheduledAppointment(appointment, notification);
+		      	  }else if("rescheduledAppointment".equals(eachJob.getParameters().get("EmailType"))){
+		      		  Integer iAppointmentID = new Integer(eachJob.getParameters().get("AppointmentID"));		      		  
+		      		  Appointment appointment = commonDAO.getAppointment(iAppointmentID.intValue());		      		  
+		      		  NotificationDetails notification = commonDAO.getNotificationDetails(iAppointmentID);
+		      		  sendEmail.sendEmailForNewAppointment(appointment, notification);
 		      	  }
 		        }else if ("SMS".equals(eachJob.getActionToPerform()) ){
 		  		  SendSMS sendSMS = new SendSMS( );
@@ -117,6 +122,18 @@ public class ScheduledJob {
 		      		  NotificationDetails notification = commonDAO.getNotificationDetails(iAppointmentID);
 		      		  try{
 		      			  sendSMS.sendSMSForAppointmentConfirmation(appointment, notification) ;  
+		      		  }catch (Exception se){
+		      			System.out.println(se.toString());
+		    			System.err.println("stacktrace"+se);
+
+		      		  }
+		      		  
+		      	  }else if("rescheduledAppointment".equals(eachJob.getParameters().get("SMSType"))){
+		      		  Integer iAppointmentID = new Integer(eachJob.getParameters().get("AppointmentID"));		      		  
+		      		  Appointment appointment = commonDAO.getAppointment(iAppointmentID.intValue());		      		  
+		      		  NotificationDetails notification = commonDAO.getNotificationDetails(iAppointmentID);
+		      		  try{
+		      			  sendSMS.sendSMSForRescheduledAppointment(appointment, notification) ;  
 		      		  }catch (Exception se){
 		      			System.out.println(se.toString());
 		    			System.err.println("stacktrace"+se);

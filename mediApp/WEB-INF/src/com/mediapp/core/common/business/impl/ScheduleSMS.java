@@ -13,6 +13,7 @@ import org.smslib.Service;
 import org.smslib.modem.SerialModemGateway;
 import com.mediapp.core.common.dao.CommonDAO;
 import com.mediapp.domain.common.Appointment;
+import com.mediapp.domain.common.HolidayCalendarList;
 
 public class ScheduleSMS {
 	private CommonDAO commonDAO;
@@ -48,6 +49,17 @@ public class ScheduleSMS {
     	boolean status = commonDAO.scheduleJob("SMS", criteria, "SMS");
     	return status;
     }
+    
+    @SuppressWarnings("unchecked")
+	public boolean scheduleRescheduleAppointment( Appointment newAppointment) {
+    	Map<String,String> criteria =  new HashMap < String, String > () ;
+    	criteria.put("SMSType", "rescheduledAppointment");
+    	Integer iAppointmentID = new Integer(newAppointment.getAppointmentID());
+    	String sAppointmentID = iAppointmentID.toString();
+    	criteria.put("AppointmentID",sAppointmentID );
+    	boolean status = commonDAO.scheduleJob("SMS", criteria, "SMS");
+    	return status;
+    }
 
     @SuppressWarnings("unchecked")
 	public boolean scheduleAppointmentConfirmation(int appointmentID) {
@@ -58,6 +70,10 @@ public class ScheduleSMS {
     	criteria.put("AppointmentID",sAppointmentID );
     	boolean status = commonDAO.scheduleJob("SMS", criteria, "SMS");
     	return status;
+    }
+    
+    public boolean scheduleAppointmentCancellation(HolidayCalendarList holidays){
+    	return true;
     }
 
 }

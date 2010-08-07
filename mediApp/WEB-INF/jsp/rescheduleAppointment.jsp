@@ -15,17 +15,24 @@
 	    <title>mediApp</title>    
 		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
 	    <link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
-	    <link href="<%=request.getContextPath()%>/css/autocomplete.css" rel="stylesheet" type="text/css">
 	    <script type="text/javascript" src="<%=request.getContextPath()%>/js/mediapp.js"></script>    
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar_us.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/calendar.css">
 	</head>
 	<body>
 	<script type="text/javascript">
 	</script>
-		<form name="rescheduleAppointment" id="rescheduleAppointment" method="post" >		
+		<form name="rescheduleAppointment" id="rescheduleAppointment" method="post" >
+		<spring:hasBindErrors name="command">
+         <c:if test="${not empty errors.globalErrors}">
+          <div align="center" id="redmsg">
+           <ul>
+            <c:forEach items="${errors.globalErrors}" var="error">
+            <li> <c:out value="${error}"/> </li>
+            </c:forEach>
+           </ul>
+          </div>
+         </c:if>
+        </spring:hasBindErrors>
+				
 			<div id="createApt"  style="display:block" align="center">
 				<table  border=""  class="login" width=900>
 					<tr bgcolor="lightblue" align="center">
@@ -35,19 +42,19 @@
 						<tr>
 							<td>Headline : &nbsp;&nbsp; 
 								<spring:bind path="appointment.headline">
-									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.headline}"/>"  style="width: 700px" />					
+									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.headline}"/>"  style="width: 700px" disabled="disabled"/>					
 								</spring:bind>
 							</td>
 						</tr>
 						<tr>
 							<td >Date : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<spring:bind path="appointment.dateOfAppointment">
-									<input type="text" name="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" readonly="readonly" style="width: 200px"/>
+									<input type="text" name="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" disabled="disabled" />
 								</spring:bind>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								Time : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<spring:bind path="appointment.timeOfAppointment">
-									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.timeOfAppointment}"/>" readonly="readonly" style="width: 200px"/>
+									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.timeOfAppointment}"/>" disabled="disabled" style="width: 200px"/>
 								</spring:bind>
 								&nbsp;&nbsp;&nbsp;Duration :
 								<spring:bind path="appointment.appointmentDuration">
@@ -64,22 +71,16 @@
 						<tr>
 							<td width="10%">Comments : 							
 								<spring:bind path="appointment.comments">
-									<textarea name="${status.expression}"    rows="2" cols="100"  align="left">
+									<textarea name="${status.expression}"    rows="2" cols="100"  align="left" disabled="disabled">
 									${fn:trim(appointment.comments)}
 									</textarea>													
 								</spring:bind>
 							</td>
 						</tr>
-							<spring:bind path="appointment.doctorID">
-								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorID}"/>"/>					
-							</spring:bind>
-							<spring:bind path="appointment.doctorPersonID">
-								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorPersonID}"/>"/>					
-							</spring:bind>
 						
 					</table>
 									<input type="hidden" name="AppointmentID"  id="AppointmentID" value="${AppointmentID}"/>
-									<input type="hidden" name="PersonID"  id="PersonID" value="${personID}"/>
+									<input type="hidden" name="PersonID"  id="PersonID" value="${PersonID}"/>
 									<input type="hidden" name="AppointmentDate"  id="AppointmentDate" value="<fmt:formatDate pattern="MM/dd/yyyy" value="${AppointmentDate}"/>">
 									<c:set var="PersonType" />
 									<c:set var="PersonID" />

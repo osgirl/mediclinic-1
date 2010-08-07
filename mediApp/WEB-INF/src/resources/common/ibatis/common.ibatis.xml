@@ -761,8 +761,8 @@
  	</select>
  	
  	<update id="rescheduleAppointment" >
- 		update appointment_history  set date_of_appointment=date_format(#dateOfAppointment#, '%y-%m-%d'),time_of_appointment=#timeOfAppointment#,appointment_comment=#comments#,
- 		appointment_end_time =addtime(#timeOfAppointment#,#appointmentDuration#),appointment_duration=#appointmentDuration#,appointment_headline=#headline# 
+ 		update appointment_history  set date_of_appointment=date_format(#dateOfAppointment#, '%y-%m-%d'),time_of_appointment=#timeOfAppointment#,
+ 		appointment_end_time =addtime(#timeOfAppointment#,#appointmentDuration#),appointment_duration=#appointmentDuration# 
 		where idAppointment_History =#appointmentID#
 	</update>
  	
