@@ -23,7 +23,7 @@ public interface CommonService {
 	
 	public List <SearchResult> getDoctors(SearchCriteria searchCriteria);
 	
-	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment,String personType) ;
+	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment,String personType, int doctorID) ;
 	
 	public boolean insertNewAppointment(Appointment appointment);
 	
@@ -56,4 +56,6 @@ public interface CommonService {
 	public List <CodeDecode> getPrescription(String code);
 	
 	public List <CodeDecode> getTests(String code) ;
+	
+	public boolean rescheduleAppointment(Appointment appointment);
 }

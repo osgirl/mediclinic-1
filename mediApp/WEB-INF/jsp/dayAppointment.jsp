@@ -16,7 +16,8 @@
 									%>							
 									<table width=900  border="1" class="layout"  >	
 										<tr>
-											<td>	
+											<td>
+											
 												<table width=100 align="left"  border="1" class="layout" >	
 											     <menu:verticalMenuItemTag></menu:verticalMenuItemTag>													<tr>
 													</table>
@@ -55,7 +56,7 @@
 																	</td>
 																	<c:if test='${appointments.headline != "OOO"}'>
 																		<td align="left" width="33%" bgcolor="#3399FF">
-																			<a href="#" onclick="fn_GetYearView(1);" style="text-decoration:none"  >
+																		<a href="javascript:fn_rescheduleAppointment(${personID},'${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>',${appointments.appointmentID})" title="Click to rescheule this appointment">
 																				<font color="#FF9933"><b>R</b></font>
 																			</a>
 																			</td>
@@ -92,7 +93,7 @@
 																<c:if test='${appointments.headline != "OOO"}'>
 																	<c:if test='${appointments.confirmedIndicator == "N"}'>
 																		<td align="left" width="33%" bgcolor="#3399FF">
-																			<a href="#" onclick="fn_UpdateAppointment(${appointments.appointmentID});" style="text-decoration:none"  >
+																			<a href="#" onclick="fn_UpdateAppointment(${appointments.appointmentID});" style="text-decoration:none"  title="Confirm this appointment">
 																				<font color="#FF9933" ><b>C</b></font>
 																			</a>
 																		</td>

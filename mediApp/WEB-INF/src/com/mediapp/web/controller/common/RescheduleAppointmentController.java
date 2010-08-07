@@ -1,6 +1,5 @@
 package com.mediapp.web.controller.common;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,70 +20,62 @@ import com.mediapp.core.common.business.impl.ScheduleEMail;
 import com.mediapp.core.common.business.impl.ScheduleSMS;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.CodeDecode;
-import com.mediapp.domain.common.DoctorSearch;
-import com.mediapp.domain.common.Person;
-import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.web.common.CustomTimeEditor;
 import com.mediapp.web.constants.common.CommonWebConstants;
 
-public class CreateAppointmentController extends MediAppBaseController{
+public class RescheduleAppointmentController extends MediAppBaseController{
+	
 	CommonService commonService;
-	ScheduleEMail sendeMail;
-	public ScheduleEMail getSendeMail() {
-		return sendeMail;
-	}
-	public void setSendeMail(ScheduleEMail sendeMail) {
-		this.sendeMail = sendeMail;
+
+	
+	public CommonService getCommonService() {
+		return commonService;
 	}
 
-	ScheduleSMS sendSMS;
-	
-	
-	public ScheduleSMS getSendSMS() {
-		return sendSMS;
+
+	public void setCommonService(CommonService commonService) {
+		this.commonService = commonService;
 	}
-	public void setSendSMS(ScheduleSMS sendSMS) {
-		this.sendSMS = sendSMS;
-	}
-	
-	
-	@Override
+
+
 	protected Map referenceData(HttpServletRequest request, Object command,
 			Errors errors) throws Exception {
 		String sidPerson = request.getParameter("PersonID");		
-		int idPerson = Integer.parseInt(sidPerson);		
-		String sidDoctor = request.getParameter("DoctorID");		
-		int idDoctor = Integer.parseInt(sidDoctor);
+		int idPerson = Integer.parseInt(sidPerson);
+		String sidAppointment = request.getParameter("AppointmentID");		
+		int idAppointment = Integer.parseInt(sidAppointment);
 		String sAppointmentDate = request.getParameter("AppointmentDate");
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-	    Date dateOfAppointment = dateFormat.parse(sAppointmentDate);
-	    String sAppointmentTime = request.getParameter("AppointmentTime");
-	    Time timeOfAppointment = Time.valueOf(sAppointmentTime);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
+		Date dateOfAppointment = null;
+		if(null== sAppointmentDate){			
+			dateOfAppointment = new Date();			
+		}else{
+			dateOfAppointment = dateFormat.parse(sAppointmentDate);
+		}		
+		Appointment appointment = commonService.getAppointment(idPerson, dateOfAppointment,idAppointment);		
+		List <Appointment> completeAppointmentList = commonService.getDayAppointment(idPerson, dateOfAppointment,CommonWebConstants.DOCTOR,appointment.getDoctorID());
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
-	    Appointment appointment = new Appointment();
-	    appointment.setDoctorID(idDoctor);
-	    appointment.setDoctorPersonID(idPerson);	    
-	    appointment.setDateOfAppointment(dateOfAppointment);
-	    appointment.setTimeOfAppointment(timeOfAppointment);
-	    appointmentMap.put("appointment", appointment);
+	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, appointment);
+	    appointmentMap.put("dayAppointment", completeAppointmentList);
+	    appointmentMap.put("personID", idPerson);	    
+	    appointmentMap.put("AppointmentDate", dateOfAppointment);
+	    appointmentMap.put("AppointmentID", idAppointment);
 	    List <CodeDecode> appointmentDuration = commonService.getCodeValue("APPOINTMENT_DURATION");
 	    appointmentMap.put("appointmentDuration", appointmentDuration);
 	    return appointmentMap;
+
 	}
 
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
-		Appointment newAppointment =  (Appointment) command;
-		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);	
-		newAppointment.setPatientPersonID(sessionPerson.getIdPerson());
-		commonService.insertNewAppointment(newAppointment);
-		sendeMail.scheduleNewAppointment(newAppointment);
-		sendSMS.scheduleNewAppointment(newAppointment);
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy"); 
-		String sdate = sdf.format(newAppointment.getDateOfAppointment());
-		return null;
+		Appointment appointment = (Appointment) command;
+		String sidAppointment = request.getParameter("AppointmentID");		
+		int idAppointment = Integer.parseInt(sidAppointment);
+		appointment.setAppointmentID(idAppointment);
+		boolean status = commonService.rescheduleAppointment(appointment);		
+		return new ModelAndView();
     }
+
 	
-@Override
 	protected void initBinder(HttpServletRequest request,
 		ServletRequestDataBinder binder) throws Exception {
 		 String dateFormat = getMessageSourceAccessor().getMessage("format.date",
@@ -103,12 +94,24 @@ public class CreateAppointmentController extends MediAppBaseController{
 	}
 
 
-	public CommonService getCommonService() {
-		return commonService;
+	
+	ScheduleEMail sendeMail;
+	public ScheduleEMail getSendeMail() {
+		return sendeMail;
+	}
+	public void setSendeMail(ScheduleEMail sendeMail) {
+		this.sendeMail = sendeMail;
 	}
 
-	public void setCommonService(CommonService commonService) {
-		this.commonService = commonService;
+	ScheduleSMS sendSMS;
+	
+	
+	public ScheduleSMS getSendSMS() {
+		return sendSMS;
 	}
+	public void setSendSMS(ScheduleSMS sendSMS) {
+		this.sendSMS = sendSMS;
+	}
+
 
 }

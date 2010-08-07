@@ -193,8 +193,10 @@
 	 	
 	<parameterMap id="Day-Appointment-Parm-Map"   class="java.util.HashMap">
 		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
+		<parameter property="DoctorID"    			javaType="java.lang.Integer"   	mode="IN"/>
 	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
 		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
+		<parameter property="DoctorID"    			javaType="java.lang.Integer"   	mode="IN"/>
 	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
 	</parameterMap>
 
@@ -205,7 +207,7 @@
 			person p
 			where 
 			(p.person_type = 'Doctor' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) 
-			and p.idPerson =?
+			and (p.idPerson =? or dd.idDoctor_details =?)
 			and date_of_appointment = date_format(?,'%Y-%m-%d')
 			union all
 			select 0, '','9999-12-31','23:59:59', '23:59:59',idDoctor_details,start_time,end_time,'' ,'23:59:59',''
@@ -214,7 +216,7 @@
 			person p
 			where dwt.doctor_id = dd.iddoctor_details
 			and dd.idperson = p.idperson
-			and p.idPerson =?
+			and (p.idPerson =? or dd.idDoctor_details =?)
 			and work_day = DATE_FORMAT(?, '%W');
 			
  	</select>
@@ -497,6 +499,7 @@
 
 	 <parameterMap id="Docotor-WorkTimingsForDay-Parm-Map"   class="java.util.HashMap">
 		 <parameter property="PersonID"    	 		javaType="java.lang.Integer"    mode="IN"/>
+		 <parameter property="DoctorID"    	 		javaType="java.lang.Integer"    mode="IN"/>
 		 <parameter property="AppointmentDate"  	javaType="java.util.Date"   	mode="IN"/>
 	 </parameterMap>
 
@@ -508,7 +511,7 @@
 		person p
 		where dwt.doctor_id = dd.iddoctor_details
 		and dd.idperson = p.idperson
-		and p.idPerson =?
+		and (p.idPerson =? or dd.idDoctor_details =?)
 		and work_day = DATE_FORMAT(?, '%W');
 	</select>
 
@@ -756,5 +759,12 @@
 	<select id="getTests" parameterMap="Get-Tests-Map" resultMap="Get-Tests-Result-Map">
            SELECT test_description, test_description FROM test_meta_data where  test_description like ?
  	</select>
+ 	
+ 	<update id="rescheduleAppointment" >
+ 		update appointment_history  set date_of_appointment=date_format(#dateOfAppointment#, '%y-%m-%d'),time_of_appointment=#timeOfAppointment#,appointment_comment=#comments#,
+ 		appointment_end_time =addtime(#timeOfAppointment#,#appointmentDuration#),appointment_duration=#appointmentDuration#,appointment_headline=#headline# 
+		where idAppointment_History =#appointmentID#
+	</update>
+ 	
 	
 </sqlMap>

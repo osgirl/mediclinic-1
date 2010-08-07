@@ -60,7 +60,11 @@ public class MultiPartFileUploadController extends SimpleFormController {
             return null;
         }
         MultiPartFileUploadBean bean = (MultiPartFileUploadBean) command;
-        MultipartFile file = bean.getFile();        
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = multipartRequest.getFile("file");
+
+//        MultipartFile file = bean.getFile("file");   
+ //       System.out.println("file name "+ bean.getFileName());        
         File destination = new File(destinationDir + bean.getFileName());
         file.transferTo(destination);
  		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);

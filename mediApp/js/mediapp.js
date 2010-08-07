@@ -109,6 +109,60 @@ function fn_addAppointment(){
 	 self.close();
 }
 
+function fn_rescheduleAppointmentDate(){
+	document.forms['rescheduleAppointment'].target="Parent";
+	document.forms['rescheduleAppointment'].method ="post";
+    document.forms["rescheduleAppointment"].submit();
+	document.forms['rescheduleAppointment'].method ="post";
+	document.forms['rescheduleAppointment'].action="dayAppointment.htm"; 
+	document.forms['rescheduleAppointment'].submit();
+	 self.close();
+}
+
+function fn_GetDayAppointment(indicator){
+	var date = new Date(document.getElementById('AppointmentDate').value);
+	window.name = "mySelf";
+	document.forms['rescheduleAppointment'].target="mySelf";
+	var currentMonth = date.getMonth()+1;
+	if (indicator == 1){		
+		var nextDay = date.getDate()-1;		
+		document.getElementById('AppointmentDate').value = currentMonth+"/"+nextDay+"/"+ date.getFullYear();
+		document.forms['rescheduleAppointment'].method ="get";
+		document.forms["rescheduleAppointment"].submit();
+	}
+	if (indicator == 2){		
+		var nextDay = date.getDate()+1;
+		document.getElementById('AppointmentDate').value = currentMonth+"/"+nextDay+"/"+ date.getFullYear();		
+		document.forms['rescheduleAppointment'].method ="get";
+		document.forms["rescheduleAppointment"].submit();
+	}
+	
+}
+
+function fn_GetMonthAppointment(indicator){
+	var date = new Date(document.getElementById('AppointmentDate').value);
+	window.name = "mySelf";
+	document.forms['rescheduleAppointment'].target="mySelf";
+	if (indicator == 1){		
+		document.getElementById('AppointmentDate').value = date.getMonth()+"/"+date.getDate()+"/"+ date.getFullYear();
+		document.forms['rescheduleAppointment'].method ="get";
+		document.forms["rescheduleAppointment"].submit();
+	}
+	if (indicator == 2){		
+		var nextMonth = date.getMonth()+2;
+		document.getElementById('AppointmentDate').value = nextMonth+"/"+date.getDate()+"/"+ date.getFullYear();
+		document.forms['rescheduleAppointment'].method ="get";
+		document.forms["rescheduleAppointment"].submit();
+		
+	}
+
+}
+
+function fn_updateDateOfAppointment(timeOfAppointment,appointmentDate){
+	document.getElementById('dateOfAppointment').value =appointmentDate;
+	document.getElementById('timeOfAppointment').value =timeOfAppointment;
+}
+
 function fn_GetMonthView(indicator){
 	
 	var date = new Date(document.getElementById('AppointmentDate').value);
@@ -146,6 +200,16 @@ function fn_openAppointment(personID,timeOfAppointment,appointmentDate,appointme
 	window.name = "Parent";	
 	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1500px;status:no;edge:sunken';	
     var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID, window, WinSettings);
+    
+	
+}
+
+function fn_rescheduleAppointment(personID,timeOfAppointment,appointmentDate,appointmentID){
+	//alert(appointmentID);
+	//alert('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID);
+	window.name = "Parent";	
+	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1000px;status:no;edge:sunken';	
+    var c = window.showModalDialog('/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID, window, WinSettings);
     
 	
 }
@@ -363,7 +427,7 @@ function fn_uploadSelectedFile(){
 	 document.forms['uploadFile'].method ="post";
 	 document.forms['uploadFile'].action="pastHistory.htm"; 
 	 document.forms['uploadFile'].submit();
-	 self.close();
+	 //self.close();
 }
 
 //new script

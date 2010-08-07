@@ -126,6 +126,18 @@
 		
 	</bean>
 
+	<bean id="rescheduleAppointment" class="com.mediapp.web.controller.common.RescheduleAppointmentController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>appointment</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Appointment</value></property>
+        <property name="formView"><value>rescheduleAppointment</value></property>
+        <property name="successView"><value>rescheduleAppointment</value></property>
+        <property name="commonService">
+			<ref bean="commonService"/>
+		</property>
+	</bean>
+
+
 	<bean id="updateAppointment" class="com.mediapp.web.controller.common.UpdateAppointmentController">
         <property name="sessionForm"><value>true</value></property>
         <property name="commandName"><value>appointment</value></property>
@@ -246,6 +258,9 @@
 			     <entry key="logOut.htm">
      				<ref bean="logOut" />
     			</entry>
+			     <entry key="rescheduleAppointment.htm">
+     				<ref bean="rescheduleAppointment" />
+    			</entry>    			
 			</map>
 		</property>
 		<property name="mappings">

@@ -58,9 +58,9 @@ public class DayAppointmentController extends MediAppBaseController{
 		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
 		List <Appointment> completeAppointmentList = new ArrayList<Appointment>();
 		if("Y".equals(request.getParameter("TakeAppointment"))){
-			completeAppointmentList = commonService.getDayAppointment(idPerson, dateOfAppointment,CommonWebConstants.DOCTOR);
+			completeAppointmentList = commonService.getDayAppointment(idPerson, dateOfAppointment,CommonWebConstants.DOCTOR, 0);
 		}else{
-			completeAppointmentList = commonService.getDayAppointment(idPerson, dateOfAppointment,sessionPerson.getPersonTypeString());
+			completeAppointmentList = commonService.getDayAppointment(idPerson, dateOfAppointment,sessionPerson.getPersonTypeString(),0);
 		}
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
 	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, completeAppointmentList);

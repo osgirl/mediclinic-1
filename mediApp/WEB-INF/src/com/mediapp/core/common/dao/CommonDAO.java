@@ -45,7 +45,7 @@ public interface CommonDAO {
 
 	public List <CodeDecode> getAutoComplete(String codeCategory,String code) throws DataAccessException;
 	
-	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment,String personType) throws DataAccessException;
+	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment,String personType , int doctorID) throws DataAccessException;
 
 	public boolean insertNewAppointment(Appointment appointment) throws DataAccessException;
 	
@@ -67,7 +67,7 @@ public interface CommonDAO {
 	
 	public boolean insertDoctorWorkTimings(Person person)throws DataAccessException;
 
-	public List <DoctorWorkTimings> getDoctorWorkTimingsForDay(int idPerson, Date dateOfAppointment) throws DataAccessException;
+	public List <DoctorWorkTimings> getDoctorWorkTimingsForDay(int idPerson, Date dateOfAppointment, int doctorID) throws DataAccessException;
 	
 	public PatientDetails getPatientDetails(int idPerson) throws DataAccessException;
 	
@@ -96,4 +96,6 @@ public interface CommonDAO {
 	public List <CodeDecode> getPrescription(String code) throws DataAccessException;
 	
 	public List <CodeDecode> getTests(String code) throws DataAccessException;
+	
+	public boolean rescheduleAppointment(Appointment appointment) throws DataAccessException;
 }

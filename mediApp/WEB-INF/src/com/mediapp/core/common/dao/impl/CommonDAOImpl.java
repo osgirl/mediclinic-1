@@ -205,10 +205,13 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return codeValueList;
 	}
 
-	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment,String personType) throws DataAccessException{
+	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment,String personType, int doctorID) throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;		
 		Integer idPersonInt = new Integer(idPerson);
 		criteria.put("PersonID", idPersonInt);		
+		Integer idDoctorInt = new Integer(doctorID);
+		criteria.put("DoctorID", idDoctorInt);		
+		
 		criteria.put("DateOfAppointment", dateOfAppointment);	
 		List <Appointment> appointmentList =new ArrayList();
 		if (personType.equals(CommonCoreConstants.DOCTOR)){
@@ -261,7 +264,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		appointmentLast.setAppointmentID(appointment.get(0).getAppointmentID());
 		appointmentLast.setDateOfAppointment(appointment.get(0).getDateOfAppointment());
 		appointmentLast.setTimeOfAppointment(appointment.get(0).getTimeOfAppointment());
+		appointmentLast.setAppointmentDuration(appointment.get(0).getAppointmentDuration());
 		appointmentLast.setConfirmedIndicator(appointment.get(0).getConfirmationIndicator());
+		appointmentLast.setDoctorID(appointment.get(0).getDoctorID());
 		List <Diagnosis> diagnosis = new ArrayList();
 		int currentIDDiagnosis = 0;
 		Diagnosis eachDiagnosis = new Diagnosis();
@@ -450,10 +455,12 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		
 	}
 
-	public List <DoctorWorkTimings> getDoctorWorkTimingsForDay(int idPerson, Date dateOfAppointment) throws DataAccessException{
+	public List <DoctorWorkTimings> getDoctorWorkTimingsForDay(int idPerson, Date dateOfAppointment, int doctorID) throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		Integer idPersonInt = new Integer(idPerson);
 		criteria.put("PersonID", idPersonInt);		
+		Integer idDoctorInt = new Integer(idPerson);
+		criteria.put("DoctorID", idDoctorInt);
 		criteria.put("AppointmentDate", dateOfAppointment);		
 		List<DoctorWorkTimings> workTimings = (ArrayList<DoctorWorkTimings>) getList("common.getDoctorWorkTimingsForDay",criteria );
 		return   workTimings;
@@ -608,6 +615,14 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return codeValueList;
 	}
 
-	
+	public boolean rescheduleAppointment(Appointment appointment) throws DataAccessException{
+ 		int count = updateObject("common.rescheduleAppointment", appointment);
+ 		boolean flag=false;
+ 		if (count > 0){
+ 			flag = true;
+ 		}
+		return flag;
+		
+	}	
 	
 }

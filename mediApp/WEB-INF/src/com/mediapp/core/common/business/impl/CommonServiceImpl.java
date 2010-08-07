@@ -61,11 +61,11 @@ public class CommonServiceImpl implements CommonService{
 		return commonDAO.getDoctors(searchCriteria);
 	}
 	
-	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment, String personType) {
-		List <Appointment> appointmentList =commonDAO.getDayAppointment(idPerson, dateOfAppointment,personType);
+	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment, String personType, int doctorID) {
+		List <Appointment> appointmentList =commonDAO.getDayAppointment(idPerson, dateOfAppointment,personType, doctorID);
 		 List<DoctorWorkTimings> workTimings =new ArrayList();
 		if (personType.equals(CommonCoreConstants.DOCTOR)){
-			workTimings = commonDAO.getDoctorWorkTimingsForDay(idPerson, dateOfAppointment);		
+			workTimings = commonDAO.getDoctorWorkTimingsForDay(idPerson, dateOfAppointment,doctorID);		
 			long startTimingLong=0;	
 			String startTiming=null;
 			long endTimingLong=0;
@@ -287,5 +287,9 @@ public class CommonServiceImpl implements CommonService{
 
 	public List <CodeDecode> getTests(String code) {
 		return commonDAO.getTests(code);
+	}
+
+	public boolean rescheduleAppointment(Appointment appointment){
+		return commonDAO.rescheduleAppointment(appointment);
 	}
 }
