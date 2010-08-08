@@ -92,8 +92,25 @@ public class ScheduledJob {
 		      		  Integer iAppointmentID = new Integer(eachJob.getParameters().get("AppointmentID"));		      		  
 		      		  Appointment appointment = commonDAO.getAppointment(iAppointmentID.intValue());		      		  
 		      		  NotificationDetails notification = commonDAO.getNotificationDetails(iAppointmentID);
-		      		  sendEmail.sendEmailForNewAppointment(appointment, notification);
+		      		  sendEmail.sendEmailForRescheduledAppointment(appointment, notification);
+		      	  }else if("cancelAllAppointment".equals(eachJob.getParameters().get("EmailType"))){
+		      		  Integer iPersonID = new Integer(eachJob.getParameters().get("PersonID"));
+		      		  List <Appointment> appointment = commonDAO.getAppointmentAll(iPersonID);		      		  
+		      		  List <NotificationDetails> notification = commonDAO.getNotificationDetailsAll(iPersonID);
+		      		  try{
+		      			  int count = 0;
+		      			  for(Appointment eachAppointment:appointment){
+		      				  sendEmail.sendEmailForCancellationAllAppointment(eachAppointment, notification.get(count));
+		      				  count=count+1;
+		      			  }
+		      		  }catch (Exception se){
+		      			System.out.println(se.toString());
+		    			System.err.println("stacktrace"+se);
+
+		      		  }
+		      		  
 		      	  }
+
 		        }else if ("SMS".equals(eachJob.getActionToPerform()) ){
 		  		  SendSMS sendSMS = new SendSMS( );
 		      	  if(CommonCoreConstants.REG_EMAIL_TYPE.equals(eachJob.getParameters().get("SMSType"))){
@@ -140,7 +157,27 @@ public class ScheduledJob {
 
 		      		  }
 		      		  
+		      	  }else if("cancelAllAppointment".equals(eachJob.getParameters().get("SMSType"))){
+		      		  Integer iPersonID = new Integer(eachJob.getParameters().get("PersonID"));
+		      		  //String appointmentList = commonDAO.getAppointmentList(iPersonID);
+		      		  List <Appointment> appointment = commonDAO.getAppointmentAll(iPersonID);		      		  
+		      		  List <NotificationDetails> notification = commonDAO.getNotificationDetailsAll(iPersonID);
+		      		  try{
+		      			  int count = 0;
+		      			  for(Appointment eachAppointment:appointment){
+		      				sendSMS.sendSMSForAllCancelledAppointment(eachAppointment, notification.get(count)) ;
+		      				count=count+1;
+		    				wait(200);
+		      			  }
+		      			  //sendSMS.sendSMSForRescheduledAppointment(appointment, notification) ;  
+		      		  }catch (Exception se){
+		      			System.out.println(se.toString());
+		    			System.err.println("stacktrace"+se);
+
+		      		  }
+		      		  
 		      	  }
+
 
 		        }
 		        if (eachJob.getActionToPerform()!=null ){

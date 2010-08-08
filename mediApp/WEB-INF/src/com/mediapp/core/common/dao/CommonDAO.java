@@ -98,4 +98,12 @@ public interface CommonDAO {
 	public List <CodeDecode> getTests(String code) throws DataAccessException;
 	
 	public boolean rescheduleAppointment(Appointment appointment) throws DataAccessException;
+	
+	public String getAppointmentList(int iPersonID) throws DataAccessException ;
+	
+	public List <Appointment> getAppointmentAll(int iPersonID) throws DataAccessException;
+	
+	public List <NotificationDetails> getNotificationDetailsAll(Integer iPersonID) throws DataAccessException;
+	
+	public boolean cancelAllAppointments(int iPersonID)throws DataAccessException;
 }

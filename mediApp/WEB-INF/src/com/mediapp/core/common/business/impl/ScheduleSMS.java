@@ -72,8 +72,14 @@ public class ScheduleSMS {
     	return status;
     }
     
-    public boolean scheduleAppointmentCancellation(HolidayCalendarList holidays){
-    	return true;
+    public boolean scheduleAppointmentCancellation(int idPerson){
+    	Map<String,String> criteria =  new HashMap < String, String > () ;
+    	criteria.put("SMSType", "cancelAllAppointment");
+    	Integer iPersonID = new Integer(idPerson);
+    	String sPersonID = iPersonID.toString();
+    	criteria.put("PersonID",sPersonID );
+    	boolean status = commonDAO.scheduleJob("SMS", criteria, "SMS");
+    	return status;
     }
 
 }

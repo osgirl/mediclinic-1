@@ -209,6 +209,7 @@
 			(p.person_type = 'Doctor' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) 
 			and (p.idPerson =? or dd.idDoctor_details =?)
 			and date_of_appointment = date_format(?,'%Y-%m-%d')
+			and appointment_confirmation != 'C'
 			union all
 			select 0, '','9999-12-31','23:59:59', '23:59:59',idDoctor_details,start_time,end_time,'' ,'23:59:59',''
 			from doctor_work_timings dwt,
@@ -217,7 +218,7 @@
 			where dwt.doctor_id = dd.iddoctor_details
 			and dd.idperson = p.idperson
 			and (p.idPerson =? or dd.idDoctor_details =?)
-			and work_day = DATE_FORMAT(?, '%W');
+			and work_day = DATE_FORMAT(?, '%W')	;
 			
  	</select>
 
@@ -247,7 +248,8 @@
 			where 
 			(p.person_type = 'Patient' and pd.idPerson=p.idPerson and pd.idpatient_details = ah.idDoctor_details) 
 			and p.idPerson =?
-			and date_of_appointment = date_format(?,'%Y-%m-%d');
+			and date_of_appointment = date_format(?,'%Y-%m-%d')
+			and appointment_confirmation != 'C';
  	</select>
 
 	<parameterMap id="Day-Appointment-Parm-Map"   class="java.util.HashMap">
@@ -336,6 +338,7 @@
 			left OUTER join tests t on t.fDiagnosis= d.idDiagnosis
 			left OUTER join patient_prescription pp on pp.idDiagnosis= d.idDiagnosis
 			where ah.idAppointment_History=?
+			and appointment_confirmation != 'C'
 			order by Prescription_name,suggested_test;
  	</select>
 
@@ -360,7 +363,8 @@
 		left OUTER join appointment_history ah on      
 		(p.person_type = 'Doctor' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details)
 		where p.idPerson =?    and month(date_of_appointment) = month(?) 
-		and year(date_of_appointment) = year(?)              
+		and year(date_of_appointment) = year(?)
+		and appointment_confirmation != 'C'              
 		group by date_of_appointment             
 		union all
 		select date_of_appointment,count(date_of_appointment)        
@@ -370,7 +374,8 @@
 		(p.person_type = 'Patient' and pd.idPerson=p.idPerson and pd.idPatient_details = ah.idPatient_details)     
 		where p.idPerson =?     
 		and month(date_of_appointment) = month(?)             
-		and year(date_of_appointment) = year(?)              
+		and year(date_of_appointment) = year(?)
+		and appointment_confirmation != 'C'              
 		group by date_of_appointment; 
  	</select>
 
@@ -766,5 +771,129 @@
 		where idAppointment_History =#appointmentID#
 	</update>
  	
+	<parameterMap id="Get-AppointmentList-Map"   class="java.util.HashMap">
+	    <parameter property="PersonID"    		javaType="java.lang.Integer"    mode="IN"/>
+	</parameterMap>
+
+	<select id="getAppointmentList"   parameterMap="Get-AppointmentList-Map" resultClass="java.lang.String">
+			select group_concat(idAppointment_history) from (
+			select distinct idAppointment_history
+			from doctor_details dd
+			left join holiday_calendar hc 
+			on hc.idDoctor = dd.idDoctor_details
+			left join person p
+			on dd.idPerson = p.idPerson
+			left join appointment_history ah
+			on ah.idDoctor_details = dd.idDoctor_details
+			and ah.date_of_appointment = hc.date_of_holiday
+			where 
+			p.idPerson =?
+			order by 1) as a
+ 	</select>
+ 	
+ 	<resultMap class="com.mediapp.domain.common.Appointment" id="Get-AllAppointmentList-Result-Map">
+	 	<result property="appointmentID" 		column="idAppointment_History"/> 	
+	 	<result property="headline" 			column="appointment_headline"/>
+	 	<result property="dateOfAppointment" 	column="date_of_appointment"/>
+	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
+	 	<result property="appointmentDuration" 	column="appointment_duration"/>
+	 	<result property="comments"			 	column="appointment_comment"/>
+	 	<result property="appointmentEndTime" 	column="appointment_end_time"/>
+	 	<result property="confirmedIndicator" 	column="appointment_confirmation"/>
+	</resultMap>
+ 	
+
+	<parameterMap id="Get-AllAppointmentList-Map"   class="java.util.HashMap">
+	    <parameter property="PersonID"    		javaType="java.lang.Integer"    mode="IN"/>
+	</parameterMap>
+
+	<select id="getAllAppointmentList"   parameterMap="Get-AllAppointmentList-Map" resultMap="Get-AllAppointmentList-Result-Map">
+			select idAppointment_History, appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,appointment_comment,appointment_end_time,appointment_confirmation		
+			from appointment_history ah
+			where ah.idAppointment_history in (
+           select idAppointment_history from (
+				select distinct idAppointment_history
+				from doctor_details dd
+				left join holiday_calendar hc 
+				on hc.idDoctor = dd.idDoctor_details
+				left join person p
+				on dd.idPerson = p.idPerson
+				left join appointment_history ah
+				on ah.idDoctor_details = dd.idDoctor_details
+				and ah.date_of_appointment = hc.date_of_holiday
+				where 
+				p.idPerson =?
+				and appointment_confirmation != 'C' 
+				order by 1) as a
+            )
+            order by 1    ;
+ 	</select>
+	
+	<resultMap class="com.mediapp.domain.common.NotificationDetails" id="NotificationAll-Result-Map">
+	 	<result property="patientName" 			column="PatientName"/>
+	 	<result property="patientEmailAddress" 	column="PatientEmailAddress"/>
+	 	<result property="patientMobileNumber" 	column="PatientMobile"/>
+	 	<result property="doctorName" 			column="DoctorName"/>
+	 	<result property="doctorEmailAddress" 	column="DoctorEmailAddress"/>
+	 	<result property="doctorMobileNumber" 	column="DoctorMobile"/>
+	</resultMap>
+
+	<parameterMap id="NotificationAll-Parm-Map"   class="java.util.HashMap">
+	    <parameter property="PersonID" 		javaType="java.lang.Integer"    mode="IN"/>
+	 </parameterMap>
+
+
+	<select id="getDetailsForNotificationAll" parameterMap="NotificationAll-Parm-Map" resultMap="NotificationAll-Result-Map">
+			select idAppointment_history, concat(patient.first_name," " , patient.middle_name, ". ", patient.last_name) as PatientName, patient.email_address as PatientEmailAddress,
+			patient.mobile_phone_number as PatientMobile,
+			concat(doctor.first_name," " , doctor.middle_name, ". ", doctor.last_name) as DoctorName, doctor.email_address as DoctorEmailAddress,
+			doctor.mobile_phone_number as DoctorMobile
+			from person patient,
+			person doctor,
+			patient_details pd,
+			doctor_details dd,
+			( select distinct idAppointment_history, ah.idPatient_details, ah.idDoctor_details
+                from doctor_details dd
+                left join holiday_calendar hc 
+                on hc.idDoctor = dd.idDoctor_details
+                left join person p
+                on dd.idPerson = p.idPerson
+                left join appointment_history ah
+                on ah.idDoctor_details = dd.idDoctor_details
+                and ah.date_of_appointment = hc.date_of_holiday
+                where 
+                p.idPerson =?
+                and appointment_confirmation != 'C'
+                order by 1     
+            ) as ah
+			where 
+			ah.idPatient_details = dd.idDoctor_details
+			and ah.idDoctor_details =pd.idPatient_details
+			and pd.idPerson = patient.idPerson
+			and dd.idPerson = doctor.idPerson
+             order by 1;
+			
+	</select>
+	
+	<update id="cancelAllAppointment" >
+		UPDATE appointment_History set appointment_confirmation = 'C'
+		where idAppointment_history in (
+           select idAppointment_history from (
+				select distinct idAppointment_history
+				from doctor_details dd
+				left join holiday_calendar hc 
+				on hc.idDoctor = dd.idDoctor_details
+				left join person p
+				on dd.idPerson = p.idPerson
+				left join appointment_history ah
+				on ah.idDoctor_details = dd.idDoctor_details
+				and ah.date_of_appointment = hc.date_of_holiday
+				where 
+				p.idPerson =#personID#
+				and appointment_confirmation != 'C' 
+				order by 1) as a
+            );	
+	</update>
+	
 	
 </sqlMap>

@@ -624,5 +624,37 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return flag;
 		
 	}	
+
+	public String getAppointmentList(int iPersonID) throws DataAccessException {
+		Integer personID = new Integer(iPersonID);
+		Map<String,Integer> criteria =  new HashMap < String, Integer > () ;
+		criteria.put("PersonID", personID);
+		String appointmentList= (String) getObject("common.authenticateUser", criteria);	
+		return appointmentList;
+	}
 	
+	public List <Appointment> getAppointmentAll(int iPersonID) throws DataAccessException{
+		Integer personID = new Integer(iPersonID);
+		Map<String,Integer> criteria =  new HashMap < String, Integer > () ;
+		criteria.put("PersonID", personID);
+		return (List <Appointment>) getList("common.getAllAppointmentList",criteria );
+	}
+	
+	public List <NotificationDetails> getNotificationDetailsAll(Integer iPersonID) throws DataAccessException{
+		Integer personID = new Integer(iPersonID);
+		Map<String,Integer> criteria =  new HashMap < String, Integer > () ;
+		criteria.put("PersonID", personID);
+		return  (List <NotificationDetails>) getList("common.getDetailsForNotificationAll", criteria);		
+	}
+
+	public boolean cancelAllAppointments(int iPersonID)throws DataAccessException{
+		Integer personID = new Integer(iPersonID);
+ 		int count = updateObject("common.cancelAllAppointment", personID);
+ 		boolean flag=false;
+ 		if (count > 0){
+ 			flag = true;
+ 		}
+		return flag;
+	}
+
 }

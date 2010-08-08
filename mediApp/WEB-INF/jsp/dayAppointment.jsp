@@ -98,11 +98,6 @@
 																			</a>
 																		</td>
 																	</c:if>
-																	<td align="left" width="33%" bgcolor="#3399FF">
-																		<a href="#" onclick="alert(work in progress)" style="text-decoration:none"  >
-																			<font color="#FF9933"><b>R</b></font>
-																			</a>
-																	</td>
 																</c:if>
 															</c:if>
 															<c:if test='${empty appointments.headline}'>

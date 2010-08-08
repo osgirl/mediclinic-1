@@ -266,7 +266,10 @@ public class CommonServiceImpl implements CommonService{
 	}
 	
 	public boolean insertHolidays(HolidayCalendarList holidayList) {
-		return commonDAO.insertHolidays(holidayList);
+		boolean flag = true;
+		flag = commonDAO.insertHolidays(holidayList);
+		flag=commonDAO.cancelAllAppointments(holidayList.getIdDoctorPerson());
+		return flag;
 	}
 
 	public boolean insertPatientDocumentDetials(MultiPartFileUploadBean fileDetails) {

@@ -118,8 +118,8 @@ public class HolidayCalendarController extends MediAppBaseController  {
 			int idPerson = sessionPerson.getIdPerson();
 			holidays.setIdDoctorPerson(idPerson);			
 			insertStatus=commonService.insertHolidays(holidays);
-			sendeMail.scheduleAppointmentCancellation(holidays);
-			sendSMS.scheduleAppointmentCancellation(holidays);
+			sendeMail.scheduleAppointmentCancellation(idPerson);
+			sendSMS.scheduleAppointmentCancellation(idPerson);
 
 	  }
 	  return new ModelAndView(getSuccessView(),"holidayCalendar", holidays );
