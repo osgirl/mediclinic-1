@@ -65,6 +65,8 @@
 							<spring:bind path="appointment.doctorPersonID">
 								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorPersonID}"/>"/>					
 							</spring:bind>
+							
+							<input type="hidden" name="PersonID"  value="<c:out value="${appointment.doctorPersonID}"/>"/>
 						
 					</table>					
 					<spring:bind path="appointment.appointmentID">

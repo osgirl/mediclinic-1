@@ -41,7 +41,7 @@
 						<td >Date :</td>
 						<td>
 							<spring:bind path="appointment.dateOfAppointment">
-								<input type="text" name="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" disabled="disabled" />
+								<input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" disabled="disabled" />
 							</spring:bind>
 						</td>
 						<td></td>
@@ -52,7 +52,7 @@
 						<td >Time :</td>
 						<td>
 							<spring:bind path="appointment.timeOfAppointment">
-								<input type="text" name="${status.expression}"  value="<c:out value="${appointment.timeOfAppointment}"/>" disabled="disabled" />
+								<input type="text" name="${status.expression}"  id="${status.expression}" value="<c:out value="${appointment.timeOfAppointment}"/>" disabled="disabled" />
 							</spring:bind>
 						</td>
 						<td>Duration :</td>

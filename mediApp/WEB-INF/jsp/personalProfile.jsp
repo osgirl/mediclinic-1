@@ -182,6 +182,8 @@
               </td>
              </tr>
            </div>
+           	<input type="hidden" value="1" id="counter"/>               
+           
            <c:if test="${'Doctor' == person.personTypeString}">
            <div id="Personal Details"  style="display:block" align="right">
             <table  border=""  class="login" width=670 cellpadding="100" align="right">
@@ -244,7 +246,6 @@
 	                </tr>
                </table>
                <table border="1" width="600" id="tblWorkHours" style="display:block">
-                	<input type="hidden" value="1" id="counter"/>               
                     <tr>
    			        	<td> Work Day:
                			</td>
