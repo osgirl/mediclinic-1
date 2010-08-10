@@ -8,7 +8,7 @@
 								<form name="dayAppointment" id="dayAppointment" method="post" >
 									<input type="hidden" name="AppointmentID"  id="AppointmentID" value=""/>
 									<input type="hidden" name="PersonID"  id="PersonID" value="${personID}"/>
-									<input type="hidden" name="AppointmentDate"  id="AppointmentDate" value="${appointmentDate}"/>
+									<input type="hidden" name="AppointmentDate"  id="AppointmentDate" value="<fmt:formatDate pattern="MM/dd/yyyy" value="${AppointmentDate}"/>">
 									<c:set var="PersonType" />
 									<c:set var="PersonID" />
 									<%	 pageContext.setAttribute("PersonType",p.getPersonTypeString());
@@ -23,9 +23,53 @@
 													</table>
 										<div id="dayAppointments"  style="display:block" align="center">
 											<table  border=""  class="appointment" border="0" cellpadding="2" cellspacing="1" width="680" align="right">
-												<tr bgcolor="lightblue">
-															Appointment for  <fmt:formatDate type="date" value="${appointmentDate}"/>
-												<tr>
+											<tr bgcolor="lightblue">
+											<td align="left" width="10%" bgcolor="#eeeeee">
+												<a href="#" onclick="fn_GetMonthAppointmentDayView(1);" style="text-decoration:none">
+													<font color="#ff0000"><b>&lt;&lt;</b></font>
+												</a>
+											
+											</td>
+										
+											<td align="center" bgcolor="#eeeeee" valign="middle" >
+												<font size="3" color="#ff0000" face="verdana,arial,helvetica">
+													<input type="hidden" name="AppointmentMonth" value="<fmt:formatDate pattern="MM" value="${AppointmentDate}"/>">
+													<input type="hidden" name="AppointmentYear" value="<fmt:formatDate pattern="yyyy" value="${AppointmentDate}"/>">
+													<b><fmt:formatDate pattern="MMMMMMMMM" value="${AppointmentDate}"/></b>
+													
+												</font>
+											</td>
+											<td align="right" width="33%" bgcolor="#eeeeee">
+												<a href="#" onclick="fn_GetMonthAppointmentDayView(2);" style="text-decoration:none" >
+													<font color="#ff0000"><b>&gt;&gt;</b></font>
+												</a>
+											
+											</td>
+											</tr>
+															<tr>
+																<td align="left" width="10%" bgcolor="#eeeeee">
+																	<a href="#" onclick="fn_GetDayAppointmentDayView(1);" style="text-decoration:none" >
+																		<font color="#ff0000"><b>&lt;</b></font>
+																	</a>
+																
+																</td>
+																<td align="center" bgcolor="#eeeeee" valign="middle" width="33%" >
+																	<font size="3" color="#ff0000" face="verdana,arial,helvetica">
+																		<input type="hidden" name="AppointmentMonth" value="<fmt:formatDate pattern="MM" value="${AppointmentDate}"/>">
+																		<input type="hidden" name="AppointmentYear" value="<fmt:formatDate pattern="yyyy" value="${AppointmentDate}"/>">
+																		<input type="hidden" name="AppointmentDate" value="<fmt:formatDate pattern="MM/dd/yyyy" value="${AppointmentDate}"/>">																																							
+																		<b><fmt:formatDate pattern="d" value="${AppointmentDate}"/></b>
+																		
+																	</font>
+																</td>
+																<td align="right" width="33%" bgcolor="#eeeeee" >
+																	<a href="#" onclick="fn_GetDayAppointmentDayView(2);" style="text-decoration:none">
+																		<font color="#ff0000"><b>&gt;</b></font>
+																	</a>
+																
+																</td>
+
+															</tr>
 												<c:set var="PersonType" />												
 												<%	 pageContext.setAttribute("PersonType",p.getPersonTypeString());								
 												%>

@@ -23,7 +23,7 @@
 																	<tr>
 																		<td align="left" width="33%" bgcolor="#eeeeee">
 																			<a href="#" onclick="fn_GetYearView(1);" style="text-decoration:none" >
-																				<font color="#ff0000"><b>&lt;</b></font>
+																				<font color="#ff0000"><b>&lt;&lt;</b></font>
 																			</a>
 																		
 																		</td>
@@ -38,7 +38,7 @@
 																		</td>
 																		<td align="right" width="33%" bgcolor="#eeeeee" >
 																			<a href="#" onclick="fn_GetYearView(2);" style="text-decoration:none">
-																				<font color="#ff0000"><b>&gt;</b></font>
+																				<font color="#ff0000"><b>&gt;&gt;</b></font>
 																			</a>
 																		
 																		</td>
@@ -49,7 +49,7 @@
 																	<tr>
 																		<td align="left" width="33%" bgcolor="#eeeeee">
 																			<a href="#" onclick="fn_GetMonthView(1);" style="text-decoration:none">
-																				<font color="#ff0000"><b>&lt;&lt;</b></font>
+																				<font color="#ff0000"><b>&lt;</b></font>
 																			</a>
 																		
 																		</td>
@@ -64,7 +64,7 @@
 																		</td>
 																		<td align="right" width="33%" bgcolor="#eeeeee">
 																			<a href="#" onclick="fn_GetMonthView(2);" style="text-decoration:none" >
-																				<font color="#ff0000"><b>&gt;&gt;</b></font>
+																				<font color="#ff0000"><b>&gt;</b></font>
 																			</a>
 																		
 																		</td>

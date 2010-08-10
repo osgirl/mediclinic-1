@@ -22,7 +22,11 @@
 	<body>
 	<script type="text/javascript">
 	</script>
-		<form name="updateAppointment" id="updateAppointment" method="post" >		
+		<form name="updateAppointment" id="updateAppointment" method="post" >
+					<%Person p = (Person)request.getSession().getAttribute("person");
+							pageContext.setAttribute("PersonID",p.getIdPerson()); 
+							pageContext.setAttribute("PersonType",p.getPersonTypeString());%>
+		
 			<div id="createApt"  style="display:block" align="center">
 				<table  border=""  class="login" width=1246>
 					<tr bgcolor="lightblue" align="center">
@@ -66,13 +70,16 @@
 								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorPersonID}"/>"/>					
 							</spring:bind>
 							
-							<input type="hidden" name="PersonID"  value="<c:out value="${appointment.doctorPersonID}"/>"/>
+							<input type="hidden" name="PersonID"  value="<c:out value="${PersonID}"/>"/>
+							<input type="hidden" name="AppointmentDate"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>"/>
+							
+							
 						
 					</table>					
 					<spring:bind path="appointment.appointmentID">
 						<input type="hidden" name="AppointmentID"  id="AppointmentID" value="<c:out value="${appointment.appointmentID}"/>"/>
 					</spring:bind>
-					
+					<c:if test="${PersonType == 'Doctor'}">										
 					<table  border=""  class="login" width=1200 id="tblSample">
 						<tbody id="aa">						
 						<tr>
@@ -131,12 +138,12 @@
 											
 											<input type="button"  onClick="javascript:fn_addToSelect(<c:out value="diagnosis[${diagnosisAndtest.index}].prescription"/>,<c:out value="findPrescription[${diagnosisAndtest.index}]"/>);" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br>
-											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
+											<input type="button"  onClick="javascript:fn_deletePrescription(${diagnosisAndtest.index});" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>																		
 										<td >
 											
 											<spring:bind  path="appointment.diagnosis[${diagnosisAndtest.index}].prescriptionList">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple disabled="disabled">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple >
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList[legg.index]}"/></option>		
 													</c:forEach>
@@ -153,13 +160,13 @@
 										<td >
 											<input type="button"  onClick="javascript:fn_addToSelect(<c:out value="diagnosis[${diagnosisAndtest.index}].diagnosisTest"/>,<c:out value="findTest[${diagnosisAndtest.index}]"/>);" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br>
-											<input type="button"  onClick="javascript:fn_deleteD();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
+											<input type="button"  onClick="javascript:fn_deleteTest(${diagnosisAndtest.index});" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 											
 										</td>
 																		
 										<td >
 											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].testList">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple disabled="disabled">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple >
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].testList}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList[legg.index]}"/></option>		
 													</c:forEach>
@@ -196,7 +203,7 @@
 											
 											<input type="button"  onClick="javascript:fn_addToSelect('diagnosis[0].prescription','findPrescription[0]');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br> 
-											<input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
+											<input type="button"  onClick="javascript:fn_deletePrescription(0);" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>
 																		
 																		
@@ -219,7 +226,7 @@
 										<td >
 											<input type="button"  onClick="javascript:fn_addToSelect('diagnosis[0].diagnosisTest','findTest[0]');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br>
-											<input type="button"  onClick="javascript:fn_deleteD();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
+											<input type="button"  onClick="javascript:fn_deleteTest(0);" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>
 																		
 										<td >
@@ -242,12 +249,16 @@
 							</tr>
 						</div>
 						  </tbody>
-					</table>						
+					</table>
+</c:if>											
 					<tr>
 						<td align="center" colspan="2">
-						<input type="button" onclick="addRowToTable();"  value="Add Row"  alignment="center"  class="bsubmit" id="beforeThis"/>
-						<input type="button" onclick="removeRowFromTable();"  value="Remove Row"  alignment="center"  class="bsubmit" id="remove"/>															
-						<input type="button"  onClick="javascript:fn_updateAppointmentDetails();" alignment="center" value="Save" class="bsubmit"  width="75"/>
+						<c:if test="${PersonType == 'Doctor'}">
+							<input type="button" onclick="addRowToTable();"  value="Add Row"  alignment="center"  class="bsubmit" id="beforeThis"/>
+							<input type="button" onclick="removeRowFromTable();"  value="Remove Row"  alignment="center"  class="bsubmit" id="remove"/>
+							<input type="button"  onClick="javascript:fn_updateAppointmentDetails();" alignment="center" value="Save" class="bsubmit"  width="75"/>
+							
+						</c:if>
 						<input type="button"  onClick="javascript:fn_Print();" alignment="center" value="Print" class="bsubmit"  width="75"/>
 						</td>
 					</tr>

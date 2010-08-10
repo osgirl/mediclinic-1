@@ -4,6 +4,8 @@
 package com.mediapp.web.common;
 
 import javax.servlet.http.HttpServletRequest;
+import org.apache.log4j.MDC; 
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
@@ -11,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.mediapp.core.exception.common.MediAppBaseException;
+import com.mediapp.domain.common.Person;
 import com.mediapp.web.constants.common.CommonWebConstants;
 import com.mediapp.web.util.common.CommonWebUtil;
 
@@ -33,6 +36,14 @@ public class MediAppHandlerInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		
+		String remoteAddress = request.getRemoteAddr();
+
+		MDC.put("remoteAddress", remoteAddress);
+			if(request.getSession()!=null &&  request.getSession().getAttribute(CommonWebConstants.USER_ID)!=null){
+				Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
+				
+				MDC.put("userName", sessionPerson.getUsername());
+			}
 		if (!isAuthenticated(request)) {
 			throw new MediAppBaseException("user.not.authenticated");
 		} 

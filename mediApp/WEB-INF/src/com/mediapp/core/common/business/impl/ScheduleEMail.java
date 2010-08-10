@@ -177,7 +177,7 @@ public class ScheduleEMail {
 	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 	               message.setTo(notificationDetails.getDoctorEmailAddress());
 	               message.setCc(notificationDetails.getPatientEmailAddress());
-	                   message.setSubject("New Appointment Notification");
+	                   message.setSubject("Appointment Reschedule Notification");
 		               String body = null;
 		               if(velocityEngine==null){		            	   
 		            	   VelocityEngine velocityEngine = new VelocityEngine();
@@ -237,7 +237,7 @@ public class ScheduleEMail {
 	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 	               message.setTo(notificationDetails.getPatientEmailAddress());
 	               message.setCc(notificationDetails.getDoctorEmailAddress());
-                   message.setSubject("Appointment Confirmation");
+                   message.setSubject("Appointment Confirmation Notification");
 		               String body = null;
 		               if(velocityEngine==null){		            	   
 		            	   VelocityEngine velocityEngine = new VelocityEngine();

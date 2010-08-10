@@ -13,10 +13,16 @@ function show(menu) {
 	menuStyle.display="block";
 }
 */
-function fn_showPatientRgFrm(){	
+function fn_showType(){
+	var menuStyle=document.getElementById("TypeForm").style; 
+	menuStyle.display="block";
+	
+}
+function fn_showPatientRgFrm(){
+	document.getElementById("Doctor").disabled =true;
 //	fn_hideDoctorRgFrm();
 	var menuStyle=document.getElementById("RegistrationForm").style; 
-	document.all("PersonType").selectedIndex = 1;
+	document.getElementById("PersonType").value ="Patient";
 	menuStyle.display="block";
 	document.getElementById("hRegisterMe").value ="Y";
 	document.getElementById("username").value = "";
@@ -35,7 +41,8 @@ function fn_hidePatientRgFrm(){
 }
 function fn_showDoctorRgFrm(){
 	//fn_hidePatientRgFrm();
-	document.all("PersonType").selectedIndex = 0;
+	document.getElementById("Patient").disabled =true;
+	document.getElementById("PersonType").value ="Doctor";
 	var menuStyle=document.getElementById("RegistrationForm").style; 
 	menuStyle.display="block";
 	document.getElementById("hRegisterMe").value ="Y";
@@ -58,19 +65,12 @@ function fn_hideDoctorRgFrm(){
 function fn_showMessage(){
 	document.getElementById("username").value="";
 	document.getElementById("password").value="";
-	var indexValue = document.all("PersonType").selectedIndex;
-	document.getElementById("hPersonType").value=document.all("PersonType")[indexValue].value;
-	//alert(document.getElementById("hPersonType").value);
-	//document.all("personTypeString").value=document.all("PersonType")[indexValue].value;
-	//alert(document.all("personTypeString").value);
-	//alert(document.getElementById("hRegisterMe").value);
-	document.getElementById("PersonType").disabled = false;
+	document.getElementById("hPersonType").value=document.getElementById("PersonType").value;
 	document.forms["logon"].submit();
 }
-function fn_submitLogin(){
-	var indexValue = document.getElementById('PersonType').selectedIndex;
+function fn_submitLogin(){	
 	//alert(document.getElementById('PersonType').options[indexValue].text);
-	document.getElementById('hPersonType').value=document.getElementById('PersonType').options[indexValue].text;
+	document.getElementById('hPersonType').value=document.getElementById('PersonType').value;
 	//alert(document.getElementById("hPersonType").value);
 	
 	document.forms["logon"].submit();
@@ -157,6 +157,42 @@ function fn_GetMonthAppointment(indicator){
 
 }
 
+function fn_GetDayAppointmentDayView(indicator){
+	var date = new Date(document.getElementById('AppointmentDate').value);
+	window.name = "mySelf";
+	document.forms['dayAppointment'].target="mySelf";
+	var currentMonth = date.getMonth()+1;
+	if (indicator == 1){		
+		var nextDay = date.getDate()-1;		
+		document.getElementById('AppointmentDate').value = currentMonth+"/"+nextDay+"/"+ date.getFullYear();
+	}
+	if (indicator == 2){		
+		var nextDay = date.getDate()+1;
+		document.getElementById('AppointmentDate').value = currentMonth+"/"+nextDay+"/"+ date.getFullYear();		
+	}
+//	window.location ='/rescheduleAppointment.htm';
+	document.forms['dayAppointment'].method ="get";
+	document.forms["dayAppointment"].submit();
+	
+}
+
+function fn_GetMonthAppointmentDayView(indicator){
+	var date = new Date(document.getElementById('AppointmentDate').value);
+	window.name = "mySelf";
+	document.forms['dayAppointment'].target="mySelf";
+	if (indicator == 1){		
+		document.getElementById('AppointmentDate').value = date.getMonth()+"/"+date.getDate()+"/"+ date.getFullYear();
+	}
+	if (indicator == 2){		
+		var nextMonth = date.getMonth()+2;
+		document.getElementById('AppointmentDate').value = nextMonth+"/"+date.getDate()+"/"+ date.getFullYear();
+		
+	}
+	document.forms['dayAppointment'].method ="get";
+	document.forms["dayAppointment"].submit();
+
+}
+
 function fn_updateDateOfAppointment(timeOfAppointment,appointmentDate){
 	document.getElementById('dateOfAppointment').value =appointmentDate;
 	document.getElementById('timeOfAppointment').value =timeOfAppointment;
@@ -218,16 +254,51 @@ function fn_Print(){
 	document.forms['updateAppointment'].submit();
 	
 }
+function fn_deletePrescription(num){
+	  var elSel = document.getElementById("diagnosis["+num+"].prescription");
+	  var i;
+	  for (i = elSel.length - 1; i>=0; i--) {
+	    if (elSel.options[i].selected) {
+	      elSel.remove(i);
+	    }
+	  }
+
+}
+
+function fn_deleteTest(num){
+	  var elSel = document.getElementById("diagnosis["+num+"].diagnosisTest");
+	  var i;
+	  for (i = elSel.length - 1; i>=0; i--) {
+	    if (elSel.options[i].selected) {
+	      elSel.remove(i);
+	    }
+	  }
+
+}
 
 function fn_updateAppointmentDetails(){
+
     var num = (document.getElementById("counter").value - 1) + 1 ;    
-    for(var i=0;i<num;i++) {    	
-    	document.getElementById("diagnosis["+i+"].prescription").disabled = false;
-    	document.getElementById("diagnosis["+i+"].diagnosisTest").disabled = false;
+    for(var j=0;j<num;j++) {    	
+  	  var elSel = document.getElementById("diagnosis["+i+"].prescription");
+	  var i;
+	  for (i = elSel.length - 1; i>=0; i--) {
+	   elSel.options[i].selected = true;
+	  }
+
+  	  var elSel = document.getElementById("diagnosis["+i+"].diagnosisTest");
+	  var i;
+	  for (i = elSel.length - 1; i>=0; i--) {
+	   elSel.options[i].selected = true;
+	  }
+
+    	
+//    	document.getElementById("diagnosis["+i+"].prescription").disabled = false;
+ //   	document.getElementById("diagnosis["+i+"].diagnosisTest").disabled = false;
     } 
 	document.forms['updateAppointment'].target="Parent";
     document.forms["updateAppointment"].submit();
-	document.forms['updateAppointment'].method ="post";
+	document.forms['updateAppointment'].method ="get";
 	document.forms['updateAppointment'].action="dayAppointment.htm"; 
 	document.forms['updateAppointment'].submit();
 	 self.close();
@@ -326,7 +397,7 @@ function addRowToTable()
   el.id = 'btnDdd' + iteration;
   el.setAttribute("class","bsubmit");
 //  el.setAttribute("onClick","javascript:fn_addPrescription();");  
-  el.onclick = function() { fn_addPrescription(); }; 
+  el.onclick = function() { fn_deletePrescription(num-1); }; 
   el.className='bsubmit';	   
   //el.onkeypress = keyPressTest;
   cellRight.appendChild(el);
@@ -383,7 +454,7 @@ function addRowToTable()
   el.name = 'btnDel' + iteration;
   el.id = 'btnDel' + iteration;
   el.setAttribute("class","bsubmit");
-  el.onclick = function() { fn_addPrescription(); }; 
+  el.onclick = function() { fn_deleteTest(num-1); }; 
   el.className='bsubmit';	   
   //el.onkeypress = keyPressTest;
   cellRight.appendChild(el);
@@ -412,8 +483,24 @@ function fn_uploadFile(){
     var c = window.showModalDialog('/uploadFile.htm', window, WinSettings);
 }
 
+function fn_deleteAllergy(){
+	  var elSel = document.getElementById('allergies');
+	  var i;
+	  for (i = elSel.length - 1; i>=0; i--) {
+	    if (elSel.options[i].selected) {
+	      elSel.remove(i);
+	    }
+	  }
+
+}
 function fn_saveHistory(){
-	document.getElementById("allergies").disabled = false;
+	//document.getElementById("allergies").disabled = false;
+	  var elSel = document.getElementById('allergies');
+	  var i;
+	  for (i = elSel.length - 1; i>=0; i--) {
+	   elSel.options[i].selected = true;
+	  }
+
 	document.forms['pastHistory'].submit();
 }
 

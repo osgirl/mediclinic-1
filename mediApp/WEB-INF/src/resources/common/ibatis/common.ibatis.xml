@@ -10,7 +10,6 @@
 	 <parameterMap id="Person-Details-Map"   class="java.util.HashMap">
 	    <parameter property="Key"    	 		javaType="java.lang.String"    mode="IN"/>
 	    <parameter property="Username"  		javaType="java.lang.String"    mode="IN"/>
-	    <parameter property="PersonType"   		javaType="java.lang.String"    mode="IN"/>	    
 	 </parameterMap>
 	 
 	 <resultMap class="com.mediapp.domain.common.Person" id="Person-Details-Result-Map">
@@ -41,8 +40,7 @@
            address1, address2, locality, city, state, country
            FROM person left join address on address.personID = person.idPerson
            where 
-		   email_address = ? and
-		   person_type = ?;		   
+		   email_address = ? ;		   
  	</select>
 
 
@@ -410,6 +408,17 @@
 	<insert id="insertNewTests" parameterMap="Insert-NewTests-Parm-Map">
 		INSERT INTO tests (suggested_Test, test_Result_Value,test_Result_Unit,fDiagnosis ) 
 		VALUES (?,?,?,?)
+	</insert>
+
+	 <parameterMap id="Insert-NewPrescription-Parm-Map"   class="java.util.HashMap">
+	    <parameter property="prescriptionName" 			javaType="java.lang.String"    mode="IN"/>	    
+		<parameter property="dosage" 					javaType="java.lang.String"   	mode="IN"/>
+		<parameter property="DiagnosisID"   			javaType="java.lang.Integer"   	mode="IN"/>	    	    
+	 </parameterMap>
+
+	<insert id="insertNewPrescription" parameterMap="Insert-NewPrescription-Parm-Map">
+		INSERT INTO patient_prescription (prescription_name, dosage,idDiagnosis) 
+		VALUES (?,?,?)
 	</insert>
 
 	 <parameterMap id="Insert-ScheduleJob-Parm-Map"   class="java.util.HashMap">

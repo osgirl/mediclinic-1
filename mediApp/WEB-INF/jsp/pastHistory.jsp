@@ -47,7 +47,8 @@
                <td >Blood Group: </td>
                <td >
                 <spring:bind path="patientDetails.bloodGroup">
-                 <select id="bloodGroup" name="bloodGroup" style="WIDTH: 80px">                 	
+                 <select id="bloodGroup" name="bloodGroup" style="WIDTH: 100px">
+                   <option value='' >-Select-</option>               	
                    <option value='A+' ${patientDetails.bloodGroup=='A+'?"selected=\"selected\"":"" }>A+</option>
                    <option value='A-' ${patientDetails.bloodGroup=='A-'?"selected=\"selected\"":"" }>A-</option>
                    <option value='B+' ${patientDetails.bloodGroup=='B+'?"selected=\"selected\"":"" } >B+</option>
@@ -81,11 +82,11 @@
 		                
 		                <input type="button"  onClick="javascript:fn_addToSelect('allergies','selectAllergy');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 		                </br>
-		                <input type="button"  onClick="javascript:fn_deletePrescription();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
+		                <input type="button"  onClick="javascript:fn_deleteAllergy();" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 		               </td>                  
 		               <td >
 			                <spring:bind  path="patientDetails.allergies">
-			                 	<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 25em;" size="3" multiple disabled="disabled">
+			                 	<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 25em;" size="3" multiple >
 			                 		<c:forEach items="${patientDetails.allergies}" varStatus="legg">
 			                   			<option value ="<c:out value="${patientDetails.allergies[legg.index]}"/>"><c:out value="${patientDetails.allergies[legg.index]}"/></option>
 			                   		</c:forEach>  

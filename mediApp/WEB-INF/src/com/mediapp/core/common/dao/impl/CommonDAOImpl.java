@@ -41,7 +41,6 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("Key", person.getKey());
 		criteria.put("Username", person.getUsername());
-		criteria.put("PersonType", person.getPersonTypeString());
 		return (Person) getObject("common.authenticateUser", criteria);
 	}
 
@@ -355,6 +354,18 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 				criteria.put("diagnosisTestResultValue", appointment.getDiagnosis().get(i).getDiagnosisTestResultValue());
 				criteria.put("diagnosisTestResultUnit", appointment.getDiagnosis().get(i).getDiagnosisTestResultUnit());
 				getSqlMapClient().insert("common.insertNewTests",
+						criteria);
+			} 
+			insertCount = this.getSqlMapClient().executeBatch();
+
+			this.getSqlMapClient().startBatch(); 
+			for (int i = 0; i < appointment.getDiagnosis().size(); i++) {
+				criteria =  new HashMap < String, Object > () ;
+				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );				
+				criteria.put("DiagnosisID", diagnosisID);
+				criteria.put("prescriptionName", appointment.getDiagnosis().get(i).getPrescription());
+				criteria.put("dosage", appointment.getDiagnosis().get(i).getDiagnosisTestResultValue());
+				getSqlMapClient().insert("common.insertNewPrescription",
 						criteria);
 			} 
 			insertCount = this.getSqlMapClient().executeBatch();
