@@ -29,7 +29,6 @@
 	href="<%=request.getContextPath()%>/css/calendar.css">
 </head>
 <body>
-
 <form name="uploadFile" id="uploadFile" method="post"
 	action="uploadFile.htm" enctype="multipart/form-data">
 <div id="createApt" style="display: block" align="center">
@@ -78,6 +77,7 @@
 </table>
 </div>
 </form>
+
 </body>
 </html>
 

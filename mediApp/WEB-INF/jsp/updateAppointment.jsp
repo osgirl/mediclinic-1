@@ -209,7 +209,7 @@
 																		
 										<td >
 											<spring:bind path="appointment.diagnosis[0].prescription">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple disabled="disabled">													
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple >													
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescription}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}"/></option>		
 													</c:forEach>
@@ -231,7 +231,7 @@
 																		
 										<td >
 											<spring:bind path="appointment.diagnosis[0].diagnosisTest">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple onclick="javascript:fn_moveDiv(event);" disabled="disabled">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple onclick="javascript:fn_moveDiv(event);" >
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}"/></option>		
 													</c:forEach>

@@ -43,7 +43,9 @@
 							<td width="33%" align="right">Username: </td>
 							<td width="66%" align="left">
 								<spring:bind path="person.username">
-									<input type="text" name="username"  id="username"  value="<c:out value="${status.value}"/>"/>		
+									<input type="text" name="username"  id="username"  value="<c:out value="${status.value}"/>" tabindex="1"/>		
+									<script>document.getElementById('username').focus()</script>
+									
 								</spring:bind>
 							</td>
 							
@@ -60,7 +62,7 @@
 							<td width="33%" align="right" >Password: </td>
 							<td width="66%" align="left">
 								<spring:bind	path="person.password">
-									<input type="password" name="password" id="password"/>
+									<input type="password" name="password" id="password" tabindex="2"/>
 								</spring:bind>
 							</td>
 							<td colspan="2" align="center">
@@ -75,11 +77,11 @@
 						</tr>						
 						<tr>
 						<td>
-								<input type="button" onClick="javascript:fn_showType();" alignment="center" value="Sign Up" name="SignUpButton" id="SignUpButton" class="bsubmit"  width="50"/>
+								<input type="button" onClick="javascript:fn_showType();" alignment="center" value="Sign Up" name="SignUpButton" id="SignUpButton" class="bsubmit"  width="50" tabindex="4"/>
 						</td>
 							<td  align="center">
 								<input type="hidden" id="PersonType" name="PersonType"></input>
-								<input type="button" onClick="javascript:fn_submitLogin();" alignment="center" value="Logon" name="LoginButton" id="LoginButton" class="bsubmit"  width="75"/>
+								<input type="submit" onClick="javascript:fn_submitLogin();" alignment="center" value="Logon" name="LoginButton" id="LoginButton" class="bsubmit"  width="75" tabindex="3"/>
 						
 							
 							</td>

@@ -349,24 +349,31 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			for (int i = 0; i < appointment.getDiagnosis().size(); i++) {
 				criteria =  new HashMap < String, Object > () ;
 				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );				
-				criteria.put("DiagnosisID", diagnosisID);
-				criteria.put("diagnosisTest", appointment.getDiagnosis().get(i).getDiagnosisTest());
-				criteria.put("diagnosisTestResultValue", appointment.getDiagnosis().get(i).getDiagnosisTestResultValue());
-				criteria.put("diagnosisTestResultUnit", appointment.getDiagnosis().get(i).getDiagnosisTestResultUnit());
-				getSqlMapClient().insert("common.insertNewTests",
-						criteria);
+				for(String eachTest:appointment.getDiagnosis().get(i).getTestList()){
+					criteria =  new HashMap < String, Object > () ;
+					criteria.put("DiagnosisID", diagnosisID);
+					criteria.put("diagnosisTest", eachTest);
+					criteria.put("diagnosisTestResultValue", appointment.getDiagnosis().get(i).getDiagnosisTestResultValue());
+					criteria.put("diagnosisTestResultUnit", appointment.getDiagnosis().get(i).getDiagnosisTestResultUnit());
+					getSqlMapClient().insert("common.insertNewTests",
+							criteria);
+
+				}
 			} 
 			insertCount = this.getSqlMapClient().executeBatch();
 
 			this.getSqlMapClient().startBatch(); 
 			for (int i = 0; i < appointment.getDiagnosis().size(); i++) {
-				criteria =  new HashMap < String, Object > () ;
-				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );				
-				criteria.put("DiagnosisID", diagnosisID);
-				criteria.put("prescriptionName", appointment.getDiagnosis().get(i).getPrescription());
-				criteria.put("dosage", appointment.getDiagnosis().get(i).getDiagnosisTestResultValue());
-				getSqlMapClient().insert("common.insertNewPrescription",
-						criteria);
+				
+				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );
+				for(String eachPrescription:appointment.getDiagnosis().get(i).getPrescriptionList()){
+					criteria =  new HashMap < String, Object > () ;
+					criteria.put("DiagnosisID", diagnosisID);
+					criteria.put("prescriptionName", eachPrescription);
+					criteria.put("dosage", "");
+					getSqlMapClient().insert("common.insertNewPrescription",
+							criteria);
+				}
 			} 
 			insertCount = this.getSqlMapClient().executeBatch();
 

@@ -73,7 +73,7 @@ function fn_submitLogin(){
 	document.getElementById('hPersonType').value=document.getElementById('PersonType').value;
 	//alert(document.getElementById("hPersonType").value);
 	
-	document.forms["logon"].submit();
+	//document.forms["logon"].submit();
 }
 function fn_nextURL(URL){	
 	window.location.href = URL;
@@ -278,15 +278,16 @@ function fn_deleteTest(num){
 
 function fn_updateAppointmentDetails(){
 
-    var num = (document.getElementById("counter").value - 1) + 1 ;    
+    var num = (document.getElementById("counter").value - 2) + 1 ;
     for(var j=0;j<num;j++) {    	
-  	  var elSel = document.getElementById("diagnosis["+i+"].prescription");
+  	  var elSel = document.getElementById("diagnosis["+num+"].prescription");
+  	  alert(num+" "+document.getElementById("diagnosis["+num+"].prescription"));
 	  var i;
 	  for (i = elSel.length - 1; i>=0; i--) {
 	   elSel.options[i].selected = true;
 	  }
 
-  	  var elSel = document.getElementById("diagnosis["+i+"].diagnosisTest");
+  	  var elSel = document.getElementById("diagnosis["+num+"].diagnosisTest");
 	  var i;
 	  for (i = elSel.length - 1; i>=0; i--) {
 	   elSel.options[i].selected = true;
@@ -510,7 +511,7 @@ function fn_uploadSelectedFile(){
 	 document.forms['uploadFile'].method ="post";
 	 document.forms['uploadFile'].action="pastHistory.htm"; 
 	 document.forms['uploadFile'].submit();
-	 //self.close();
+	 self.close();
 }
 
 //new script

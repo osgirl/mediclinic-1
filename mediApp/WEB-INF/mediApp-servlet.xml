@@ -56,7 +56,6 @@
 
     <bean id="uploadFile" class="com.mediapp.web.controller.common.MultiPartFileUploadController">
         <property name="sessionForm"><value>true</value></property>
-        <property name="commandName"><value>upload</value></property>
         <property name="commandClass"><value>com.mediapp.domain.common.MultiPartFileUploadBean</value></property>
         <property name="formView"><value>uploadFile</value></property>
         <property name="successView"><value>uploadFile</value></property>
