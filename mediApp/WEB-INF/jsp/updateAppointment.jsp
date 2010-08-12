@@ -102,6 +102,8 @@
 							
 						</tr>
 						<input type="hidden" value="1" id="counter"/>
+						<c:out value="${appointment.diagnosis[0].codeICD}"></c:out>
+						
 						<c:choose>
 							<c:when test="${!empty appointment.diagnosis[0].codeICD}">
 							
@@ -136,7 +138,7 @@
 										</td>
 										<td >
 											
-											<input type="button"  onClick="javascript:fn_addToSelect(<c:out value="diagnosis[${diagnosisAndtest.index}].prescription"/>,<c:out value="findPrescription[${diagnosisAndtest.index}]"/>);" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											<input type="button"  onClick="javascript:fn_addToSelect('diagnosis[${diagnosisAndtest.index}].prescriptionList','findPrescription[${diagnosisAndtest.index}]');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br>
 											<input type="button"  onClick="javascript:fn_deletePrescription(${diagnosisAndtest.index});" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>																		
@@ -158,7 +160,7 @@
 										</script>
 										
 										<td >
-											<input type="button"  onClick="javascript:fn_addToSelect(<c:out value="diagnosis[${diagnosisAndtest.index}].diagnosisTest"/>,<c:out value="findTest[${diagnosisAndtest.index}]"/>);" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											<input type="button"  onClick="javascript:fn_addToSelect('diagnosis[${diagnosisAndtest.index}].testList','findTest[${diagnosisAndtest.index}]');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br>
 											<input type="button"  onClick="javascript:fn_deleteTest(${diagnosisAndtest.index});" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 											
@@ -201,14 +203,14 @@
 										</td>
 										<td >
 											
-											<input type="button"  onClick="javascript:fn_addToSelect('diagnosis[0].prescription','findPrescription[0]');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											<input type="button"  onClick="javascript:fn_addToSelect('diagnosis[0].prescriptionList','findPrescription[0]');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br> 
 											<input type="button"  onClick="javascript:fn_deletePrescription(0);" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>
 																		
 																		
 										<td >
-											<spring:bind path="appointment.diagnosis[0].prescription">
+											<spring:bind path="appointment.diagnosis[0].prescriptionList">
 												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple >													
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescription}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}"/></option>		
@@ -224,13 +226,13 @@
 										</script>
 										
 										<td >
-											<input type="button"  onClick="javascript:fn_addToSelect('diagnosis[0].diagnosisTest','findTest[0]');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+											<input type="button"  onClick="javascript:fn_addToSelect('diagnosis[0].testList','findTest[0]');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 											</br>
 											<input type="button"  onClick="javascript:fn_deleteTest(0);" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 										</td>
 																		
 										<td >
-											<spring:bind path="appointment.diagnosis[0].diagnosisTest">
+											<spring:bind path="appointment.diagnosis[0].testList">
 												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple onclick="javascript:fn_moveDiv(event);" >
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}"/></option>		

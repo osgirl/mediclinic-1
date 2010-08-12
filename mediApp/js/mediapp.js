@@ -255,7 +255,7 @@ function fn_Print(){
 	
 }
 function fn_deletePrescription(num){
-	  var elSel = document.getElementById("diagnosis["+num+"].prescription");
+	  var elSel = document.getElementById("diagnosis["+num+"].prescriptionList");
 	  var i;
 	  for (i = elSel.length - 1; i>=0; i--) {
 	    if (elSel.options[i].selected) {
@@ -266,7 +266,7 @@ function fn_deletePrescription(num){
 }
 
 function fn_deleteTest(num){
-	  var elSel = document.getElementById("diagnosis["+num+"].diagnosisTest");
+	  var elSel = document.getElementById("diagnosis["+num+"].testList");
 	  var i;
 	  for (i = elSel.length - 1; i>=0; i--) {
 	    if (elSel.options[i].selected) {
@@ -279,15 +279,16 @@ function fn_deleteTest(num){
 function fn_updateAppointmentDetails(){
 
     var num = (document.getElementById("counter").value - 2) + 1 ;
+    alert(num);
     for(var j=0;j<num;j++) {    	
-  	  var elSel = document.getElementById("diagnosis["+num+"].prescription");
-  	  alert(num+" "+document.getElementById("diagnosis["+num+"].prescription"));
+  	  var elSel = document.getElementById("diagnosis["+j+"].prescriptionList");
+  	  alert(j+" "+document.getElementById("diagnosis["+j+"].prescriptionList"));
 	  var i;
 	  for (i = elSel.length - 1; i>=0; i--) {
 	   elSel.options[i].selected = true;
 	  }
-
-  	  var elSel = document.getElementById("diagnosis["+num+"].diagnosisTest");
+	  alert(j+" "+document.getElementById("diagnosis["+j+"].prescriptionList"));
+  	  var elSel = document.getElementById("diagnosis["+j+"].testList");
 	  var i;
 	  for (i = elSel.length - 1; i>=0; i--) {
 	   elSel.options[i].selected = true;
@@ -306,7 +307,7 @@ function fn_updateAppointmentDetails(){
 }
 
 function fn_addToSelect(selectName,tempName){
-	//alert(selectName,tempName);
+	alert(selectName,tempName);
 	if(document.getElementById(tempName).value == ""){
 		alert("Please enter the text to be added.");
 		document.getElementById(tempName).focus();
@@ -383,7 +384,7 @@ function addRowToTable()
   el.name = 'btnAdd' + iteration;
   el.id = 'btnAdd' + iteration;
   el.setAttribute("class","bsubmit");
-  var selName = "diagnosis[" + (num -1 )+ "].prescription" ;	 	  
+  var selName = "diagnosis[" + (num -1 )+ "].prescriptionList" ;	 	  
   el.onclick =  function() { fn_addToSelect(selName,pr) };
   el.className='bsubmit';	   
   //el.onkeypress = keyPressTest;
@@ -440,9 +441,9 @@ function addRowToTable()
   el.name = 'btnAdd' + iteration;
   el.id = 'btnAdd' + iteration;
   el.setAttribute("class","bsubmit");
-  var selName1 = "diagnosis[" + (num -1 )+ "].diagnosisTest";
+  var selName1 = "diagnosis[" + (num -1 )+ "].testList";
   el.onclick =  function() { fn_addToSelect(selName1,pr1) };
-  testNames ="diagnosis[" + (num -1 )+ "].diagnosisTest";
+  testNames ="diagnosis[" + (num -1 )+ "].testList";
   el.className='bsubmit';	   
   //el.onkeypress = keyPressTest;
   cellRight.appendChild(el);
@@ -463,8 +464,8 @@ function addRowToTable()
   // select cell
   var cellRightSel = row.insertCell(7);
   var sel = document.createElement("<select multiple size=3 style='width: 15em'>");
-  sel.name = "diagnosis[" + (num -1 )+ "].diagnosisTest";
-  sel.id = "diagnosis[" + (num -1 )+ "].diagnosisTest";
+  sel.name = "diagnosis[" + (num -1 )+ "].testList";
+  sel.id = "diagnosis[" + (num -1 )+ "].testList";
   el.size = 3;	  
   cellRightSel.appendChild(sel);
 

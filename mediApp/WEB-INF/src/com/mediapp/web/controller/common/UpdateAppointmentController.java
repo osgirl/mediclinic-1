@@ -52,11 +52,12 @@ public class UpdateAppointmentController extends MediAppBaseController{
 
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		Appointment appointment = (Appointment) command;
-		String sidAppointment = request.getParameter("AppointmentID");		
+		String sidAppointment = request.getParameter("AppointmentID");
+		System.out.println("test is "+ appointment.getDiagnosis().get(0).getTestList().get(0));
 		int idAppointment = Integer.parseInt(sidAppointment);
 		appointment.setAppointmentID(idAppointment);
 		boolean status = commonService.updateDiagnosisAndTests(appointment);		
-		return new ModelAndView();
+		return null;
     }
 
 	
