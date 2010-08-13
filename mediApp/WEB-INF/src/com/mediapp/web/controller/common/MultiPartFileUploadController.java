@@ -57,18 +57,12 @@ public class MultiPartFileUploadController extends SimpleFormController {
                                     HttpServletResponse res, 
                                     Object command, 
                                     BindException errors) throws Exception {
-        //res.setContentType("text/plain");
         if (!(request instanceof MultipartHttpServletRequest)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Expected multipart request");
             return null;
         }
         MultiPartFileUploadBean bean = (MultiPartFileUploadBean) command;
-        //MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        //MultipartFile file = multipartRequest.getFile("file");
         MultipartFile file  = bean.getFile();
-        System.out.println("hi "+ file);
-//        MultipartFile file = bean.getFile("file");   
- //       System.out.println("file name "+ bean.getFileName());        
         File destination = new File(destinationDir + bean.getFileName());
         file.transferTo(destination);
  		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
@@ -78,9 +72,9 @@ public class MultiPartFileUploadController extends SimpleFormController {
         Date date = new Date();		
         bean.setFilePath(file.getOriginalFilename()+idPerson+dateFormat.format(date));        
         commonService.insertPatientDocumentDetials(bean);
-        res.getWriter().write("Success, wrote to " + destination.getAbsolutePath());        
-        res.flushBuffer();
-        return null;
+//        res.getWriter().write("Success, wrote to " + destination.getAbsolutePath());        
+ //       res.flushBuffer();
+        return new ModelAndView("redirect:/pastHistory.htm");
     }
     
 

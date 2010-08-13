@@ -71,8 +71,7 @@
 						<td >Comments:</td>
 						<td >
 							<spring:bind path="appointment.comments">
-								<textarea name="${status.expression}"  value="${fn:trim(status.value)}"  rows="6" cols="25" >
-								</textarea>													
+								<textarea name="${status.expression}"  value="${fn:trim(status.value)}"  rows="6" cols="25" ></textarea>													
 							</spring:bind>
 						</td>
 					</tr>

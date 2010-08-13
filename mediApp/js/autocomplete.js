@@ -184,12 +184,15 @@ Autocomplete.prototype = {
       this.data = cr.data;
       this.suggest();
     } else if (!this.isBadQuery(this.currentValue)) {
-      new Ajax.Request(this.serviceUrl, {
-        parameters: { query:this.currentValue , codeCategory:this.codeCategory},
-        onComplete: this.processResponse.bind(this),
-        method: 'post'        
-      });
-      this.suggest();
+    	if(this.currentValue.length >=4){
+    	      new Ajax.Request(this.serviceUrl, {
+    	          parameters: { query:this.currentValue , codeCategory:this.codeCategory},
+    	          onComplete: this.processResponse.bind(this),
+    	          method: 'post'        
+    	        });
+    	        this.suggest();
+    		
+    	}
     }
   },
 

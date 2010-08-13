@@ -36,6 +36,10 @@
 	<tr bgcolor="lightblue">
 		Upload File
 	</tr>
+	<spring:bind path="fileUpload.idPatient">
+		<input type="hidden" name="${status.expression}"  value="<c:out value="${fileUpload.idPatient}"/>"/>					
+	</spring:bind>
+
 	<tr>
 		<td>Select File:</td>
 		<td>

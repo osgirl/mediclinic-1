@@ -102,7 +102,6 @@
 							
 						</tr>
 						<input type="hidden" value="1" id="counter"/>
-						<c:out value="${appointment.diagnosis[0].codeICD}"></c:out>
 						
 						<c:choose>
 							<c:when test="${!empty appointment.diagnosis[0].codeICD}">
@@ -212,8 +211,8 @@
 										<td >
 											<spring:bind path="appointment.diagnosis[0].prescriptionList">
 												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple >													
-													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescription}" varStatus="legg">
-														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}"/></option>		
+													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}" varStatus="legg">
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}"/></option>		
 													</c:forEach>
 												</select>
 											</spring:bind>
@@ -234,8 +233,8 @@
 										<td >
 											<spring:bind path="appointment.diagnosis[0].testList">
 												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple onclick="javascript:fn_moveDiv(event);" >
-													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}" varStatus="legg">
-														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}"/></option>		
+													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].testList}" varStatus="legg">
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}"/></option>		
 													</c:forEach>
 												</select>
 											</spring:bind>

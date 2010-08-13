@@ -95,6 +95,7 @@
 		               </td>
               </tr>
              </table>
+             
              <input type="button"  onClick="javascript:fn_saveHistory();" alignment="center" value="Save" class="bsubmit" id="btnUpload" width="75" />
             </div>
             
@@ -115,16 +116,19 @@
 					<c:forEach items="${patientDetails.uploadedFiles}" varStatus="uploadedFiles">
 						<tr>
 							<td>
+							</td>						
+						
+							<td>
 								<spring:bind path="patientDetails.uploadedFiles[${uploadedFiles.index}].fileName">
 									<a href="javascript:fn_openFile('<c:out value="${patientDetails.uploadedFiles[uploadedFiles.index].filePath}"/>')" >
-										<c:out value="${patientDetails.uploadedFiles[uploadedFiles.index].fileName}"/>'
+										<c:out value="${patientDetails.uploadedFiles[uploadedFiles.index].fileName}"/>
 									</a>
 								</spring:bind>
 							</td>
 							<td>
 								<spring:bind path="patientDetails.uploadedFiles[${uploadedFiles.index}].comments">
-									<textarea name="${status.expression}"  value="${fn:trim(patientDetails.uploadedFiles[${uploadedFiles.index}].comments)}"  rows="1" cols="100" disabled="disabled">
-									</textarea>													
+								
+									<textarea name="${status.expression}"  rows="1" cols="40" readonly="readonly""><c:out value="${fn:trim(patientDetails.uploadedFiles[uploadedFiles.index].comments)}"/></textarea>													
 								</spring:bind>								
 							</td>
 						</tr>

@@ -262,6 +262,8 @@ function fn_deletePrescription(num){
 	      elSel.remove(i);
 	    }
 	  }
+	  
+	  
 
 }
 
@@ -330,7 +332,7 @@ function fn_addToSelect(selectName,tempName){
 function addRowToTable()
 {
   var numi = document.getElementById('counter');
-  var num = (document.getElementById("counter").value - 1) + 2;
+  var num = (document.getElementById("counter").value - 1) + 2 -1;
   numi.value = num;		
   var tbl = document.getElementById('tblSample');
   var lastRow = tbl.rows.length;
@@ -354,7 +356,7 @@ function addRowToTable()
   cellLeft.appendChild(el0);
   //add script
   var ss = document.createElement('script');	  
-  var scr = "new Autocomplete('"+el0.name+"', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');";
+  var scr = "new Autocomplete('"+el0.name+"', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');";
   ss.text = scr;
   var hh = document.getElementsByTagName('head')[0];
   hh.appendChild(ss);
@@ -372,7 +374,7 @@ function addRowToTable()
 
   //add script
   var ss = document.createElement('script');
-  var scr = "new Autocomplete('"+el.name+"', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');";
+  var scr = "new Autocomplete('"+el.name+"', { serviceUrl:'/appointmentPopUp.htm' },'table.PRESCRIPTION');";
   ss.text = scr;
   var hh = document.getElementsByTagName('head')[0];
   hh.appendChild(ss);
@@ -384,7 +386,7 @@ function addRowToTable()
   el.name = 'btnAdd' + iteration;
   el.id = 'btnAdd' + iteration;
   el.setAttribute("class","bsubmit");
-  var selName = "diagnosis[" + (num -1 )+ "].prescriptionList" ;	 	  
+  var selName = "diagnosis[" + (num -1 )+ "].prescriptionList" ;
   el.onclick =  function() { fn_addToSelect(selName,pr) };
   el.className='bsubmit';	   
   //el.onkeypress = keyPressTest;
@@ -407,8 +409,8 @@ function addRowToTable()
   // select cell
   var cellRightSel = row.insertCell(4);
   var sel = document.createElement('<select multiple size=3 style="width: 15em">');
-  sel.name = "diagnosis[" + (num -1 )+ "].prescription" ;
-  sel.id = "diagnosis[" + (num -1 )+ "].prescription" ;
+  sel.name = "diagnosis[" + (num -1 )+ "].prescriptionList" ;
+  sel.id = "diagnosis[" + (num -1 )+ "].prescriptionList" ;
   el.size = 3;	  
   //sel.options[0] = new Option('text zero', 'value0');
   //sel.options[1] = new Option('text one', 'value1');
@@ -429,7 +431,7 @@ function addRowToTable()
 
   //add script
   var ss = document.createElement('script');
-  var scr = "new Autocomplete('"+el.name+"', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');";
+  var scr = "new Autocomplete('"+el.name+"', { serviceUrl:'/appointmentPopUp.htm' },'table.TEST');";
   ss.text = scr;
   var hh = document.getElementsByTagName('head')[0];
   hh.appendChild(ss);
@@ -468,7 +470,8 @@ function addRowToTable()
   sel.id = "diagnosis[" + (num -1 )+ "].testList";
   el.size = 3;	  
   cellRightSel.appendChild(sel);
-
+  num=num+1;
+  document.getElementById("counter").value  =num;
 
 //end
 }
@@ -477,6 +480,10 @@ function removeRowFromTable()
   var tbl = document.getElementById('tblSample');
   var lastRow = tbl.rows.length;
   if (lastRow > 2) tbl.deleteRow(lastRow - 1);
+  var num = (document.getElementById("counter").value - 2) + 1 ;
+  alert(document.getElementById("counter").value);
+  document.getElementById("counter").value = num;
+  alert(document.getElementById("counter").value);
 }
 
 function fn_uploadFile(){
@@ -509,9 +516,6 @@ function fn_saveHistory(){
 function fn_uploadSelectedFile(){
 	 document.forms['uploadFile'].target="ParentWindow";
      document.forms["uploadFile"].submit();
-	 document.forms['uploadFile'].method ="post";
-	 document.forms['uploadFile'].action="pastHistory.htm"; 
-	 document.forms['uploadFile'].submit();
 	 self.close();
 }
 

@@ -568,7 +568,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	}
 
 	public boolean insertPatientDocumentDetials(MultiPartFileUploadBean fileDetails) throws DataAccessException{
-		return insertObject("common.insertPatientDocumentDetails",fileDetails );
+		return insertObject("common.insertPatientDocument",fileDetails );
 	}
 
 	public boolean updateAppointmentConfirmation (int appointmentID) throws DataAccessException{
