@@ -80,7 +80,7 @@ public class PersonalProfileController extends MediAppBaseController  {
 	protected void initBinder(HttpServletRequest request,
 			ServletRequestDataBinder binder) throws Exception {
 		 String dateFormat = getMessageSourceAccessor().getMessage("format.date",
-	     "MM/dd/yyyy");
+	     "dd/MM/yyyy");
 		 SimpleDateFormat df = new SimpleDateFormat(dateFormat);
 		 df.setLenient(true);
 		 binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(

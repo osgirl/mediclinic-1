@@ -184,7 +184,7 @@ Autocomplete.prototype = {
       this.data = cr.data;
       this.suggest();
     } else if (!this.isBadQuery(this.currentValue)) {
-    	if(this.currentValue.length >=4){
+    	if(this.currentValue.length >=2){
     	      new Ajax.Request(this.serviceUrl, {
     	          parameters: { query:this.currentValue , codeCategory:this.codeCategory},
     	          onComplete: this.processResponse.bind(this),

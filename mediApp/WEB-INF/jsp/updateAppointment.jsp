@@ -14,7 +14,6 @@
 	    <link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
 	    <link href="<%=request.getContextPath()%>/css/autocomplete.css" rel="stylesheet" type="text/css">
 	    <script type="text/javascript" src="<%=request.getContextPath()%>/js/mediapp.js"></script>    
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar_us.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/calendar.css">
@@ -114,7 +113,7 @@
 									
 									<tr>
 										<td  >
-												<input type="checkbox" name="radioBtn" />
+												<input type="checkbox" name="radioBtn"  id="${diagnosisAndtest.index}" />
 										</td>
 									
 										<td  >
@@ -261,6 +260,8 @@
 							
 						</c:if>
 						<input type="button"  onClick="javascript:fn_Print();" alignment="center" value="Print" class="bsubmit"  width="75"/>
+						<input type="button"  onClick="self.close();" alignment="center" value="Close" class="bsubmit"  width="75"/>
+						
 						</td>
 					</tr>
 				</table>

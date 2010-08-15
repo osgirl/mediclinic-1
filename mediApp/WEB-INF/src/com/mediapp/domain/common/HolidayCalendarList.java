@@ -26,6 +26,26 @@ public class HolidayCalendarList extends MediAppBaseDomain{
 	}
 
 	private int idDoctorPerson;
+	
+	private int idDoctorSingle;
+	
+	public int getIdDoctorSingle() {
+		return idDoctorSingle;
+	}
+
+	public void setIdDoctorSingle(int idDoctorSingle) {
+		this.idDoctorSingle = idDoctorSingle;
+	}
+
+	private String deleteDateList;
+
+	public String getDeleteDateList() {
+		return deleteDateList;
+	}
+
+	public void setDeleteDateList(String deleteDateList) {
+		this.deleteDateList = deleteDateList;
+	}
 
 	public int getIdDoctorPerson() {
 		return idDoctorPerson;

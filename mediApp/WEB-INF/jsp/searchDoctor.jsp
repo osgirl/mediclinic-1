@@ -57,10 +57,11 @@
 
 													<tr>
 														<td width="40%">Date: </td>
-														<td width="40%">
+														<td width="30%">
 															<spring:bind path="doctorSearch.searchCriteria.dateOfAppointment">
-																<input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${status.value}"/>" />
+																<input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="dd/MM/yyyy" value="${status.value}"/>" onblur="check_date(this)" />
 																
+																(dd/mm/yyyy)
 															</spring:bind>
 														</td>
 														<td width="20%">
@@ -72,6 +73,7 @@
 																			'controlname': 'searchCriteria.dateOfAppointment'
 																			});
 																	</script>
+																	
 																
 														</td>
 													</tr>
@@ -100,9 +102,11 @@
    														<table width=700  border="1" class="layout"  >
    															<tr>
    																<td>
+   																
 																	<c:forEach var="searchResult" items="${status.value}">
+																	<table width=700  border="1" class="layout"  >
 																		<tr>
-																			<td>
+																			<td width="60%">
 																				Name: 	<c:out value="${searchResult.doctorFirstName}"/> 
 																						<c:out value="${searchResult.doctorMiddleName}"/> 
 																						<c:out value="${searchResult.doctorLastName}"/>
@@ -115,7 +119,6 @@
 																				Address: 	<c:out value="${searchResult.address1}"/> 
 																			</td>
 																			<td>
-																				Work Hours: <c:out value="${searchResult.workStartTime}"/> - <c:out value="${searchResult.workEndTime}"/> 
 																			</td>
 																				
 																		</tr>															
@@ -138,8 +141,10 @@
 																			<td>
 																							<c:out value="${searchResult.state}"/> 
 																			</td>	
-																		</tr>															
+																		</tr>
+																			</table>															
 																	</c:forEach>
+																
 																</td>
 															</tr>
 														</table>

@@ -304,7 +304,7 @@
 	
 	<resultMap class="com.mediapp.domain.common.AppointmentTO" id="Get-Appointment-Result-Map">
 		<result property="appointmentID" 				column="idAppointment_history"/>
-		<result property="diagnosisID" 					column="idAppointment_history"/>
+		<result property="diagnosisID" 					column="idDiagnosis"/>
 	 	<result property="headline" 					column="appointment_headline"/>
 	 	<result property="dateOfAppointment" 			column="date_of_appointment"/>
 	 	<result property="timeOfAppointment" 			column="time_of_appointment"/>
@@ -325,7 +325,7 @@
 	</parameterMap>
 
 	<select id="getAppointment" parameterMap="Get-Appointment-Parm-Map" resultMap="Get-Appointment-Result-Map">
-			select idAppointment_history,d.idDiagnosis,appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,
+			select idAppointment_history,d.idDiagnosis as idDiagnosis,appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,
                     ICD_code,Prescription_name,dosage,suggested_test,test_result_value,test_result_unit	,appointment_comment,appointment_confirmation				
 			from person p
 			left OUTER join doctor_details dd on dd.idPerson=p.idPerson
@@ -337,7 +337,7 @@
 			left OUTER join patient_prescription pp on pp.idDiagnosis= d.idDiagnosis
 			where ah.idAppointment_History=?
 			and appointment_confirmation != 'C'
-			order by Prescription_name,suggested_test;
+			order by idDiagnosis,Prescription_name,suggested_test;
  	</select>
 
 	<resultMap class="com.mediapp.domain.common.AppointmentForMonth" id="Get-MonthAppointment-Result-Map">
@@ -569,6 +569,12 @@
 			on duplicate key 
 			update date_of_holiday= #holidayDate# , comments =#comments#;
 	</insert>
+
+
+	<delete id="deleteHolidays"  >
+			delete from holiday_calendar
+			where idDoctor = #idDoctorSingle#; 
+	</delete>
 
 
 	<insert id="insertPatientDocument" >
@@ -903,6 +909,21 @@
 				order by 1) as a
             );	
 	</update>
+	
+	<delete id="deleteDiagnosis" >
+		delete from diagnosis where idAppointment = #appointmentID#;
+	</delete>
+
+	<delete id="deletePrescription" >
+		delete from patient_prescription where idDiagnosis in (
+			select idDiagnosis from diagnosis where idAppointment=#appointmentID#);
+
+	</delete>
+
+	<delete id="deleteTests" >
+		delete from tests where fDiagnosis in (
+			select idDiagnosis from diagnosis where idAppointment=#appointmentID#);
+	</delete>
 	
 	
 </sqlMap>

@@ -1,6 +1,8 @@
 package com.mediapp.core.common.dao.impl;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -281,6 +283,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 					diagnosis.add(eachDiagnosis); 
 				}
 				eachDiagnosis= new Diagnosis();
+				prescriptionList = new ArrayList<String>();
+				testList = new ArrayList<String>();
+
 				currentIDDiagnosis = eachAppointment.getDiagnosisID();
 				eachDiagnosis.setCodeICD(eachAppointment.getCodeICD());
 				 
@@ -317,6 +322,10 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	}
 
 	public boolean updateDiagnosisAndTests(Appointment appointment) throws DataAccessException,DataIntegrityViolationException{
+		deleteObject("common.deletePrescription", appointment);
+		deleteObject("common.deleteTests", appointment);
+		deleteObject("common.deleteDiagnosis", appointment);
+		System.out.println("delete done");
 		int count = appointment.getDiagnosis().size();
 		Integer countInteger = new Integer(count);
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
@@ -326,7 +335,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		System.out.println("sid is "+ maxDianosisID + " "+countInteger);
 		int minDiagnosisID = maxDianosisID.intValue() - count;
 		int whileCounter = 0;
-		while(minDiagnosisID <maxDianosisID){
+		while(minDiagnosisID <=maxDianosisID){
 			appointment.getDiagnosis().get(whileCounter).setDiagnosisID(minDiagnosisID);
 			whileCounter = whileCounter+1;
 			minDiagnosisID = minDiagnosisID+1;
@@ -349,7 +358,6 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			//System.out.println("count "+insertCount);
 			this.getSqlMapClient().startBatch(); 
 			for (int i = 0; i < appointment.getDiagnosis().size(); i++) {
-				System.out.println("am here too");
 				criteria =  new HashMap < String, Object > () ;
 				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );				
 				for(String eachTest:appointment.getDiagnosis().get(i).getTestList()){
@@ -367,7 +375,6 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
 			this.getSqlMapClient().startBatch(); 
 			for (int i = 0; i < appointment.getDiagnosis().size(); i++) {
-				System.out.println("am here too1");
 				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );
 				for(String eachPrescription:appointment.getDiagnosis().get(i).getPrescriptionList()){
 					criteria =  new HashMap < String, Object > () ;
@@ -547,11 +554,14 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		Integer idPersonInt = new Integer(holidayList.getIdDoctorPerson());
 		criteria.put("PersonID", idPersonInt);		
-		Person completeDetails = (Person) getObject("common.getPersonalProfile",criteria );		
+		Person completeDetails = (Person) getObject("common.getPersonalProfile",criteria );
+		holidayList.setIdDoctorSingle(completeDetails.getDoctorDetails().getIdDoctor());
+		deleteObject("common.deleteHolidays", holidayList);			
+
 		try { 
 			this.getSqlMapClient().startBatch(); 
 			for (Holidays holidays : holidayList.getHolidays()){
-				if(holidays.getHolidayDate() !=null){
+				if(holidays !=null && holidays.getHolidayDate() !=null){
 					holidays.setIdDoctor(completeDetails.getDoctorDetails().getIdDoctor());
 					getSqlMapClient().insert("common.insertHolidays",
 							holidays);

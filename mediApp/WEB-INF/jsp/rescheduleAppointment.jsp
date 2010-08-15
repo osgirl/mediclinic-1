@@ -219,6 +219,7 @@
 					<tr>
 						<td align="center" colspan="2">
 							<input type="button"  onClick="javascript:fn_rescheduleAppointmentDate();" alignment="center" value="Save" class="bsubmit"  width="75"/>
+							<input type="button"  onClick="self.close();" alignment="center" value="Close" class="bsubmit"  width="75"/>
 						</td>
 					</tr>
 				</table>

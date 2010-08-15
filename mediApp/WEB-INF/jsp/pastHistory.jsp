@@ -108,9 +108,9 @@
 					<tr>
 						<td>
 						</td>						
-						<td>File Name:
+						<td width="30%">File Name:
 						</td>
-						<td>Comments:
+						<td width="70%">Comments:
 						</td>
 					</tr>
 					<c:forEach items="${patientDetails.uploadedFiles}" varStatus="uploadedFiles">
@@ -128,7 +128,7 @@
 							<td>
 								<spring:bind path="patientDetails.uploadedFiles[${uploadedFiles.index}].comments">
 								
-									<textarea name="${status.expression}"  rows="1" cols="40" readonly="readonly""><c:out value="${fn:trim(patientDetails.uploadedFiles[uploadedFiles.index].comments)}"/></textarea>													
+									<c:out value="${fn:trim(patientDetails.uploadedFiles[uploadedFiles.index].comments)}"/>													
 								</spring:bind>								
 							</td>
 						</tr>

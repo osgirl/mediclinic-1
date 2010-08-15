@@ -66,8 +66,8 @@
              <tr>
               <td >Date of Birth: <font color="red">*</font></td>
               <td >
-              	<spring:bind path="person.dateOfBirth">
-                	<input type="text" name="${status.expression}" id="${status.expression}" value='<fmt:formatDate pattern="MM/dd/yyyy" value="${person.dateOfBirth}" />' style="WIDTH: 130px"/>
+              	<spring:bind path="person.dateOfBirth">              	
+                	<input type="text" name="${status.expression}" id="${status.expression}" value='<fmt:formatDate pattern="dd/MM/yyyy" value="${person.dateOfBirth}" />' style="WIDTH: 130px" onblur="check_date(this)"/>
                 </spring:bind>
                  <script language="JavaScript">
                   new tcal ({
@@ -77,6 +77,7 @@
                    'controlname': 'dateOfBirth'
                    });
                  </script>
+                 (dd/mm/yyyy)
               </td>
              </tr>
              <tr>

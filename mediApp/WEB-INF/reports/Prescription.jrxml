@@ -29,7 +29,7 @@ left outer join mediapp.tests tst
 on dg.iddiagnosis = tst.fdiagnosis
 left outer join mediapp.patient_prescription mpr
 on dg.iddiagnosis = mpr.iddiagnosis
-where idappointment_history =50
+where idappointment_history =$P{AppointmentID}
 order by idappointment_history;]]>
 	</queryString>
 	<field name="idappointment_history" class="java.lang.Integer">

@@ -122,7 +122,7 @@ public class HolidayCalendarController extends MediAppBaseController  {
 			sendSMS.scheduleAppointmentCancellation(idPerson);
 
 	  }
-	  return new ModelAndView(getSuccessView(),"holidayCalendar", holidays );
+	  return new ModelAndView("redirect:/holidayCalendar.htm","holidayCalendar", holidays );
 	 }  
 
 
