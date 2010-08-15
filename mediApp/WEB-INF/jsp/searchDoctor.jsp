@@ -59,9 +59,9 @@
 														<td width="40%">Date: </td>
 														<td width="30%">
 															<spring:bind path="doctorSearch.searchCriteria.dateOfAppointment">
-																<input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="dd/MM/yyyy" value="${status.value}"/>" onblur="check_date(this)" />
+																<input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${status.value}"/>" onblur="check_date(this)" />
 																
-																(dd/mm/yyyy)
+																(mm/dd/yyyy)
 															</spring:bind>
 														</td>
 														<td width="20%">

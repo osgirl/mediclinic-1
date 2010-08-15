@@ -695,12 +695,12 @@ function check_date(field){
 	      err = 20;
 	   }
 	   /* Validation of month*/
-	   month = DateValue.substr(2,2);
+	   month = DateValue.substr(0,2);
 	   if ((month < 1) || (month > 12)) {
 	      err = 21;
 	   }
 	   /* Validation of day*/
-	   day = DateValue.substr(0,2);
+	   day = DateValue.substr(2,2);
 	   if (day < 1) {
 	     err = 22;
 	   }

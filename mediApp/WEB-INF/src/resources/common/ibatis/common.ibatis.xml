@@ -325,7 +325,7 @@
 	</parameterMap>
 
 	<select id="getAppointment" parameterMap="Get-Appointment-Parm-Map" resultMap="Get-Appointment-Result-Map">
-			select idAppointment_history,d.idDiagnosis as idDiagnosis,appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,
+			select idAppointment_history,ifnull(d.idDiagnosis,0) as idDiagnosis,appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,
                     ICD_code,Prescription_name,dosage,suggested_test,test_result_value,test_result_unit	,appointment_comment,appointment_confirmation				
 			from person p
 			left OUTER join doctor_details dd on dd.idPerson=p.idPerson
