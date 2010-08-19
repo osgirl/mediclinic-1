@@ -68,6 +68,7 @@ public class DayAppointmentController extends MediAppBaseController{
 	    appointmentMap.put("personID", idPerson);
 	    appointmentMap.put("appointmentDate", dateOfAppointment);
 	    appointmentMap.put("AppointmentDate", dateOfAppointment);
+	    appointmentMap.put("TakeAppointment", request.getParameter("TakeAppointment"));
 	    return appointmentMap;
 	}
 

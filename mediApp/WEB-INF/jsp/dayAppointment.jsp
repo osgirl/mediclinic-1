@@ -7,6 +7,7 @@
 							<div class="entryAlone">
 								<form name="dayAppointment" id="dayAppointment" method="post" >
 									<input type="hidden" name="AppointmentID"  id="AppointmentID" value=""/>
+									<input type="hidden" name="TakeAppointment"  id="TakeAppointment" value="${TakeAppointment}"/>
 									<input type="hidden" name="PersonID"  id="PersonID" value="${personID}"/>
 									<input type="hidden" name="AppointmentDate"  id="AppointmentDate" value="<fmt:formatDate pattern="MM/dd/yyyy" value="${AppointmentDate}"/>">
 									<c:set var="PersonType" />

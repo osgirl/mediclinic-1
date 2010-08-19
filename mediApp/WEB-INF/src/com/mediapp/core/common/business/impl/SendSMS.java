@@ -33,7 +33,7 @@ public class SendSMS {
 
 			}
 		}
-		msg = new OutboundMessage(cellPhoneNumber, "Hello from MediApp.Your password is 'mediApp'. ");
+		msg = new OutboundMessage(cellPhoneNumber, "Welcome to MediApp.Your password is 'mediApp'. ");
 		srv.sendMessage(msg);
 		System.out.println(msg);
 		srv.stopService();

@@ -351,8 +351,11 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 				criteria.put("DiagnosisID", diagnosisID);
 				criteria.put("Prescription", appointment.getDiagnosis().get(i).getPrescription());
 				criteria.put("ICDCode", appointment.getDiagnosis().get(i).getCodeICD());
-				getSqlMapClient().insert("common.insertNewDiagnosis",
-						criteria);
+				if(appointment.getDiagnosis().get(i).getCodeICD() !=null){
+					getSqlMapClient().insert("common.insertNewDiagnosis",
+							criteria);	
+				}
+				
 			} 
 			int insertCount = this.getSqlMapClient().executeBatch();
 			//System.out.println("count "+insertCount);
@@ -366,8 +369,10 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 					criteria.put("diagnosisTest", eachTest);
 					criteria.put("diagnosisTestResultValue", appointment.getDiagnosis().get(i).getDiagnosisTestResultValue());
 					criteria.put("diagnosisTestResultUnit", appointment.getDiagnosis().get(i).getDiagnosisTestResultUnit());
-					getSqlMapClient().insert("common.insertNewTests",
-							criteria);
+					if(eachTest!=null){
+						getSqlMapClient().insert("common.insertNewTests",
+								criteria);
+					}
 
 				}
 			} 
@@ -381,8 +386,10 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 					criteria.put("DiagnosisID", diagnosisID);
 					criteria.put("prescriptionName", eachPrescription);
 					criteria.put("dosage", "");
-					getSqlMapClient().insert("common.insertNewPrescription",
-							criteria);
+					if(eachPrescription!=null){
+						getSqlMapClient().insert("common.insertNewPrescription",
+								criteria);
+					}
 				}
 			} 
 			insertCount = this.getSqlMapClient().executeBatch();
