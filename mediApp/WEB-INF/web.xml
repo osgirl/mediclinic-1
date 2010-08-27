@@ -50,4 +50,8 @@
 	    <taglib-location>/WEB-INF/tld/verticalMenuItemTag.tld</taglib-location> 
 	   </taglib>
 
+ 	<error-page>
+        <error-code>404</error-code>
+        <location>/welcomePage.jsp</location>
+    </error-page>
 </web-app>

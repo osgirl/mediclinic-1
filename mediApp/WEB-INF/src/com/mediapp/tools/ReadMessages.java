@@ -113,7 +113,7 @@ public class ReadMessages
 			// Create a new AES Key with a known key value. 
 			// Register it in KeyManager in order to keep it active. SMSLib will then automatically
 			// encrypt / decrypt all messages send to / received from this number.
-			this.srv.getKeyManager().registerKey("+306948494037", new AESKey(new SecretKeySpec("0011223344556677".getBytes(), "AES")));
+			this.srv.getKeyManager().registerKey("+919739095643", new AESKey(new SecretKeySpec("0011223344556677".getBytes(), "AES")));
 
 			// Read Messages. The reading is done via the Service object and
 			// affects all Gateway objects defined. This can also be more directed to a specific

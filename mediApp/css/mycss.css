@@ -883,3 +883,30 @@ table.appointment td {
 	-moz-border-radius: 3px 3px 3px 3px;
 	font-size:9px;
 }
+
+.or
+{
+  font-size:1.1em;
+  background-color: #cadef4;
+  padding:.5em 2em 1.5em 2em;
+  font-weight: bold;
+}
+.or img {
+  margin-bottom:1.5em;
+}
+
+.stp {
+  border: 1px solid #93b4d9;
+  background-color: #cadef4;
+}
+.stp.with-icon {
+  text-align:left;
+  padding:20px;
+  font-size:14px;
+  font-weight:bold;
+}
+.stp.with-icon .icon {
+  margin:0 0 0 20px;
+  float:right;
+}
+
