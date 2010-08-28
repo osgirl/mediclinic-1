@@ -16,6 +16,13 @@
 			<ref bean="loginService"/>
 		</property>
     </bean>
+
+    <bean id="signUpValidator" class="com.mediapp.web.validator.common.SignUpValidator">
+        <property name="loginService">
+			<ref bean="loginService"/>
+		</property>
+    </bean>
+
     
     <bean id="personValidator" class="com.mediapp.web.validator.common.PersonValidator">
         <property name="loginService">
@@ -41,6 +48,45 @@
 		</property>
 		
     </bean>
+
+	<bean id="appmentLoginForm" class="com.mediapp.web.controller.common.AppMentLoginController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>person</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="validator"><ref bean="logonValidator"/></property>
+        <property name="formView"><value>appmentLogin</value></property>
+        <property name="successView"><value>personalProfile</value></property>
+        <property name="loginService">
+			<ref bean="loginService"/>
+		</property>
+		<property name="sendeMail">
+			<ref bean="sendeMail"/>
+		</property>
+		<property name="sendSMS">
+			<ref bean="sendSMS"/>
+		</property>
+		
+    </bean>
+
+	<bean id="appmentSignUpForm" class="com.mediapp.web.controller.common.AppMentSignUpController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>person</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="validator"><ref bean="signUpValidator"/></property>
+        <property name="formView"><value>appmentSignUp</value></property>
+        <property name="successView"><value>appmentSignUp</value></property>
+        <property name="loginService">
+			<ref bean="loginService"/>
+		</property>
+		<property name="sendeMail">
+			<ref bean="sendeMail"/>
+		</property>
+		<property name="sendSMS">
+			<ref bean="sendSMS"/>
+		</property>
+		
+    </bean>
+
 
 	<bean id="pastHistory" class="com.mediapp.web.controller.common.PastHistoryController">
         <property name="sessionForm"><value>true</value></property>
@@ -203,8 +249,8 @@
         <property name="sessionForm"><value>true</value></property>
         <property name="commandName"><value>person</value></property>
         <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
-        <property name="formView"><value>logOut</value></property>
-        <property name="successView"><value>logOut</value></property>
+        <property name="formView"><value>welcomePage</value></property>
+        <property name="successView"><value>welcomePage</value></property>
     </bean>
 
 
@@ -271,7 +317,13 @@
     			</entry>
 			     <entry key="rescheduleAppointment.htm">
      				<ref bean="rescheduleAppointment" />
-    			</entry>    			
+    			</entry>
+				<entry key="/appmentLogin.htm">
+					<ref bean="appmentLoginForm"/>
+				</entry>
+				<entry key="/appmentSignUp.htm">
+					<ref bean="appmentSignUpForm"/>
+				</entry>
 			</map>
 		</property>
 		<property name="mappings">

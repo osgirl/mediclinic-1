@@ -74,6 +74,17 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		
 		return countOfeMail.intValue();
 	}
+
+	public int checkIfUserExists(Person person)  throws DataAccessException {
+
+		Map<String,String> criteria =  new HashMap < String, String > () ;
+		criteria.put("UserName", person.getUsername());
+		Integer countOfUser = null;
+		countOfUser = (Integer) getObject("common.checkUserExists",criteria );
+		
+		return countOfUser.intValue();
+	}
+
 	
 	public boolean addNewMember(Person person) throws DataAccessException {
 			person.setPersonTypeString(person.getPersonType().getCodeDecode());
@@ -95,6 +106,10 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 				person.setIdPerson(personNew.getIdPerson());
 			}
 			return insertStatus;
+	}
+
+	public boolean addNewAppMentMember(Person person) throws DataAccessException {
+		return insertObject("common.insertNewAppMentPerson",person );
 	}
 	
 	public int getMaxPersonId() throws DataAccessException {

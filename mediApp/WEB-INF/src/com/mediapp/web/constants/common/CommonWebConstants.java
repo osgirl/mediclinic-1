@@ -22,14 +22,14 @@ public interface CommonWebConstants {
 
 	 // String MENU_TABLE_START_TAG = "  <tr><td><table width=100 align='left'  border='1' class='layout' > ";
 	 
-	 String VERTICAL_MENU_BUTTON_TAG = "<tr><td><input type='button' onClick='javascript:fn_nextURL(";
-	 
+	 //String VERTICAL_MENU_BUTTON_TAG = "<tr><td><input type='button' onClick='javascript:fn_nextURL(";
+	 String VERTICAL_MENU_BUTTON_TAG = "<tr height='90'><td height='90' style='background: url(/images/menubutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:100%;'  align='center'><a href='#' onClick='fn_nextURL(";
 	 String QUOTES ="\""; 
 	 
-	 String VERTICAL_MENU_BUTTON_AFTER_ONCLICK_TAG = " );' alignment='center' value='";
-	 
-	 String VERTICAL_MENU_BUTTON_AFTER_VALUE_TAG = "' class='gsubmit'    /></td></tr> ";
-	 
+	 //String VERTICAL_MENU_BUTTON_AFTER_ONCLICK_TAG = " );' alignment='center' value='";
+	 String VERTICAL_MENU_BUTTON_AFTER_ONCLICK_TAG =");' style='text-decoration:none'><font size='+1' color='blue' >";
+//	 String VERTICAL_MENU_BUTTON_AFTER_VALUE_TAG = "' class='gsubmit'    /></td></tr> ";
+	 String VERTICAL_MENU_BUTTON_AFTER_VALUE_TAG ="</font></a></td></tr><tr><td></td></tr>"; 
 	// String MENU_TABLE_END_TAG = "</table></td></tr>";
 
 	 String PATIENT_DETAILS = "patientDetails";

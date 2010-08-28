@@ -12,6 +12,7 @@ import com.mediapp.core.common.dao.CommonDAO;
 import com.mediapp.core.common.dao.impl.CommonDAOImpl;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.NotificationDetails;
+import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.ScheduleJob;
 
 public class ScheduledJob {
@@ -77,7 +78,9 @@ public class ScheduledJob {
 		        if ("Email".equals(eachJob.getActionToPerform()) ){
 		  		  ScheduleEMail sendEmail = new ScheduleEMail( );
 		      	  if(CommonCoreConstants.REG_EMAIL_TYPE.equals(eachJob.getParameters().get("EmailType"))){
-		      		  sendEmail.sendEmailForRegistration(eachJob.getParameters().get("EmailTo"));
+		      		  Person inputPerson = new Person();
+		      		  inputPerson.setUsername(eachJob.getParameters().get("UserName"));		      		  
+		      		  sendEmail.sendEmailForRegistration(commonDAO.getPersonDetails(inputPerson));
 		      	  }else if("newAppointment".equals(eachJob.getParameters().get("EmailType"))){
 		      		  Integer iAppointmentID = new Integer(eachJob.getParameters().get("AppointmentID"));		      		  
 		      		  Appointment appointment = commonDAO.getAppointment(iAppointmentID.intValue());		      		  

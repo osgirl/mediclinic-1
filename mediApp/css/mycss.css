@@ -26,8 +26,7 @@ a:hover {
 	text-align: left;
 }
 #header{
-	height: 6em;
-	background: url(/images/medical.jpg) no-repeat;
+	height: 6em;	
 	background-color:white;
 }
 #name {
@@ -910,3 +909,62 @@ table.appointment td {
   float:right;
 }
 
+table.sample {
+	border-width: 1px 1px 1px 1px;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: green green green green;
+	border-collapse: separate;
+	background-color: #cadef4;
+}
+table.sample th {
+	border-width: 0px 0px 0px 0px;
+	padding: 1px 1px 1px 1px;
+	border-style: groove groove groove groove;
+	border-color: black black black black;
+	background-color: #cadef4;
+	-moz-border-radius: 12px 12px 12px 12px;
+}
+table.sample td {
+	border-width: 0px 0px 0px 0px;
+	padding: 1px 1px 1px 1px;
+	border-style: groove groove groove groove;
+	border-color: black black black black;
+	background-color: #cadef4;
+	-moz-border-radius: 12px 12px 12px 12px;
+}
+
+/* place button img tags in an element using this class */
+
+.buttonimagecontainer {
+    position:relative;
+    z-index:1;
+}
+
+/* place button text in an element using this class */
+
+.buttontext {
+    position:relative;        /* don't change this */
+    z-index:2;                /* don't change this */
+    top:-20;                  /* adjust to align text vertically over the image */
+    height:0;                 /* adjust to control the bottom edge of the hover area */
+    font-family:Arial;        /* from here down, adjust per your design */
+    color:#000000;
+    font-size:14px;
+    font-weight:bold;
+    text-align:center;
+}
+ 
+/* use these to ensure text on buttons doesn't inherit the attributes of normal anchor tags */
+a.anchortext:link {
+    text-decoration:none;
+}
+a.anchortext:visited {
+    text-decoration:none;
+}
+a.anchortext:hover {
+    text-decoration:none;
+}
+a.anchortext:active {
+    text-decoration:none;
+}

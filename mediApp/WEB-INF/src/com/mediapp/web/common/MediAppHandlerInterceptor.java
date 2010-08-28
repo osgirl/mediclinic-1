@@ -41,8 +41,10 @@ public class MediAppHandlerInterceptor extends HandlerInterceptorAdapter {
 		MDC.put("remoteAddress", remoteAddress);
 			if(request.getSession()!=null &&  request.getSession().getAttribute(CommonWebConstants.USER_ID)!=null){
 				Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
+				if(null != sessionPerson.getUsername()){
+					MDC.put("userName", sessionPerson.getUsername());	
+				}
 				
-				MDC.put("userName", sessionPerson.getUsername());
 			}
 		if (!isAuthenticated(request)) {
 			throw new MediAppBaseException("user.not.authenticated");
@@ -54,7 +56,7 @@ public class MediAppHandlerInterceptor extends HandlerInterceptorAdapter {
 		String requestURI = "";
 		requestURI = request.getRequestURI();
 		boolean result = true;
-		if (!requestURI.equals(CommonWebConstants.LOGIN_URL) && !requestURI.equals(CommonWebConstants.WELCOMEPAGE_URL  )) {
+		if (!requestURI.equals(CommonWebConstants.LOGIN_URL) && !requestURI.equals(CommonWebConstants.WELCOMEPAGE_URL  ) && !requestURI.equals("/appmentLogin.htm") && !requestURI.equals("/appmentSignUp.htm")) {
 			result = CommonWebUtil.getUser(request).isAuthenticated();
 		}
 		logger.info("requestURI = " + requestURI + " result = " + result);

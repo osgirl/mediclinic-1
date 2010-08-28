@@ -8,6 +8,9 @@
       <div id="entries">
        <div class="entryAlone">
         <form name="personalProfile" id="personalProfile" method="post" >
+			<div class="stp" style="margin-bottom:1.5em;">
+				<div class="or" style="margin:1em; padding:0;" >
+        
         <spring:hasBindErrors name="command">
          <c:if test="${not empty errors.globalErrors}">
           <div align="center" id="redmsg">
@@ -27,17 +30,17 @@
          <table width=900  border="1" class="layout"  > 
           <tr>
            <td> 
-            <table width=100 align="left"  border="1" class="layout" >
-                        <menu:verticalMenuItemTag></menu:verticalMenuItemTag>                          
+            <table width=200 align="left"   class="sample" > 
+                   <menu:verticalMenuItemTag></menu:verticalMenuItemTag>
             </table>
 
             <div id="Personal Details"  style="display:block" align="center">
-            <table  border=""  class="login" width=670 cellpadding="200">
+            <table  border=""  class="sample" width=670 cellpadding="200">
              <tr bgcolor="lightblue" >
               Personal Details
              </tr>
             
-             <tr>
+             <tr >
               <td >First Name: <font color="red">*</font></td> 
               <td >
                <spring:bind path="person.firstName">                               
@@ -309,17 +312,23 @@
         </table>
       </div>
     </c:if>
-             <tr>
-              <td align="center" colspan="2">
-               <input  type="button" onClick="javascript:saveProfile();"  alignment="center" value="Save" class="bsubmit"  width="75"/>
-              </td>
-             </tr>
-            </table>
+				<table border="0" cellpadding="0" cellspacing="0" width="800" height="30" >       
+					<tr>     
+						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:100%;"  align="center">  
+				  			<a href="#" onClick="javascript:saveProfile();" style="text-decoration:none"> 
+				  				<font size="+1" color="yellow" >Save</font> 
+				  			</a>
+				  		</td>
+					</tr>
+				</table> 										
+             </table>
             </div>
            </td>
                       
           </tr> 
          </table>
+         </div>
+         </div>
         </form>
        </div>
       </div>

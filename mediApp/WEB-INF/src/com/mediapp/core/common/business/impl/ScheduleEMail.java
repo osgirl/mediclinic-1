@@ -19,6 +19,7 @@ import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.HolidayCalendarList;
 import com.mediapp.domain.common.NotificationDetails;
+import com.mediapp.domain.common.Person;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -47,17 +48,17 @@ public class ScheduleEMail {
 	     * @param   msg                 The e-mail message to be sent, except for the body.
 	     * @param   hTemplateVariables  Variables to use when processing the template. 
 	     */
-	    public  void sendEmailForRegistration(final String emailTo) {
+	    public  void sendEmailForRegistration(final Person person ) {
 	        MimeMessagePreparator preparator = new MimeMessagePreparator() {	        	
 	            public void prepare(MimeMessage mimeMessage) throws MessagingException {	            	
 	            	Map model = new HashMap();
 	            	model.put("email.sender", "mediApp");
-	            	model.put("email.user", emailTo);
-	            	model.put("username", emailTo);
-	            	model.put("password", "mediApp");
+	            	model.put("email.user", person.getEmailID());
+	            	model.put("username", person.getUsername());
+	            	model.put("password", person.getPassword());
 	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-	               message.setTo(emailTo);
-	                   message.setSubject("Welcome to MediApp");
+	               message.setTo(person.getEmailID());
+	                   message.setSubject("Thank you for joining us!");
 		               String body = null;
 		               if(velocityEngine==null){		            	   
 		            	   VelocityEngine velocityEngine = new VelocityEngine();
@@ -87,8 +88,7 @@ public class ScheduleEMail {
 	        		properties.setProperty("mail.smtps.starttls.enable", "true");
 	        		properties.setProperty("mail.smtps.debug", "true");
 	        		mailSender.setJavaMailProperties(properties);
-	        		mailSender.send(preparator);
-	        		System.out.println("Emailed "+emailTo  );
+	        		mailSender.send(preparator);	        		
 	        	}else{
 	        		mailSender.send(preparator);
 	        	}
@@ -295,13 +295,11 @@ public class ScheduleEMail {
 		}
 	    
 	    @SuppressWarnings("unchecked")
-		public boolean scheduleRegistration( String emailTo, String emailType,  int personID) {
+		public boolean scheduleRegistration( String emailTo, String emailType,  String userName) {
 	    	Map<String,String> criteria =  new HashMap < String, String > () ;
 	    	criteria.put("EmailTo", emailTo);
 	    	criteria.put("EmailType", emailType);
-	    	Integer iPersonID = new Integer(personID);
-	    	String sPersonID = iPersonID.toString();
-	    	criteria.put("PersonID", sPersonID);
+	    	criteria.put("UserName", userName);
 	    	boolean status = commonDAO.scheduleJob("Email", criteria, "Emailing");
 	    	return status;
 	    }

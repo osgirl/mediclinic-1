@@ -31,18 +31,18 @@
 	 	<result property="address.city" column="city" />
 	 	<result property="address.state" column="state" />
 	 	<result property="address.country" column="country"/>
+	 	<result property="username" column="user_name"/>
 	 </resultMap>
 
 	<select id="authenticateUser" parameterMap="Person-Details-Map" resultMap="Person-Details-Result-Map">
             SELECT person.idPerson,first_name,last_name,middle_name,
            date_of_birth, Gender, landline_phone_number, mobile_phone_number,
            email_address, status_of_account, person_type, AES_DECRYPT(password,?) as ePassword,
-           address1, address2, locality, city, state, country
+           address1, address2, locality, city, state, country,user_name
            FROM person left join address on address.personID = person.idPerson
            where 
-		   email_address = ? ;		   
+		   user_name = ? ;		   
  	</select>
-
 
 	 <parameterMap id="Person-Type-Map"   class="java.util.HashMap">
 	    <parameter property="Category"    		javaType="java.lang.String"    mode="IN"/>
@@ -62,16 +62,31 @@
            SELECT count(email_Address) FROM person where email_Address = ?
  	</select>
 
+	 <parameterMap id="User-Exists-Map"   class="java.util.HashMap">
+	    <parameter property="UserName"    		javaType="java.lang.String"    mode="IN"/>
+	 </parameterMap>
+
+
+	<select id="checkUserExists" parameterMap="User-Exists-Map" resultClass="java.lang.Integer">
+           SELECT count(user_name) FROM person where user_name = ?
+ 	</select>
+
 
 	<insert id="insertNewPerson">
-		INSERT INTO person (idPerson, email_Address,status_of_account,person_type,password,mobile_phone_number ) 
-		VALUES (#idPerson#, #emailID#,'T',#personTypeString#,AES_ENCRYPT(#password#,#key#),#cellPhoneNumber# )
+		INSERT INTO person (idPerson, email_Address,status_of_account,person_type,password,mobile_phone_number,user_name ) 
+		VALUES (#idPerson#, #emailID#,'T',#personTypeString#,AES_ENCRYPT(#password#,#key#),#cellPhoneNumber#,#username# )
 	</insert>
+
+	<insert id="insertNewAppMentPerson">
+		INSERT INTO person (idPerson, email_Address,status_of_account,person_type,password,mobile_phone_number,user_name ) 
+		VALUES (nextval('s_person_id'), #emailID#,'T','AppMent',AES_ENCRYPT(#password#,#key#),#cellPhoneNumber#,#username# )
+	</insert>
+
 	
 	<update id="updateProfile" >
 		UPDATE person set first_name=#firstName#,last_name=#lastName#,middle_name=#middleInitial#,
 		date_of_birth=date_format(#dateOfBirth#, '%y-%m-%d'),gender=#gender#,landline_phone_number=#landlinePhoneNumber#,mobile_phone_number=#cellPhoneNumber#
-		where email_address=#username#
+		where user_name=#username#
 		and person_type=#personTypeString#	
 	</update>
 	

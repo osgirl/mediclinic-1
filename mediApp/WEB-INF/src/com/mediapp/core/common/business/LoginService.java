@@ -24,10 +24,14 @@ public interface LoginService {
 	public List <CodeDecode> getPersonType() ;
 	
 	public boolean addNewMember(Person person);
+	
+	public boolean addNewAppMentMember(Person person);
 
 	public boolean updateProfile(Person person);
 	
 	public List<String> checkIfeMailExists(Person person);
+	
+	public List<String> checkIfUserExists(Person person);
 
 	public List <CodeDecode> getSpecialities() ;
 

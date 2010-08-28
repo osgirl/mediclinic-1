@@ -22,6 +22,10 @@
 	<script type="text/javascript">
 	</script>
 		<form name="updateAppointment" id="updateAppointment" method="post" >
+			<div class="stp" style="margin-bottom:1.5em;">
+				<div class="or" style="margin:1em; padding:0;" >
+								
+		
 					<%Person p = (Person)request.getSession().getAttribute("person");
 							pageContext.setAttribute("PersonID",p.getIdPerson()); 
 							pageContext.setAttribute("PersonType",p.getPersonTypeString());%>
@@ -265,6 +269,8 @@
 						</td>
 					</tr>
 				</table>
+			</div>
+			</div>
 			</div>
 		</form>
 	</body>

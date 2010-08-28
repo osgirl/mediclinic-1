@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.dao.DataAccessException;
 
 import com.mediapp.core.common.business.LoginService;
 import com.mediapp.core.common.constants.CommonCoreConstants;
@@ -22,31 +23,29 @@ public class LoginServiceImpl implements LoginService {
 	private CommonDAO commonDAO;
 
 	public Person authenticate(Person person) {		
-		if (person.getEmailID() == ""){
-			Person dbDetails = commonDAO.getPersonDetails(person);
-			if (dbDetails !=null){
-				if(dbDetails.getPassword().equals(person.getPassword())) {
-					dbDetails.setAuthenticated(true);
-					person.setAuthenticated(true);	
-					person.setEmailID(dbDetails.getEmailID());
-					person.setUsername(dbDetails.getEmailID());
-					person.setPersonTypeString(dbDetails.getPersonTypeString());
-					person.setIdPerson(dbDetails.getIdPerson());
-					person.setLastName(dbDetails.getLastName());
-				} else {
-					//dbDetails = person;
-					dbDetails.setAuthenticated(false);	
-				}
-			}else{
-				dbDetails = new Person();
-				dbDetails.setAuthenticated(false);
+		Person dbDetails = commonDAO.getPersonDetails(person);
+		if (dbDetails !=null){
+			if(dbDetails.getPassword().equals(person.getPassword())) {
+				dbDetails.setAuthenticated(true);
+				person.setAuthenticated(true);	
+				person.setEmailID(dbDetails.getEmailID());
+				person.setUsername(dbDetails.getUsername());
+				person.setPersonTypeString(dbDetails.getPersonTypeString());
+				person.setIdPerson(dbDetails.getIdPerson());
+				person.setFirstName(dbDetails.getFirstName());
+				person.setLastName(dbDetails.getLastName());
+			} else {
+				//dbDetails = person;
+				dbDetails.setAuthenticated(false);	
 			}
-			if (logger.isInfoEnabled()) {
-				logger.info("isAuthenticated : User " + person.getUsername() + " is " + person.isAuthenticated());
-			}
-			return dbDetails;
+		}else{
+			dbDetails = new Person();
+			dbDetails.setAuthenticated(false);
 		}
-		return person;
+		if (logger.isInfoEnabled()) {
+			logger.info("isAuthenticated : User " + person.getUsername() + " is " + person.isAuthenticated());
+		}
+		return dbDetails;
 	}
 
 	/**
@@ -63,7 +62,11 @@ public class LoginServiceImpl implements LoginService {
 	public boolean addNewMember(Person person) {		
 		return commonDAO.addNewMember(person);
 	}
+	public boolean addNewAppMentMember(Person person) {		
+		return commonDAO.addNewAppMentMember(person);
+	}
 
+	
 	public boolean updateProfile(Person person) {	
 		boolean updateSuccess = false;
 		boolean successFlag = commonDAO.updateProfile(person);
@@ -95,6 +98,17 @@ public class LoginServiceImpl implements LoginService {
 
 		}
 		return errorList;
+	}
+	
+	public List<String> checkIfUserExists(Person person){
+		int countOfEmails = commonDAO.checkIfUserExists(person);
+		List<String> errorList = new ArrayList<String>();		
+		if(countOfEmails > 0){
+			errorList.add("error.account.exists");
+
+		}
+		return errorList;
+		
 	}
 	
 	public List <CodeDecode> getSpecialities() {

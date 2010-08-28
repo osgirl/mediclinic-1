@@ -9,10 +9,13 @@
 						<div id="entries">
 							<div class="entryAlone">
 								<form name="takeAppointment" id="takeAppointment" method="get" >
-									<table width=900  border="1" class="layout"  >	
+									<div class="stp" style="margin-bottom:1.5em;">
+										<div class="or" style="margin:1em; padding:0;" >
+								
+									<table width=900  border="1" class="layout"  > 	
 										<tr>
 											<td>	
-												<table width=100 align="left"  border="1" class="layout" >	
+												<table width=200 align="left"   class="sample" > 	
 													<menu:verticalMenuItemTag></menu:verticalMenuItemTag>
 												</table>
 											<div id="dayAppointments"  style="display:block" align="center">
@@ -165,6 +168,9 @@
 													</td>
 												</tr>
 											</table>
+											</div>
+											</div>
+											
 										</form>
 									</div>
 								</div>

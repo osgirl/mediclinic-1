@@ -6,7 +6,7 @@
       <div id="entries">
        <div class="entryAlone">
         <form name="logOut" id="logOut" method="post" >
-         <h4> You have successfully logged out</h4> <br>
+         <h4> You have successfully logged out. </h4> <br>         
          <a href = "logon.htm"> Login </a><br>
         </form>
  

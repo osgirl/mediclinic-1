@@ -7,14 +7,18 @@
       <div id="entries">
        <div class="entryAlone">
         <form name="holidayCalendar" id="holidayCalendar" method="post" >
-         <table width=900  border="1" class="layout"  > 
+        	<div class="stp" style="margin-bottom:1.5em;">
+				<div class="or" style="margin:1em; padding:0;" >
+								
+        
+         <table width=900  border="1" class="sample"  > 
           <tr>
            <td> 
-            <table width=100 align="left"  border="1" class="layout" > 
-           <menu:verticalMenuItemTag></menu:verticalMenuItemTag> 
+            <table width=200 align="left"   class="sample" >  
+           <menu:verticalMenuItemTag></menu:verticalMenuItemTag>  
             </table>
             <div id="History"  style="display:block" align="center">
-             <table  border=""  class="login" id="tblHoliday" width=800 cellpadding="200" id="tblSample">
+             <table  border=""  class="sample" id="tblHoliday" width=680 cellpadding="200" id="tblSample"> 
               <tr bgcolor="lightblue" >
                Add Holidays
               </tr>
@@ -64,13 +68,32 @@
             
 	            <input type="hidden" value="1" id="counter"/>
 	            <input type="hidden" value="N" id="AddOperation" name="AddOperation"/>
-	            <input type="button" onclick="addRowToCalendar();"  value="Add Row"  alignment="center"  class="bsubmit" id="beforeThis"/>
-	            <input type="button" onclick="deleteRow('tblHoliday',this.form);"  value="Remove Row"  alignment="center"  class="bsubmit" id="remove"/>               
-	            <input type="button"  onClick="javascript:fn_updateHolidayCalendar();" alignment="center" value="Save" class="bsubmit"  width="75"/>
+				<table border="0" cellpadding="0" cellspacing="0" width="400" height="30" >         
+					<tr >     
+						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%"  align="center">  
+				  			<a href="#" onClick="javascript:addRowToCalendar();" style="text-decoration:none"> 
+				  				<font size="+1" color="yellow" >Add Row</font> 
+				  			</a>
+				  		</td>
+				  		<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%" align="center">  
+				  			<a href="#" onClick="javascript:deleteRow('tblHoliday',this.form);" style="text-decoration:none"> 
+				  				<font size="+1" color="yellow" >Delete Row</font>
+				  			</a>
+				  		</td>
+				  		<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%" align="center">  
+				  			<a href="#" onClick="javascript:fn_updateHolidayCalendar();" style="text-decoration:none"> 
+				  				<font size="+1" color="yellow" >Save</font> 
+				  			</a>
+				  		</td>
+				  		
+					</tr>
+				</table> 										
             </td>
            </tr>
           
           </table>
+          </div></div>
+          
         </form>
  
        </div>

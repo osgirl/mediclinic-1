@@ -16,34 +16,61 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/mediapp.js"></script>    
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar_us.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/password.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/calendar.css">
 
 </head>
 <body>
 	<div id="main">
-		<div id="header">
+		<%Person p = (Person)request.getSession().getAttribute("person"); %>
+			<%if (p.getPersonTypeString() != null && !p.getPersonTypeString().equals("AppMent")) {%> 
+	
+		<div id="header" style="background: url(/images/medical.jpg) no-repeat;">
 			<div id="name">
 				<h3> MediApp
 				</h3>
 				<h4> Easy way to get medical attention!
 				</h4>
+	
 			</div>
 			<div id="controls">
 					<form id="searchform" action="<%=request.getContextPath()%>" method="post">
-				        <%Person p = (Person)request.getSession().getAttribute("person");
+				        <%
 				        	if (p != null) {%>
 						        <a href="logOut.htm" >Logout</a>
 				        <%} %>
 					</form>
 			</div>
 		</div>
+		<%}else{ %>
+		<div id="header" style="background: url(/images/shake-hand.jpg) no-repeat;overflow: hidden;">
+			<div id="name">
+				<h3> AppMent
+				</h3>
+				<h4> Easy way to get organized!
+				</h4>
+	
+			</div>
+			<div id="controls">
+					<form id="searchform" action="<%=request.getContextPath()%>" method="post">
+				        <%
+				        	if (p != null) {%>
+						        <a href="logOut.htm" >Logout</a>
+				        <%} %>
+					</form>
+			</div>
+		</div>
+		
+		<%} %>	
 <div >
 							
-								<div align="right">																
+								<div align="right">							 									
 								<%
-									if (p != null){
-										out.print("Welcome " + p.getUsername());
+									if (p != null && p.getFirstName()==null){
+										out.print("Welcome " + p.getUsername() );
+									}else if(p != null && p.getFirstName()!=null){
+										out.print("Welcome " + p.getFirstName() );
 									}
 								%>
 								

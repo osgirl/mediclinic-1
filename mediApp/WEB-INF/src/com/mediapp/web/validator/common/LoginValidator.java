@@ -36,45 +36,27 @@ public class LoginValidator implements Validator {
 			"Value required.");
 			
 		} else {
-			if (person.getEmailID()==""){
-				logger.info("Validating user credentials for: "
+			logger.info("Validating user credentials for: "
+				+ person.getUsername());
+			if (person.getUsername() == null || person.getUsername().trim().length() == 0) {
+				logger.info(" 1 Validating user credentials for: "
 					+ person.getUsername());
-				if (person.getUsername() == null || person.getUsername().trim().length() == 0) {
-					logger.info(" 1 Validating user credentials for: "
-						+ person.getUsername());
-					errors.rejectValue("username", "error.login.invalid-user",
-						null, "Incorrect Username.");
-				} if (person.getPassword() == null || person.getPassword().trim().length() == 0) {
-					logger.info(" 3 Validating user credentials for: "
-						+ person.getUsername());
-					errors.rejectValue("password", "error.login.invalid-pass",
-						null, "Incorrect Password.");
-				}else{
-					Person dbPerson = loginService.authenticate(person);
-					if (logger.isInfoEnabled()) {
-						logger.info("Authentication status : " + dbPerson.isAuthenticated());
-					}
-
-					if (!dbPerson.isAuthenticated()) {						
-						errors.rejectValue("username", "error.login.invalid",
-								null, "Login failed.");
-					}
-				}
+				errors.rejectValue("username", "error.login.invalid-user",
+					null, "Incorrect Username.");
+			} if (person.getPassword() == null || person.getPassword().trim().length() == 0) {
+				logger.info(" 3 Validating user credentials for: "
+					+ person.getUsername());
+				errors.rejectValue("password", "error.login.invalid-pass",
+					null, "Incorrect Password.");
 			}else{
-				EmailValidator emailValidate = EmailValidator.getInstance();
-				boolean isValid = emailValidate.isValid(person.getEmailID());
-				if (!isValid){
-					errors.rejectValue("emailID", "error.login.invalid.email",
-							null, "Invalid EmailID.");
-					
+				Person dbPerson = loginService.authenticate(person);
+				if (logger.isInfoEnabled()) {
+					logger.info("Authentication status : " + dbPerson.isAuthenticated());
 				}
-				if(!errors.hasErrors()){
-					List<String> errorList = new ArrayList<String>();
-					errorList = loginService.checkIfeMailExists(person);
-					if(errorList.size()>0){
-						errors.rejectValue("emailID", errorList.get(0),
-								null, "Already Exists.");
-					}
+
+				if (!dbPerson.isAuthenticated()) {						
+					errors.rejectValue("username", "error.login.invalid",
+							null, "Login failed.");
 				}
 			}
 		}		

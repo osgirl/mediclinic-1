@@ -8,13 +8,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@page import="com.mediapp.domain.common.Person"%><html>
-<head>
+<head> 
     <title>AppMent</title>    
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/shakehand.ico" type="image/x-icon" />
     <link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
     <link href="<%=request.getContextPath()%>/css/autocomplete.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/mediapp.js"></script>    
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar_us.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/password.js"></script>	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/calendar.css">
@@ -34,6 +35,7 @@
 				        <%Person p = (Person)request.getSession().getAttribute("person");
 				        	if (p != null) {%>
 						        <a href="logOut.htm" >Logout</a>
+						        
 				        <%} %>
 					</form>
 			</div>

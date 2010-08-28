@@ -4,7 +4,7 @@
 			</div>
 		</div>
 		<div id="footer">
-			<p id="copyright">© MediApp</p>
+			<p id="copyright"></p>
 			<p id="info">
 				Beta 1.0
 			</p>

@@ -13,6 +13,22 @@ function show(menu) {
 	menuStyle.display="block";
 }
 */
+
+function fn_signUp(){
+	var e = document.forms["appmentSignUp"].elements;
+	if(e['password'].value != e['repassword'].value){
+		alert("Passwords entered in the two fields are not same. Please enter it again.");
+		e['repassword'].value = "";
+		e['password'].value ="";
+		
+	}else{
+		document.forms["appmentSignUp"].submit();
+	}
+}
+
+function fn_login(){
+	document.forms["appMentlogin"].submit();
+}
 function fn_showType(){
 	var menuStyle=document.getElementById("TypeForm").style; 
 	menuStyle.display="block";
@@ -727,7 +743,7 @@ function check_date(field){
 	   }
 	   /* if no error, write the completed date to Input-Field (e.g. 13.12.2001) */
 	   if (err == 0) {
-	      DateField.value = day + seperator + month + seperator + year;
+	      DateField.value = month + seperator + day + seperator + year;
 	   }
 	   /* Error-message if err != 0 */
 	   else {
