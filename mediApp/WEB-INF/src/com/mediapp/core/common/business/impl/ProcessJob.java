@@ -17,7 +17,7 @@ public class ProcessJob implements Runnable {
       if ("Email".equals(eachJob.getActionToPerform()) ){
 		  ScheduleEMail sendEmail = new ScheduleEMail( );
     	  if(CommonCoreConstants.REG_EMAIL_TYPE.equals(eachJob.getParameters().get("EmailType"))){
-    		  sendEmail.sendEmailForRegistration(eachJob.getParameters().get("EmailTo"));
+    		 // sendEmail.sendEmailForRegistration(eachJob.getParameters().get("EmailTo"));
     	  }
 		  CommonDAO dao = new CommonDAOImpl();
 		  boolean status =dao.updateJobCompletionStatus(eachJob);

@@ -12,7 +12,7 @@ import org.springframework.aop.ThrowsAdvice;
 /**
  * Spring AOP Interceptor that will be used for generic exception handling
  * in the 'Business Service' layer of the application.
- * @author A461353
+ * 
  *
  */
 public class MediAppExceptionInterceptor implements ThrowsAdvice {

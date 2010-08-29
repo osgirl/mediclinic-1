@@ -44,6 +44,9 @@ public class SearchDoctorController  extends MediAppBaseController  {
 		searchResult.add(new SearchResult());
 		doctorSearch.setSearchResult(searchResult);
 		logonMap.put(CommonWebConstants.DOCTOR_SEARCH, doctorSearch);
+		List <CodeDecode> personType = commonService.getCodeValue("PERSONTYPE");
+		logonMap.put("personType", personType);		
+
 		return logonMap;
 	}
 	

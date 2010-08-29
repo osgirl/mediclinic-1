@@ -19,7 +19,36 @@ public class SearchCriteria  extends MediAppBaseDomain{
 	
 	private String locality;
 
+	private String city;
 	
+	private String username;
+	
+	private String personType;
+	
+	public String getPersonType() {
+		return personType;
+	}
+
+	public void setPersonType(String personType) {
+		this.personType = personType;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getSpeciality() {
 		return speciality;
 	}

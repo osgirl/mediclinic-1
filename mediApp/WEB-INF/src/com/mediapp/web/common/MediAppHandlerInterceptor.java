@@ -19,7 +19,7 @@ import com.mediapp.web.util.common.CommonWebUtil;
 
 /**
  * This interceptor intercepts all the application requests 
- * @author a461353
+ * 
  * 
  */
 public class MediAppHandlerInterceptor extends HandlerInterceptorAdapter {
