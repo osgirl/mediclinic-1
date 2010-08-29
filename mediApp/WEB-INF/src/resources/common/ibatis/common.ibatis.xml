@@ -156,7 +156,13 @@
 	    <parameter property="MiddleInitial"		javaType="java.lang.String"    mode="IN"/>	
 	    <parameter property="Speciality"		javaType="java.lang.String"    mode="IN"/>
 	    <parameter property="Speciality"		javaType="java.lang.String"    mode="IN"/>
-	    <parameter property="HolidayDate"		javaType="java.util.Date"    mode="IN"/>
+	    <parameter property="HolidayDate"		javaType="java.util.Date"      mode="IN"/>
+	    <parameter property="City"				javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="City"				javaType="java.lang.String"    mode="IN"/>	    
+	    <parameter property="PersonType"		javaType="java.lang.String"    mode="IN"/>	    
+	    <parameter property="PersonType"		javaType="java.lang.String"    mode="IN"/>	    
+	    <parameter property="Username"			javaType="java.lang.String"    mode="IN"/>	    
+	    <parameter property="Username"			javaType="java.lang.String"    mode="IN"/>	    
 	</parameterMap>
 
 	<select id="searchDoctor" parameterMap="Search-Input-Map" resultMap="Search-Result-Map">
@@ -183,10 +189,13 @@
     		and (upper(first_name) = trim(upper(?)) or ifnull(?,'')='')
     		and (upper(last_name) = trim(upper(?)) or ifnull(?,'')='')
     		and (upper(middle_name) = trim(upper(?)) or ifnull(?,'')='')        
-            and person_type = 'Doctor' 	
             and (upper(specialization) = trim(upper(?)) or ifnull(?,'')='')
             and (date_format(?,'%Y-%m-%d') not in
             (select date_of_holiday from holiday_calendar where dd.idDoctor_details = idDoctor))
+			and (upper(city) =trim(upper(?)) or ifnull(?,'')='')
+			and (upper(person_type) = trim(upper(?)) or ifnull(?,'')='')        
+			and (upper(user_name) =trim(upper(?)) or ifnull(?,'')='')
+
       </select>
 
  	<resultMap class="com.mediapp.domain.common.Appointment" id="Day-Appointment-Result-Map">

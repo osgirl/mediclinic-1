@@ -161,6 +161,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		criteria.put("MiddleInitial", searchCriteria.getDoctorMiddleInitial());
 		criteria.put("Speciality", searchCriteria.getSpeciality());
 		criteria.put("Locality", searchCriteria.getLocality());		
+		criteria.put("City", searchCriteria.getCity());
+		criteria.put("PersonType", searchCriteria.getPersonType());
+		criteria.put("Username", searchCriteria.getUsername());
 		criteria.put("HolidayDate", searchCriteria.getDateOfAppointment());
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(searchCriteria.getDateOfAppointment());
