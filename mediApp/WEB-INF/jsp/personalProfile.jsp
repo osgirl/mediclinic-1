@@ -26,8 +26,8 @@
         <c:set var="PersonID" value=""/>
         <%  pageContext.setAttribute("PersonType",p.getPersonTypeString());
         pageContext.setAttribute("PersonID",p.getIdPerson()); 
-        %>       
-         <table width=900  border="1" class="layout"  > 
+        %>        
+         <table width=920  border="1" class="layout"  > 
           <tr>
            <td> 
             <table width=200 align="left"   class="sample" style="border-width: 0px 0px 0px 0px;"> 
@@ -35,11 +35,11 @@
             </table>
 
             <div id="Personal Details"  style="display:block" align="center">
-            <table  border=""  class="sample" width=670 cellpadding="200">
+            <table  border=""  class="sample" width=700 cellpadding="200">
              <tr bgcolor="lightblue" >
               Personal Details
              </tr>
-            
+             
              <tr >
               <td >First Name: <font color="red">*</font></td> 
               <td >
@@ -185,15 +185,40 @@
               </spring:bind>  
               </td>
              </tr>
-           </div>
+
+             <tr>
+              <td >Email Address: <font color="red">*</font></td>
+              <td >
+              <spring:bind path="person.emailID">
+               <input type="text" name="${status.expression}" id="${status.expression}"  value="${person.emailID}" />
+              </spring:bind>  
+              </td>
+             </tr>
+             
+             <tr>
+              <td >Profession: <font color="red">*</font></td>
+              <td >
+				<spring:bind path="person.personTypeString">				
+					<select id="${status.expression}" name="${status.expression}" style="WIDTH: 150px">
+						<c:forEach items="${personType}" var="data">
+							<option value='${data.codeDecode}' ${person.personTypeString==data.codeDecode ?"selected=\"selected\"":"" }>${data.codeDecode}</option>
+						</c:forEach>
+					</select>
+				 </spring:bind>  
+              </td>
+             </tr>
+			<tr>
+				<td>
+				</td>
+				<td><font size="1" color="black" >We would like to know little more about you.</font>
+				</td>
+			</tr>
+            
+          
            	<input type="hidden" value="1" id="counter"/>               
            
-           <c:if test="${'Doctor' == person.personTypeString}">
-           <div id="Personal Details"  style="display:block" align="right">
-            <table  border=""  class="login" width=670 cellpadding="100" align="right">
-             <tr bgcolor="lightblue" >
-              Other Details
-             </tr>
+             <c:if test="${'Doctor' == person.personTypeString}">
+             
              <tr>
                <td>Registration Number:<font color="red">*</font></td>
                <td>
@@ -216,14 +241,27 @@
                 </script>
                </td>
               </tr>
+             </c:if>
+             	<tr>
+				<td>
+				</td>
+				<td>
+				</td>
+			</tr>
              
+            <tr>
+				<td>
+				</td>
+				<td><font size="2" color="black" >Please provide your working hours here. This would help other AppMates to locate you and take appointments with you.</font>
+				</td>
+			</tr>
             
               <tr>
                <td>Availability:<font color="red">*</font></td>
                <td>
                <table border="0" width="">
 	                <tr>
-		                <td>
+		                <td width="40">
 			                <div style="overflow:auto;width:150px;height:150px;border:1px solid #336699;padding-left:5px;background-color:white;">
 			                 <input type="checkbox" name="sundayWorking" id="sundayWorking" value="Y" >Sunday</input><br>
 			                 <input type="checkbox" name="mondayWorking" id="mondayWorking" value="Y" >Monday</input><br>
@@ -234,20 +272,23 @@
 			                 <input type="checkbox" name="saturdayWorking" id="saturdayWorking" value="Y" >Saturday</input><br>
 			                </div>
 		                </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		                <td>Start Time:<font color="red" >*</font></td>
+		                <td width="30">Start Time:<font color="red" >*</font></td>
 		                <td>
 			                <input type="text" name="startTime" id="startTime"  style="WIDTH: 80px"/>  
 	        	        </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;               
-	                	<td>End Time:<font color="red" >*</font></td>
+	                	<td abbr="30">End Time:<font color="red" >*</font></td>
 	                	<td>
 	    	            	<input type="text" name="endTime" id="endTime"  style="WIDTH: 80px" />  
 	                	</td>                
 	                </tr>
-	                <tr>
-	                	<td align="center" colspan="2">
-	                  		<input id="addWorkHours" name ="addWorkHours" type="button"  onclick="javascript:fn_addRowForWorkHours();" alignment="center" value="Add" class="bsubmit"  width="75"/>
-	                 	</td>
-	                </tr>
+	                <tr>     
+						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:40;"  align="center">  
+				  			<a href="#" onClick="javascript:fn_addRowForWorkHours();" style="text-decoration:none"> 
+				  				<font size="+1" color="yellow" >Add</font>  
+				  			</a>
+				  		</td>
+					</tr>
+	                
                </table>
                <table border="1" width="600" id="tblWorkHours" style="display:block">
                     <tr>
@@ -308,11 +349,12 @@
 							
                </table>
              </td>
-           </tr>
-        </table>
+           </tr> 
+     
+
       </div>
-    </c:if>
-				<table border="0" cellpadding="0" cellspacing="0" width="800" height="30" >       
+            </div>
+                    <table border="0" cellpadding="0" cellspacing="0" width="800" height="30"  align="bottom">       
 					<tr>     
 						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:100%;"  align="center">  
 				  			<a href="#" onClick="javascript:saveProfile();" style="text-decoration:none"> 
@@ -321,11 +363,13 @@
 				  		</td>
 					</tr>
 				</table> 										
+      
              </table>
-            </div>
+            
            </td>
                       
-          </tr> 
+          </tr>
+           
          </table>
          </div>
          </div>

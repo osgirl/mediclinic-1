@@ -16,10 +16,25 @@
 												<div id="Search"  style="display:block" align="center">
 													<table  border=""  class="sample" width=680 >
 														<tr bgcolor="lightblue">
-															Search Doctor
+															Search AppMate
 														</tr>
 														<tr>
-															<td >Doctor First Name:</td>
+															<td>User Name to Search:</td>
+																<td>
+																	<spring:bind path="doctorSearch.searchCriteria.username">		
+																		<input type="text" name="${status.expression}" id="${status.expression}" value="<c:out value="${status.value}"/>"/>
+																	</spring:bind>		
+															</td>
+														</tr>
+														<tr>
+															<td>
+															</td>
+															<td><font size="1" color="black" >If you use AppMate Username for search, please leave all fields blank except appointment date</font>  
+															</td>
+														</tr>
+														
+														<tr>
+															<td >First Name:</td>
 															
 															<td>
 																<spring:bind path="doctorSearch.searchCriteria.doctorFirstName">
@@ -28,7 +43,7 @@
 															</td>
 														</tr>
 														<tr>
-															<td >Doctor Last Name:</td>
+															<td >Last Name:</td>
 															<td>
 																<spring:bind path="doctorSearch.searchCriteria.doctorLastName">	
 																	<input type="text" name="${status.expression}" value="<c:out value="${status.value}"/>" />
@@ -36,13 +51,14 @@
 															</td>
 														</tr>
 														<tr>
-															<td >Doctor Middle Initial:</td>
+															<td >Middle Initial:</td>
 															<td>
 																<spring:bind path="doctorSearch.searchCriteria.doctorMiddleInitial">
 																	<input type="text" name="${status.expression}" value="<c:out value="${status.value}"/>" />
 																</spring:bind>	
 															</td>
 														</tr>
+														<%if (p != null && p.getPersonTypeString() != null && p.getPersonTypeString().equals("Doctor")) {%>
 														<tr>
 															<td>Speciality:</td>
 																<td>
@@ -54,7 +70,22 @@
 																</script>
 															</td>
 														</tr>
-						
+														<%}else if(p != null && p.getPersonTypeString() != null && !p.getPersonTypeString().equals("Doctor")){ %>
+														<tr>
+															<td>Profession:</td>
+															<td>
+																<spring:bind path="doctorSearch.searchCriteria.personType">				
+																	<select id="${status.expression}" name="${status.expression}" style="WIDTH: 150px">
+																		<c:forEach items="${personType}" var="data">
+																			<option value='${data.codeDecode}' ${doctorSearch.searchCriteria.personType==data.codeDecode ?"selected=\"selected\"":"" }>${data.codeDecode}</option>
+																		</c:forEach>
+																	</select>
+																 </spring:bind>  
+															
+															</td>
+														</tr>
+														 
+														<%} %>
 
 													<tr>
 														<td width="40%">Date: </td>
@@ -90,6 +121,19 @@
 	
 														</td>
 													</tr>
+													<tr>
+														<td >City: </td>
+														<td >
+															<spring:bind path="doctorSearch.searchCriteria.city">	
+																<input type="text" name="${status.expression}" id="${status.expression}" value="<c:out value="${status.value}"/>"/>
+															</spring:bind>		
+															<script type="text/javascript">
+																new Autocomplete('searchCriteria.locality', { serviceUrl:'/appointmentPopUp.htm' },'PERSON_TY');
+															</script>
+	
+														</td>
+													</tr>
+													
 														<tr >     
 															<td>
 															</td>
@@ -174,4 +218,4 @@
 			</div>
 		</div>
 		
-<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+<%@ include file="/WEB-INF/jsp/footer.jsp" %> 

@@ -24,7 +24,7 @@
 <body>
 	<div id="main">
 		<%Person p = (Person)request.getSession().getAttribute("person"); %>
-			<%if (p.getPersonTypeString() != null && !p.getPersonTypeString().equals("AppMent")) {%> 
+			<%if (p != null && p.getPersonTypeString() != null && !p.getPersonTypeString().equals("AppMent")) {%> 
 	
 		<div id="header" style="background: url(/images/medical.jpg) no-repeat;">
 			<div id="name">
@@ -48,7 +48,7 @@
 			<div id="name">
 				<h3> AppMent
 				</h3>
-				<h4> Easy way to get organized!
+				<h4> <font color="grey">Easy way to get organized!</font>
 				</h4>
 	
 			</div>
