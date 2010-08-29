@@ -6,17 +6,18 @@
 						<div id="entries">
 							<div class="entryAlone">
 								<form name="searchDoctor" id="searchDoctor" method="post" >
-									<table width=700  border="1" class="layout"  >	
+									<table width=900  border="1" class="sample"  >	
 										<tr>
 											<td>	
-												<table width=100 align="left"  border="1" class="layout" >	
+												<table width=200 align="left"  border="1" class="sample" style="border-width: 0px 0px 0px 0px;"> 	
 													<menu:verticalMenuItemTag></menu:verticalMenuItemTag>
 												</table>
 
 												<div id="Search"  style="display:block" align="center">
-													<table  border=""  class="login" width=450>
+													<table  border=""  class="sample" width=680 >
 														<tr bgcolor="lightblue">
 															Search Doctor
+														</tr>
 														<tr>
 															<td >Doctor First Name:</td>
 															
@@ -89,22 +90,29 @@
 	
 														</td>
 													</tr>
-													<tr>
-														<td align="center" colspan="2">															
-															<input type="button"  onClick="javascript:fn_searchDoctor();" alignment="center" value="Search" class="bsubmit"  width="75"/>
-														</td>
-													</tr>
+														<tr >     
+															<td>
+															</td>
+															<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:30;width:33%"  align="center">  
+													  			<a href="#" onClick="javascript:fn_searchDoctor();" style="text-decoration:none"> 
+													  				<font size="+1" color="yellow" >Search</font> 
+													  			</a>
+													  		</td>
+														</tr>													  	
 														
 													</table>
 												</div>
 												<spring:bind path="doctorSearch.searchResult">
 													<c:if test='${not empty status.value}'>
-   														<table width=700  border="1" class="layout"  >
+   														<table width=900  border="1" class="layout"   style="border-width: 0px 0px 0px 0px;">
+   																<tr bgcolor="lightblue" align="center">
+																	Search Results
+																</tr>
    															<tr>
    																<td>
    																
 																	<c:forEach var="searchResult" items="${status.value}">
-																	<table width=700  border="1" class="layout"  >
+																	<table width=900  border="1" class="layout"  >
 																		<tr>
 																			<td width="60%">
 																				Name: 	<c:out value="${searchResult.doctorFirstName}"/> 
@@ -147,6 +155,7 @@
 																
 																</td>
 															</tr>
+															
 														</table>
 													</c:if>
 												</spring:bind>

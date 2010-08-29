@@ -30,7 +30,7 @@
          <table width=900  border="1" class="layout"  > 
           <tr>
            <td> 
-            <table width=200 align="left"   class="sample" > 
+            <table width=200 align="left"   class="sample" style="border-width: 0px 0px 0px 0px;"> 
                    <menu:verticalMenuItemTag></menu:verticalMenuItemTag>
             </table>
 

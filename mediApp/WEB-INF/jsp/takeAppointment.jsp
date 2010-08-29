@@ -15,14 +15,14 @@
 									<table width=900  border="1" class="layout"  > 	
 										<tr>
 											<td>	
-												<table width=200 align="left"   class="sample" > 	
+												<table width=200 align="left"   class="sample" style="border-width: 0px 0px 0px 0px;"> 	
 													<menu:verticalMenuItemTag></menu:verticalMenuItemTag>
 												</table>
 											<div id="dayAppointments"  style="display:block" align="center">
 												<table  border=""  class="appointment" width=680>
 													<tr>
 														<td align="center">
-															<table border="0" cellpadding="3" cellspacing="0" width="100%">																	
+															<table border="0" cellpadding="3" class="sample1" cellspacing="0" width="100%">																	
 																	<tr>
 																		<td align="left" width="33%" bgcolor="#eeeeee">
 																			<a href="#" onclick="fn_GetYearView(1);" style="text-decoration:none" >
@@ -75,7 +75,7 @@
 																	</tr>
 															
 															</table>
-															<table border="0" cellpadding="3" cellspacing="0" width="100%">
+															<table border="0" cellpadding="3" class="sample1" cellspacing="0" width="100%">
 																<tbody>
 																	<tr>
 																		<td align="center" bgcolor="#eeeeee" valign="middle" width="14%">
@@ -141,14 +141,14 @@
 																			<c:otherwise>
 																				<c:choose>
 																					<c:when  test='${appointments.appointmentCount > 0}'>
-																						<td align="right" bgcolor="#669933" height="70" valign="top" width="14%">
+																						<td align="right" bgcolor="#E0F8EC" height="70" valign="top" width="14%">
 																					</c:when>
 																					<c:otherwise>
-																					<td align="right" bgcolor="#CCCCFF" height="70" valign="top" width="14%">
+																					<td align="right" bgcolor="#EFF5FB" height="70" valign="top" width="14%">
 																					</c:otherwise>
 																				</c:choose>
 																					<font size="1" face="verdana,arial,helvetica">
-																						<a href="#" onclick="javascript:getAppointment('<c:out value="${personID}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>');">
+																						<a href="#" onclick="javascript:getAppointment('<c:out value="${personID}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>');" style="text-decoration:none">
 																							<b><font color="#000000"><fmt:formatDate pattern="dd" value="${appointments.dateOfAppointment}"/></font></b>
 																						</a>
 																						<c:if  test='${appointments.appointmentCount > 0}'>

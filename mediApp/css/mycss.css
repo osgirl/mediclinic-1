@@ -774,11 +774,11 @@ table.login td {
 	width:200;
 }
 table.layout {
-	border-width: 2px 2px 2px 2px;
+	border-width: 1px 1px 1px 1px;
 	border-spacing: 2px;
 	border-style: outset outset outset outset;
-	border-color: blue blue blue blue;
-	border-collapse: separate;
+	border-color: green green green green;
+	border-collapse: separate; 
 }
 table.layout th {
 	border-width: 1px 1px 1px 1px;
@@ -795,10 +795,10 @@ table.layout td {
 	-moz-border-radius: 3px 3px 3px 3px;
 }
 table.layout {
-	border-width: 2px 2px 2px 2px;
+	border-width: 1px 1px 1px 1px;
 	border-spacing: 2px;
 	border-style: outset outset outset outset;
-	border-color: blue blue blue blue;
+	border-color: green green green green;
 	border-collapse: separate;
 }
 table.layout th {
@@ -839,10 +839,10 @@ input.gsubmit {
 }
 
 table.appointment {
-	border-width: 2px 2px 2px 2px;
+	border-width: 1px 1px 1px 1px;
 	border-spacing: 2px;
 	border-style: outset outset outset outset;
-	border-color: blue blue blue blue;
+	border-color: green green green green;
 	border-collapse: separate;
 	font-size:1px;
 }
@@ -861,10 +861,10 @@ table.appointment td {
 	-moz-border-radius: 3px 3px 3px 3px;
 }
 table.appointment {
-	border-width: 2px 2px 2px 2px;
+	border-width: 1px 1px 1px 1px;
 	border-spacing: 2px;
 	border-style: outset outset outset outset;
-	border-color: blue blue blue blue;
+	border-color: green green green green;
 	border-collapse: separate;
 }
 table.appointment th {
@@ -926,6 +926,31 @@ table.sample th {
 	-moz-border-radius: 12px 12px 12px 12px;
 }
 table.sample td {
+	border-width: 0px 0px 0px 0px;
+	padding: 1px 1px 1px 1px;
+	border-style: groove groove groove groove;
+	border-color: black black black black;
+	background-color: #cadef4;
+	-moz-border-radius: 12px 12px 12px 12px;
+}
+
+table.sample1 {
+	border-width: 1px 1px 1px 1px;
+	border-spacing: 2px;
+	border-color: white white white white;
+	border-collapse: separate;
+	background-color: #cadef4;
+	
+}
+table.sample1 th {
+	border-width: 0px 0px 0px 0px;
+	padding: 1px 1px 1px 1px;
+	border-style: groove groove groove groove;
+	border-color: black black black black;
+	background-color: #cadef4;
+	-moz-border-radius: 12px 12px 12px 12px;
+}
+table.sample1 td {
 	border-width: 0px 0px 0px 0px;
 	padding: 1px 1px 1px 1px;
 	border-style: groove groove groove groove;

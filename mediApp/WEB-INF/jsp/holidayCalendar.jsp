@@ -14,8 +14,8 @@
          <table width=900  border="1" class="sample"  > 
           <tr>
            <td> 
-            <table width=200 align="left"   class="sample" >  
-           <menu:verticalMenuItemTag></menu:verticalMenuItemTag>  
+            <table width=200 align="left"   class="sample" style="border-width: 0px 0px 0px 0px;">  
+	           <menu:verticalMenuItemTag></menu:verticalMenuItemTag>
             </table>
             <div id="History"  style="display:block" align="center">
              <table  border=""  class="sample" id="tblHoliday" width=680 cellpadding="200" id="tblSample"> 
