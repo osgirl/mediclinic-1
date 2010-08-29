@@ -26,6 +26,7 @@ import com.mediapp.core.common.business.CommonService;
 import com.mediapp.core.common.business.LoginService;
 import com.mediapp.core.common.business.impl.ScheduleEMail;
 import com.mediapp.domain.common.Address;
+import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.DoctorWorkTimings;
 import com.mediapp.domain.common.Person;
 import com.mediapp.web.common.CustomTimeEditor;
@@ -57,6 +58,8 @@ public class PersonalProfileController extends MediAppBaseController  {
 		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);		
 		person = commonService.getPersonalProfile(sessionPerson.getIdPerson());
 		logonMap.put("person", person );
+		List <CodeDecode> personType = commonService.getCodeValue("PERSONTYPE");
+		logonMap.put("personType", personType);		
 		return logonMap;
 	}
 	
@@ -72,7 +75,7 @@ public class PersonalProfileController extends MediAppBaseController  {
 		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
 		person.setEmailID(sessionPerson.getEmailID());
 		person.setUsername(sessionPerson.getUsername());
-		person.setPersonTypeString(sessionPerson.getPersonTypeString());
+		//person.setPersonTypeString(sessionPerson.getPersonTypeString());
 		boolean updateSuccess = loginService.updateProfile(person);
 		//CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);
 		return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
