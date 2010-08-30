@@ -25,8 +25,22 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 							<div class="entryAlone" >
 								<form name="appmentSignUp" id="appmentSignUp" method="post"> 
 								<div class="stp" style="margin-bottom:1.5em;">
-									<div class="or" style="margin:1em; padding:0;" >
-										<font color="red"><c:out value="${SuccessMessage}" /></font><br/>  		
+									<div class="or" style="margin:1em; padding:0;" >								
+									<c:if test="${not empty SuccessMessage}">
+										
+										<font color="red"><c:out value="${SuccessMessage}" /></font><br/>
+										<script>
+											window.setTimeout('fn1()', 3000);
+											function fn1(){
+												window.location.href = "/appmentLogin.htm";
+												}
+										
+										</script>
+										
+										
+									 </c:if>
+									 <c:if test="${empty SuccessMessage}">
+									 
 										<span  style="font-size:1.5em;font-color:black;font:Verdana">Please provide following information for creating account</span><br /><br />       
 										<table class="sample"  width="500">   						
 											<tr >   
@@ -166,6 +180,7 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 																											
 										</table>
 										</br>
+										</c:if>
 									</div>
 								</div>  
 							</form>

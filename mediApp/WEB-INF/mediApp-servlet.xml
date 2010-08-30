@@ -74,7 +74,7 @@
         <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
         <property name="validator"><ref bean="signUpValidator"/></property>
         <property name="formView"><value>appmentSignUp</value></property>
-        <property name="successView"><value>appmentSignUp</value></property>
+        <property name="successView"><value>personalProfile</value></property>
         <property name="loginService">
 			<ref bean="loginService"/>
 		</property>

@@ -44,19 +44,6 @@ cacheoffimgl.src = '/images/MLbutton_0.png';
 	  								</a>
 	  							</div>							
 							</div>
-							<div class="stp" style="margin-bottom:1.5em;">
-	  							<div class="or" style="margin:1em; padding:0;">    
-	  								<span style="font-size:2.0em;font-color:black;font:Verdana">  MediApp</span><br /> 
-	  								<a href="/logon.htm" onMouseover="document.buttonimg.src=eval('cacheonimgl.src')" onMouseout="document.buttonimg.src=eval('cacheoffimgl.src')">
-	  									<img src="/images/MLbutton_0.png" name="buttonimg" width="170" height="68" alt="MediApp-Login to your Account">
-	  								</a>
-	  								 
-	  								<a href="/logon.htm" onMouseover="document.buttonimg.src=eval('cacheonimg.src')" onMouseout="document.buttonimg.src=eval('cacheoffimg.src')">
-	  									<img src="/images/MCbutton_0.png" name="buttonimg" width="170" height="68" alt="MediApp-Create a new Account">
-	  								</a>
-	  							</div>							
-							</div>
-
 						</div>
 					</div>
 				</div>

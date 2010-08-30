@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.Map;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
+
+import com.mediapp.domain.common.Person;
 import com.mediapp.web.constants.common.CommonWebConstants;
 public class VerticalMenuTag  extends TagSupport {
  /**
@@ -27,11 +29,21 @@ public class VerticalMenuTag  extends TagSupport {
 	   try {
 			  
 		   	Map menuItems = (Map) pageContext.getSession().getAttribute("menuItems");
-			  
+			Person person   = (Person) pageContext.getSession().getAttribute("person");
 			Iterator it = menuItems.entrySet().iterator();
 			StringBuffer menuItemTag = new StringBuffer("");
+			//StringBuffer menuItemTag = new StringBuffer("<%Person q = (Person)request.getSession().getAttribute('person');if(null != q.getLastName()&& !''.equal(q.getLastName())){%>");
 			 // menuItemTag = menuItemTag
 			 //  .append(CommonWebConstants.MENU_TABLE_START_TAG);
+			if(null == person.getLastName() || "".equals(person.getLastName())){
+				 menuItemTag = menuItemTag.append(CommonWebConstants.VERTICAL_MENU_BUTTON_TAG)
+		          .append(CommonWebConstants.QUOTES)
+		          .append("/personalProfile.htm")
+		          .append(CommonWebConstants.QUOTES)
+		          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_AFTER_ONCLICK_TAG)
+		          .append("Personal Profile")
+		          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_AFTER_VALUE_TAG);
+			}else {	
 			     while (it.hasNext()) { 
 			         Map.Entry pairs = (Map.Entry)it.next();         
 			         menuItemTag = menuItemTag
@@ -44,6 +56,16 @@ public class VerticalMenuTag  extends TagSupport {
 			          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_AFTER_VALUE_TAG);
 			    //     System.out.println(pairs.getKey() + " = " + pairs.getValue()); 
 			     }  
+			}
+			 /*    menuItemTag = menuItemTag.append("<%}else{%>").append(CommonWebConstants.VERTICAL_MENU_BUTTON_TAG)
+		          .append(CommonWebConstants.QUOTES)
+		          .append("/personalProfile.htm")
+		          .append(CommonWebConstants.QUOTES)
+		          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_AFTER_ONCLICK_TAG)
+		          .append("Personal Profile")
+		          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_AFTER_VALUE_TAG);
+		       */   
+
 			 //    menuItemTag = menuItemTag
 			 // .append(CommonWebConstants.MENU_TABLE_END_TAG);
 			     pageContext.getOut().print(menuItemTag.toString());

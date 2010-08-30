@@ -60,13 +60,18 @@ public class AppMentSignUpController extends MediAppBaseController  {
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
 		Person person = (Person)command;
 		if (null !=request ){	
-			String SuccessMessage = "You have been registered. An email has been sent with password";			
+			String SuccessMessage = "Thank you for registering. An email has been sent with user name and password.You will be redirected to login page now...";			
 					
 					boolean state =loginService.addNewAppMentMember(person);
 					if(state){
 						sendeMail.scheduleRegistration(person.getEmailID(), CommonWebConstants.REG_EMAIL_TYPE,person.getUsername());
 						request.setAttribute("SuccessMessage", SuccessMessage);
-						logger.info(" Login success!");					
+						logger.info(" Login success!");
+						//person.setAuthenticated(true);
+						//CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);		
+						//HttpSession sessionObj = request.getSession(true);
+					//	sessionObj.setAttribute("menuItems", loginService.getMenuItems(person.getPersonTypeString()));
+
 				}					
 			
 		}

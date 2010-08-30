@@ -22,6 +22,8 @@
           </div>
          </c:if>
         </spring:hasBindErrors>
+        <font color="red"><c:out value="${SuccessMessage}" /></font><br/>  		
+        
         <c:set var="PersonType" value=""/>
         <c:set var="PersonID" value=""/>
         <%  pageContext.setAttribute("PersonType",p.getPersonTypeString());

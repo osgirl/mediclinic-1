@@ -84,7 +84,7 @@
 
 	
 	<update id="updateProfile" >
-		UPDATE person set first_name=#firstName#,last_name=#lastName#,middle_name=#middleInitial#,email_Address=#emailID#
+		UPDATE person set first_name=#firstName#,last_name=#lastName#,middle_name=#middleInitial#,email_Address=#emailID#,
 		date_of_birth=date_format(#dateOfBirth#, '%y-%m-%d'),gender=#gender#,landline_phone_number=#landlinePhoneNumber#,mobile_phone_number=#cellPhoneNumber#, person_type=#personTypeString#
 		where user_name=#username#			
 	</update>
