@@ -18,10 +18,11 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/password.js"></script>	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/addRotator.js"></script>	
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/calendar.css">
 
 </head>
-<body>
+<body onLoad="initVar(); moveBanner()">
 	<div id="main" >
 		<div id="header">
 			<div id="name" style="background: url(/images/shake-hand.jpg) no-repeat;overflow: hidden;"> 

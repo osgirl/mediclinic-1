@@ -78,8 +78,8 @@
 	</insert>
 
 	<insert id="insertNewAppMentPerson">
-		INSERT INTO person (idPerson, email_Address,status_of_account,person_type,password,mobile_phone_number,user_name ) 
-		VALUES (nextval('s_person_id'), #emailID#,'T','AppMent',AES_ENCRYPT(#password#,#key#),#cellPhoneNumber#,#username# )
+		INSERT INTO person (idPerson, email_Address,status_of_account,person_type,password,mobile_phone_number,user_name,first_name,last_name,middle_name ) 
+		VALUES (#idPerson#, #emailID#,'T','AppMent',AES_ENCRYPT(#password#,#key#),#cellPhoneNumber#,#username#,#firstName#,#lastName#,#middleInitial# )
 	</insert>
 
 	

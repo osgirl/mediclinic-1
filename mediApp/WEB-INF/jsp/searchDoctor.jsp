@@ -76,6 +76,7 @@
 															<td>
 																<spring:bind path="doctorSearch.searchCriteria.personType">				
 																	<select id="${status.expression}" name="${status.expression}" style="WIDTH: 150px">
+																		<option value=""></option>
 																		<c:forEach items="${personType}" var="data">
 																			<option value='${data.codeDecode}' ${doctorSearch.searchCriteria.personType==data.codeDecode ?"selected=\"selected\"":"" }>${data.codeDecode}</option>
 																		</c:forEach>
@@ -153,7 +154,7 @@
 																	Search Results
 																</tr>
    															<tr>
-   																<td>
+   																<td class="sansa">
    																
 																	<c:forEach var="searchResult" items="${status.value}">
 																	<table width=900  border="1" class="layout"  >
@@ -163,10 +164,10 @@
 																						<c:out value="${searchResult.doctorMiddleName}"/> 
 																						<c:out value="${searchResult.doctorLastName}"/>
 																			</td>	
-																			<td><a href="javascript:fn_dayAppointment(<c:out value="${searchResult.idPerson}"/>)" > Take Appointment</a>
+																			<td width=40%><a href="javascript:fn_dayAppointment(<c:out value="${searchResult.idPerson}"/>)" > Take Appointment</a>
 																			</td>
 																		</tr>
-																		<tr>																		<tr>
+																		<tr >																		<tr>
 																			<td>
 																				Address: 	<c:out value="${searchResult.address1}"/> 
 																			</td>
@@ -175,11 +176,19 @@
 																				
 																		</tr>															
 																		<tr>																		<tr>
-																			<td>
+																			<td width=60%>
 																							<c:out value="${searchResult.address2}"/> 
 																			</td>
-																			<td>
-																				Work Days: <c:out value="${searchResult.workDays}"/> 
+																			<td  width=40%>																				
+																				<table width=100>
+																					<tr>
+																						<c:forEach var="num" items="${fn:split(searchResult.workDays, '-')}">
+																							<td style="background: url(/images/blankbutton_0.jpg) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height=100%;"  align="center">
+			                        															<c:out value="${num}" /> 
+																							</td>
+																						</c:forEach>
+																					</tr>
+																				</table>
 																			</td>
 																				
 																				

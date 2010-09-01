@@ -9,19 +9,21 @@
 
 <%@page import="com.mediapp.domain.common.Person"%><html>
 <head>
-    <title>mediApp</title>    
-	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
-    <link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
+    <title>mediApp</title>
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/shakehand.ico" type="image/x-icon" />    
+	<link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
     <link href="<%=request.getContextPath()%>/css/autocomplete.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/mediapp.js"></script>    
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar_us.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/password.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/addRotator.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/movingDiv.js"></script>		
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/calendar.css">
 
 </head>
-<body>
+<body >
 	<div id="main">
 		<%Person p = (Person)request.getSession().getAttribute("person"); %>
 			<%if (p != null && p.getPersonTypeString() != null && !p.getPersonTypeString().equals("AppMent")) {%> 
@@ -80,9 +82,16 @@
 			<div id="contentHeadRight">
 				
 				<div id="contentHeadCenter">
-							<div id="menu">
+								<table border="0" cellpadding="0" cellspacing="0" width="80" height="30" >      
+									<tr>     
+										<td  style="background: url(/images/homebutton_1.jpg) no-repeat;overflow: hidden;background-position: middle center;background-size: 100%;width:100%;height:30;"  align="center" class="sansa">  
+								  			<a href="/welcomePage.htm" onClick="" style="text-decoration:none"> 
+								  				<font size="+1" color="#3E3535" ><b> Home</b></font> 
+								  			</a>
+								  		</td>
+									</tr>
+								</table>										
 							
-						</div>				
 				</div>
 			</div>		
 		</div>

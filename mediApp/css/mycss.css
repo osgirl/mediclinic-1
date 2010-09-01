@@ -138,7 +138,7 @@ a:hover {
 #contentHeadCenter {
 	background: url(/images/asual-headcenter.jpg) repeat-x;
 	height: 100%;
-	margin: 0 6px;
+	margin: 0 0px;
 }
 #contentHeadRight {
 	background: url(/images/asual-headright.jpg) no-repeat right;
@@ -844,41 +844,19 @@ table.appointment {
 	border-style: outset outset outset outset;
 	border-color: green green green green;
 	border-collapse: separate;
-	font-size:1px;
 }
 table.appointment th {
 	border-width: 1px 1px 1px 1px;
 	padding: 1px 1px 1px 1px;
 	border-style: none none none none;
-	border-color: gray gray gray gray;
+	border-color: none none none none;
 	-moz-border-radius: 3px 3px 3px 3px;
 }
 table.appointment td {
 	border-width: 1px 1px 1px 1px;
 	padding: 1px 1px 1px 1px;
 	border-style: none none none none;
-	border-color: gray gray gray gray;
-	-moz-border-radius: 3px 3px 3px 3px;
-}
-table.appointment {
-	border-width: 1px 1px 1px 1px;
-	border-spacing: 2px;
-	border-style: outset outset outset outset;
-	border-color: green green green green;
-	border-collapse: separate;
-}
-table.appointment th {
-	border-width: 1px 1px 1px 1px;
-	padding: 1px 1px 1px 1px;
-	border-style: none none none none;
-	border-color: gray gray gray gray;
-	-moz-border-radius: 3px 3px 3px 3px;
-}
-table.appointment td {
-	border-width: 1px 1px 1px 1px;
-	padding: 1px 1px 1px 1px;
-	border-style: none none none none;
-	border-color: gray gray gray gray;
+	border-color: none none none none;
 	-moz-border-radius: 3px 3px 3px 3px;
 	font-size:9px;
 }
@@ -934,6 +912,7 @@ table.sample td {
 	-moz-border-radius: 12px 12px 12px 12px;
 }
 
+	
 table.sample1 {
 	border-width: 1px 1px 1px 1px;
 	border-spacing: 2px;
@@ -958,6 +937,7 @@ table.sample1 td {
 	background-color: #cadef4;
 	-moz-border-radius: 12px 12px 12px 12px;
 }
+
 
 /* place button img tags in an element using this class */
 
@@ -993,3 +973,45 @@ a.anchortext:hover {
 a.anchortext:active {
     text-decoration:none;
 }
+
+#addbox {
+  position: relative;
+  width: 500px;
+  height: 200 px;
+  clip: rect(0px, 700px, 0px, 200px);
+  overflow: hidden;
+}
+#banner1 {
+  position: relative;
+  width: 480px;
+  height: 198px;
+  left: 0;
+  top: 5px;
+}
+#banner2 {
+  position: relative;
+  width: 480px;
+  height: 198px;
+  left: 500px;
+  top: -198px !important;
+  top:-198px;
+}
+
+.sansa {
+ font-family: Arial, Helvetica, sans-serif
+ }
+.sansb, .sansa small b, .sansa b small, small.sansa b, small b.sansa {
+ font-family: "Myriad Web", Verdana, Helvetica, Arial, sans-serif
+ }
+.serifa {
+ font-family: "Minion Web", Georgia, Palatino, "Times New Roman", serif
+ }
+ small.sansa,.sansa small {
+ font-family: Helvetica, sans-serif
+ }	
+ big.sansb,.sansb big {
+ font-family: "Myriad Web", Tahoma, Verdana, Helvetica, Arial, sans-serif
+ }	
+.min {
+ font-size: 10px
+ }

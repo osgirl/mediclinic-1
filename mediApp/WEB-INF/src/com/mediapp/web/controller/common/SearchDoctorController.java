@@ -53,7 +53,9 @@ public class SearchDoctorController  extends MediAppBaseController  {
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		DoctorSearch doctorSearch =  (DoctorSearch) command;		
 		SearchCriteria searchCriteria =doctorSearch.getSearchCriteria();
-		doctorSearch.setSearchResult(commonService.getDoctors(searchCriteria));		
+		doctorSearch.setSearchResult(commonService.getDoctors(searchCriteria));	
+		List <CodeDecode> personType = commonService.getCodeValue("PERSONTYPE");
+		request.setAttribute("personType", personType);
 		return new ModelAndView(getSuccessView(),CommonWebConstants.DOCTOR_SEARCH, doctorSearch);
     }
 	

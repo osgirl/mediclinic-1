@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/welcomeInclude.jsp" %>
+<%@ include file="/WEB-INF/jsp/include.jsp" %>
 		<div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
@@ -23,17 +23,17 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 </script>
 						
 							<div class="entryAlone" >
-								<table  border="0"   width=500 align="left">  
+								<table  border="0"   width=700 align="left">  
 										<tr>
-											<td align="center" >Welcome to Appointment Managing Application!</td>
+											<td align="center"  class="sansa"><big><big>Welcome to Appointment Managing Application!</big></big></td>
 										</tr>
 										 <tr>
 										 <tr>
 										 </tr>
 										 <tr>
 										 </tr>
-  											<td valign=top style="text-align:left">
-											  <b>Easy way to get organized!</b>
+  											<td valign=top style="text-align:left" class="sansa" >
+											  <i>Easy way to get organized!</i>
 											  <td valign=top>&nbsp;
 											  </tr>
 										

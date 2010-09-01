@@ -75,6 +75,9 @@ public class PersonalProfileController extends MediAppBaseController  {
 		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
 		person.setEmailID(sessionPerson.getEmailID());
 		person.setUsername(sessionPerson.getUsername());
+		if(null == person.getPersonTypeString() && "".equals(person.getPersonTypeString())){
+			person.setPersonTypeString("AppMent");
+		}
 		//person.setPersonTypeString(sessionPerson.getPersonTypeString());
 		boolean updateSuccess = loginService.updateProfile(person);
 		person.setAuthenticated(true);

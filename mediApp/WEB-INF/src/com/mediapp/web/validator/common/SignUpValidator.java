@@ -45,9 +45,19 @@ public class SignUpValidator implements Validator {
 				if(errorList.size()>0){						
 					errors.rejectValue("username", errorList.get(0),
 							null, "Already Exists.");
-				}			
-
+				}
 			}
+
+			if(null==person.getFirstName() ||""==person.getFirstName()){
+				errors.rejectValue("firstName","error.required.field" ,
+						null, "Field Blank.");
+			}
+				
+			if(null==person.getLastName() ||""==person.getLastName()){
+				errors.rejectValue("lastName","error.required.field" ,
+						null, "Field Blank.");
+			}
+			
 			if(null==person.getPassword()||""==person.getPassword()){
 				errors.rejectValue("password","error.required.field" ,
 						null, "Field Blank.");

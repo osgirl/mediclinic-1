@@ -1,8 +1,8 @@
-<%@ include file="/WEB-INF/jsp/welcomeInclude.jsp" %>
+<%@ include file="/WEB-INF/jsp/include.jsp" %>
 		<div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
-					<div id="contentSingleEntry" style="">
+					<div id="contentSingleEntry" >
 						<div id="entries" align="left">
 <script>
 var cacheonimg = new Image ();
@@ -40,16 +40,76 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 										
 									 </c:if>
 									 <c:if test="${empty SuccessMessage}">
-									 
+								 
 										<span  style="font-size:1.5em;font-color:black;font:Verdana">Please provide following information for creating account</span><br /><br />       
-										<table class="sample"  width="500">   						
+										<table class="sample"  width="500">
+											<tr >   
+												<td width="40%" align="right" >First Name: </td>
+												<td width="40%" align="left"> 
+													<spring:bind path="person.firstName"> 
+														<input type="text" name="${status.expression}"  id="${status.expression}"  value="<c:out value="${status.value}"/>" tabindex="1"  onKeyUp="if(this.value.match(/[^a-zA-Z]/))this.value=this.value.replace(/[^a-zA-Z]/g,'')" onblur="if(this.value.match(/[^a-zA-Z]/))this.value=this.value.replace(/[^a-zA-Z]/g,'')"/>																
+															<script>document.getElementById('firstName').focus()</script>
+													</spring:bind>
+												</td>
+												<td>
+												</td>
+	
+											</tr> 
+											<tr>
+												<td colspan="2" align="center">
+													<spring:bind	path="person.firstName">
+															<font color="red"><c:out value="${status.errorMessage}" /></font>
+													</spring:bind>
+												</td>
+											</tr>
+											
+											<tr >   
+												<td width="40%" align="right" >Middle Initials: </td>
+												<td width="40%" align="left"> 
+													<spring:bind path="person.middleInitial"> 
+														<input type="text" name="${status.expression}"  id="${status.expression}"  value="<c:out value="${status.value}"/>" tabindex="1"  onKeyUp="if(this.value.match(/[^a-zA-Z]/))this.value=this.value.replace(/[^a-zA-Z]/g,'')" onblur="if(this.value.match(/[^a-zA-Z]/))this.value=this.value.replace(/[^a-zA-Z]/g,'')"/>																
+	
+													</spring:bind>
+												</td>
+												<td>
+												</td>
+	
+											</tr> 
+											<tr >   
+												<td width="40%" align="right" >Last Name: </td>
+												<td width="40%" align="left"> 
+													<spring:bind path="person.lastName"> 
+														<input type="text" name="${status.expression}"  id="${status.expression}"  value="<c:out value="${status.value}"/>" tabindex="1"  onKeyUp="if(this.value.match(/[^a-zA-Z]/))this.value=this.value.replace(/[^a-zA-Z]/g,'')" onblur="if(this.value.match(/[^a-zA-Z]/))this.value=this.value.replace(/[^a-zA-Z]/g,'')"/>																
+	
+													</spring:bind>
+												</td>
+												<td>
+												</td>
+	
+											</tr> 
+											<tr>
+												<td colspan="2" align="center">
+													<spring:bind	path="person.lastName">
+															<font color="red"><c:out value="${status.errorMessage}" /></font>
+													</spring:bind>
+												</td>
+											</tr>
+											
+											<tr>
+											<td>
+											</td>
+											<td >											 
+											</td>
+											<td>
+											</td>
+											</tr>
+											<tr>
+											
 											<tr >   
 												<td width="40%" align="right" >Choose a Username: </td>
 												<td width="40%" align="left"> 
 													<spring:bind path="person.username"> 
 														<input type="text" name="${status.expression}"  id="${status.expression}"  value="<c:out value="${status.value}"/>" tabindex="1"  onKeyUp="if(this.value.match(/\W/))this.value=this.value.replace(/\W/g,'')" onblur="if(this.value.match(/\W/))this.value=this.value.replace(/\W/g,'')"/>		
-														<script>document.getElementById('username').focus()</script>
-	
 													</spring:bind>
 												</td>
 												<td>

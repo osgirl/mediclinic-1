@@ -109,7 +109,16 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	}
 
 	public boolean addNewAppMentMember(Person person) throws DataAccessException {
-		return insertObject("common.insertNewAppMentPerson",person );
+		boolean insertStatus = false;
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		criteria.put("SequenceName","s_person_id" );
+		Integer personID =  (Integer)getObject("common.getNextVal",criteria );
+		person.setIdPerson(personID.intValue());
+		insertStatus=insertObject("common.insertNewAppMentPerson",person );
+		if (insertStatus){
+			insertStatus= insertObject("common.insertDoctor",person );
+		}
+		return insertStatus;
 	}
 	
 	public int getMaxPersonId() throws DataAccessException {
@@ -257,7 +266,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		Integer idPersonInt = new Integer(idPerson);
 		criteria.put("PersonID", idPersonInt);		
 		Person completeDetails = (Person) getObject("common.getPersonalProfile",criteria );
-		if (completeDetails.getPersonTypeString().equals(CommonCoreConstants.DOCTOR)){
+		if (!completeDetails.getPersonTypeString().equals(CommonCoreConstants.PATIENT)){
 			List<DoctorWorkTimings> workTimings = (ArrayList<DoctorWorkTimings>) getList("common.getDoctorWorkTimings",criteria );
 			int i = 0;
 			for(DoctorWorkTimings  eachPerson: workTimings){				
