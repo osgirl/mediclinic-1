@@ -58,4 +58,6 @@ public interface CommonService {
 	public List <CodeDecode> getTests(String code) ;
 	
 	public boolean rescheduleAppointment(Appointment appointment);
+	
+	public Person getPersonDetails(Person person);
 }

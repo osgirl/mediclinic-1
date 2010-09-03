@@ -47,6 +47,7 @@ public class DayAppointmentController extends MediAppBaseController{
 			Errors errors) throws Exception {
 		String sidPerson = request.getParameter("PersonID");		
 		int idPerson = Integer.parseInt(sidPerson);
+		String userName = request.getParameter("UserName");
 		String sAppointmentDate = request.getParameter("AppointmentDate");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
 		Date dateOfAppointment = null;
@@ -69,6 +70,7 @@ public class DayAppointmentController extends MediAppBaseController{
 	    appointmentMap.put("appointmentDate", dateOfAppointment);
 	    appointmentMap.put("AppointmentDate", dateOfAppointment);
 	    appointmentMap.put("TakeAppointment", request.getParameter("TakeAppointment"));
+	    appointmentMap.put("UserName", userName);
 	    return appointmentMap;
 	}
 

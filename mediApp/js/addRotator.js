@@ -1,7 +1,7 @@
 var displayTime, speed, wait, banner1, banner2, link1, link2, bannerIndex, bannerLocations, bannerURLs;
 
 function initVar() {
-  displayTime = 10; // The amount of time each banner will be displayed in seconds.
+  displayTime = 3; // The amount of time each banner will be displayed in seconds.
   speed = 5; // The speed at which the banners is moved (1 - 10, anything above 5 is not recommended).
   wait = true;
 

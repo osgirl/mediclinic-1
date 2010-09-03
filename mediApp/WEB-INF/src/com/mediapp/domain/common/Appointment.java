@@ -34,8 +34,79 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private int doctorID;
 	
+	private String doctorUserName;
+	
 	private String confirmedIndicator;
 	
+    private String doctorFirstName;
+    
+    private String doctorMiddleInitial;
+    
+    private String doctorLastName;
+
+    private String patientFirstName;
+    
+    private String patientMiddleInitial;
+    
+    private String patientLastName;
+	
+
+	public String getDoctorFirstName() {
+		return doctorFirstName;
+	}
+
+	public void setDoctorFirstName(String doctorFirstName) {
+		this.doctorFirstName = doctorFirstName;
+	}
+
+	public String getDoctorMiddleInitial() {
+		return doctorMiddleInitial;
+	}
+
+	public void setDoctorMiddleInitial(String doctorMiddleInitial) {
+		this.doctorMiddleInitial = doctorMiddleInitial;
+	}
+
+	public String getDoctorLastName() {
+		return doctorLastName;
+	}
+
+	public void setDoctorLastName(String doctorLastName) {
+		this.doctorLastName = doctorLastName;
+	}
+
+	public String getPatientFirstName() {
+		return patientFirstName;
+	}
+
+	public void setPatientFirstName(String patientFirstName) {
+		this.patientFirstName = patientFirstName;
+	}
+
+	public String getPatientMiddleInitial() {
+		return patientMiddleInitial;
+	}
+
+	public void setPatientMiddleInitial(String patientMiddleInitial) {
+		this.patientMiddleInitial = patientMiddleInitial;
+	}
+
+	public String getPatientLastName() {
+		return patientLastName;
+	}
+
+	public void setPatientLastName(String patientLastName) {
+		this.patientLastName = patientLastName;
+	}
+
+	public String getDoctorUserName() {
+		return doctorUserName;
+	}
+
+	public void setDoctorUserName(String doctorUserName) {
+		this.doctorUserName = doctorUserName;
+	}
+
 	
 	private List<Diagnosis> diagnosis = LazyList.decorate(
  				new ArrayList < Diagnosis > (),

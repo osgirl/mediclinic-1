@@ -55,6 +55,20 @@ public class SearchResult extends MediAppBaseDomain{
 
 	private String workDays;
 	
+	private String doctorUserName;
+	
+	public String getDoctorUserName() {
+		return doctorUserName;
+	}
+
+	public void setDoctorUserName(String doctorUserName) {
+		this.doctorUserName = doctorUserName;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
 	public String getWorkDays() {
 		return workDays;
 	}

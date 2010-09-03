@@ -100,15 +100,15 @@ function fn_searchDoctor(){
 	document.forms["searchDoctor"].submit();
 }
 
-function fn_dayAppointment(personID){	
-	 window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('searchCriteria.dateOfAppointment').value+"&TakeAppointment=Y";
+function fn_dayAppointment(personID, userName){	
+	 window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('searchCriteria.dateOfAppointment').value+"&UserName="+userName+"&TakeAppointment=Y";
 }
 
-function fn_createAppointment(personID,doctorID,timeOfAppointment,appointmentDate){
+function fn_createAppointment(personID,doctorID,timeOfAppointment,appointmentDate,userName){
 	if (doctorID > 0){
 		window.name = "Parent";
-		var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:430px;dialogWidth:630px;status:no;edge:sunken';	
-	    var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment, window, WinSettings);
+		var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:630px;status:no;edge:sunken';	
+	    var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&UserName="+userName, window, WinSettings);
 	}else{
 		alert("Please take appointment by going through Search Doctor.");
 	}

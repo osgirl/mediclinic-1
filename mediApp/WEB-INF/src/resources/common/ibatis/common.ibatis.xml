@@ -120,6 +120,7 @@
 	 	<result property="city" column="City"/>
 	 	<result property="state" column="State"/>
 	 	<result property="country" column="Country"/>
+	 	<result property="doctorUserName" column="user_name"/>
 	 	<result property="workStartTime" column="work_start_time"/>
 	 	<result property="workEndTime" column="work_end_time"/>
 	 	<result property="mondayWorking" column="monday_working"/>
@@ -171,7 +172,7 @@
 			monday_working, tuesday_working,
 			wednesday_working, thursday_working,
 			friday_working, saturday_working,
-			sunday_working, address1,address2, Locality, City,State,Country
+			sunday_working, address1,address2, Locality, City,State,Country, user_name
 			from 
 			person p,
 			doctor_details dd,

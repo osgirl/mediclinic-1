@@ -993,8 +993,8 @@ a.anchortext:active {
   width: 480px;
   height: 198px;
   left: 500px;
-  top: -198px !important;
-  top:-198px;
+  top: -220px !important;
+  top:-220px;
 }
 
 .sansa {

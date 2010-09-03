@@ -164,7 +164,7 @@
 																						<c:out value="${searchResult.doctorMiddleName}"/> 
 																						<c:out value="${searchResult.doctorLastName}"/>
 																			</td>	
-																			<td width=40%><a href="javascript:fn_dayAppointment(<c:out value="${searchResult.idPerson}"/>)" > Take Appointment</a>
+																			<td width=40%><a href="javascript:fn_dayAppointment('${searchResult.idPerson}','${searchResult.doctorUserName}')" > Take Appointment</a>
 																			</td>
 																		</tr>
 																		<tr >																		<tr>

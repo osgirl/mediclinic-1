@@ -60,6 +60,10 @@ public class CreateAppointmentController extends MediAppBaseController{
 	    Date dateOfAppointment = dateFormat.parse(sAppointmentDate);
 	    String sAppointmentTime = request.getParameter("AppointmentTime");
 	    Time timeOfAppointment = Time.valueOf(sAppointmentTime);
+	    String userName = request.getParameter("UserName");
+	    Person inputPerson = new Person();
+	    inputPerson.setUsername(userName);
+	    Person doctorPerson = commonService.getPersonDetails(inputPerson);
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
 	    Appointment appointment = new Appointment();
 	    appointment.setDoctorID(idDoctor);
@@ -67,6 +71,7 @@ public class CreateAppointmentController extends MediAppBaseController{
 	    appointment.setDateOfAppointment(dateOfAppointment);
 	    appointment.setTimeOfAppointment(timeOfAppointment);
 	    appointmentMap.put("appointment", appointment);
+	    appointmentMap.put("DoctorDetails", doctorPerson);
 	    List <CodeDecode> appointmentDuration = commonService.getCodeValue("APPOINTMENT_DURATION");
 	    appointmentMap.put("appointmentDuration", appointmentDuration);
 	    return appointmentMap;

@@ -295,4 +295,10 @@ public class CommonServiceImpl implements CommonService{
 	public boolean rescheduleAppointment(Appointment appointment){
 		return commonDAO.rescheduleAppointment(appointment);
 	}
+
+	public Person getPersonDetails(Person person){
+		return commonDAO.getPersonDetails(person);
+	}
+
+
 }

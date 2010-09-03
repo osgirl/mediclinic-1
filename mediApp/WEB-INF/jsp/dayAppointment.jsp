@@ -11,6 +11,7 @@
 							<div class="entryAlone">
 								<form name="dayAppointment" id="dayAppointment" method="post" >
 									<input type="hidden" name="AppointmentID"  id="AppointmentID" value=""/>
+									<input type="hidden" name="UserName"  id="UserName" value="${UserName}"/>
 									<input type="hidden" name="TakeAppointment"  id="TakeAppointment" value="${TakeAppointment}"/>
 									<input type="hidden" name="PersonID"  id="PersonID" value="${personID}"/>
 									<div class="stp" style="margin-bottom:1.5em;" >
@@ -76,10 +77,10 @@
 																							</td>
 																						</c:when>
 																						<c:otherwise>
-																							<td width="10%" bgcolor="#EFF5FB"  style="border-width: 1px 1px 1px 1px;padding: 1px 1px 1px 1px;border-style: groove groove groove groove;-moz-border-radius: 12px 12px 12px 12px;">																						
+																							<td width="10%" bgcolor="#EFF5FB"  style="border-width: 1px 1px 1px 1px;border-style: solid solid solid solid;border-color: #cadef4 #cadef4 #cadef4 #cadef4;">																						
 																								<c:choose>
 																									<c:when test='${TakeAppointment eq "Y"}'>
-																										<a href="javascript:fn_createAppointment(<c:out value="${personID}"/>,<c:out value="${appointments.doctorID}"/>,'<c:out value="${appointments.timeOfAppointment}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>')" >
+																										<a href="javascript:fn_createAppointment(<c:out value="${personID}"/>,<c:out value="${appointments.doctorID}"/>,'<c:out value="${appointments.timeOfAppointment}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>','${UserName}')" >
 																											<c:out value="${appointments.timeOfAppointment}"/>
 																										</a>
 																									</c:when>
