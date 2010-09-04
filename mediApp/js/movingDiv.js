@@ -83,7 +83,7 @@ window.onload = function () {
   //document.getElementById('other_clicky').onmousedown =
 }
 
-function fn_showOptions(){
+function fn_showOptions(loggedUserID,calendarUserID,appointmentTime,appointmentDate,appointmentID){
     var e = event || window.event;
     var pos = getRelativeCoordinates(event, document.getElementById('reference'));
     var r = document.getElementById('reference');
@@ -92,6 +92,16 @@ function fn_showOptions(){
    // var referenceWidth = parseInt( r.style.width);
     //var t = (pos.x - referenceWidth + 30) ;
     //m.style.left = t +'px' ;
+    //var tbl  = document.getElementById('menuTable');
+    //var rows = tbl.getElementsByTagName('tr');
+    if (loggedUserID == calendarUserID){
+    	var confirmTR  = document.getElementById('confirm').style.display="none";
+    }else{
+    	var cancelTR  = document.getElementById('cancel').style.display="none";
+    }    
+    document.getElementById('AppointmentDateR').value=appointmentDate;
+    document.getElementById('AppointmentID').value=appointmentID;
+    document.getElementById('TimeOfAppointment').value=appointmentTime;    
     m.style.left = pos.x +'px' ;
     m.style.top = pos.y +'px';
 	var menuStyle=document.getElementById('movingDiv').style; 

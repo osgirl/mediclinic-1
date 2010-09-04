@@ -26,6 +26,7 @@ import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.web.common.CustomTimeEditor;
 import com.mediapp.web.constants.common.CommonWebConstants;
+import com.mediapp.web.util.common.CommonWebUtil;
 
 public class CreateAppointmentController extends MediAppBaseController{
 	CommonService commonService;
@@ -61,6 +62,7 @@ public class CreateAppointmentController extends MediAppBaseController{
 	    String sAppointmentTime = request.getParameter("AppointmentTime");
 	    Time timeOfAppointment = Time.valueOf(sAppointmentTime);
 	    String userName = request.getParameter("UserName");
+	    String doctorPersonID = request.getParameter("DoctorPersonID");	    
 	    Person inputPerson = new Person();
 	    inputPerson.setUsername(userName);
 	    Person doctorPerson = commonService.getPersonDetails(inputPerson);
@@ -72,6 +74,7 @@ public class CreateAppointmentController extends MediAppBaseController{
 	    appointment.setTimeOfAppointment(timeOfAppointment);
 	    appointmentMap.put("appointment", appointment);
 	    appointmentMap.put("DoctorDetails", doctorPerson);
+	    appointmentMap.put("UserName", userName);
 	    List <CodeDecode> appointmentDuration = commonService.getCodeValue("APPOINTMENT_DURATION");
 	    appointmentMap.put("appointmentDuration", appointmentDuration);
 	    return appointmentMap;
@@ -79,6 +82,11 @@ public class CreateAppointmentController extends MediAppBaseController{
 
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		Appointment newAppointment =  (Appointment) command;
+		String sidPerson = request.getParameter("PersonID");		
+		int idPerson = Integer.parseInt(sidPerson);
+		newAppointment.setDoctorPersonID(idPerson);
+		Person patientPersonID = (Person)CommonWebUtil.getSessionAttribute(request, CommonWebConstants.USER_ID);
+		newAppointment.setPatientPersonID(patientPersonID.getIdPerson());
 		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);	
 		newAppointment.setPatientPersonID(sessionPerson.getIdPerson());
 		commonService.insertNewAppointment(newAppointment);

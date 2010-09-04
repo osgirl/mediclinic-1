@@ -99,6 +99,7 @@
 							<input type="hidden" name="PersonID"  value="<c:out value="${appointment.doctorPersonID}"/>"/>
 							<input type="hidden" name="AppointmentDate"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>"/>
 							<input type="hidden" name="TakeAppointment"  value="Y"/>
+							<input type="hidden" name="UserName"  value="${UserName}"/>
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0" width="400" height="30" >         
 						<tr >     

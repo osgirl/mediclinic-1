@@ -9,7 +9,7 @@
 
 <%@page import="com.mediapp.domain.common.Person"%><html>
 <head>
-    <title>mediApp</title>
+    <title>AppMent</title>
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/shakehand.ico" type="image/x-icon" />    
 	<link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
     <link href="<%=request.getContextPath()%>/css/autocomplete.css" rel="stylesheet" type="text/css">
@@ -26,7 +26,7 @@
 <body >
 	<div id="main">
 		<%Person p = (Person)request.getSession().getAttribute("person"); %>
-			<%if (p != null && p.getPersonTypeString() != null && !p.getPersonTypeString().equals("AppMent")) {%> 
+			<%if (p != null && p.getPersonTypeString() != null && p.getPersonTypeString().equals("Doctor")) {%> 
 	
 		<div id="header" style="background: url(/images/medical.jpg) no-repeat;">
 			<div id="name">

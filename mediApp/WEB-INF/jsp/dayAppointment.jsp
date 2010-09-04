@@ -24,6 +24,10 @@
 														</table>
 														<div id="dayAppointments"  style="display:block" align="center">
 															<table  border=""  class="appointment" width=680>
+															<c:if test="${TakeAppointment eq 'Y'}">
+																		<font size="1" color="black" >Please click on time link below to book an appointment. Available times are shown in white. Blocked times are shown in green.</font>
+															</c:if>
+															
 																<tr>
 																	<td align="center">
 																		<table border="0" cellpadding="3" class="sample1" cellspacing="0" width="100%">																	
@@ -80,7 +84,7 @@
 																							<td width="10%" bgcolor="#EFF5FB"  style="border-width: 1px 1px 1px 1px;border-style: solid solid solid solid;border-color: #cadef4 #cadef4 #cadef4 #cadef4;">																						
 																								<c:choose>
 																									<c:when test='${TakeAppointment eq "Y"}'>
-																										<a href="javascript:fn_createAppointment(<c:out value="${personID}"/>,<c:out value="${appointments.doctorID}"/>,'<c:out value="${appointments.timeOfAppointment}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>','${UserName}')" >
+																										<a href="javascript:void(0);" onclick="javascript:fn_createAppointment('${personID}','${appointments.doctorID}','${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>','${UserName}','${appointments.doctorPersonID}');" >
 																											<c:out value="${appointments.timeOfAppointment}"/>
 																										</a>
 																									</c:when>
@@ -93,14 +97,12 @@
 																					</c:choose>	
 																					<c:if test='${not empty appointments.headline}'>
 																						<td width="85%" bgcolor="#E0F8EC" >
-																							<c:if test='${appointments.headline != "OOO"}'>
-																							<a href="javascript:fn_openAppointment(${personID},'${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>',${appointments.appointmentID})" >
+																							<c:if test='${appointments.headline != "OOO" && TakeAppointment ne "Y"}'>
 																								<c:out value="${appointments.headline}"/>
-																							</a>																	
 																							</c:if>
 																						</td>
-																						<c:if test='${appointments.headline != "OOO"}'>
-																							<td  style="background: url(/images/arrowbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:100%;"  align="center" onmouseover="this.style.cursor='hand'" id="clickMe" onclick="fn_showOptions();">  
+																						<c:if test='${appointments.headline != "OOO" && TakeAppointment ne "Y"}'>
+																							<td  style="background: url(/images/arrowbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:100%;"  align="center" onmouseover="this.style.cursor='hand'" id="clickMe" onclick="fn_showOptions('${LoggedOnUserID}','${appointments.patientPersonID}','${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>','${appointments.appointmentID}');">  
 																				  			</td>
 																				  		</c:if>
 																					</c:if>
@@ -133,29 +135,32 @@
 	<div style="margin-left: -100px; top: -40px; background: white; width: 200px; height: 200px; position: relative;" id="reference">
 		<div id="movingDiv" class="stp" style="top=0;left=0;position:absolute;;margin-bottom:1.5em;display:none" >
 			<div class="or" style="margin:1em; padding:0;border-width: 0px 0px 0px 0px;" > 
-		         <table  border=""   width=100 class="sample" style="border-width: 0px 0px 0px 0px;">
+		         <table  border=""  id="menuTable" width=100 class="sample" style="border-width: 0px 0px 0px 0px;">
 			           <tr>               
-				            <td>
+				            <td id="confirm">
 								<a href="#" onClick="" style="text-decoration:none" class="sansa"> 
 									<font size="+1" color="blue" >Confirm</font> 
 								</a>
 				           </td>
 	        		   </tr>
-	           			<tr>
+	           			<tr id="reschedule">
 	           				<td>
-								<a href="#" onClick="" style="text-decoration:none"  class="sansa"  > 
+	           					<input type="hidden" name="TimeOfAppointment"  id="TimeOfAppointment" />
+	           					<input type="hidden" name="AppointmentDateR"  id="AppointmentDateR" />
+	           					<input type="hidden" name="AppointmentID"  id="AppointmentID" />
+								<a href="javascript:void(0);" onClick="javascript:fn_rescheduleAppointment();" style="text-decoration:none"  class="sansa"  > 
 									<font size="+1" color="blue" >Reschedule</font> 
 								</a>
 				           </td>
 	           			</tr>
-			           <tr>               
+			           <tr id="cancel">               
 				            <td>
 								<a href="#" onClick="" style="text-decoration:none"  class="sansa"> 
 									<font size="+1" color="blue" >Cancel</font> 
 								</a>
 				           </td>
 	        		   </tr>
-			           <tr>               
+			           <tr id="close">               
 				            <td>
 								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';" style="text-decoration:none"  class="sansa"> 
 									<font size="+1" color="blue" >Close</font> 

@@ -25,6 +25,16 @@ public class SearchCriteria  extends MediAppBaseDomain{
 	
 	private String personType;
 	
+	private int selfPersonID;
+	
+	public int getSelfPersonID() {
+		return selfPersonID;
+	}
+
+	public void setSelfPersonID(int selfPersonID) {
+		this.selfPersonID = selfPersonID;
+	}
+
 	public String getPersonType() {
 		return personType;
 	}

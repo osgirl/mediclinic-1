@@ -53,18 +53,25 @@ cacheoffimgl.src = '/images/MLbutton_0.png';
 							</div>
 						</div>
 						<div id="column">
+						
 							<div class="stp" style="margin-bottom:1.5em;">
-	  							<div class="or" style="margin:1em; padding:0;"> 
+	  							<div class="or" style="margin:1em; padding:0;">	  							 
 	  								<span style="font-size:2.0em;font-color:black;font:Verdana">  AppMent</span><br /> 
 	  								<a href="/appmentLogin.htm" onMouseover="document.buttonimg.src=eval('cacheonimgl.src')" onMouseout="document.buttonimg.src=eval('cacheoffimgl.src')">
 	  									<img src="/images/MLbutton_0.png" name="buttonimg" width="170" height="68" alt="AppMent-Login to your Account">
 	  								</a>
 	  								 
-	  								<a href="/appmentSignUp.htm" onMouseover="document.buttonimg.src=eval('cacheonimg.src')" onMouseout="document.buttonimg.src=eval('cacheoffimg.src')">
-	  									<img src="/images/MCbutton_0.png" name="buttonimg" width="170" height="68" alt="AppMent-Create a new Account">
+	  							</div>							
+							</div>
+							<div class="stp" style="margin-bottom:1.5em;" >
+	  							<div class="or" style="margin:1em; padding:0;" > 
+	  								<span style="font-size:1.3em;font-color:black;font:Verdana" >Don't have account yet?</span><br />   
+	  								<a href="/appmentSignUp.htm" onMouseover="document.buttonimg1.src=eval('cacheonimg.src')" onMouseout="document.buttonimg1.src=eval('cacheoffimg.src')">
+	  									<img src="/images/MCbutton_0.png" name="buttonimg1" width="170" height="68" alt="AppMent-Create a new Account">   
 	  								</a>
 	  							</div>							
 							</div>
+							
 						</div>
 					</div>
 				</div>

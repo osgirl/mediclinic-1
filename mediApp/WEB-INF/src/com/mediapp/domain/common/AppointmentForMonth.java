@@ -9,6 +9,16 @@ public class AppointmentForMonth extends MediAppBaseDomain{
 	private Date dateOfAppointment;
 	
 	private int appointmentCount;
+	
+	private String isWorking;
+
+	public String getIsWorking() {
+		return isWorking;
+	}
+
+	public void setIsWorking(String isWorking) {
+		this.isWorking = isWorking;
+	}
 
 	public Date getDateOfAppointment() {
 		return dateOfAppointment;

@@ -52,7 +52,7 @@ public class RescheduleAppointmentController extends MediAppBaseController{
 		}else{
 			dateOfAppointment = dateFormat.parse(sAppointmentDate);
 		}		
-		Appointment appointment = commonService.getAppointment(idPerson, dateOfAppointment,idAppointment);		
+		Appointment appointment = commonService.getAppointment(idAppointment);		
 		List <Appointment> completeAppointmentList = commonService.getDayAppointment(idPerson, dateOfAppointment,CommonWebConstants.DOCTOR,appointment.getDoctorID());
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
 	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, appointment);
@@ -62,6 +62,8 @@ public class RescheduleAppointmentController extends MediAppBaseController{
 	    appointmentMap.put("AppointmentID", idAppointment);
 	    List <CodeDecode> appointmentDuration = commonService.getCodeValue("APPOINTMENT_DURATION");
 	    appointmentMap.put("appointmentDuration", appointmentDuration);
+	    String userName = request.getParameter("UserName");
+	    appointmentMap.put("UserName", userName);
 	    return appointmentMap;
 
 	}

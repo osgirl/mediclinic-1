@@ -110,4 +110,6 @@ public interface CommonDAO {
 	public List <NotificationDetails> getNotificationDetailsAll(Integer iPersonID) throws DataAccessException;
 	
 	public boolean cancelAllAppointments(int iPersonID)throws DataAccessException;
+
+	public String getWorkTimings(int idPerson) throws DataAccessException ;
 }

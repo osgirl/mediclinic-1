@@ -163,7 +163,8 @@
 	    <parameter property="PersonType"		javaType="java.lang.String"    mode="IN"/>	    
 	    <parameter property="PersonType"		javaType="java.lang.String"    mode="IN"/>	    
 	    <parameter property="Username"			javaType="java.lang.String"    mode="IN"/>	    
-	    <parameter property="Username"			javaType="java.lang.String"    mode="IN"/>	    
+	    <parameter property="Username"			javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="SelfPersonID"		javaType="java.lang.Integer"   mode="IN"/>
 	</parameterMap>
 
 	<select id="searchDoctor" parameterMap="Search-Input-Map" resultMap="Search-Result-Map">
@@ -174,12 +175,13 @@
 			friday_working, saturday_working,
 			sunday_working, address1,address2, Locality, City,State,Country, user_name
 			from 
-			person p,
-			doctor_details dd,
-			address a
-			where p.idPerson = dd.idPerson
-			and p.idPerson = a.personID			
-			and (dd.monday_working = ? or ifnull(?,'')='')
+			person p
+			left outer join  doctor_details dd 
+            on p.idPerson = dd.idPerson
+			left outer join address a
+			on p.idPerson = a.personID			
+            where 
+			 (dd.monday_working = ? or ifnull(?,'')='')
             and (dd.tuesday_working  = ? or ifnull(?,'')='')
             and (dd.wednesday_working = ? or ifnull(?,'')='')
             and (dd.thursday_working = ? or ifnull(?,'')='')
@@ -196,6 +198,7 @@
 			and (upper(city) =trim(upper(?)) or ifnull(?,'')='')
 			and (upper(person_type) = trim(upper(?)) or ifnull(?,'')='')        
 			and (upper(user_name) =trim(upper(?)) or ifnull(?,'')='')
+			and p.idperson !=?
 
       </select>
 
@@ -206,6 +209,8 @@
 	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
 	 	<result property="appointmentDuration" 	column="appointment_duration"/>
 	 	<result property="doctorID" 			column="idDoctor_details"/>
+	 	<result property="doctorPersonID" 		column="idDoctor_details"/>
+	 	<result property="patientPersonID" 		column="idPatient_details"/>
 	 	<result property="doctorWorkStartTime" 	column="work_start_time"/>
 	 	<result property="doctorWorkEndTime" 	column="work_end_time"/>
 	 	<result property="comments"			 	column="appointment_comment"/>
@@ -215,33 +220,24 @@
 	 	
 	<parameterMap id="Day-Appointment-Parm-Map"   class="java.util.HashMap">
 		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
-		<parameter property="DoctorID"    			javaType="java.lang.Integer"   	mode="IN"/>
 	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
 		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
-		<parameter property="DoctorID"    			javaType="java.lang.Integer"   	mode="IN"/>
 	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
 	</parameterMap>
 
 	<select id="dayAppointment" parameterMap="Day-Appointment-Parm-Map" resultMap="Day-Appointment-Result-Map">
-			select idAppointment_History, appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,work_start_time,work_end_time,appointment_comment,appointment_end_time,appointment_confirmation		
-			from appointment_history ah,
-			doctor_details dd,
-			person p
-			where 
-			(p.person_type = 'Doctor' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) 
-			and (p.idPerson =? or dd.idDoctor_details =?)
-			and date_of_appointment = date_format(?,'%Y-%m-%d')
-			and appointment_confirmation != 'C'
-			union all
-			select 0, '','9999-12-31','23:59:59', '23:59:59',idDoctor_details,start_time,end_time,'' ,'23:59:59',''
-			from doctor_work_timings dwt,
-			doctor_details dd,
-			person p
-			where dwt.doctor_id = dd.iddoctor_details
-			and dd.idperson = p.idperson
-			and (p.idPerson =? or dd.idDoctor_details =?)
-			and work_day = DATE_FORMAT(?, '%W')	;
-			
+		select idAppointment_History, appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,
+		'00:00:00' as work_start_time,'00:00:00' as work_end_time,appointment_comment,appointment_end_time,appointment_confirmation,p.idPerson,idPatient_details      
+		from appointment_history ah,    person p    
+		where (p.idPerson=ah.idDoctor_details or p.idPerson=ah.idPatient_details)
+		and p.idPerson =?
+		and date_of_appointment = date_format(?,'%Y-%m-%d')
+		union all    
+		select 0, '','9999-12-31','23:59:59', '23:59:59',idDoctor_details,start_time,end_time,'' ,'23:59:59','',
+		p.idPerson    ,0
+		from doctor_work_timings dwt,    doctor_details dd,    person p    
+		where dwt.doctor_id = dd.iddoctor_details    and dd.idperson = p.idperson    and (p.idPerson =? )    
+		and work_day = DATE_FORMAT(?, '%W') ;       
  	</select>
 
  	<resultMap class="com.mediapp.domain.common.Appointment" id="Day-Appointment-Patient-Result-Map">
@@ -251,13 +247,19 @@
 	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
 	 	<result property="appointmentDuration" 	column="appointment_duration"/>
 	 	<result property="doctorID" 			column="idDoctor_details"/>
+	 	<result property="doctorPersonID" 		column="idDoctor_details"/>
+	 	<result property="doctorWorkStartTime" 	column="work_start_time"/>
+	 	<result property="doctorWorkEndTime" 	column="work_end_time"/>
 	 	<result property="comments"			 	column="appointment_comment"/>
 	 	<result property="appointmentEndTime" 	column="appointment_end_time"/>
 	 	<result property="confirmedIndicator" 	column="appointment_confirmation"/>
-	 	
 	</resultMap>
 
 	<parameterMap id="Day-Appointment-Patient-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
+		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
+		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
 		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
 	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
 	</parameterMap>
@@ -281,7 +283,7 @@
 	<insert id="insertNewAppointment">
 		INSERT INTO appointment_history ( idAppointment_History, idPatient_details,idDoctor_details,date_of_appointment,appointment_type,
 		appointment_confirmation,time_of_appointment,appointment_comment,appointment_duration,appointment_headline,appointment_end_time ) 
-		VALUES ( #appointmentID#,(select idpatient_details from patient_details where idPerson=#patientPersonID#),#doctorID#,date_format(#dateOfAppointment#, '%y-%m-%d'),'R','N',
+		VALUES ( #appointmentID#,#patientPersonID#,#doctorPersonID#,date_format(#dateOfAppointment#, '%y-%m-%d'),'R','N',
 		#timeOfAppointment#,#comments#,#appointmentDuration# ,#headline#,addtime(#timeOfAppointment#,#appointmentDuration#))
 	</insert>
 	
@@ -349,19 +351,17 @@
 	</parameterMap>
 
 	<select id="getAppointment" parameterMap="Get-Appointment-Parm-Map" resultMap="Get-Appointment-Result-Map">
-			select idAppointment_history,ifnull(d.idDiagnosis,0) as idDiagnosis,appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,
-                    ICD_code,Prescription_name,dosage,suggested_test,test_result_value,test_result_unit	,appointment_comment,appointment_confirmation				
-			from person p
-			left OUTER join doctor_details dd on dd.idPerson=p.idPerson
-			left OUTER join appointment_history ah on 
-				((p.person_type = 'Doctor' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) or
-					(p.person_type = 'Patient' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details) )
-			left OUTER join diagnosis d on d.idAppointment = ah.idAppointment_History
-			left OUTER join tests t on t.fDiagnosis= d.idDiagnosis
-			left OUTER join patient_prescription pp on pp.idDiagnosis= d.idDiagnosis
-			where ah.idAppointment_History=?
-			and appointment_confirmation != 'C'
-			order by idDiagnosis,Prescription_name,suggested_test;
+			 select idAppointment_history,ifnull(d.idDiagnosis,0) as idDiagnosis,
+ appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,  
+ ICD_code,Prescription_name,dosage,suggested_test,test_result_value,test_result_unit ,appointment_comment,appointment_confirmation    
+ from person p    
+ left OUTER join appointment_history ah
+ on ah.Iddoctor_details = p.idperson
+ left OUTER join diagnosis d on d.idAppointment = ah.idAppointment_History   
+ left OUTER join tests t on t.fDiagnosis= d.idDiagnosis   
+ left OUTER join patient_prescription pp on pp.idDiagnosis= d.idDiagnosis    
+ where ah.idAppointment_History=?    and appointment_confirmation != 'C'
+ order by idDiagnosis,Prescription_name,suggested_test;  
  	</select>
 
 	<resultMap class="com.mediapp.domain.common.AppointmentForMonth" id="Get-MonthAppointment-Result-Map">
@@ -373,32 +373,19 @@
 		<parameter property="PersonID"    			javaType="java.lang.Integer"  		mode="IN"/>
 	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
 	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
-		<parameter property="PersonID"    			javaType="java.lang.Integer"   		mode="IN"/>
-	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
-	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   		mode="IN"/>
 	</parameterMap>
 
 	<select id="getMonthAppointment" parameterMap="Get-MonthAppointment-Parm-Map" resultMap="Get-MonthAppointment-Result-Map">
 		select date_of_appointment,count(date_of_appointment) as AppointmentCount
-		from person p
-		left OUTER join doctor_details dd on dd.idPerson=p.idPerson
+		from person p	
 		left OUTER join appointment_history ah on      
-		(p.person_type = 'Doctor' and dd.idPerson=p.idPerson and dd.idDoctor_details = ah.idDoctor_details)
-		where p.idPerson =?    and month(date_of_appointment) = month(?) 
+		(p.idPerson= ah.idDoctor_details or p.idPerson= ah.idPatient_details)
+		where p.idPerson =?
+        and month(date_of_appointment) = month(?) 
 		and year(date_of_appointment) = year(?)
-		and appointment_confirmation != 'C'              
+		and appointment_confirmation !='C'
 		group by date_of_appointment             
-		union all
-		select date_of_appointment,count(date_of_appointment)        
-		from person p
-		left OUTER join patient_details pd on pd.idPerson=p.idPerson    
-		left OUTER join appointment_history ah on
-		(p.person_type = 'Patient' and pd.idPerson=p.idPerson and pd.idPatient_details = ah.idPatient_details)     
-		where p.idPerson =?     
-		and month(date_of_appointment) = month(?)             
-		and year(date_of_appointment) = year(?)
-		and appointment_confirmation != 'C'              
-		group by date_of_appointment; 
+ 
  	</select>
 
 	 <parameterMap id="Bulk-Nextval-Parm-Map"   class="java.util.HashMap">
@@ -537,7 +524,6 @@
 
 	 <parameterMap id="Docotor-WorkTimingsForDay-Parm-Map"   class="java.util.HashMap">
 		 <parameter property="PersonID"    	 		javaType="java.lang.Integer"    mode="IN"/>
-		 <parameter property="DoctorID"    	 		javaType="java.lang.Integer"    mode="IN"/>
 		 <parameter property="AppointmentDate"  	javaType="java.util.Date"   	mode="IN"/>
 	 </parameterMap>
 
@@ -549,7 +535,7 @@
 		person p
 		where dwt.doctor_id = dd.iddoctor_details
 		and dd.idperson = p.idperson
-		and (p.idPerson =? or dd.idDoctor_details =?)
+		and (p.idPerson =? )
 		and work_day = DATE_FORMAT(?, '%W');
 	</select>
 
@@ -949,5 +935,24 @@
 			select idDiagnosis from diagnosis where idAppointment=#appointmentID#);
 	</delete>
 	
+	 <parameterMap id="Work-Timings-Map"   class="java.util.HashMap">
+	    <parameter property="PersonID"    		javaType="java.lang.Integer"    mode="IN"/>
+	 </parameterMap>
+
+
+	<select id="WorkTimings" parameterMap="Work-Timings-Map" resultClass="java.lang.String">
+           select concat_ws(',',if(sunday_working!='',sunday_working,'N'),
+			if(monday_working!='',monday_working,'N'),
+			if(tuesday_working!='',tuesday_working,'N') ,
+			if(wednesday_working!='',wednesday_working,'N'),
+			if(thursday_working!='',thursday_working,'N') ,
+			if(friday_working!='',friday_working,'N' ),
+			if(saturday_working!='',saturday_working,'N')
+			) as workdays
+			from doctor_details
+			where idperson =?;
+ 	</select>
+
+
 	
 </sqlMap>

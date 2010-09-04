@@ -104,13 +104,13 @@ function fn_dayAppointment(personID, userName){
 	 window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('searchCriteria.dateOfAppointment').value+"&UserName="+userName+"&TakeAppointment=Y";
 }
 
-function fn_createAppointment(personID,doctorID,timeOfAppointment,appointmentDate,userName){
-	if (doctorID > 0){
+function fn_createAppointment(personID,doctorID,timeOfAppointment,appointmentDate,userName,doctorPersonID){
+	if (userName !=""){
 		window.name = "Parent";
 		var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:630px;status:no;edge:sunken';	
-	    var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&UserName="+userName, window, WinSettings);
+	    var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&UserName="+userName+"&DoctorPersonID="+doctorPersonID, window, WinSettings);
 	}else{
-		alert("Please take appointment by going through Search Doctor.");
+		alert("We are sorry, there seems to be some issue with the appmate profile with whom you are trying to take appointment.");
 	}
 }
 
@@ -119,7 +119,7 @@ function fn_addAppointment(){
 	document.getElementById('timeOfAppointment').disabled=false;	
 	document.forms['createAppointment'].target="Parent";
     document.forms["createAppointment"].submit();
-	document.forms['createAppointment'].method ="get";	
+	document.forms['createAppointment'].method ="post";	
 	document.forms['createAppointment'].action="dayAppointment.htm"; 
 	document.forms['createAppointment'].submit();
 	 self.close();
@@ -255,10 +255,14 @@ function fn_openAppointment(personID,timeOfAppointment,appointmentDate,appointme
 	
 }
 
-function fn_rescheduleAppointment(personID,timeOfAppointment,appointmentDate,appointmentID){
-	window.name = "Parent";	
-	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1000px;status:no;edge:sunken';	
-    var c = window.showModalDialog('/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID, window, WinSettings);
+function fn_rescheduleAppointment(){
+	window.name = "Parent";
+	var personID = document.getElementById('personID').value;
+	var appointmentDate=document.getElementById('AppointmentDateR').value;
+    var appointmentID=document.getElementById('AppointmentID').value;    
+    var timeOfAppointment=document.getElementById('TimeOfAppointment').value;		
+	var WinSettings = 'scroll:no;help:0;center:yes;resizable:yes;dialogHeight:630px;dialogWidth:1000px;status:no;edge:sunken';	
+    var c = window.showModalDialog('/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"UserName="+UserName, window, WinSettings);
 	//window.open('/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID,"reportWindow");
 }
 

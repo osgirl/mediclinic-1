@@ -64,7 +64,7 @@ public class CommonServiceImpl implements CommonService{
 	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment, String personType, int doctorID) {
 		List <Appointment> appointmentList =commonDAO.getDayAppointment(idPerson, dateOfAppointment,personType, doctorID);
 		 List<DoctorWorkTimings> workTimings =new ArrayList();
-		if (personType.equals(CommonCoreConstants.DOCTOR)){
+		if (!personType.equals(CommonCoreConstants.PATIENT)){
 			workTimings = commonDAO.getDoctorWorkTimingsForDay(idPerson, dateOfAppointment,doctorID);		
 			long startTimingLong=0;	
 			String startTiming=null;
@@ -90,8 +90,10 @@ public class CommonServiceImpl implements CommonService{
 					}
 				}
 			}
-			appointmentList.get(0).setDoctorWorkStartTime(startTiming);
-			appointmentList.get(0).setDoctorWorkEndTime(endTiming);
+			if(appointmentList.size()>0){
+				appointmentList.get(0).setDoctorWorkStartTime(startTiming);
+				appointmentList.get(0).setDoctorWorkEndTime(endTiming);
+			}
 		}else{
 			if (appointmentList.size() > 0){
 				appointmentList.get(0).setDoctorWorkStartTime(CommonCoreConstants.WORK_START_TIME);
@@ -104,61 +106,63 @@ public class CommonServiceImpl implements CommonService{
 
 			}
 		}
-		
-		List <Appointment> completeAppointmentList = new ArrayList();		
-		Appointment eachAppointment = new Appointment();		
-		Time iTime = Time.valueOf(appointmentList.get(0).getDoctorWorkStartTime());
-		Time appointmentEndTime = Time.valueOf("00:00:00"); 
-		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss"); 
-		boolean workingOrNot =true;
-		while (iTime.compareTo(Time.valueOf(appointmentList.get(0).getDoctorWorkEndTime()))<= 0){			
-			eachAppointment.setTimeOfAppointment(iTime);
-			if ( (iTime.getTime()-appointmentEndTime.getTime() >= 0)){
-				for(Appointment loopAppointment:appointmentList){
-					if (loopAppointment.getHeadline()!=null && iTime.compareTo(loopAppointment.getTimeOfAppointment())==0){
-						eachAppointment.setAppointmentDuration(loopAppointment.getAppointmentDuration());
-						eachAppointment.setHeadline(loopAppointment.getHeadline());
-						eachAppointment.setComments(loopAppointment.getComments());					
-						eachAppointment.setConfirmedIndicator(loopAppointment.getConfirmedIndicator());
-						eachAppointment.setAppointmentID(loopAppointment.getAppointmentID());	
-						appointmentEndTime.setTime(loopAppointment.getAppointmentEndTime().getTime());
-					}
-					if(personType.equals(CommonCoreConstants.DOCTOR)){
-						eachAppointment.setDoctorID(loopAppointment.getDoctorID());
-					}
-				}
-				workingOrNot =true;
-				for(DoctorWorkTimings eachWorkTiming:workTimings){
-					if(iTime.compareTo(eachWorkTiming.getEndTime())>0){
-						if(workingOrNot ){
-							workingOrNot=false;
+		List <Appointment> completeAppointmentList = new ArrayList();
+		if(appointmentList.size()>0){					
+			Appointment eachAppointment = new Appointment();
+			Time iTime = Time.valueOf(appointmentList.get(0).getDoctorWorkStartTime());
+			Time appointmentEndTime = Time.valueOf("00:00:00"); 
+			SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss"); 
+			boolean workingOrNot =true;
+			while (iTime.compareTo(Time.valueOf(appointmentList.get(0).getDoctorWorkEndTime()))<= 0){			
+				eachAppointment.setTimeOfAppointment(iTime);
+				if ( (iTime.getTime()-appointmentEndTime.getTime() >= 0)){
+					for(Appointment loopAppointment:appointmentList){
+						if (loopAppointment.getHeadline()!=null && iTime.compareTo(loopAppointment.getTimeOfAppointment())==0){
+							eachAppointment.setAppointmentDuration(loopAppointment.getAppointmentDuration());
+							eachAppointment.setHeadline(loopAppointment.getHeadline());
+							eachAppointment.setComments(loopAppointment.getComments());					
+							eachAppointment.setConfirmedIndicator(loopAppointment.getConfirmedIndicator());
+							eachAppointment.setAppointmentID(loopAppointment.getAppointmentID());
+							eachAppointment.setPatientPersonID(loopAppointment.getPatientPersonID());
+							appointmentEndTime.setTime(loopAppointment.getAppointmentEndTime().getTime());
 						}
-					}else{
-						if(!workingOrNot && iTime.compareTo(eachWorkTiming.getStartTime())>= 0){
-							workingOrNot=true;
+						if(personType.equals(CommonCoreConstants.DOCTOR)){
+							eachAppointment.setDoctorID(loopAppointment.getDoctorID());
 						}
 					}
-				}
-				if(!workingOrNot){
+					workingOrNot =true;
+					for(DoctorWorkTimings eachWorkTiming:workTimings){
+						if(iTime.compareTo(eachWorkTiming.getEndTime())>0){
+							if(workingOrNot ){
+								workingOrNot=false;
+							}
+						}else{
+							if(!workingOrNot && iTime.compareTo(eachWorkTiming.getStartTime())>= 0){
+								workingOrNot=true;
+							}
+						}
+					}
+					if(!workingOrNot){
+						eachAppointment.setHeadline("OOO");
+					}
+				}else{
 					eachAppointment.setHeadline("OOO");
+				}	
+				eachAppointment.setWorkingHour("N");
+				for(DoctorWorkTimings workTimingEach : workTimings){
+				    if ( workTimingEach.getStartTime().compareTo(iTime) > 0 && workTimingEach.getEndTime().compareTo(iTime) < 0){
+				     eachAppointment.setWorkingHour("Y");
+				    }
 				}
-			}else{
-				eachAppointment.setHeadline("OOO");
-			}	
-			eachAppointment.setWorkingHour("N");
-			for(DoctorWorkTimings workTimingEach : workTimings){
-			    if ( workTimingEach.getStartTime().compareTo(iTime) > 0 && workTimingEach.getEndTime().compareTo(iTime) < 0){
-			     eachAppointment.setWorkingHour("Y");
-			    }
+	
+				completeAppointmentList.add(eachAppointment);
+				eachAppointment = new Appointment();
+				Calendar now = Calendar.getInstance();
+				now.setTime((Time)iTime.clone());
+				iTime = new Time(1);
+				now.add(Calendar.MINUTE, CommonCoreConstants.INTERVAL_MINUTE);
+				iTime.setTime(now.getTimeInMillis());
 			}
-
-			completeAppointmentList.add(eachAppointment);
-			eachAppointment = new Appointment();
-			Calendar now = Calendar.getInstance();
-			now.setTime((Time)iTime.clone());
-			iTime = new Time(1);
-			now.add(Calendar.MINUTE, CommonCoreConstants.INTERVAL_MINUTE);
-			iTime.setTime(now.getTimeInMillis());
 		}
 		return completeAppointmentList;
 		
@@ -171,7 +175,7 @@ public class CommonServiceImpl implements CommonService{
 		return commonDAO.getPersonalProfile(personID);
 	}
 	
-	public Appointment getAppointment(int idPerson,Date dateOfAppointment, int idAppointment) {
+	public Appointment getAppointment( int idAppointment) {
 		return commonDAO.getAppointment(idAppointment);
 	}
 	
@@ -183,6 +187,8 @@ public class CommonServiceImpl implements CommonService{
 	public List<AppointmentForMonth> getMonthAppointment(int idPerson,
 			Date dateOfAppointment) {
 		List<AppointmentForMonth>  appointmentForMonth = commonDAO.getMonthAppointment(idPerson, dateOfAppointment);
+		String workDays = commonDAO.getWorkTimings(idPerson);
+		String[] workdayList = workDays.split(",");
 		List <AppointmentForMonth> completeAppointmentList = new ArrayList();
 		AppointmentForMonth dayAppointment = new AppointmentForMonth();
 		Calendar calendar = Calendar.getInstance();
@@ -216,6 +222,10 @@ public class CommonServiceImpl implements CommonService{
 				icalendar.set(iyear, imonth, iday);
 				Date setDate = icalendar.getTime();			
 				dayAppointment.setDateOfAppointment(setDate);
+				calendar = Calendar.getInstance();
+				calendar.set(Calendar.DAY_OF_MONTH,iday );
+			    weekday = calendar.get(Calendar.DAY_OF_WEEK);
+			    dayAppointment.setIsWorking(workdayList[weekday-1]);
 				dayAppointment.setAppointmentCount(0);
 				completeAppointmentList.add(dayAppointment);
 				dayAppointment = new AppointmentForMonth();
@@ -229,6 +239,10 @@ public class CommonServiceImpl implements CommonService{
 				Date setDate = icalendar.getTime();			
 				dayAppointment.setDateOfAppointment(setDate);
 				dayAppointment.setAppointmentCount(0);
+				calendar = Calendar.getInstance();
+				calendar.set(Calendar.DAY_OF_MONTH,iday );
+			    weekday = calendar.get(Calendar.DAY_OF_WEEK);
+			    dayAppointment.setIsWorking(workdayList[weekday-1]);
 				for(AppointmentForMonth loopappointmentForMonth : appointmentForMonth){
 					Calendar date = Calendar.getInstance();
 					date.setTime(loopappointmentForMonth.getDateOfAppointment());

@@ -41,7 +41,7 @@ public class UpdateAppointmentController extends MediAppBaseController{
 		}else{
 			dateOfAppointment = dateFormat.parse(sAppointmentDate);
 		}		
-		Appointment appointment = commonService.getAppointment(idPerson, dateOfAppointment,idAppointment);
+		Appointment appointment = commonService.getAppointment(idAppointment);
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
 	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, appointment);
 	    appointmentMap.put("personID", idPerson);	    

@@ -29,7 +29,7 @@ public interface CommonService {
 	
 	public Person getPersonalProfile(int personID);
 	
-	public Appointment getAppointment(int idPerson,Date dateOfAppointment, int idAppointment) ;
+	public Appointment getAppointment( int idAppointment) ;
 	
 	public List <CodeDecode> getCodeValue(String codeCategory) ;
 	

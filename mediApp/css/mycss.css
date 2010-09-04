@@ -1015,3 +1015,12 @@ a.anchortext:active {
 .min {
  font-size: 10px
  }
+
+ html {scrollbar-face-color: #EFF5FB;
+scrollbar-shadow-color: #FFFFFF;
+scrollbar-highlight-color: #FFFFFF;
+scrollbar-3dlight-color:#53670D;
+scrollbar-darkshadow-color: #53670D;
+scrollbar-track-color: #cadef4;
+scrollbar-arrow-color: #53670D;}
+ 

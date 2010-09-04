@@ -174,6 +174,8 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		criteria.put("PersonType", searchCriteria.getPersonType());
 		criteria.put("Username", searchCriteria.getUsername());
 		criteria.put("HolidayDate", searchCriteria.getDateOfAppointment());
+		Integer personID = new Integer(searchCriteria.getSelfPersonID());
+		criteria.put("SelfPersonID", personID);
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(searchCriteria.getDateOfAppointment());
 		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);		
@@ -242,12 +244,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		
 		criteria.put("DateOfAppointment", dateOfAppointment);	
 		List <Appointment> appointmentList =new ArrayList();
-		if (personType.equals(CommonCoreConstants.DOCTOR)){
-			 appointmentList = (ArrayList<Appointment>) getList("common.dayAppointment",criteria );	
-		}else{
-			 appointmentList = (ArrayList<Appointment>) getList("common.dayAppointmentForPatient",criteria );
-		}
-			
+		appointmentList = (ArrayList<Appointment>) getList("common.dayAppointment",criteria );	 
 		return appointmentList;
 		
 		
@@ -722,4 +719,12 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return flag;
 	}
 
+	public String getWorkTimings(int idPerson) throws DataAccessException {
+		Map<String,Integer> criteria =  new HashMap < String, Integer > () ;
+		Integer personID = new Integer(idPerson);
+		criteria.put("PersonID", personID);
+		return (String) getObject("common.WorkTimings", criteria);
+	}
+
+	
 }
