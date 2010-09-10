@@ -733,21 +733,17 @@
 
 
 	<select id="getDetailsForNotification" parameterMap="Notification-Parm-Map" resultMap="Notification-Result-Map">
-			select concat(patient.first_name," " , patient.middle_name, ". ", patient.last_name) as PatientName, patient.email_address as PatientEmailAddress,
+			select concat(patient.first_name," " , patient.middle_name, " ", patient.last_name) as PatientName, patient.email_address as PatientEmailAddress,
 			patient.mobile_phone_number as PatientMobile,
-			concat(doctor.first_name," " , doctor.middle_name, ". ", doctor.last_name) as DoctorName, doctor.email_address as DoctorEmailAddress,
+			concat(doctor.first_name," " , doctor.middle_name, " ", doctor.last_name) as DoctorName, doctor.email_address as DoctorEmailAddress,
 			doctor.mobile_phone_number as DoctorMobile
 			from person patient,
 			person doctor,
-			patient_details pd,
-			doctor_details dd,
 			appointment_history ah
 			where 
-			ah.idPatient_details = pd.idPatient_details
-			and ah.idDoctor_details =dd.idDoctor_details
-			and pd.idPerson = patient.idPerson
-			and dd.idPerson = doctor.idPerson
-			and ah.idAppointment_History =? 	
+			 ah.idPatient_details = patient.idPerson
+			and ah.idDoctor_details = doctor.idPerson
+			and ah.idAppointment_History=?
 	</select>
  	
 
@@ -953,6 +949,84 @@
 			where idperson =?;
  	</select>
 
+ 	<resultMap class="com.mediapp.domain.common.Appointment" id="Waiting-Confirmation-Result-Map">
+	 	<result property="appointmentID" 		column="idAppointment_History"/> 	
+	 	<result property="headline" 			column="appointment_headline"/>
+	 	<result property="dateOfAppointment" 	column="date_of_appointment"/>
+	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
+	 	<result property="appointmentDuration" 	column="appointment_duration"/>
+	 	<result property="patientFirstName" 	column="PatientFirstName"/>
+	 	<result property="patientMiddleInitial" column="PatientMiddleInitial"/>
+	 	<result property="patientLastName" 		column="PatientLastName"/>
+	 	<result property="doctorFirstName" 		column="DoctorFirstName"/>
+	 	<result property="doctorMiddleInitial" 	column="DoctorMiddleInitial"/>
+	 	<result property="doctorLastName" 		column="DoctorLastName"/>	 		 		 		 	
+	 	<result property="comments"			 	column="appointment_comment"/>
+	 	<result property="appointmentEndTime" 	column="appointment_end_time"/>
+	 	<result property="confirmedIndicator" 	column="appointment_confirmation"/>
+	</resultMap>
+	 	
+	<parameterMap id="Waiting-Confirmation-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
+	</parameterMap>
 
+	<select id="getWaitingConfirmation" parameterMap="Waiting-Confirmation-Parm-Map" resultMap="Waiting-Confirmation-Result-Map">
+		select idAppointment_History,date_of_appointment,time_of_appointment,appointment_confirmation,
+		appointment_headline,appointment_comment,appointment_duration,appointment_end_time,
+		patient.first_name as PatientFirstName, patient.middle_name as PatientMiddleInitial,  patient.last_name as PatientLastName, 
+		doctor.first_name as DoctorFirstName,doctor.middle_name as DoctorMiddleInitial, doctor.last_name as DoctorLastName
+		from appointment_history ah,
+		person patient,
+		person doctor
+		where 
+		ah.idPatient_details = patient.idperson
+		and ah.iddoctor_details = doctor.idperson
+		and ah.iddoctor_details =?
+		and appointment_confirmation = 'N';
+ 	</select>
+
+
+ 	<resultMap class="com.mediapp.domain.common.Appointment" id="Reminder-Appointment-Result-Map">
+	 	<result property="appointmentID" 		column="idAppointment_History"/> 	
+	 	<result property="headline" 			column="appointment_headline"/>
+	 	<result property="dateOfAppointment" 	column="date_of_appointment"/>
+	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
+	 	<result property="appointmentDuration" 	column="appointment_duration"/>
+	 	<result property="patientFirstName" 	column="PatientFirstName"/>
+	 	<result property="patientMiddleInitial" column="PatientMiddleInitial"/>
+	 	<result property="patientLastName" 		column="PatientLastName"/>
+	 	<result property="doctorFirstName" 		column="DoctorFirstName"/>
+	 	<result property="doctorMiddleInitial" 	column="DoctorMiddleInitial"/>
+	 	<result property="doctorLastName" 		column="DoctorLastName"/>	 		 		 		 	
+	 	<result property="comments"			 	column="appointment_comment"/>
+	 	<result property="appointmentEndTime" 	column="appointment_end_time"/>
+	 	<result property="confirmedIndicator" 	column="appointment_confirmation"/>
+	</resultMap>
+	 	
+	<parameterMap id="Reminder-Appointment-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
+	</parameterMap>
+
+	<select id="ReminderAppointment" parameterMap="Reminder-Appointment-Parm-Map" resultMap="Reminder-Appointment-Result-Map">
+		select idAppointment_History,date_of_appointment,time_of_appointment,appointment_confirmation,
+		appointment_headline,appointment_comment,appointment_duration,appointment_end_time,
+		patient.first_name as PatientFirstName, patient.middle_name as PatientMiddleInitial,  patient.last_name as PatientLastName, 
+		doctor.first_name as DoctorFirstName,doctor.middle_name as DoctorMiddleInitial, doctor.last_name as DoctorLastName
+		from appointment_history ah,
+		person patient,
+		person doctor,
+		code_decode cd1,
+		code_decode cd2
+		where 
+		ah.idPatient_details = patient.idperson
+		and ah.iddoctor_details = doctor.idperson
+		and ah.iddoctor_details =?
+		and cd1.code_ctg = 'REMINDER_END_TIME'
+		and cd2.code_ctg = 'REMINDER_START_TIME'
+		and date_of_appointment = current_date
+		and time_to_sec(timediff(curtime(),time_of_appointment)) <![CDATA[<=]]>  cd2.code_val
+		and time_to_sec(timediff(curtime(),time_of_appointment)) <![CDATA[>=]]> cd1.code_val;
+ 	</select>
+	
 	
 </sqlMap>

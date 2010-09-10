@@ -19,6 +19,7 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/addRotator.js"></script>	
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/customalert.js"></script>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/calendar.css">
 
 </head>

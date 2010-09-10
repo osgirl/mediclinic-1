@@ -18,6 +18,7 @@
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar_us.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/customalert.js"></script>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/calendar.css">
 	</head>
 	<body>
@@ -112,8 +113,7 @@
 									<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorPersonID}"/>"/>
 								</spring:bind>
 								<input type="hidden" name="PersonID"  value="<c:out value="${appointment.doctorPersonID}"/>"/>
-								<input type="hidden" name="AppointmentDate"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>"/>
-								<input type="hidden" name="TakeAppointment"  value="Y"/>
+								<input type="hidden" name="AppointmentDate"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>"/>								
 						</table>
 						<div id="dayAppointments"  style="display:block" align="center">
 							<table  border=""  class="appointment" width=680>

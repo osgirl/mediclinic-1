@@ -8,7 +8,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.validation.Errors;
@@ -16,7 +19,9 @@ import org.springframework.validation.Errors;
 import com.mediapp.core.common.business.CommonService;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.DoctorSearch;
+import com.mediapp.domain.common.NotificationDetails;
 import com.mediapp.domain.common.SearchCriteria;
+import com.mediapp.web.common.CustomTimeEditor;
 import com.mediapp.web.constants.common.CommonWebConstants;
 
 public class UpdateAppointmentController extends MediAppBaseController{
@@ -42,21 +47,26 @@ public class UpdateAppointmentController extends MediAppBaseController{
 			dateOfAppointment = dateFormat.parse(sAppointmentDate);
 		}		
 		Appointment appointment = commonService.getAppointment(idAppointment);
+		NotificationDetails notificationDetails = commonService.getNotificationDetails(idAppointment);
 	    Map < String , Object > appointmentMap = new HashMap < String , Object > ();
 	    appointmentMap.put(CommonWebConstants.DAY_APPOINTMENT, appointment);
-	    appointmentMap.put("personID", idPerson);	    
+	    appointmentMap.put("PersonID", idPerson);	    
+	    appointmentMap.put("personID", idPerson);
 	    appointmentMap.put("appointmentDate", dateOfAppointment);
 	    appointmentMap.put("AppointmentID", idAppointment);	    
+	    appointmentMap.put("Notification", notificationDetails);
+	    String userName = request.getParameter("UserName");
+	    appointmentMap.put("UserName", userName);
 	    return appointmentMap;
 	}
 
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		Appointment appointment = (Appointment) command;
 		String sidAppointment = request.getParameter("AppointmentID");
-		System.out.println("test is "+ appointment.getDiagnosis().get(0).getTestList().get(0));
 		int idAppointment = Integer.parseInt(sidAppointment);
 		appointment.setAppointmentID(idAppointment);
-		boolean status = commonService.updateDiagnosisAndTests(appointment);		
+		commonService.updateAppointmentConfirmation(idAppointment);
+		//boolean status = commonService.updateDiagnosisAndTests(appointment);		
 		return null;
     }
 
@@ -75,6 +85,23 @@ public class UpdateAppointmentController extends MediAppBaseController{
 	}
 	
 	
+	@Override
+	protected void initBinder(HttpServletRequest request,
+		ServletRequestDataBinder binder) throws Exception {
+		 String dateFormat = getMessageSourceAccessor().getMessage("format.date",
+	     "MM/dd/yyyy");
+		 SimpleDateFormat df = new SimpleDateFormat(dateFormat);
+		 df.setLenient(true);
+		 binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(
+	     df, true));
+		 String dateFormat1 = getMessageSourceAccessor().getMessage("format.date",
+	     "HH:mm:ss");
+		 SimpleDateFormat df1 = new SimpleDateFormat(dateFormat1);
+		 df.setLenient(true);
+		 binder.registerCustomEditor(java.sql.Time.class, new CustomTimeEditor(
+	     df1, true));
+
+	}
 	
 
 }

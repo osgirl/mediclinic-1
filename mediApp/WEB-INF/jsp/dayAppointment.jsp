@@ -102,7 +102,7 @@
 																							</c:if>
 																						</td>
 																						<c:if test='${appointments.headline != "OOO" && TakeAppointment ne "Y"}'>
-																							<td  style="background: url(/images/arrowbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:100%;"  align="center" onmouseover="this.style.cursor='hand'" id="clickMe" onclick="fn_showOptions('${LoggedOnUserID}','${appointments.patientPersonID}','${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>','${appointments.appointmentID}');">  
+																							<td  style="background: url(/images/arrowbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:100%;"  align="center" onmouseover="this.style.cursor='hand'" id="clickMe" onclick="fn_showOptions('${LoggedOnUserID}','${appointments.patientPersonID}','${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>','${appointments.appointmentID}','${appointments.confirmedIndicator}');">  
 																				  			</td>
 																				  		</c:if>
 																					</c:if>
@@ -135,27 +135,43 @@
 	<div style="margin-left: -100px; top: -40px; background: white; width: 200px; height: 200px; position: relative;" id="reference">
 		<div id="movingDiv" class="stp" style="top=0;left=0;position:absolute;;margin-bottom:1.5em;display:none" >
 			<div class="or" style="margin:1em; padding:0;border-width: 0px 0px 0px 0px;" > 
-		         <table  border=""  id="menuTable" width=100 class="sample" style="border-width: 0px 0px 0px 0px;">
+		         <table  border=""  id="menuTable" width=130 class="sample" style="border-width: 0px 0px 0px 0px;">
+       				<input type="hidden" name="TimeOfAppointment"  id="TimeOfAppointment" />
+   					<input type="hidden" name="AppointmentDateR"  id="AppointmentDateR" />
+   					<input type="hidden" name="AppointmentID"  id="AppointmentID" />
+		         
 			           <tr>               
 				            <td id="confirm">
-								<a href="#" onClick="" style="text-decoration:none" class="sansa"> 
+								<a href="javascript:void(0);" onClick="javascript:fn_openAppointment();document.getElementById('movingDiv').style.display='none';" style="text-decoration:none" class="sansa"> 
 									<font size="+1" color="blue" >Confirm</font> 
 								</a>
 				           </td>
 	        		   </tr>
+			           <tr>               
+				            <td id="open">
+								<a href="javascript:void(0);" onClick="javascript:fn_openAppointment();document.getElementById('movingDiv').style.display='none';" style="text-decoration:none" class="sansa"> 
+									<font size="+1" color="blue" >Open</font> 
+								</a>
+				           </td>
+	        		   </tr>
+
 	           			<tr id="reschedule">
 	           				<td>
-	           					<input type="hidden" name="TimeOfAppointment"  id="TimeOfAppointment" />
-	           					<input type="hidden" name="AppointmentDateR"  id="AppointmentDateR" />
-	           					<input type="hidden" name="AppointmentID"  id="AppointmentID" />
-								<a href="javascript:void(0);" onClick="javascript:fn_rescheduleAppointment();" style="text-decoration:none"  class="sansa"  > 
+								<a href="javascript:void(0);" onClick="javascript:fn_rescheduleAppointment();document.getElementById('movingDiv').style.display='none';" style="text-decoration:none"  class="sansa"  > 
 									<font size="+1" color="blue" >Reschedule</font> 
 								</a>
 				           </td>
 	           			</tr>
+	           			<tr id="propose">
+	           				<td>
+								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';" style="text-decoration:none"  class="sansa"  > 
+									<font size="+1" color="blue" >Propose Time</font> 
+								</a>
+				           </td>
+	           			</tr>	           			
 			           <tr id="cancel">               
 				            <td>
-								<a href="#" onClick="" style="text-decoration:none"  class="sansa"> 
+								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';" style="text-decoration:none"  class="sansa"> 
 									<font size="+1" color="blue" >Cancel</font> 
 								</a>
 				           </td>

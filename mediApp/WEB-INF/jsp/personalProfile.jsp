@@ -202,7 +202,7 @@
               <td >
 				<spring:bind path="person.personTypeString">				
 					<select id="${status.expression}" name="${status.expression}" style="WIDTH: 150px">
-						<option value=""></option>
+						<option value="AppMent"></option>
 						<c:forEach items="${personType}" var="data">
 							<option value='${data.codeDecode}' ${person.personTypeString==data.codeDecode ?"selected=\"selected\"":"" }>${data.codeDecode}</option>
 						</c:forEach>

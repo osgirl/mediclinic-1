@@ -26,6 +26,7 @@ import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.DoctorWorkTimings;
 import com.mediapp.domain.common.HolidayCalendarList;
 import com.mediapp.domain.common.MultiPartFileUploadBean;
+import com.mediapp.domain.common.NotificationDetails;
 import com.mediapp.domain.common.PatientDetails;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
@@ -313,6 +314,9 @@ public class CommonServiceImpl implements CommonService{
 	public Person getPersonDetails(Person person){
 		return commonDAO.getPersonDetails(person);
 	}
-
+	
+	public NotificationDetails getNotificationDetails(Integer appointmentID){
+		return commonDAO.getNotificationDetails(appointmentID);
+	}
 
 }

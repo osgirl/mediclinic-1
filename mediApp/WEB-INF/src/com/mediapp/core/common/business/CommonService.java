@@ -12,6 +12,7 @@ import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.HolidayCalendarList;
 import com.mediapp.domain.common.MultiPartFileUploadBean;
+import com.mediapp.domain.common.NotificationDetails;
 import com.mediapp.domain.common.PatientDetails;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
@@ -60,4 +61,6 @@ public interface CommonService {
 	public boolean rescheduleAppointment(Appointment appointment);
 	
 	public Person getPersonDetails(Person person);
+	
+	public NotificationDetails getNotificationDetails(Integer appointmentID);
 }

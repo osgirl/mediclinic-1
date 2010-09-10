@@ -97,7 +97,31 @@ function fn_nextURL(URL){
 }
 
 function fn_searchDoctor(){
-	document.forms["searchDoctor"].submit();
+	if(CkDate(document.getElementById('searchCriteria.dateOfAppointment'),'mm/dd/yyyy')){
+		document.forms["searchDoctor"].submit();
+	}
+}
+
+function CkDate(obj,format){
+	 if (typeof(obj)=='string') obj=document.myform[obj];
+	 var date=obj.value.split('/');
+	 var mydate=new Date(date[2],date[(format.charAt(0)=='d')?1:0]-1,date[(format.charAt(0)=='d')?0:1]);
+	 if (mydate<new Date().setHours(0,0,0,0)){
+	  alert('Date cannot be past date.');
+	  return false;
+	 }
+	 return true;
+}
+
+function CkDateValue(obj,format){
+	 //if (typeof(obj)=='string') obj=document.myform[obj];	
+	 var date=obj.split('/');
+	 var mydate=new Date(date[2],date[(format.charAt(0)=='d')?1:0]-1,date[(format.charAt(0)=='d')?0:1]);
+	 if (mydate<new Date().setHours(0,0,0,0)){
+	  alert('Date cannot be past date.');
+	  return false;
+	 }
+	 return true;
 }
 
 function fn_dayAppointment(personID, userName){	
@@ -105,12 +129,15 @@ function fn_dayAppointment(personID, userName){
 }
 
 function fn_createAppointment(personID,doctorID,timeOfAppointment,appointmentDate,userName,doctorPersonID){
-	if (userName !=""){
-		window.name = "Parent";
-		var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:630px;status:no;edge:sunken';	
-	    var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&UserName="+userName+"&DoctorPersonID="+doctorPersonID, window, WinSettings);
-	}else{
-		alert("We are sorry, there seems to be some issue with the appmate profile with whom you are trying to take appointment.");
+	if(CkDateValue(appointmentDate,'mm/dd/yyyy')){		 
+		//CkDate(document.getElementById('searchCriteria.dateOfAppointment'),'mm/dd/yyyy'),1);
+		if (userName !=""){
+			window.name = "Parent";
+			var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:630px;status:no;edge:sunken';	
+		    var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&UserName="+userName+"&DoctorPersonID="+doctorPersonID, window, WinSettings);
+		}else{
+			alert("We are sorry, there seems to be some issue with the appmate profile with whom you are trying to take appointment.");
+		}
 	}
 }
 
@@ -210,8 +237,11 @@ function fn_GetMonthAppointmentDayView(indicator){
 }
 
 function fn_updateDateOfAppointment(timeOfAppointment,appointmentDate){
-	document.getElementById('dateOfAppointment').value =appointmentDate;
-	document.getElementById('timeOfAppointment').value =timeOfAppointment;
+	
+	if (CkDateValue(appointmentDate,'mm/dd/yyyy')){		
+		document.getElementById('dateOfAppointment').value =appointmentDate;
+		document.getElementById('timeOfAppointment').value =timeOfAppointment;
+	}
 }
 
 function fn_GetMonthView(indicator){
@@ -245,12 +275,19 @@ function fn_GetYearView(indicator){
 	}
 }
 
-function fn_openAppointment(personID,timeOfAppointment,appointmentDate,appointmentID){
+function fn_openAppointment(){
+//	personID,timeOfAppointment,appointmentDate,appointmentID
+	var personID = document.getElementById('personID').value;
+	var appointmentDate=document.getElementById('AppointmentDateR').value;
+    var appointmentID=document.getElementById('AppointmentID').value;    
+    var timeOfAppointment=document.getElementById('TimeOfAppointment').value;		
+    var UserName=document.getElementById('UserName').value;    
 	//alert(appointmentID);
 	//alert('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID);
 	window.name = "Parent";	
-	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1500px;status:no;edge:sunken';	
-    var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID, window, WinSettings);
+	//var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1500px;status:no;edge:sunken';
+	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:670px;status:no;edge:sunken';
+    var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName, window, WinSettings);
     
 	
 }
@@ -261,8 +298,9 @@ function fn_rescheduleAppointment(){
 	var appointmentDate=document.getElementById('AppointmentDateR').value;
     var appointmentID=document.getElementById('AppointmentID').value;    
     var timeOfAppointment=document.getElementById('TimeOfAppointment').value;		
+    var UserName=document.getElementById('UserName').value;
 	var WinSettings = 'scroll:no;help:0;center:yes;resizable:yes;dialogHeight:630px;dialogWidth:1000px;status:no;edge:sunken';	
-    var c = window.showModalDialog('/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"UserName="+UserName, window, WinSettings);
+    var c = window.showModalDialog('/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName, window, WinSettings);
 	//window.open('/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID,"reportWindow");
 }
 
@@ -272,6 +310,17 @@ function fn_Print(){
 	document.forms['updateAppointment'].method ="post";
 	document.forms['updateAppointment'].action="simpleReportCompile.pdf"; 
 	document.forms['updateAppointment'].submit();
+	
+}
+
+function fn_confirmAppointment(){
+	document.forms['updateAppointment'].target="Parent";
+    document.forms['updateAppointment'].submit();
+	document.forms['updateAppointment'].method ="post";	
+	document.forms['updateAppointment'].action="dayAppointment.htm"; 
+	document.forms['updateAppointment'].submit();
+	 self.close();
+
 	
 }
 function fn_deletePrescription(num){

@@ -83,7 +83,7 @@ window.onload = function () {
   //document.getElementById('other_clicky').onmousedown =
 }
 
-function fn_showOptions(loggedUserID,calendarUserID,appointmentTime,appointmentDate,appointmentID){
+function fn_showOptions(loggedUserID,calendarUserID,appointmentTime,appointmentDate,appointmentID,confirmationIndicator){
     var e = event || window.event;
     var pos = getRelativeCoordinates(event, document.getElementById('reference'));
     var r = document.getElementById('reference');
@@ -95,9 +95,16 @@ function fn_showOptions(loggedUserID,calendarUserID,appointmentTime,appointmentD
     //var tbl  = document.getElementById('menuTable');
     //var rows = tbl.getElementsByTagName('tr');
     if (loggedUserID == calendarUserID){
-    	var confirmTR  = document.getElementById('confirm').style.display="none";
+    	document.getElementById('confirm').style.display="none";
+    	document.getElementById('propose').style.display="none";
     }else{
-    	var cancelTR  = document.getElementById('cancel').style.display="none";
+    	if(confirmationIndicator !='N'){
+    		document.getElementById('confirm').style.display="none";
+    	}else{
+    		document.getElementById('open').style.display="none";
+    	}
+    	document.getElementById('reschedule').style.display="none";
+    	document.getElementById('cancel').style.display="none";
     }    
     document.getElementById('AppointmentDateR').value=appointmentDate;
     document.getElementById('AppointmentID').value=appointmentID;
