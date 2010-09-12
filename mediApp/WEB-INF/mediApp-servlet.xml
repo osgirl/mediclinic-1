@@ -87,6 +87,23 @@
 		
     </bean>
 
+	<bean id="inboxForm" class="com.mediapp.web.controller.common.InboxController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>appointment</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Appointment</value></property>
+        <property name="formView"><value>inbox</value></property>
+        <property name="successView"><value>inbox</value></property>
+        <property name="commonService">
+			<ref bean="commonService"/>
+		</property>
+		<property name="sendeMail">
+			<ref bean="sendeMail"/>
+		</property>
+		<property name="sendSMS">
+			<ref bean="sendSMS"/>
+		</property>
+		
+    </bean>
 
 	<bean id="pastHistory" class="com.mediapp.web.controller.common.PastHistoryController">
         <property name="sessionForm"><value>true</value></property>
@@ -323,6 +340,9 @@
 				</entry>
 				<entry key="/appmentSignUp.htm">
 					<ref bean="appmentSignUpForm"/>
+				</entry>
+				<entry key="/inbox.htm">
+					<ref bean="inboxForm"/>
 				</entry>
 			</map>
 		</property>

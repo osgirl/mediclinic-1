@@ -18,7 +18,16 @@ public class ScheduleJob extends MediAppBaseDomain{
 	
 	private String parameterValue;
 	
+	private String jobStatus;
 	
+	public String getJobStatus() {
+		return jobStatus;
+	}
+
+	public void setJobStatus(String jobStatus) {
+		this.jobStatus = jobStatus;
+	}
+
 	public int getJobId() {
 		return jobId;
 	}

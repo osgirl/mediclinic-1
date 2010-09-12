@@ -71,7 +71,7 @@
 																				</td>
 																			</tr>
 																		</table>
-																		<table border="0" cellpadding="3"  cellspacing="0" width="100%">
+																		<table border="0" cellpadding="3"  cellspacing="0" width="100%">																		
 																			<c:forEach items="${appointment}" var="appointments">
 																				<tr>	
 																					<c:choose>

@@ -63,4 +63,6 @@ public interface CommonService {
 	public Person getPersonDetails(Person person);
 	
 	public NotificationDetails getNotificationDetails(Integer appointmentID);
+	
+	public List<List<Appointment>> getInbox(int  idPerson ) ;
 }

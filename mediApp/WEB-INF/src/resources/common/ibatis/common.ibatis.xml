@@ -692,11 +692,14 @@
 	<select id="getJobDetails"  resultMap="Get-Job-Details-Result-Map">
 			select sj.idschedule_job , action,comments,input_parameter_name,input_parameter_value
 				from schedule_job sj,
-				job_inputs ji
+				job_inputs ji,
+                code_decode c1                                
 				where 
 				ji.idschedule_job = sj.idschedule_job
-				and job_status != ('CMPL')
+				and job_status = ('SCDL')
 				and effectiveDate <![CDATA[ <= ]]>now() 
+                and sj.action = c1.code_ctg
+                and upper(c1.code_val) = 'ON'
 				order by sj.idschedule_job;
 
  	</select>
@@ -704,16 +707,19 @@
 	<select id="getJobParms"  resultClass="java.util.HashMap">
 			select input_parameter_name,input_parameter_value
 				from job_inputs ji,
-				 schedule_job sj
+				 schedule_job sj,
+                code_decode c1
 				where 
 				ji.idschedule_job = sj.idschedule_job
-				and job_status != ('CMPL')
-				and effectiveDate <![CDATA[ <= ]]>now() ;
+				and job_status = ('SCDL')
+				and effectiveDate <![CDATA[ <= ]]>now() 
+                and sj.action = c1.code_ctg
+                and upper(c1.code_val) = 'ON'	;
 
  	</select>
  	
  	<update id="updateJobCompletionStatus" >
-		UPDATE schedule_job set job_status='CMPL'
+		UPDATE schedule_job set job_status=#jobStatus#
 		where idschedule_job=#jobId#
 		
 	</update>
@@ -1027,6 +1033,43 @@
 		and time_to_sec(timediff(curtime(),time_of_appointment)) <![CDATA[<=]]>  cd2.code_val
 		and time_to_sec(timediff(curtime(),time_of_appointment)) <![CDATA[>=]]> cd1.code_val;
  	</select>
-	
+
+	<insert id="insertInboundMessage">
+		INSERT INTO inbound_messages (sender_number,inbound_message) 
+		VALUES (#smscNumber#,#text#);
+	</insert>	
+
+	<resultMap class="com.mediapp.domain.common.IncomingMessages" id="Get-Read-Messages-Result-Map">
+	 	<result property="messageId" 		column="idinbound_messages"/>
+	 	<result property="senderNumber" 	column="sender_number"/>
+	 	<result property="messageText" 		column="inbound_message"/>
+	</resultMap>
+
+	 <parameterMap id="Get-Read-Messages-parm-Map"   class="java.util.HashMap">
+	    <parameter property="ProcessingID" 	javaType="java.lang.String"    mode="IN"/>
+	 </parameterMap>
+
+
+	<select id="getReadMessages"  parameterMap="Get-Read-Messages-parm-Map" resultMap="Get-Read-Messages-Result-Map">
+			select idinbound_messages , sender_number,inbound_message
+				from inbound_messages im                      
+				where idprocessing =? ;
+
+ 	</select>
+
+
+	 <parameterMap id="update-Incoming-SMS-Map"   class="java.util.HashMap">
+	    <parameter property="NewProcessingStatus" 	javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="NewProcessingID"		javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="OldProcessingStatus" 	javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="OldProcessingID"		javaType="java.lang.String"    mode="IN"/>
+	 </parameterMap>
+
+ 	<update id="updateIncomingSMSJob"  parameterMap="update-Incoming-SMS-Map" >
+		UPDATE inbound_messages set processing_status=?,idprocessing=?
+		where processing_status=?,idprocessing=?;
+		
+	</update>
+
 	
 </sqlMap>

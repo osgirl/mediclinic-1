@@ -13,7 +13,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
+import org.smslib.InboundMessage;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -27,6 +29,7 @@ import com.mediapp.domain.common.Diagnosis;
 import com.mediapp.domain.common.DoctorWorkTimings;
 import com.mediapp.domain.common.HolidayCalendarList;
 import com.mediapp.domain.common.Holidays;
+import com.mediapp.domain.common.IncomingMessages;
 import com.mediapp.domain.common.MultiPartFileUploadBean;
 import com.mediapp.domain.common.NotificationDetails;
 import com.mediapp.domain.common.PatientDetails;
@@ -726,5 +729,66 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return (String) getObject("common.WorkTimings", criteria);
 	}
 
+	public List<List<Appointment>> getInbox(int  idPerson ) throws DataAccessException{
+		Integer personID = new Integer(idPerson);
+		Map<String,Integer> criteria =  new HashMap < String, Integer > () ;
+		criteria.put("PersonID", personID);
+		List <List<Appointment>> appointmentList = new ArrayList<List<Appointment>>();
+		List<Appointment> toConfirm = (List<Appointment>) getList("common.getWaitingConfirmation", criteria);
+		appointmentList.add(toConfirm);
+		List<Appointment> nowMeeting = (List<Appointment>) getList("common.ReminderAppointment", criteria);
+		appointmentList.add(nowMeeting);
+		return appointmentList;
+	}
+
+	public boolean insertInboundMessages(List<InboundMessage> messages)  throws DataAccessException{
+		boolean insertStatus = false;
+		boolean finalStatus = true;
+		try{
+			this.getSqlMapClient().startBatch(); 
+			for(InboundMessage eachMessage :messages){
+				insertStatus=insertObject("common.insertNewPerson", eachMessage );
+				if(!insertStatus){
+					finalStatus = false;
+				}
+			}
+			int count=this.getSqlMapClient().executeBatch();
+			if(count == messages.size()){
+				finalStatus = true;
+			}else{
+				finalStatus = false;
+			}
+			
+		} catch (SQLException e) { 
+			throw new DataIntegrityViolationException(e.getMessage()); 
+		}
+//		if(finalStatus){
+//		Map <String,String> parms = new HashMap < String, String > () ;
+//		parms.put("ReadSMS", "Process Read SMS");
+//		scheduleJob("SMSREAD",parms,"Read SMS");
+//		}
+		return finalStatus;
+	}
+	
+	public boolean updateIncomingSMSJob (String oldProcessingId, String oldStatus, String newProcessingId, String newStatus) throws DataAccessException{
+		boolean processStatus = true;
+		Map<String,String> criteria =  new HashMap < String, String > () ;
+		criteria.put("NewProcessingStatus", newStatus);
+		criteria.put("NewProcessingID", newProcessingId);
+		criteria.put("OldProcessingStatus", oldStatus);
+		criteria.put("OldProcessingID", oldProcessingId);
+		
+		Integer count = (Integer)updateObject("common.updateIncomingSMSJob", criteria);
+		
+		//String uuid = UUID.randomUUID().toString();
+		return  processStatus;
+	}
+
+	public List<IncomingMessages> getReadMessages(String processingId)  throws DataAccessException{
+		Map<String,String> criteria =  new HashMap < String, String > () ;
+		criteria.put("ProcessingID", processingId);
+		return (ArrayList<IncomingMessages>) getList("common.getReadMessages",criteria );
+
+	}
 	
 }

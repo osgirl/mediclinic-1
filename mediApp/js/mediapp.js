@@ -286,11 +286,24 @@ function fn_openAppointment(){
 	//alert('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID);
 	window.name = "Parent";	
 	//var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1500px;status:no;edge:sunken';
+	var myObject = new Object();
+	myObject.URL = '/dayAppointment.htm';
 	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:670px;status:no;edge:sunken';
-    var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName, window, WinSettings);
+    var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName, myObject, WinSettings);
     
 	
 }
+
+function fn_openAppointmentInbox(personID,appointmentDate,appointmentID,timeOfAppointment){
+	window.name = "Parent";
+	var myObject = new Object();
+	myObject.URL = '/inbox.htm';
+	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:670px;status:no;edge:sunken';
+    var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID, myObject, WinSettings);
+    
+	
+}
+
 
 function fn_rescheduleAppointment(){
 	window.name = "Parent";
@@ -317,7 +330,8 @@ function fn_confirmAppointment(){
 	document.forms['updateAppointment'].target="Parent";
     document.forms['updateAppointment'].submit();
 	document.forms['updateAppointment'].method ="post";	
-	document.forms['updateAppointment'].action="dayAppointment.htm"; 
+	var oMyObject = window.dialogArguments;
+	document.forms['updateAppointment'].action=oMyObject.URL; 
 	document.forms['updateAppointment'].submit();
 	 self.close();
 
@@ -1290,3 +1304,23 @@ child.focus();
 
 //other script for appointment
 */
+
+function fn_showReminder(){
+	if(document.buttonimgdown.src==eval('cacheoffimgdown.src')){
+		document.buttonimgdown.src=eval('cacheonimgdown.src');
+		document.getElementById('remindme').style.display='block';
+	}else{
+		document.buttonimgdown.src=eval('cacheoffimgdown.src');
+		document.getElementById('remindme').style.display='none';
+	}
+}
+
+function fn_confirmIt(){	
+	if(document.buttonimgdown1.src==eval('cacheoffimgdown1.src')){
+		document.buttonimgdown1.src=eval('cacheonimgdown1.src');
+		document.getElementById('confirmit').style.display='block';
+	}else{
+		document.buttonimgdown1.src=eval('cacheoffimgdown1.src');
+		document.getElementById('confirmit').style.display='none';
+	}
+}

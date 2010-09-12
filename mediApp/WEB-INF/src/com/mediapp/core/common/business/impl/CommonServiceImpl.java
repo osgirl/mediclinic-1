@@ -318,5 +318,9 @@ public class CommonServiceImpl implements CommonService{
 	public NotificationDetails getNotificationDetails(Integer appointmentID){
 		return commonDAO.getNotificationDetails(appointmentID);
 	}
+	
+	public List<List<Appointment>> getInbox(int  idPerson ) {
+		return commonDAO.getInbox(idPerson);
+	}
 
 }

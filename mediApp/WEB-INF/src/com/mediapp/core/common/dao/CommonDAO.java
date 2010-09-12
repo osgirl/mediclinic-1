@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.smslib.InboundMessage;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -12,6 +13,7 @@ import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.DoctorWorkTimings;
 import com.mediapp.domain.common.HolidayCalendarList;
+import com.mediapp.domain.common.IncomingMessages;
 import com.mediapp.domain.common.MultiPartFileUploadBean;
 import com.mediapp.domain.common.NotificationDetails;
 import com.mediapp.domain.common.PatientDetails;
@@ -112,4 +114,12 @@ public interface CommonDAO {
 	public boolean cancelAllAppointments(int iPersonID)throws DataAccessException;
 
 	public String getWorkTimings(int idPerson) throws DataAccessException ;
+	
+	public List<List<Appointment>> getInbox(int  idPerson ) throws DataAccessException;
+	
+	public boolean insertInboundMessages(List<InboundMessage> messages)  throws DataAccessException;
+	
+	public boolean updateIncomingSMSJob (String oldProcessingId, String oldStatus, String newProcessingId, String newStatus) throws DataAccessException;
+	
+	public List<IncomingMessages> getReadMessages(String processingId)  throws DataAccessException;
 }
