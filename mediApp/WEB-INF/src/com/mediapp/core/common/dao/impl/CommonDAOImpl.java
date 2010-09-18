@@ -615,8 +615,11 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return insertObject("common.insertPatientDocument",fileDetails );
 	}
 
-	public boolean updateAppointmentConfirmation (int appointmentID) throws DataAccessException{
-		int numberOfRecords =updateObject("common.updateAppointmentConfirmation", appointmentID);
+	public boolean updateAppointmentConfirmation (int appointmentID, String confirmationIndicator) throws DataAccessException{
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		criteria.put("AppointmentID", new Integer(appointmentID));
+		criteria.put("ConfirmationIndicator", confirmationIndicator);
+		int numberOfRecords =(Integer) updateObject("common.updateAppointmentConfirmation", criteria);
 		boolean flag = false;
 		if(numberOfRecords==1){
 			flag=true;
@@ -747,7 +750,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		try{
 			this.getSqlMapClient().startBatch(); 
 			for(InboundMessage eachMessage :messages){
-				insertStatus=insertObject("common.insertNewPerson", eachMessage );
+				insertStatus=insertObject("common.insertInboundMessage", eachMessage );
 				if(!insertStatus){
 					finalStatus = false;
 				}
@@ -790,5 +793,34 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return (ArrayList<IncomingMessages>) getList("common.getReadMessages",criteria );
 
 	}
+
+	public boolean updateAppointmentConfirmationThruSMS (Appointment appointment) throws DataAccessException{		
+		int numberOfRecords = updateObject("common.updateAppointmentConfirmationThruSMS", appointment);
+		boolean flag = false;
+		if(numberOfRecords==1){
+			flag=true;
+		}
+		return flag;
+	}
 	
+	public int checkIfAppointmentAvailable(Appointment appointment)throws DataAccessException{
+		Map<String,Object> criteria =  new HashMap < String, Object> () ;
+		criteria.put("DateOfAppointment", appointment.getDateOfAppointment());
+		criteria.put("TimeOfAppointment", appointment.getTimeOfAppointment());
+		criteria.put("AppointmentDuration", appointment.getAppointmentDuration());
+		criteria.put("PersonID", new Integer(appointment.getDoctorPersonID()));
+		return (Integer) getObject("common.checkIfAppointmentAvailable", criteria);		
+		
+	}
+	
+	public int checkIfAppointmentExists(Appointment appointment)throws DataAccessException{
+		Map<String,Object> criteria =  new HashMap < String, Object> () ;
+		criteria.put("DateOfAppointment", appointment.getDateOfAppointment());
+		criteria.put("TimeOfAppointment", appointment.getTimeOfAppointment());
+		criteria.put("PersonID", new Integer(appointment.getPatientPersonID()));
+		
+		return (Integer) getObject("common.checkIfAppointmentExists", criteria);		
+		
+	}
+
 }

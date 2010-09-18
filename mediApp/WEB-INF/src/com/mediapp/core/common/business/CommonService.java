@@ -50,7 +50,7 @@ public interface CommonService {
 	
 	public boolean insertPatientDocumentDetials(MultiPartFileUploadBean fileDetails);
 	
-	public boolean updateAppointmentConfirmation (int appointmentID) ;
+	public boolean updateAppointmentConfirmation (int appointmentID, String confirmationIndicator) ;
 
 	public List <CodeDecode> getDiagnosis(String code) ;
 	

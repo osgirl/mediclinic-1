@@ -41,7 +41,7 @@
            address1, address2, locality, city, state, country,user_name
            FROM person left join address on address.personID = person.idPerson
            where 
-		   user_name = ? ;		   
+		   upper(user_name) = upper(?) ;		   
  	</select>
 
 	 <parameterMap id="Person-Type-Map"   class="java.util.HashMap">
@@ -676,8 +676,13 @@
 			select nextval(?);
  	</select>
 	
-	<update id="updateAppointmentConfirmation" >
-		update appointment_history set appointment_confirmation = 'Y' where idAppointment_history=#appointmentID#
+	<parameterMap id="AppointmentConfirmation-Parm-Map"   class="java.util.HashMap">
+		<parameter property="AppointmentID" 				javaType="java.lang.Integer"   mode="IN"/>
+	    <parameter property="ConfirmationIndicator" 		javaType="java.lang.String"    mode="IN"/>
+	 </parameterMap>
+
+	<update id="updateAppointmentConfirmation"  parameterMap="AppointmentConfirmation-Parm-Map" >
+		update appointment_history set appointment_confirmation = ? where idAppointment_history=?
 	</update>
 
 	<resultMap class="com.mediapp.domain.common.ScheduleJob" id="Get-Job-Details-Result-Map">
@@ -1070,6 +1075,52 @@
 		where processing_status=?,idprocessing=?;
 		
 	</update>
+
+
+
+	<update id="updateAppointmentConfirmationThruSMS"  >
+		update appointment_history set appointment_confirmation = #confirmedIndicator# where date_of_appointment =#dateOfAppointment# 
+		and time_of_appointment=#timeOfAppointment# and idPatient_details= #patientPersonID#; 
+	</update>
+
+
+	 <parameterMap id="Check-If-Appointment-Available-parm-Map"   class="java.util.HashMap">
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
+	    <parameter property="TimeOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
+	    <parameter property="TimeOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
+	    <parameter property="AppointmentDuration"  	javaType="java.util.Date"   	mode="IN"/>
+	    <parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
+	 </parameterMap>
+
+
+	<select id="checkIfAppointmentAvailable"  parameterMap="Check-If-Appointment-Available-parm-Map" resultClass="java.lang.Integer">
+		select count(*)
+		from appointment_history
+		where date_of_appointment = date_format(?,'%Y-%m-%d')
+		and (DATE_FORMAT(?, '%H:%i:%s') between 
+		  time_of_appointment  and addtime(time_of_appointment,appointment_duration)
+		or
+		addtime(DATE_FORMAT(?, '%H:%i:%s'),DATE_FORMAT(?, '%H:%i:%s')) between 
+		  time_of_appointment  and addtime(time_of_appointment,appointment_duration))
+		and idDoctor_details = ?;
+
+ 	</select>
+
+
+	 <parameterMap id="Check-If-Appointment-Exists-parm-Map"   class="java.util.HashMap">
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
+	    <parameter property="TimeOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
+	    <parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
+	 </parameterMap>
+
+
+	<select id="checkIfAppointmentExists"  parameterMap="Check-If-Appointment-Exists-parm-Map" resultClass="java.lang.Integer">
+		select idAppointment_history
+		from appointment_history
+		where date_of_appointment = date_format(?,'%Y-%m-%d')
+		and time_of_appointment =DATE_FORMAT(?, '%H:%i:%s') 
+		and idPatient_details=? ;
+ 	</select>
 
 	
 </sqlMap>

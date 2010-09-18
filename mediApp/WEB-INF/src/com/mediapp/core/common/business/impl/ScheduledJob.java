@@ -1,6 +1,10 @@
 package com.mediapp.core.common.business.impl;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +22,8 @@ import com.mediapp.domain.common.IncomingMessages;
 import com.mediapp.domain.common.NotificationDetails;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.ScheduleJob;
+import com.mediapp.domain.common.SearchCriteria;
+import com.mediapp.domain.common.SearchResult;
 
 public class ScheduledJob {
 
@@ -208,15 +214,32 @@ public class ScheduledJob {
 		  String uuid = UUID.randomUUID().toString();
 			 boolean status = commonDAO.updateIncomingSMSJob(null, "SCDL", uuid, "UPRS");
 			  if(status){
-				  List<IncomingMessages> incomingMessages =commonDAO.getReadMessages(uuid);
-				  for(IncomingMessages eachMessage: incomingMessages){
+				  List<IncomingMessages> incomingMessages =commonDAO.getReadMessages(uuid);				  
+				  for(IncomingMessages eachMessage: incomingMessages){					  
 					  taskExecutor.execute(new ProcessReadSMS(eachMessage));
 				  }
-
-			  
 			  }
-
 	 }
+	  
+	  private static final ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>() { 
+		    @Override 
+		    protected SimpleDateFormat initialValue() { 
+		        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+		        df.setLenient(false); 
+		        //System.out.println("created"); 
+		        return df; 
+		    } 
+		}; 
+
+	  private static final ThreadLocal<SimpleDateFormat> timeFormat = new ThreadLocal<SimpleDateFormat>() { 
+			    @Override 
+			    protected SimpleDateFormat initialValue() { 
+			        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss"); 
+			        df.setLenient(false); 
+			        //System.out.println("created"); 
+			        return df; 
+			    } 
+			}; 
 	  
 	  private class ProcessJobInnerSMS implements Runnable {
 			
@@ -310,26 +333,232 @@ public class ScheduledJob {
 				this.readMessage = readMessage;
 			}
 		  public void run() {
-			  boolean exists = false;
+			  //boolean exists = false;
 			  MessageTypes action = null;
 			  String[] splitString =null;
-			  for(MessageTypes eachElement : EnumSet.allOf(MessageTypes.class)){
-				  splitString=readMessage.getMessageText().split(" ");
+			  splitString=readMessage.getMessageText().split(" ");
+			  Person validatedPerson = new Person(); 
+			  for(MessageTypes eachElement : EnumSet.allOf(MessageTypes.class)){				  
 				  if(eachElement.name().equals(splitString[0])){
-					  exists=true;
-					  action= eachElement.valueOf(splitString[0]);
+				//	  exists=true;
+					  Person person = new Person();
+					  if(splitString.length >=2 ){
+						  person.setUsername(splitString[1]);
+						   validatedPerson = commonDAO.getPersonDetails(person);
+						  if(null != validatedPerson.getLastName() && !"".equals(validatedPerson.getLastName())){						  
+							  if(readMessage.getSenderNumber().indexOf(validatedPerson.getCellPhoneNumber()) != -1){
+								  action= eachElement;    
+							  }
+							  
+						  }
+					  }
 					  break;
 				  }
-			  }
+			  }			  
 			  switch (action){
 			  	case CANCEL:
+			  		validateAndCancelAppointment(readMessage,validatedPerson);
 			  	case GETTIME:
+			  		getAvailableTimeSlots(readMessage,validatedPerson);
 			  	case RESCD:
+			  		rescheduleAppointment(readMessage,validatedPerson);
 			  	case SCD:
+			  		scheduleAppointment(readMessage,validatedPerson);
 			  	case HELP:
+			  		help(readMessage);
 			  	default:
+			  		error(readMessage);
 			  }
 			  
 		  }
 	  }
+	  
+	  public void validateAndCancelAppointment(IncomingMessages readMessage,Person validatedPerson){
+		  String[] splitString=readMessage.getMessageText().split(" ");
+		  if(splitString.length >= 3){
+			  boolean isValid = validateDate(splitString[2]);
+			  if(isValid){
+				  if(splitString.length >= 4){
+					  isValid = validateTime(splitString[3]);
+					  if(isValid){
+						  Appointment appointment = new Appointment();
+						  appointment.setDateOfAppointment(convertStringToDate(splitString[2]));
+						  appointment.setTimeOfAppointment(convertStringToTime(splitString[3]));
+						  appointment.setConfirmedIndicator("C");
+						  appointment.setPatientPersonID(validatedPerson.getIdPerson());
+						  if (!commonDAO.updateAppointmentConfirmationThruSMS(appointment )){
+							  error(readMessage);
+						  }
+					  }else{
+						  error(readMessage);
+					  }
+				  }else{
+					  error(readMessage);
+				  }
+			  }else{
+				  error(readMessage);
+			  }			  
+		  }else{
+			  error(readMessage);
+		  }
+	  }
+	  
+	  public void getAvailableTimeSlots(IncomingMessages readMessage,Person validatedPerson){
+		  
+	  }
+	  
+	  public void rescheduleAppointment(IncomingMessages readMessage,Person validatedPerson){
+		  String[] splitString=readMessage.getMessageText().split(" ");
+		  if(splitString.length >= 3){
+			  boolean isValid = validateDate(splitString[2]);
+			  if(isValid){
+				  if(splitString.length >= 4){
+					  isValid = validateTime(splitString[3]);
+					  if(isValid){
+						  if(splitString.length >= 5){
+							  isValid = validateTime(splitString[4]);
+							  if(isValid){
+								  Appointment appointment =new Appointment();
+								  appointment.setAppointmentDuration(convertStringToTime(splitString[5]));
+								  appointment.setDateOfAppointment(convertStringToDate(splitString[3]));
+								  appointment.setTimeOfAppointment(convertStringToTime(splitString[4]));
+								  if(validateTime(splitString[5])){
+									  appointment.setAppointmentDuration(convertStringToTime(splitString[5]));
+								  }else{
+									  error(readMessage);
+								  }
+								  appointment.setPatientPersonID(validatedPerson.getIdPerson());
+								  appointment.setAppointmentID(commonDAO.checkIfAppointmentExists(appointment));
+								  if(appointment.getAppointmentID() > 0){
+									  SearchCriteria searchCriteria = new SearchCriteria();
+									  searchCriteria.setUsername(splitString[5]);							  
+									  List <SearchResult> searchResults = commonDAO.getDoctors(searchCriteria);
+									  if(searchResults.size() == 1){
+										  appointment.setDoctorPersonID(searchResults.get(0).getIdPerson());
+										  if (commonDAO.checkIfAppointmentAvailable(appointment) == 0){
+											  commonDAO.rescheduleAppointment(appointment);
+										  }else{
+											  error(readMessage);
+										  }
+									  }else{
+										  error(readMessage);
+									  }
+									  
+									  
+								  }else{
+									  error(readMessage);
+								  }
+							  }else{
+								  error(readMessage);
+							  }
+						  }
+					  }else{
+						  error(readMessage);
+					  }
+				  }else{
+					  error(readMessage);
+				  }
+			  }else{
+				  error(readMessage);
+			  }			  
+		  }else{
+			  error(readMessage);
+		  }		  
+	  }
+	  
+	  public void scheduleAppointment(IncomingMessages readMessage,Person validatedPerson) {
+		  String[] splitString=readMessage.getMessageText().split(" ");
+		  if(splitString.length >= 3){
+			  boolean isValid = validateDate(splitString[2]);
+			  if(isValid){
+				  if(splitString.length >= 4){
+					  isValid = validateTime(splitString[3]);
+					  if(isValid){
+						  SearchCriteria searchCriteria = new SearchCriteria();
+						  if(splitString.length >= 6){
+							  searchCriteria.setUsername(splitString[5]);							  
+							  List <SearchResult> searchResults = commonDAO.getDoctors(searchCriteria);
+							  if(searchResults.size() == 1){
+								  Appointment appointment =new Appointment();
+								  appointment.setAppointmentDuration(convertStringToTime(splitString[5]));
+								  appointment.setDateOfAppointment(convertStringToDate(splitString[3]));
+								  appointment.setTimeOfAppointment(convertStringToTime(splitString[4]));
+								  appointment.setDoctorPersonID(searchResults.get(0).getIdPerson());
+								  appointment.setPatientPersonID(validatedPerson.getIdPerson());
+								  if (commonDAO.checkIfAppointmentAvailable(appointment) == 0){
+									appointment.setHeadline("Appointment Thru SMS");
+									appointment.setConfirmedIndicator("N");
+									commonDAO.insertNewAppointment(appointment);  
+								  }else{
+									  error(readMessage);
+								  }
+							  }else{
+								  error(readMessage);
+							  }
+						  }else{
+							  error(readMessage);
+						  }
+						  
+					  }else{
+						  error(readMessage);
+					  }
+				  }else{
+					  error(readMessage);
+				  }
+			  }else{
+				  error(readMessage);
+			  }			  
+		  }else{
+			  error(readMessage);
+		  }
+	  }
+	  
+	  public void help(IncomingMessages readMessage){
+		  
+	  }
+
+	  public void error(IncomingMessages readMessage){
+		  
+	  }
+
+	  public static boolean validateDate(String date){
+		  try{
+			  dateFormat.get().parse(date);
+		  } catch (ParseException ex) {
+			  System.out.println("error in validating date ");
+			  return false;
+		  }
+		  return true;
+	  }
+
+	  public static boolean validateTime(String time){
+		  try{
+			  timeFormat.get().parse(time);
+		  } catch (ParseException ex) {
+			  System.out.println("error in validating time ");
+			  return false;
+		  }
+		  return true;
+	  }
+
+	  public static Date convertStringToDate(String date){
+		  Date returnDate=null;
+		  try{
+			  returnDate = dateFormat.get().parse(date);			  
+		  } catch (ParseException ex) {
+			  System.out.println("error in validating date ");
+		  }
+		  return returnDate;
+	  }
+	  
+	  public static Time convertStringToTime(String time){
+		  Time returnTime = new Time(10);
+		  try{
+			  returnTime.setTime(timeFormat.get().parse(time).getTime());
+		  } catch (ParseException ex) {
+			  System.out.println("error in validating time ");			  
+		  }
+		  return returnTime;
+	  }
+
 }

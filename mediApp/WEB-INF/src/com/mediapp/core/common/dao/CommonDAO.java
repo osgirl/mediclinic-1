@@ -87,7 +87,7 @@ public interface CommonDAO {
 	
 	public boolean insertPatientDocumentDetials(MultiPartFileUploadBean fileDetails) throws DataAccessException;
 
-	public boolean updateAppointmentConfirmation (int appointmentID) throws DataAccessException;
+	public boolean updateAppointmentConfirmation (int appointmentID, String confirmationIndicator) throws DataAccessException;
 
 	public List <ScheduleJob> getJobsToRun () throws DataAccessException;
 
@@ -122,4 +122,10 @@ public interface CommonDAO {
 	public boolean updateIncomingSMSJob (String oldProcessingId, String oldStatus, String newProcessingId, String newStatus) throws DataAccessException;
 	
 	public List<IncomingMessages> getReadMessages(String processingId)  throws DataAccessException;
+	
+	public boolean updateAppointmentConfirmationThruSMS (Appointment appointment) throws DataAccessException;
+	
+	public int checkIfAppointmentAvailable(Appointment appointment)throws DataAccessException;
+	
+	public int checkIfAppointmentExists(Appointment appointment)throws DataAccessException;
 }

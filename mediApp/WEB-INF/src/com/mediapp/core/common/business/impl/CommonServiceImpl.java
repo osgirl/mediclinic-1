@@ -291,8 +291,8 @@ public class CommonServiceImpl implements CommonService{
 		return commonDAO.insertPatientDocumentDetials(fileDetails);
 	}
 	
-	public boolean updateAppointmentConfirmation (int appointmentID) {
-		return commonDAO.updateAppointmentConfirmation(appointmentID);
+	public boolean updateAppointmentConfirmation (int appointmentID, String confirmationIndicator) {
+		return commonDAO.updateAppointmentConfirmation(appointmentID, confirmationIndicator);
 	}
 
 	public List <CodeDecode> getDiagnosis(String code){
