@@ -211,12 +211,11 @@ public class ScheduledJob {
 				taskExecutor.execute(new ProcessJobInner(eachScheduleJob));
 			}
 		}
+		boolean status =false;
+		List<InboundMessage> messageList = new ArrayList<InboundMessage>();
 		try {
 			ReadSMS readSMS = new ReadSMS();
-			List<InboundMessage> messageList = readSMS.getAllSMS();
-			if (messageList.size() > 0) {
-				commonDAO.insertInboundMessages(messageList);
-			}
+			messageList = readSMS.getAllSMS();
 		} catch (Exception se) {
 			System.out.println(se.toString());
 			System.err.println("stacktrace" + se);
@@ -226,16 +225,22 @@ public class ScheduledJob {
 		if (jobDetailsToUseForSMS.size() > 0) {
 			taskExecutor.execute(new ProcessJobInnerSMS(jobDetailsToUseForSMS));
 		}
-		String uuid = UUID.randomUUID().toString();
-		boolean status = commonDAO.updateIncomingSMSJob(null, "SCDL", uuid,
-				"UPRS");
-		if (status) {
-			List<IncomingMessages> incomingMessages = commonDAO
-					.getReadMessages(uuid);
-			for (IncomingMessages eachMessage : incomingMessages) {
-				taskExecutor.execute(new ProcessReadSMS(eachMessage));
+		
+		if (messageList.size() > 0) {
+			String uuid = UUID.randomUUID().toString();
+			commonDAO.insertInboundMessages(messageList);
+			status = commonDAO.updateIncomingSMSJob(null, "SCDL", uuid,
+			"UPRS");
+			if (status) {
+				List<IncomingMessages> incomingMessages = commonDAO
+						.getReadMessages(uuid);
+				for (IncomingMessages eachMessage : incomingMessages) {
+					taskExecutor.execute(new ProcessReadSMS(eachMessage));
+				}
 			}
+
 		}
+		
 	}
 
 	private static final ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>() {
@@ -406,14 +411,19 @@ public class ScheduledJob {
 			}
 			switch (action) {
 			case CANCEL:
+				//CANCEL <yourusername> <mm/dd/yyyy> <hh:mm:ss>
 				validateAndCancelAppointment(readMessage, validatedPerson);
 			case GETTIME:
+				//GETTIME <yourusername> <mm/dd/yyyy> <appmateusername>				
 				getAvailableTimeSlots(readMessage, validatedPerson);
 			case RESCD:
+				//RESCD <yourusername> <old mm/dd/yyyy> <old hh:mm:ss> <new mm/dd/yyyy> <new hh:mm:ss> <duration hh:mm:ss>				
 				rescheduleAppointment(readMessage, validatedPerson);
 			case SCD:
+				//SCD <yourusername> <mm/dd/yyyy> <hh:mm:ss> <duration hh:mm:ss> <appmateusername>					
 				scheduleAppointment(readMessage, validatedPerson);
 			case HELP:
+				//HELP				
 				help(readMessage);
 			default:
 				error(readMessage);

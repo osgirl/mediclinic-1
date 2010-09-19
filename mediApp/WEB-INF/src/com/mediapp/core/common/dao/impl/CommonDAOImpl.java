@@ -774,7 +774,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	}
 	
 	public boolean updateIncomingSMSJob (String oldProcessingId, String oldStatus, String newProcessingId, String newStatus) throws DataAccessException{
-		boolean processStatus = true;
+		boolean processStatus = false;
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("NewProcessingStatus", newStatus);
 		criteria.put("NewProcessingID", newProcessingId);
@@ -782,7 +782,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		criteria.put("OldProcessingID", oldProcessingId);
 		
 		Integer count = (Integer)updateObject("common.updateIncomingSMSJob", criteria);
-		
+		if(count > 0){
+			processStatus = true;
+		}
 		//String uuid = UUID.randomUUID().toString();
 		return  processStatus;
 	}
