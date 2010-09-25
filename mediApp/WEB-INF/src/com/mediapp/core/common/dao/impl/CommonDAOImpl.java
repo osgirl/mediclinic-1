@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.smslib.InboundMessage;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -42,6 +44,8 @@ import com.mediapp.domain.common.SearchResult;
 
 public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
+	private final Log logger = LogFactory.getLog(getClass());
+	
 	public Person getPersonDetails(Person person) throws DataAccessException {
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("Key", person.getKey());
@@ -780,7 +784,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		criteria.put("NewProcessingID", newProcessingId);
 		criteria.put("OldProcessingStatus", oldStatus);
 		criteria.put("OldProcessingID", oldProcessingId);
-		
+		logger.debug("updating the incoming sms status...");
 		Integer count = (Integer)updateObject("common.updateIncomingSMSJob", criteria);
 		if(count > 0){
 			processStatus = true;

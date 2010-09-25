@@ -56,6 +56,18 @@ public class ReadSMS {
 			return msgList;
 	 }
 	 
+	 public  synchronized  void deleteAllSMS(List<InboundMessage> messageList) throws Exception{
+		 for(InboundMessage eachMessage : messageList){
+			 srv.deleteMessage(eachMessage);
+		 }
+		 
+	 }
+	 
+	 public  synchronized  void stopService() throws Exception{
+		 srv.stopService();
+		 
+	 }
+	 
 		public class InboundNotification implements IInboundMessageNotification
 		{
 			public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg)

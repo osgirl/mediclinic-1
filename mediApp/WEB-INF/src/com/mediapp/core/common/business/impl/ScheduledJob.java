@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.smslib.InboundMessage;
 import org.springframework.core.task.TaskExecutor;
 
@@ -27,6 +29,8 @@ import com.mediapp.domain.common.SearchResult;
 
 public class ScheduledJob {
 
+	private final Log logger = LogFactory.getLog(getClass());
+	
 	private List<ScheduleJob> jobDetails;
 
 	private TaskExecutor taskExecutor;
@@ -34,6 +38,8 @@ public class ScheduledJob {
 	private ScheduleEMail sendEmail;
 
 	private CommonDAO commonDAO;
+	
+	private String uuid;
 
 	private enum MessageTypes {
 		/**
@@ -206,6 +212,7 @@ public class ScheduledJob {
 		List<ScheduleJob> jobDetailsToUseForSMS = new ArrayList<ScheduleJob>();
 		for (ScheduleJob eachScheduleJob : jobDetailsToUse) {
 			if ("SMS".equals(eachScheduleJob.getActionToPerform())) {
+				
 				jobDetailsToUseForSMS.add(eachScheduleJob);
 			} else {
 				taskExecutor.execute(new ProcessJobInner(eachScheduleJob));
@@ -214,26 +221,37 @@ public class ScheduledJob {
 		boolean status =false;
 		List<InboundMessage> messageList = new ArrayList<InboundMessage>();
 		try {
+			logger.debug("reading SMS");
 			ReadSMS readSMS = new ReadSMS();
 			messageList = readSMS.getAllSMS();
+			if(messageList.size()>0){
+				status = commonDAO.insertInboundMessages(messageList);				
+			}
+			readSMS.deleteAllSMS(messageList);
+			readSMS.stopService();
+			
 		} catch (Exception se) {
 			System.out.println(se.toString());
 			System.err.println("stacktrace" + se);
 
 		}
-
-		if (jobDetailsToUseForSMS.size() > 0) {
-			taskExecutor.execute(new ProcessJobInnerSMS(jobDetailsToUseForSMS));
-		}
 		
+		if (jobDetailsToUseForSMS.size() > 0) {
+			logger.debug("SMS is to be sent....");
+			taskExecutor.execute(new ProcessJobInnerSMS(jobDetailsToUseForSMS));
+			logger.debug("SMS sending delegated..");
+		}
+		logger.debug("messages recieved are : "+messageList.size());
+
 		if (messageList.size() > 0) {
-			String uuid = UUID.randomUUID().toString();
-			commonDAO.insertInboundMessages(messageList);
+			uuid = UUID.randomUUID().toString();
+			logger.debug("start processing ....");
 			status = commonDAO.updateIncomingSMSJob(null, "SCDL", uuid,
 			"UPRS");
 			if (status) {
 				List<IncomingMessages> incomingMessages = commonDAO
 						.getReadMessages(uuid);
+				logger.debug("message being processed are in number : "+incomingMessages.size());
 				for (IncomingMessages eachMessage : incomingMessages) {
 					taskExecutor.execute(new ProcessReadSMS(eachMessage));
 				}
@@ -388,11 +406,11 @@ public class ScheduledJob {
 			// boolean exists = false;
 			MessageTypes action = null;
 			String[] splitString = null;
-			splitString = readMessage.getMessageText().split(" ");
+			splitString = readMessage.getMessageText().split(" ");			
+			logger.debug("splitted string length is " + splitString.length);
 			Person validatedPerson = new Person();
 			for (MessageTypes eachElement : EnumSet.allOf(MessageTypes.class)) {
 				if (eachElement.name().equals(splitString[0])) {
-					// exists=true;
 					Person person = new Person();
 					if (splitString.length >= 2) {
 						person.setUsername(splitString[1]);
@@ -409,25 +427,29 @@ public class ScheduledJob {
 					break;
 				}
 			}
-			switch (action) {
-			case CANCEL:
-				//CANCEL <yourusername> <mm/dd/yyyy> <hh:mm:ss>
-				validateAndCancelAppointment(readMessage, validatedPerson);
-			case GETTIME:
-				//GETTIME <yourusername> <mm/dd/yyyy> <appmateusername>				
-				getAvailableTimeSlots(readMessage, validatedPerson);
-			case RESCD:
-				//RESCD <yourusername> <old mm/dd/yyyy> <old hh:mm:ss> <new mm/dd/yyyy> <new hh:mm:ss> <duration hh:mm:ss>				
-				rescheduleAppointment(readMessage, validatedPerson);
-			case SCD:
-				//SCD <yourusername> <mm/dd/yyyy> <hh:mm:ss> <duration hh:mm:ss> <appmateusername>					
-				scheduleAppointment(readMessage, validatedPerson);
-			case HELP:
-				//HELP				
-				help(readMessage);
-			default:
-				error(readMessage);
+			logger.debug("action is : " +action);
+			if(null != action){
+				switch (action) {
+				case CANCEL:
+					//CANCEL <yourusername> <mm/dd/yyyy> <hh:mm:ss>
+					validateAndCancelAppointment(readMessage, validatedPerson);
+				case GETTIME:
+					//GETTIME <yourusername> <mm/dd/yyyy> <appmateusername>				
+					getAvailableTimeSlots(readMessage, validatedPerson);
+				case RESCD:
+					//RESCD <yourusername> <old mm/dd/yyyy> <old hh:mm:ss> <new mm/dd/yyyy> <new hh:mm:ss> <duration hh:mm:ss>				
+					rescheduleAppointment(readMessage, validatedPerson);
+				case SCD:
+					//SCD <yourusername> <mm/dd/yyyy> <hh:mm:ss> <duration hh:mm:ss> <appmateusername>					
+					scheduleAppointment(readMessage, validatedPerson);
+				case HELP:
+					//HELP				
+					help(readMessage);
+				default:
+					error(readMessage);
+				}				
 			}
+			boolean status = commonDAO.updateIncomingSMSJob(uuid, "UPRS", uuid,"CMPL");
 
 		}
 	}
@@ -554,16 +576,17 @@ public class ScheduledJob {
 						SearchCriteria searchCriteria = new SearchCriteria();
 						if (splitString.length >= 6) {
 							searchCriteria.setUsername(splitString[5]);
+							searchCriteria.setDateOfAppointment(convertStringToDate(splitString[2]));
 							List<SearchResult> searchResults = commonDAO
 									.getDoctors(searchCriteria);
 							if (searchResults.size() == 1) {
 								Appointment appointment = new Appointment();
 								appointment
-										.setAppointmentDuration(convertStringToTime(splitString[5]));
+										.setAppointmentDuration(convertStringToTime(splitString[4]));
 								appointment
-										.setDateOfAppointment(convertStringToDate(splitString[3]));
+										.setDateOfAppointment(convertStringToDate(splitString[2]));
 								appointment
-										.setTimeOfAppointment(convertStringToTime(splitString[4]));
+										.setTimeOfAppointment(convertStringToTime(splitString[3]));
 								appointment.setDoctorPersonID(searchResults
 										.get(0).getIdPerson());
 								appointment.setPatientPersonID(validatedPerson

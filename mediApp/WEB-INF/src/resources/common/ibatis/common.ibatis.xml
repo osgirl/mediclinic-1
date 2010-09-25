@@ -1041,7 +1041,7 @@
 
 	<insert id="insertInboundMessage">
 		INSERT INTO inbound_messages (sender_number,inbound_message) 
-		VALUES (#smscNumber#,#text#);
+		VALUES (#originator#,#text#);
 	</insert>	
 
 	<resultMap class="com.mediapp.domain.common.IncomingMessages" id="Get-Read-Messages-Result-Map">
@@ -1068,11 +1068,14 @@
 	    <parameter property="NewProcessingID"		javaType="java.lang.String"    mode="IN"/>
 	    <parameter property="OldProcessingStatus" 	javaType="java.lang.String"    mode="IN"/>
 	    <parameter property="OldProcessingID"		javaType="java.lang.String"    mode="IN"/>
+	    <parameter property="OldProcessingID"		javaType="java.lang.String"    mode="IN"/>
 	 </parameterMap>
 
  	<update id="updateIncomingSMSJob"  parameterMap="update-Incoming-SMS-Map" >
 		UPDATE inbound_messages set processing_status=?,idprocessing=?
-		where processing_status=?,idprocessing=?;
+		where processing_status=?
+		and (idprocessing=?
+		or ifnull(?,'')='');
 		
 	</update>
 
