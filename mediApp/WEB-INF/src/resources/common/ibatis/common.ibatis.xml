@@ -1105,7 +1105,8 @@
 		or
 		addtime(DATE_FORMAT(?, '%H:%i:%s'),DATE_FORMAT(?, '%H:%i:%s')) between 
 		  time_of_appointment  and addtime(time_of_appointment,appointment_duration))
-		and idDoctor_details = ?;
+		and idDoctor_details = ?
+		and appointment_confirmation != 'C';
 
  	</select>
 
@@ -1130,7 +1131,8 @@
 		where date_of_appointment = date_format(?,'%Y-%m-%d')
 		and time_of_appointment =TIME_FORMAT(?, '%H:%i:%s') 
         and ah.iddoctor_details= dp.idperson
-		and idPatient_details=? ;
+		and idPatient_details=? 
+		and appointment_confirmation != 'C';
  	</select>
 
 	
