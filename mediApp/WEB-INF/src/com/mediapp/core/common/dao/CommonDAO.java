@@ -127,5 +127,5 @@ public interface CommonDAO {
 	
 	public int checkIfAppointmentAvailable(Appointment appointment)throws DataAccessException;
 	
-	public int checkIfAppointmentExists(Appointment appointment)throws DataAccessException;
+	public Appointment checkIfAppointmentExists(Appointment appointment)throws DataAccessException;
 }

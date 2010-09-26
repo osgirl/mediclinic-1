@@ -7,6 +7,7 @@ import java.util.Map;
 import org.smslib.AGateway;
 import org.smslib.Group;
 import org.smslib.IOutboundMessageNotification;
+import org.smslib.InboundMessage;
 import org.smslib.Library;
 import org.smslib.OutboundMessage;
 import org.smslib.Service;
@@ -14,6 +15,7 @@ import org.smslib.modem.SerialModemGateway;
 import com.mediapp.core.common.dao.CommonDAO;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.HolidayCalendarList;
+import com.mediapp.domain.common.IncomingMessages;
 
 public class ScheduleSMS {
 	private CommonDAO commonDAO;
@@ -82,4 +84,14 @@ public class ScheduleSMS {
     	return status;
     }
 
+    public boolean sendErrorSMS(IncomingMessages readMessage,String message){
+    	Map<String,String> criteria =  new HashMap < String, String > () ;
+    	criteria.put("SMSType", "sendErrorSMS");
+    	criteria.put("PhoneNumber", readMessage.getSenderNumber());
+    	criteria.put("Message", message);
+    	boolean status = commonDAO.scheduleJob("SMS", criteria, "SMS");
+    	return status;
+    }
+
+    
 }

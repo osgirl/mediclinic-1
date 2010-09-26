@@ -212,7 +212,7 @@ public class ScheduledJob {
 		List<ScheduleJob> jobDetailsToUseForSMS = new ArrayList<ScheduleJob>();
 		for (ScheduleJob eachScheduleJob : jobDetailsToUse) {
 			if ("SMS".equals(eachScheduleJob.getActionToPerform())) {
-				
+				logger.debug("there are SMS jobs to process");
 				jobDetailsToUseForSMS.add(eachScheduleJob);
 			} else {
 				taskExecutor.execute(new ProcessJobInner(eachScheduleJob));
@@ -235,7 +235,7 @@ public class ScheduledJob {
 			System.err.println("stacktrace" + se);
 
 		}
-		
+		logger.debug("SMS job size is : "+jobDetailsToUseForSMS.size());
 		if (jobDetailsToUseForSMS.size() > 0) {
 			logger.debug("SMS is to be sent....");
 			taskExecutor.execute(new ProcessJobInnerSMS(jobDetailsToUseForSMS));
@@ -292,6 +292,12 @@ public class ScheduledJob {
 		public void run() {
 			for (ScheduleJob eachjobToSchedule : allSMSJobs) {
 				if ("SMS".equals(eachjobToSchedule.getActionToPerform())) {
+					if (eachjobToSchedule.getActionToPerform() != null) {
+						eachjobToSchedule.setJobStatus("UPRS");
+						boolean status = commonDAO
+								.updateJobCompletionStatus(eachjobToSchedule);
+					}
+
 					SendSMS sendSMS = new SendSMS();
 					if (CommonCoreConstants.REG_EMAIL_TYPE
 							.equals(eachjobToSchedule.getParameters().get(
@@ -384,9 +390,20 @@ public class ScheduledJob {
 
 						}
 
+					}else if ("sendErrorSMS".equals(eachjobToSchedule
+							.getParameters().get("SMSType"))) {
+						try {
+							sendSMS.sendErrorSMS(eachjobToSchedule.getParameters().get("PhoneNumber"), 
+									eachjobToSchedule.getParameters().get("Message"));
+						} catch (Exception se) {
+							System.out.println(se.toString());
+							System.err.println("stacktrace" + se);
+						}
+						
 					}
 				}
 				if (eachjobToSchedule.getActionToPerform() != null) {
+					eachjobToSchedule.setJobStatus("CMPL");
 					boolean status = commonDAO
 							.updateJobCompletionStatus(eachjobToSchedule);
 				}
@@ -446,7 +463,7 @@ public class ScheduledJob {
 					//HELP				
 					help(readMessage);
 				default:
-					error(readMessage);
+					error(readMessage, "Not valid Option");
 				}				
 			}
 			boolean status = commonDAO.updateIncomingSMSJob(uuid, "UPRS", uuid,"CMPL");
@@ -473,19 +490,21 @@ public class ScheduledJob {
 								.getIdPerson());
 						if (!commonDAO
 								.updateAppointmentConfirmationThruSMS(appointment)) {
-							error(readMessage);
+							error(readMessage,"Could not cancel appointment.");
+						}else{
+							sendSuccessMessage(readMessage, "Appointment successfully cancelled!");
 						}
 					} else {
-						error(readMessage);
+						error(readMessage, "Time was not in correct format for cancelling appointment.");
 					}
 				} else {
-					error(readMessage);
+					error(readMessage,"Format of message sent for cancelling not correct.");
 				}
 			} else {
-				error(readMessage);
+				error(readMessage, "Date was not in correct format for cancelling appointment.");
 			}
 		} else {
-			error(readMessage);
+			error(readMessage,"Format of message sent for cancelling not correct.");
 		}
 	}
 
@@ -497,70 +516,82 @@ public class ScheduledJob {
 	public void rescheduleAppointment(IncomingMessages readMessage,
 			Person validatedPerson) {
 		String[] splitString = readMessage.getMessageText().split(" ");
+		logger.debug("Rescheduling SMS length :"+splitString.length);
 		if (splitString.length >= 3) {
+			logger.debug("Rescheduling Date is :"+splitString[2]);
 			boolean isValid = validateDate(splitString[2]);
 			if (isValid) {
 				if (splitString.length >= 4) {
-					isValid = validateTime(splitString[3]);
+					logger.debug("Rescheduling Time is :"+splitString[3]);
+					isValid = validateTime(splitString[3]);					
 					if (isValid) {
 						if (splitString.length >= 5) {
-							isValid = validateTime(splitString[4]);
+							logger.debug("Rescheduling new Date is :"+splitString[4]);
+							isValid = validateDate(splitString[4]);
 							if (isValid) {
+								logger.debug("Rescheduling new Time is :"+splitString[5]);
 								Appointment appointment = new Appointment();
 								appointment
-										.setAppointmentDuration(convertStringToTime(splitString[5]));
+										.setDateOfAppointment(convertStringToDate(splitString[2]));
 								appointment
-										.setDateOfAppointment(convertStringToDate(splitString[3]));
-								appointment
-										.setTimeOfAppointment(convertStringToTime(splitString[4]));
-								if (validateTime(splitString[5])) {
+										.setTimeOfAppointment(convertStringToTime(splitString[3]));
+								if (validateTime(splitString[6])) {
+									logger.debug("Rescheduling new duration is :"+splitString[6]);
 									appointment
-											.setAppointmentDuration(convertStringToTime(splitString[5]));
+									.setAppointmentDuration(convertStringToTime(splitString[6]));
 								} else {
-									error(readMessage);
+									error(readMessage,"Time was not in correct format for rescheduling appointment.");
 								}
 								appointment.setPatientPersonID(validatedPerson
 										.getIdPerson());
-								appointment.setAppointmentID(commonDAO
-										.checkIfAppointmentExists(appointment));
-								if (appointment.getAppointmentID() > 0) {
+								Appointment outputAppointment =commonDAO
+										.checkIfAppointmentExists(appointment);								
+								if (null != outputAppointment && outputAppointment.getAppointmentID() > 0) {
+									appointment.setAppointmentID(outputAppointment.getAppointmentID());
 									SearchCriteria searchCriteria = new SearchCriteria();
-									searchCriteria.setUsername(splitString[5]);
+									searchCriteria.setUsername(outputAppointment.getDoctorUserName());
+									searchCriteria.setDateOfAppointment(convertStringToDate(splitString[4]));
 									List<SearchResult> searchResults = commonDAO
 											.getDoctors(searchCriteria);
 									if (searchResults.size() == 1) {
 										appointment
 												.setDoctorPersonID(searchResults
 														.get(0).getIdPerson());
+										appointment
+										.setDateOfAppointment(convertStringToDate(splitString[4]));
+										appointment
+										.setTimeOfAppointment(convertStringToTime(splitString[5]));
+
 										if (commonDAO
 												.checkIfAppointmentAvailable(appointment) == 0) {
 											commonDAO
 													.rescheduleAppointment(appointment);
+											sendSuccessMessage(readMessage, "Appointment rescheduled successfully!");
 										} else {
-											error(readMessage);
+											error(readMessage, "Appointment cannot be scheduled as this time slot was not available.");
 										}
 									} else {
-										error(readMessage);
+										error(readMessage,"The appointment you are trying to reschedule does not exist.");
 									}
 
 								} else {
-									error(readMessage);
+									error(readMessage,"Appointment cannot be rescheduled as it does not exist.");
 								}
 							} else {
-								error(readMessage);
+								error(readMessage,"Date was not in correct format for rescheduling appointment.");
 							}
 						}
 					} else {
-						error(readMessage);
+						error(readMessage,"Time was not in correct format for rescheduling appointment.");
 					}
 				} else {
-					error(readMessage);
+					error(readMessage,"Message format not correct for rescheduling appointment.");
 				}
 			} else {
-				error(readMessage);
+				error(readMessage,"Date was not in correct format for rescheduling appointment.");
 			}
 		} else {
-			error(readMessage);
+			error(readMessage,"Message format not correct for rescheduling appointment.");
 		}
 	}
 
@@ -574,7 +605,7 @@ public class ScheduledJob {
 					isValid = validateTime(splitString[3]);
 					if (isValid) {
 						SearchCriteria searchCriteria = new SearchCriteria();
-						if (splitString.length >= 6) {
+						if (splitString.length >= 6 && !splitString[1].equals(splitString[5])) {
 							searchCriteria.setUsername(splitString[5]);
 							searchCriteria.setDateOfAppointment(convertStringToDate(splitString[2]));
 							List<SearchResult> searchResults = commonDAO
@@ -597,27 +628,28 @@ public class ScheduledJob {
 											.setHeadline("Appointment Thru SMS");
 									appointment.setConfirmedIndicator("N");
 									commonDAO.insertNewAppointment(appointment);
+									sendSuccessMessage(readMessage, "Appointment scheduled successfully!");
 								} else {
-									error(readMessage);
+									error(readMessage,"Appointment not available at this time.");
 								}
 							} else {
-								error(readMessage);
+								error(readMessage,"The Appmate ID send for scheduling not valid.");
 							}
 						} else {
-							error(readMessage);
+							error(readMessage,"Message not in correct format for scheduling appointment.");
 						}
 
 					} else {
-						error(readMessage);
+						error(readMessage,"Time was not in correct format for scheduling appointment.");
 					}
 				} else {
-					error(readMessage);
+					error(readMessage,"Message format for rescheduling appointment.");
 				}
 			} else {
-				error(readMessage);
+				error(readMessage,"Date was not in correct format for rescheduling appointment.");
 			}
 		} else {
-			error(readMessage);
+			error(readMessage,"Message format for rescheduling appointment.");
 		}
 	}
 
@@ -625,10 +657,24 @@ public class ScheduledJob {
 
 	}
 
-	public void error(IncomingMessages readMessage) {
+	public void error(IncomingMessages readMessage, String errorMessage) {
+    	Map<String,String> criteria =  new HashMap < String, String > () ;
+    	criteria.put("SMSType", "sendErrorSMS");
+    	criteria.put("PhoneNumber", readMessage.getSenderNumber());
+    	criteria.put("Message", errorMessage);
+    	commonDAO.scheduleJob("SMS", criteria, "SMS");
+	}
+
+	public void sendSuccessMessage(IncomingMessages readMessage, String successMessage) {
+    	Map<String,String> criteria =  new HashMap < String, String > () ;
+    	criteria.put("SMSType", "sendErrorSMS");
+    	criteria.put("PhoneNumber", readMessage.getSenderNumber());
+    	criteria.put("Message", successMessage);
+    	commonDAO.scheduleJob("SMS", criteria, "SMS");
 
 	}
 
+	
 	public static boolean validateDate(String date) {
 		try {
 			dateFormat.get().parse(date);

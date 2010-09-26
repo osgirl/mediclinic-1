@@ -1110,6 +1110,12 @@
  	</select>
 
 
+ 	<resultMap class="com.mediapp.domain.common.Appointment" id="Check-If-Appointment-Exists-Result-Map">
+	 	<result property="appointmentID" 			column="idAppointment_History"/> 	
+	 	<result property="doctorUserName" 			column="user_name"/>
+	</resultMap>
+
+
 	 <parameterMap id="Check-If-Appointment-Exists-parm-Map"   class="java.util.HashMap">
 	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
 	    <parameter property="TimeOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>
@@ -1117,11 +1123,13 @@
 	 </parameterMap>
 
 
-	<select id="checkIfAppointmentExists"  parameterMap="Check-If-Appointment-Exists-parm-Map" resultClass="java.lang.Integer">
-		select idAppointment_history
-		from appointment_history
+	<select id="checkIfAppointmentExists"  parameterMap="Check-If-Appointment-Exists-parm-Map" resultMap="Check-If-Appointment-Exists-Result-Map">
+		select idAppointment_history, user_name
+		from appointment_history ah, 
+        person dp
 		where date_of_appointment = date_format(?,'%Y-%m-%d')
-		and time_of_appointment =DATE_FORMAT(?, '%H:%i:%s') 
+		and time_of_appointment =TIME_FORMAT(?, '%H:%i:%s') 
+        and ah.iddoctor_details= dp.idperson
 		and idPatient_details=? ;
  	</select>
 

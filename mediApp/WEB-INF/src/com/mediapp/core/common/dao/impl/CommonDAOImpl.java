@@ -819,13 +819,12 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		
 	}
 	
-	public int checkIfAppointmentExists(Appointment appointment)throws DataAccessException{
+	public Appointment checkIfAppointmentExists(Appointment appointment)throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object> () ;
 		criteria.put("DateOfAppointment", appointment.getDateOfAppointment());
 		criteria.put("TimeOfAppointment", appointment.getTimeOfAppointment());
-		criteria.put("PersonID", new Integer(appointment.getPatientPersonID()));
-		
-		return (Integer) getObject("common.checkIfAppointmentExists", criteria);		
+		criteria.put("PersonID", new Integer(appointment.getPatientPersonID()));		
+		return (Appointment) getObject("common.checkIfAppointmentExists", criteria);		
 		
 	}
 
