@@ -57,9 +57,6 @@
 			<div id="contentHeadRight">
 				
 				<div id="contentHeadCenter">
-							<div id="menu">
-							
-						</div>				
 				</div>
 			</div>		
 		</div>

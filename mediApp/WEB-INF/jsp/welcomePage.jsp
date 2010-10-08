@@ -53,6 +53,9 @@ cacheoffimgl.src = '/images/MLbutton_0.png';
 							</div>
 						</div>
 						<div id="column">
+								<%
+									if (p == null){
+								%>
 						
 							<div class="stp" style="margin-bottom:1.5em;">
 	  							<div class="or" style="margin:1em; padding:0;">	  							 
@@ -71,8 +74,30 @@ cacheoffimgl.src = '/images/MLbutton_0.png';
 	  								</a>
 	  							</div>							
 							</div>
+							<%}  %>
+															<%
+									if (p != null){
+								%>
+							<div class="stp" style="margin-bottom:1.5em;" >
+	  							<div class="or" style="margin:1em; padding:0;" > 
+
+								<table border="0" cellpadding="0" cellspacing="0" width="100" height="30" >      
+					                <tr>     
+										<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:40;"  align="center">  
+							  				<a href="javascript:void(0);" onClick="history.back();" style="text-decoration:none"> 
+							  					<font size="+1" color="#FFFFFF" >Go Back</font>  
+							  				</a>
+						  				</td>
+									</tr>
+								</table>
+								</div>
+							</div>
+								<%} %>										
+							
 							
 						</div>
+						
+						
 					</div>
 				</div>
 			</div>

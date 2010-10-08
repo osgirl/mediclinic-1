@@ -106,12 +106,12 @@
 						<tr >     
 							<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%"  align="center">  
 					  			<a href="#" onClick="javascript:fn_addAppointment();" style="text-decoration:none"> 
-					  				<font size="+1" color="yellow" >Add</font> 
+					  				<font size="+1" color="#FFFFFF" >Add</font> 
 					  			</a>
 					  		</td>
 					  		<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%" align="center">  
 					  			<a href="#" onClick="self.close();" style="text-decoration:none"> 
-					  				<font size="+1" color="yellow" >Close</font>
+					  				<font size="+1" color="#FFFFFF" >Close</font>
 					  			</a>
 					  		</td>
 						</tr>

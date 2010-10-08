@@ -287,7 +287,7 @@
 	                <tr>     
 						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:40;"  align="center">  
 				  			<a href="#" onClick="javascript:fn_addRowForWorkHours();" style="text-decoration:none"> 
-				  				<font size="+1" color="yellow" >Add</font>  
+				  				<font size="+1" color="#FFFFFF" >Add</font>  
 				  			</a>
 				  		</td>
 					</tr>
@@ -361,7 +361,7 @@
 					<tr>     
 						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:100%;"  align="center">  
 				  			<a href="#" onClick="javascript:saveProfile();" style="text-decoration:none"> 
-				  				<font size="+1" color="yellow" >Save</font> 
+				  				<font size="+1" color="#FFFFFF" >Save</font> 
 				  			</a>
 				  		</td>
 					</tr>

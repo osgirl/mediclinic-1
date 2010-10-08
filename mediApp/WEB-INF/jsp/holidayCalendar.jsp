@@ -72,17 +72,17 @@
 					<tr >     
 						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%"  align="center">  
 				  			<a href="#" onClick="javascript:addRowToCalendar();" style="text-decoration:none"> 
-				  				<font size="+1" color="yellow" >Add Row</font> 
+				  				<font size="+1" color="#FFFFFF" >Add Row</font> 
 				  			</a>
 				  		</td>
 				  		<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%" align="center">  
 				  			<a href="#" onClick="javascript:deleteRow('tblHoliday',this.form);" style="text-decoration:none"> 
-				  				<font size="+1" color="yellow" >Delete Row</font>
+				  				<font size="+1" color="#FFFFFF" >Delete Row</font>
 				  			</a>
 				  		</td>
 				  		<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%" align="center">  
 				  			<a href="#" onClick="javascript:fn_updateHolidayCalendar();" style="text-decoration:none"> 
-				  				<font size="+1" color="yellow" >Save</font> 
+				  				<font size="+1" color="#FFFFFF" >Save</font> 
 				  			</a>
 				  		</td>
 				  		
