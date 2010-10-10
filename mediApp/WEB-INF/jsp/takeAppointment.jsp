@@ -25,7 +25,7 @@
 															<table border="0" cellpadding="3" class="sample1" cellspacing="0" width="100%">																	
 																	<tr>
 																		<td align="left" width="33%" bgcolor="#eeeeee">
-																			<a href="#" onclick="fn_GetYearView(1);" style="text-decoration:none" >
+																			<a href="javascript:void(0);" onclick="fn_GetYearView(1);" style="text-decoration:none" >
 																				<font color="#ff0000"><b>&lt;&lt;</b></font>
 																			</a>
 																		
@@ -40,7 +40,7 @@
 																			</font>
 																		</td>
 																		<td align="right" width="33%" bgcolor="#eeeeee" >
-																			<a href="#" onclick="fn_GetYearView(2);" style="text-decoration:none">
+																			<a href="javascript:void(0);" onclick="fn_GetYearView(2);" style="text-decoration:none">
 																				<font color="#ff0000"><b>&gt;&gt;</b></font>
 																			</a>
 																		
@@ -51,7 +51,7 @@
 
 																	<tr>
 																		<td align="left" width="33%" bgcolor="#eeeeee">
-																			<a href="#" onclick="fn_GetMonthView(1);" style="text-decoration:none">
+																			<a href="javascript:void(0);" onclick="fn_GetMonthView(1);" style="text-decoration:none">
 																				<font color="#ff0000"><b>&lt;</b></font>
 																			</a>
 																		
@@ -66,7 +66,7 @@
 																			</font>
 																		</td>
 																		<td align="right" width="33%" bgcolor="#eeeeee">
-																			<a href="#" onclick="fn_GetMonthView(2);" style="text-decoration:none" >
+																			<a href="javascript:void(0);" onclick="fn_GetMonthView(2);" style="text-decoration:none" >
 																				<font color="#ff0000"><b>&gt;</b></font>
 																			</a>
 																		
@@ -150,7 +150,7 @@
 																					<font size="1" face="verdana,arial,helvetica">
 																						<c:choose>
 																							<c:when test="${appointments.isWorking eq 'Y'}">
-																								<a href="#" onclick="javascript:getAppointment('<c:out value="${personID}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>');" style="text-decoration:none">																						
+																								<a href="javascript:void(0);" onclick="javascript:getAppointment('<c:out value="${personID}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>');" style="text-decoration:none">																						
 																									<b><font color="#000000"><fmt:formatDate pattern="dd" value="${appointments.dateOfAppointment}"/></font></b>
 																								</a>
 																							</c:when>

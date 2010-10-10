@@ -31,6 +31,7 @@ public class InboxController extends MediAppBaseController{
 		Map < String , Object > inboxMap = new HashMap < String , Object > ();
 		inboxMap.put("NeedConfirmation", inboxList.get(0));
 		inboxMap.put("AppointmentNow", inboxList.get(1));
+		inboxMap.put("MyAppointmentNow", inboxList.get(2));
 		inboxMap.put("personID", personID.getIdPerson());
 		return inboxMap;
 	}

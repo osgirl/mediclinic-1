@@ -745,6 +745,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		appointmentList.add(toConfirm);
 		List<Appointment> nowMeeting = (List<Appointment>) getList("common.ReminderAppointment", criteria);
 		appointmentList.add(nowMeeting);
+		List<Appointment> nowMyMeeting = (List<Appointment>) getList("common.ReminderForMyAppointment", criteria);
+		appointmentList.add(nowMyMeeting);
+
 		return appointmentList;
 	}
 

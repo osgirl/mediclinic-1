@@ -297,7 +297,7 @@ function fn_openAppointment(){
 function fn_openAppointmentInbox(personID,appointmentDate,appointmentID,timeOfAppointment){
 	window.name = "Parent";
 	var myObject = new Object();
-	myObject.URL = '/inbox.htm';
+	myObject.URL = 'inbox.htm';
 	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:670px;status:no;edge:sunken';
     var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID, myObject, WinSettings);
     
@@ -331,6 +331,7 @@ function fn_confirmAppointment(){
     document.forms['updateAppointment'].submit();
 	document.forms['updateAppointment'].method ="post";	
 	var oMyObject = window.dialogArguments;
+	document.forms['updateAppointment'].method ="get";
 	document.forms['updateAppointment'].action=oMyObject.URL; 
 	document.forms['updateAppointment'].submit();
 	 self.close();
@@ -1314,6 +1315,16 @@ function fn_showReminder(){
 		document.getElementById('remindme').style.display='none';
 	}
 }
+function fn_showMyReminder(){
+	if(document.buttonimgdownM.src==eval('cacheoffimgdownM.src')){
+		document.buttonimgdownM.src=eval('cacheonimgdownM.src');
+		document.getElementById('remindMy').style.display='block';
+	}else{
+		document.buttonimgdownM.src=eval('cacheoffimgdownM.src');
+		document.getElementById('remindMy').style.display='none';
+	}
+}
+
 
 function fn_confirmIt(){	
 	if(document.buttonimgdown1.src==eval('cacheoffimgdown1.src')){

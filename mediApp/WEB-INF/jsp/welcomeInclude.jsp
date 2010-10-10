@@ -34,6 +34,9 @@
 			</div>
 			<div id="controls">
 					<form id="searchform" action="<%=request.getContextPath()%>" method="post">
+					<a href="http://www.facebook.com/pages/Appointment-application/118415181550416?v=app_2373072738" TARGET="_blank">
+					<img src="/images/Facebook-Buttons-11-2.png" title="Find us on Facebook"  
+					alt="Find us on Facebook" width="21px" border="0"/></a><br/>
 				        <%Person p = (Person)request.getSession().getAttribute("person");
 				        	if (p != null) {%>
 						        <a href="logOut.htm" >Logout</a>

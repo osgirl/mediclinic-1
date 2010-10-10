@@ -677,8 +677,8 @@
  	</select>
 	
 	<parameterMap id="AppointmentConfirmation-Parm-Map"   class="java.util.HashMap">
-		<parameter property="AppointmentID" 				javaType="java.lang.Integer"   mode="IN"/>
 	    <parameter property="ConfirmationIndicator" 		javaType="java.lang.String"    mode="IN"/>
+		<parameter property="AppointmentID" 				javaType="java.lang.Integer"   mode="IN"/>
 	 </parameterMap>
 
 	<update id="updateAppointmentConfirmation"  parameterMap="AppointmentConfirmation-Parm-Map" >
@@ -1133,6 +1133,29 @@
         and ah.iddoctor_details= dp.idperson
 		and idPatient_details=? 
 		and appointment_confirmation != 'C';
+ 	</select>
+
+
+
+	<select id="ReminderForMyAppointment" parameterMap="Reminder-Appointment-Parm-Map" resultMap="Reminder-Appointment-Result-Map">
+		select idAppointment_History,date_of_appointment,time_of_appointment,appointment_confirmation,
+		appointment_headline,appointment_comment,appointment_duration,appointment_end_time,
+		patient.first_name as PatientFirstName, patient.middle_name as PatientMiddleInitial,  patient.last_name as PatientLastName, 
+		doctor.first_name as DoctorFirstName,doctor.middle_name as DoctorMiddleInitial, doctor.last_name as DoctorLastName
+		from appointment_history ah,
+		person patient,
+		person doctor,
+		code_decode cd1,
+		code_decode cd2
+		where 
+		ah.idPatient_details = patient.idperson
+		and ah.iddoctor_details = doctor.idperson
+		and ah.idpatient_details =?
+		and cd1.code_ctg = 'REMINDER_END_TIME'
+		and cd2.code_ctg = 'REMINDER_START_TIME'
+		and date_of_appointment = current_date
+		and time_to_sec(timediff(curtime(),time_of_appointment)) <![CDATA[<=]]>  cd2.code_val
+		and time_to_sec(timediff(curtime(),time_of_appointment)) <![CDATA[>=]]> cd1.code_val;
  	</select>
 
 	

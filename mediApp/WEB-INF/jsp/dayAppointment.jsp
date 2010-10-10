@@ -33,7 +33,7 @@
 																		<table border="0" cellpadding="3" class="sample1" cellspacing="0" width="100%">																	
 																			<tr>
 																				<td align="left" width="33%" bgcolor="#eeeeee">
-																					<a href="#" onclick="fn_GetMonthAppointmentDayView(1);" style="text-decoration:none" >
+																					<a href="javascript:void(0);" onclick="fn_GetMonthAppointmentDayView(1);" style="text-decoration:none" >
 																					<font color="#ff0000"><b>&lt;&lt;</b></font>
 																					</a>
 																				</td>
@@ -46,14 +46,14 @@
 																					</font>
 																				</td>
 																				<td align="right" width="33%" bgcolor="#eeeeee" >
-																					<a href="#" onclick="fn_GetMonthAppointmentDayView(2);" style="text-decoration:none">
+																					<a href="javascript:void(0);" onclick="fn_GetMonthAppointmentDayView(2);" style="text-decoration:none">
 																					<font color="#ff0000"><b>&gt;&gt;</b></font>
 																					</a>
 																				</td>
 																			</tr>
 																			<tr>
 																				<td align="left" width="33%" bgcolor="#eeeeee">
-																					<a href="#" onclick="fn_GetDayAppointmentDayView(1);" style="text-decoration:none">
+																					<a href="javascript:void(0);" onclick="fn_GetDayAppointmentDayView(1);" style="text-decoration:none">
 																					<font color="#ff0000"><b>&lt;</b></font>
 																					</a>
 																				</td>
@@ -65,7 +65,7 @@
 																					</font>
 																				</td>
 																				<td align="right" width="33%" bgcolor="#eeeeee">
-																					<a href="#" onclick="fn_GetDayAppointmentDayView(2);" style="text-decoration:none" >
+																					<a href="javascript:void(0);" onclick="fn_GetDayAppointmentDayView(2);" style="text-decoration:none" >
 																					<font color="#ff0000"><b>&gt;</b></font>
 																					</a>
 																				</td>

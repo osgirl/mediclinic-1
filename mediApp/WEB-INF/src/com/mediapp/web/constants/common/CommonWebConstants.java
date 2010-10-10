@@ -23,7 +23,7 @@ public interface CommonWebConstants {
 	 // String MENU_TABLE_START_TAG = "  <tr><td><table width=100 align='left'  border='1' class='layout' > ";
 	 
 	 //String VERTICAL_MENU_BUTTON_TAG = "<tr><td><input type='button' onClick='javascript:fn_nextURL(";
-	 String VERTICAL_MENU_BUTTON_TAG = "<tr height='90'><td height='90' style='background: url(/images/menubutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:40;'  align='center'><a href='#' onClick='fn_nextURL(";
+	 String VERTICAL_MENU_BUTTON_TAG = "<tr height='90'><td height='90' style='background: url(/images/menubutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:40;'  align='center'><a href='javascript:void(0);' onClick='fn_nextURL(";
 	 String QUOTES ="\""; 
 	 
 	 //String VERTICAL_MENU_BUTTON_AFTER_ONCLICK_TAG = " );' alignment='center' value='";

@@ -8,7 +8,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@page import="com.mediapp.domain.common.Person"%>
-<html>
+
+<%@page import="com.mediapp.domain.common.NotificationDetails"%><html>
 	<head>
 	    <title>mediApp</title>    
 		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
@@ -85,9 +86,6 @@
 							<spring:bind path="appointment.doctorID">
 								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorID}"/>"/>					
 							</spring:bind>
-							<spring:bind path="appointment.appointmentEndTime">
-								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.appointmentEndTime}"/>"/>					
-							</spring:bind>
 							<spring:bind path="appointment.doctorPersonID">
 								<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.doctorPersonID}"/>"/>
 							</spring:bind>
@@ -98,15 +96,20 @@
 					</table>
 					<table border="0" cellpadding="0" cellspacing="0" width="400" height="30" >						         
 						<tr >     
+							<%Person p = (Person)request.getSession().getAttribute("person");
+							NotificationDetails n = (NotificationDetails) request.getAttribute("Notification");							
+							if(!p.getEmailID().equals(n.getPatientEmailAddress())){ %>
+							
 							<c:if test="${appointment.confirmedIndicator == 'N'}">
 								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%"  align="center">  
-						  			<a href="#" onClick="javascript:fn_confirmAppointment();" style="text-decoration:none"> 
+						  			<a href="javascript:void(0);" onClick="javascript:fn_confirmAppointment();" style="text-decoration:none"> 
 						  				<font size="+1" color="#FFFFFF" >Confirm</font> 
 						  			</a>
 						  		</td>
 					  		</c:if>
+					  		<%} %>
 					  		<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%" align="center">  
-					  			<a href="#" onClick="self.close();" style="text-decoration:none"> 
+					  			<a href="javascript:void(0);" onClick="self.close();" style="text-decoration:none"> 
 					  				<font size="+1" color="#FFFFFF" >Close</font>
 					  			</a>
 					  		</td>
