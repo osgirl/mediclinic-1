@@ -40,9 +40,9 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 								</table>													
 							</div> 
 						</div>
-						<div id="column" align="right">
+						<div id="column" align="right" style="width: 34em;" >
 							<form name="appMentlogin" id="appMentlogin" method="post"> 
-							<div class="stp" style="margin-bottom:1.5em;">
+							<div class="stp" style="margin-bottom:1.5em;width: 34em;" >
 								<div class="or" style="margin:1em; padding:0;" align="center"> 		
 									<span  style="font-size:1.5em;font-color:black;font:Verdana">Login to account</span><br /><br />       
 									<table class="sample" width="100%" >  						
@@ -96,7 +96,7 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 									</table>										
 								</div>
 							</div>  
-							<div class="stp" style="margin-bottom:1.5em;" >
+							<div class="stp" style="margin-bottom:1.5em;width: 25em" >
 	  							<div class="or" style="margin:1em; padding:0;" > 
 	  								<span style="font-size:1.3em;font-color:black;font:Verdana" >Don't have account yet?</span><br />   
 	  								<a href="/appmentSignUp.htm" onMouseover="document.buttonimg.src=eval('cacheonimg.src')" onMouseout="document.buttonimg.src=eval('cacheoffimg.src')">
