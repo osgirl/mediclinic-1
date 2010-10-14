@@ -134,28 +134,43 @@ function fn_createAppointment(personID,doctorID,timeOfAppointment,appointmentDat
 		}
 	}
 }
-
+var firstSubmit = 0;
 function fn_addAppointment(){	
 	document.getElementById('dateOfAppointment').disabled=false;
-	document.getElementById('timeOfAppointment').disabled=false;	
+	document.getElementById('timeOfAppointment').disabled=false;
 	document.forms['createAppointment'].target="Parent";
-    document.forms["createAppointment"].submit();
-	document.forms['createAppointment'].method ="post";	
-	document.forms['createAppointment'].action="dayAppointment.htm"; 
-	document.forms['createAppointment'].submit();
-	 self.close();
+	if(firstSubmit == 0){
+		document.forms['createAppointment'].method ="post";	
+		document.forms["createAppointment"].submit();
+		firstSubmit = 1;
+		setTimeout(fn_addAppointment, 200); 
+	}else{
+		document.forms['createAppointment'].method ="post";	
+		document.forms['createAppointment'].action="dayAppointment.htm"; 
+		document.forms['createAppointment'].submit();
+		firstSubmit = 0;
+		self.close();
+	}
+	 
 }
 
 function fn_rescheduleAppointmentDate(){
 	document.getElementById('dateOfAppointment').disabled=false;
 	document.getElementById('timeOfAppointment').disabled=false;	
     document.forms['rescheduleAppointment'].target="Parent";
-	document.forms['rescheduleAppointment'].method ="post";
-    document.forms["rescheduleAppointment"].submit();
-	document.forms['rescheduleAppointment'].method ="get";
-	document.forms['rescheduleAppointment'].action="dayAppointment.htm"; 
-	document.forms['rescheduleAppointment'].submit();
-	 self.close();
+    if(firstSubmit == 0){
+	    document.forms['rescheduleAppointment'].method ="post";
+	    document.forms["rescheduleAppointment"].submit();
+		firstSubmit = 1;
+		setTimeout(fn_rescheduleAppointmentDate, 200); 
+	    
+    }else{
+	    document.forms['rescheduleAppointment'].method ="post";
+		document.forms['rescheduleAppointment'].action="dayAppointment.htm"; 
+		document.forms['rescheduleAppointment'].submit();
+		firstSubmit = 0;
+		self.close();
+    }
 }
 
 function fn_GetDayAppointment(indicator){

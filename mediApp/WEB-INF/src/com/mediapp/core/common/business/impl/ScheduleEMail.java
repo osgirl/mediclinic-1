@@ -81,7 +81,7 @@ public class ScheduleEMail {
 	        		mailSender.setHost("smtp.gmail.com");
 	        		mailSender.setPort(465);
 	        		mailSender.setProtocol("smtps");
-	        		mailSender.setUsername("mediappindia@gmail.com");
+	        		mailSender.setUsername("appment@gmail.com");
 	        		mailSender.setPassword("mh12ac830");
 	        		Properties properties = new Properties();
 	        		properties.setProperty("mail.smtps.auth", "true");
@@ -140,7 +140,7 @@ public class ScheduleEMail {
 	        		mailSender.setHost("smtp.gmail.com");
 	        		mailSender.setPort(465);
 	        		mailSender.setProtocol("smtps");
-	        		mailSender.setUsername("mediappindia@gmail.com");
+	        		mailSender.setUsername("appment@gmail.com");
 	        		mailSender.setPassword("mh12ac830");
 	        		Properties properties = new Properties();
 	        		properties.setProperty("mail.smtps.auth", "true");
@@ -200,7 +200,7 @@ public class ScheduleEMail {
 	        		mailSender.setHost("smtp.gmail.com");
 	        		mailSender.setPort(465);
 	        		mailSender.setProtocol("smtps");
-	        		mailSender.setUsername("mediappindia@gmail.com");
+	        		mailSender.setUsername("appment@gmail.com");
 	        		mailSender.setPassword("mh12ac830");
 	        		Properties properties = new Properties();
 	        		properties.setProperty("mail.smtps.auth", "true");
@@ -260,7 +260,7 @@ public class ScheduleEMail {
 	        		mailSender.setHost("smtp.gmail.com");
 	        		mailSender.setPort(465);
 	        		mailSender.setProtocol("smtps");
-	        		mailSender.setUsername("mediappindia@gmail.com");
+	        		mailSender.setUsername("appment@gmail.com");
 	        		mailSender.setPassword("mh12ac830");
 	        		Properties properties = new Properties();
 	        		properties.setProperty("mail.smtps.auth", "true");
@@ -384,7 +384,7 @@ public class ScheduleEMail {
 	        		mailSender.setHost("smtp.gmail.com");
 	        		mailSender.setPort(465);
 	        		mailSender.setProtocol("smtps");
-	        		mailSender.setUsername("mediappindia@gmail.com");
+	        		mailSender.setUsername("appment@gmail.com");
 	        		mailSender.setPassword("mh12ac830");
 	        		Properties properties = new Properties();
 	        		properties.setProperty("mail.smtps.auth", "true");
