@@ -2,12 +2,12 @@
 <body>
 <div>
    Hi,</br>
-   Thank you for registering with mediApp. Your login details are -<br/>
+   Thank you for registering with Appment. Your login details are -<br/>
    	User ID - $username<br/>
 	password - $password<br/>
 	
 Thanks and Regards,<br/>
-MediApp Team.
+Appment Team.
 
 </div>
 </body>
