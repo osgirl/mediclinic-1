@@ -35,7 +35,7 @@ cacheoffimgl.src = '/images/MLbutton_0.png';
 										<td>
 											<div align="center">
 												<div name="addbox" id="addbox">
-												<a name="link1" id="link1" href="/appmentSignUp.htm"><img border="0" name="banner1" id="banner1" src="/images/oie_shake_hands_concepts_3.jpg"></a>
+												<a name="link1" id="link1" href="/appmentSignUp.htm" ><img border="0" name="banner1" id="banner1" src="/images/oie_shake_hands_concepts_3.jpg"></a>
 												<a name="link2" id="link2" href="/appmentSignUp.htm"><img border="0" name="banner2" id="banner2" src="/images/oie_medical.jpg"></a>
 											</div>
 										</div>

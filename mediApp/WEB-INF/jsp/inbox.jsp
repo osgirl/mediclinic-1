@@ -45,24 +45,24 @@
 									<input type="hidden" name="PersonID"  id="PersonID" value="${personID}"/>
 									<div class="stp" style="margin-bottom:1.5em;" >
 										<div class="or" style="margin:1em; padding:0;" >
-											<table width=900  border="1" class="layout"  > 	
+											<table width=900  border="1" class="layout"  >
 												<tr>
-													<td>	
+													<td style="vertical-align: top">
 														<table width=200 align="left"   class="sample" style="border-width: 0px 0px 0px 0px;"> 	
 															<menu:verticalMenuItemTag></menu:verticalMenuItemTag>
 														</table>
-														<div   style="display:block" align="center">
-															<table  border="0"   width=680 height="20">															
-																<tr>
-																	<td align="right">
-																		<a href="/inbox.htm" onMouseover="document.buttonimg.src=eval('cacheonimg.src')" onMouseout="document.buttonimg.src=eval('cacheoffimg.src')">
-																			<img src="/images/refresh_0.png" name="buttonimg" width="100" height="15" alt="Refresh">   
-																		</a>
-																	</td>
-																</tr>
-															</table>
-														</div>
-														<table border="1" width="680">
+													</td>
+													<td>
+														<table  border="0"   width=680 height="20">															
+															<tr>
+																<td align="right">
+																	<a href="/inbox.htm" onMouseover="document.buttonimg.src=eval('cacheonimg.src')" onMouseout="document.buttonimg.src=eval('cacheoffimg.src')">
+																		<img src="/images/refresh_0.png" name="buttonimg" width="100" height="15" alt="Refresh">   
+																	</a>
+																</td>
+															</tr>
+														</table>
+														<table  border="0"   width=680 height="20">
 															<table border="1" cellpadding="3"  bordercolor="green" cellspacing="0" width="680">
 																<tr>
 																	<td width="98%" bgcolor="#EFF5FB" height="20">
@@ -79,28 +79,32 @@
 																	<td>
 																		<div  id="remindme" style="display:none" >
 																			<c:forEach items="${AppointmentNow}" var="appointments">
-																					<table width=650  border="1" class="layout"  align="left">
-																						<tr class="sansa">
-																							<td >
-																								<b>Headline: </b> <c:out value="${appointments.headline}"/>
-																							</td>
-																							<td align="right">
-																								<a href="javascript:void(0);" onclick="javascript:fn_openAppointmentInbox('${personID}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>',''${appointments.appointmentID}','${appointments.timeOfAppointment}');" onMouseover="document.buttonimgshow.src=eval('cacheonimgshow.src')" onMouseout="document.buttonimgshow.src=eval('cacheoffimgshow.src')">
-																									<img src="/images/show_0.png" name="buttonimgshow" alt="Show details">   
-																								</a>
-																							</td>
-																						<tr>
-																						<tr>
-																							<td class="sansa">
-																								<b>Setup by: </b> <c:out value="${appointments.patientFirstName} "/><c:out value="${appointments.patientMiddleInitial} "/><c:out value="${appointments.patientLastName} "/>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td class="sansa">
-																								<b>Date and Time: </b> <fmt:formatDate type="date" value="${appointments.dateOfAppointment}"/> at  <c:out value="${appointments.timeOfAppointment} "/>
-																							</td>
-																						</tr> 
-																					</table>
+																				<table width=650  border="1" class="layout"  align="left">
+																					<tr class="sansa">
+																						<td >
+																							<b>Headline: </b> <c:out value="${appointments.headline}"/>
+																						</td>
+																						<td align="right">
+																							<a href="javascript:void(0);" onclick="javascript:fn_openAppointmentInbox('${personID}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>',''${appointments.appointmentID}','${appointments.timeOfAppointment}');" onMouseover="document.buttonimgshow.src=eval('cacheonimgshow.src')" onMouseout="document.buttonimgshow.src=eval('cacheoffimgshow.src')">
+																								<img src="/images/show_0.png" name="buttonimgshow" alt="Show details">   
+																							</a>
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="sansa">
+																							<b>Setup by: </b> <c:out value="${appointments.patientFirstName} "/><c:out value="${appointments.patientMiddleInitial} "/><c:out value="${appointments.patientLastName} "/>
+																						</td>
+																						<td>
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="sansa">
+																							<b>Date and Time: </b> <fmt:formatDate type="date" value="${appointments.dateOfAppointment}"/> at  <c:out value="${appointments.timeOfAppointment} "/>
+																						</td>
+																						<td>
+																						</td>
+																					</tr> 
+																				</table>
 																			</c:forEach>
 																		</div>
 																	</td>
@@ -117,44 +121,46 @@
 																		<a href="javascript:void(0);" onclick="javascript:fn_showMyReminder();" >
 																			<img src="/images/down_0.png" name="buttonimgdownM"  alt="Refresh">   
 																		</a>
-															
 																	</td>
 																</tr>
 																<tr>
 																	<td>
 																		<div  id="remindMy" style="display:none" align="right">
 																			<c:forEach items="${MyAppointmentNow}" var="appointments">
-																					<table width=650  border="1" class="layout"  >
-																						<tr class="sansa">
-																							<td >
-																								<b>Headline: </b> <c:out value="${appointments.headline}"/>
-																							</td>
-																							<td align="right">
-																								<a href="javascript:void(0);" onclick="javascript:fn_openAppointmentInbox('${personID}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>','${appointments.appointmentID}','${appointments.timeOfAppointment}');" onMouseover="document.buttonimgshow.src=eval('cacheonimgshow.src')" onMouseout="document.buttonimgshow.src=eval('cacheoffimgshow.src')">
-																									<img src="/images/show_0.png" name="buttonimgshow" alt="Show details">   
-																								</a>
-																							</td>
-																						<tr>
-																						<tr>
-																							<td class="sansa">
-																								<b>Setup by: </b> <c:out value="${appointments.patientFirstName} "/><c:out value="${appointments.patientMiddleInitial} "/><c:out value="${appointments.patientLastName} "/>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td class="sansa">
-																								<b>Date and Time: </b> <fmt:formatDate type="date" value="${appointments.dateOfAppointment}"/> at  <c:out value="${appointments.timeOfAppointment} "/>
-																							</td>
-																						</tr> 
-																					</table>
+																				<table width=650  border="1" class="layout"  >
+																					<tr class="sansa">
+																						<td >
+																							<b>Headline: </b> <c:out value="${appointments.headline}"/>
+																						</td>
+																						<td align="right">
+																							<a href="javascript:void(0);" onclick="javascript:fn_openAppointmentInbox('${personID}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>','${appointments.appointmentID}','${appointments.timeOfAppointment}');" onMouseover="document.buttonimgshow.src=eval('cacheonimgshow.src')" onMouseout="document.buttonimgshow.src=eval('cacheoffimgshow.src')">
+																								<img src="/images/show_0.png" name="buttonimgshow" alt="Show details">   
+																							</a>
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="sansa">
+																							<b>Setup by: </b> <c:out value="${appointments.patientFirstName} "/><c:out value="${appointments.patientMiddleInitial} "/><c:out value="${appointments.patientLastName} "/>
+																						</td>
+																						<td>
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="sansa">
+																							<b>Date and Time: </b> <fmt:formatDate type="date" value="${appointments.dateOfAppointment}"/> at  <c:out value="${appointments.timeOfAppointment} "/>
+																						</td>
+																						<td>
+																						</td>
+																					</tr> 
+																				</table>
 																			</c:forEach>
 																		</div>
 																	</td>
 																	<td>
 																	</td>
-																	
+														
 																</tr>
-																</table>
-															
+															</table>
 															<table border="1" cellpadding="3" bordercolor="green" cellspacing="0" width="680" >
 																<tr>
 																	<td width="98%" bgcolor="#EFF5FB" height="20">
@@ -164,54 +170,56 @@
 																		<a href="javascript:void(0);" onclick="javascript:fn_confirmIt();" >
 																			<img src="/images/down_0.png" name="buttonimgdown1"  alt="Refresh">   
 																		</a>
-															
+														
 																	</td>
 																</tr>
-															<tr>
-																<td>
-																	<div  id="confirmit" style="display:none" align="center">
-																		<table border="1" cellpadding="3" bordercolor="green" cellspacing="0" width="680">
-																			<tr>	
-																				<td width="85%" bgcolor="#EFF5FB" >
-																					<c:forEach items="${NeedConfirmation}" var="appointments">
-																						<table width=650  border="1" class="layout"  >
-																							<tr class="sansa">
-																								<td >
-																									<b>Headline: </b> <c:out value="${appointments.headline}"/>
-																								</td>
-																								<td align="right">
-																									<a href="javascript:void(0);" onclick="javascript:fn_openAppointmentInbox('${personID}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>','${appointments.appointmentID}','${appointments.timeOfAppointment}');" onMouseover="document.buttonimgshow.src=eval('cacheonimgshow.src')" onMouseout="document.buttonimgshow.src=eval('cacheoffimgshow.src')">
-																										<img src="/images/show_0.png" name="buttonimgshow" alt="Show details">   
-																									</a>
-																								</td>
-																							<tr>
-																							<tr>
-																								<td class="sansa">
-																									<b>Setup by: </b> <c:out value="${appointments.patientFirstName} "/><c:out value="${appointments.patientMiddleInitial} "/><c:out value="${appointments.patientLastName} "/>
-																								</td>
-																							</tr>
-																							<tr>
-																								<td class="sansa">
-																									<b>Date and Time: </b> <fmt:formatDate type="date" value="${appointments.dateOfAppointment}"/> at  <c:out value="${appointments.timeOfAppointment} "/>
-																								</td>
-																							</tr> 
-																						</table>
-																					</c:forEach>
-																				</td>
-																			</tr>																	
-																		</table>
-																	</div>
-																</td>
-																<td>
-																</td>
-															</tr>
-														</table>
-													</table>
+																<tr>
+																	<td>
+																		<div  id="confirmit" style="display:none" align="center">
+																			<c:forEach items="${NeedConfirmation}" var="appointments">
+																				<table width=650  border="1" class="layout"  >
+																					<tr class="sansa">
+																						<td >
+																							<b>Headline: </b> <c:out value="${appointments.headline}"/>
+																						</td>
+																						<td align="right">
+																							<a href="javascript:void(0);" onclick="javascript:fn_openAppointmentInbox('${personID}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>','${appointments.appointmentID}','${appointments.timeOfAppointment}');" onMouseover="document.buttonimgshow.src=eval('cacheonimgshow.src')" onMouseout="document.buttonimgshow.src=eval('cacheoffimgshow.src')">
+																								<img src="/images/show_0.png" name="buttonimgshow" alt="Show details">   
+																							</a>
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="sansa">
+																							<b>Setup by: </b> <c:out value="${appointments.patientFirstName} "/><c:out value="${appointments.patientMiddleInitial} "/><c:out value="${appointments.patientLastName} "/>
+																						</td>
+																						<td>
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="sansa">
+																							<b>Date and Time: </b> <fmt:formatDate type="date" value="${appointments.dateOfAppointment}"/> at  <c:out value="${appointments.timeOfAppointment} "/>
+																						</td>
+																						<td>
+																						</td>
+																					</tr> 
+																				</table>
+																			</c:forEach>
+																		</div>
+																	</td>
+																	<td>
+																	</td>
+																</tr>
+															</table>
+														
+														</table>															
+
+															
 													</td>
-												</tr>												
+												</tr> 	
 											</table>
 										</div>
 									</div>
+			
 								</form>
 							</div>
 						</div>

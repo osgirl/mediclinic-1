@@ -68,3 +68,4 @@
 //hide('Menu2');
 
 </script>
+<div id="helpbox"></div>

@@ -1154,8 +1154,7 @@
 		and cd1.code_ctg = 'REMINDER_END_TIME'
 		and cd2.code_ctg = 'REMINDER_START_TIME'
 		and date_of_appointment = current_date
-		and time_to_sec(timediff(curtime(),time_of_appointment)) <![CDATA[<=]]>  cd2.code_val
-		and time_to_sec(timediff(curtime(),time_of_appointment)) <![CDATA[>=]]> cd1.code_val;
+		and time_to_sec(timediff(curtime(),time_of_appointment)) between  cd2.code_val and cd1.code_val;
  	</select>
 
 	

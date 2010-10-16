@@ -1082,3 +1082,10 @@ scrollbar-arrow-color: #53670D;}
 	text-decoration:none;
 }
  
+div#helpbox
+{
+  border: 2px solid #C9C299;
+  background: #FAF8CC; position: absolute;
+  display: none; font-size: smaller; padding: 2px;
+}
+ 

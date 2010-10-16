@@ -1344,3 +1344,37 @@ function fn_confirmIt(){
 		document.getElementById('confirmit').style.display='none';
 	}
 }
+
+function showbox(a) {
+	var e = event || window.event;
+	 if (!e)
+	   var e = window.event;
+	   var linkID = e.srcElement? e.srcElement.id : this.id;
+	   var helpbox = document.getElementById('helpbox');
+
+	   //var pos = getRelativeCoordinates(event, document.getElementById('reference'));
+
+	   //You can even attach Common Text for each helpbox/Tipbox to be displayed
+	   //Note: here "Click here..." is a common text and will be displayed on top of every Tips displayed.
+	   //Similarly You can even attach common code at the end of each helptext.
+	   helpbox.innerHTML = '<b>Click here...</b><br>' + a;
+	   helpbox.style.display = 'block';
+
+	   var posx = (typeof e.pageX!= 'undefined')? e.pageX : e.clientX + (document.documentElement? document.documentElement.scrollLeft
+	: document.body.scrollLeft);
+
+	 var posy = (typeof e.pageY!= 'undefined')? e.pageY
+	: e.clientY + (document.documentElement? document.documentElement.scrollTop
+	: document.body.scrollTop);
+
+	<!-- set x-axis and y-axis position for displaying helpbox/tipbox here -->
+	helpbox.style.top = posy  + 'px';
+	helpbox.style.left = posx + 'px';
+
+	}
+
+
+	<!-- code for hidding helpbox -->
+	function hidebox() {
+	 document.getElementById('helpbox').style.display = 'none';
+	}
