@@ -352,16 +352,16 @@
 
 	<select id="getAppointment" parameterMap="Get-Appointment-Parm-Map" resultMap="Get-Appointment-Result-Map">
 			 select idAppointment_history,ifnull(d.idDiagnosis,0) as idDiagnosis,
- appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,  
- ICD_code,Prescription_name,dosage,suggested_test,test_result_value,test_result_unit ,appointment_comment,appointment_confirmation    
- from person p    
- left OUTER join appointment_history ah
- on ah.Iddoctor_details = p.idperson
- left OUTER join diagnosis d on d.idAppointment = ah.idAppointment_History   
- left OUTER join tests t on t.fDiagnosis= d.idDiagnosis   
- left OUTER join patient_prescription pp on pp.idDiagnosis= d.idDiagnosis    
- where ah.idAppointment_History=?    and appointment_confirmation != 'C'
- order by idDiagnosis,Prescription_name,suggested_test;  
+			 appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,  
+			 ICD_code,Prescription_name,dosage,suggested_test,test_result_value,test_result_unit ,appointment_comment,appointment_confirmation    
+			 from person p    
+			 left OUTER join appointment_history ah
+			 on ah.Iddoctor_details = p.idperson
+			 left OUTER join diagnosis d on d.idAppointment = ah.idAppointment_History   
+			 left OUTER join tests t on t.fDiagnosis= d.idDiagnosis   
+			 left OUTER join patient_prescription pp on pp.idDiagnosis= d.idDiagnosis    
+			 where ah.idAppointment_History=?    and appointment_confirmation != 'C'
+			 order by idDiagnosis,Prescription_name,suggested_test;  
  	</select>
 
 	<resultMap class="com.mediapp.domain.common.AppointmentForMonth" id="Get-MonthAppointment-Result-Map">

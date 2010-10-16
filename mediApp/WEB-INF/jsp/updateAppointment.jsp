@@ -97,7 +97,7 @@
 					<table border="0" cellpadding="0" cellspacing="0" width="400" height="30" >						         
 						<tr >     
 							<%Person p = (Person)request.getSession().getAttribute("person");
-							NotificationDetails n = (NotificationDetails) request.getAttribute("Notification");							
+							NotificationDetails n = (NotificationDetails) request.getAttribute("Notification");
 							if(!p.getEmailID().equals(n.getPatientEmailAddress())){ %>
 							
 							<c:if test="${appointment.confirmedIndicator == 'N'}">

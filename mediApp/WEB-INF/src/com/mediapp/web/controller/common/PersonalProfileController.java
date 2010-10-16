@@ -73,7 +73,10 @@ public class PersonalProfileController extends MediAppBaseController  {
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		Person person = (Person)command;
 		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
-		person.setEmailID(sessionPerson.getEmailID());
+		if(null== person.getEmailID() && person.getEmailID().isEmpty()){
+			person.setEmailID(sessionPerson.getEmailID());	
+		}
+		
 		person.setUsername(sessionPerson.getUsername());
 		if(null == person.getPersonTypeString() && "".equals(person.getPersonTypeString())){
 			person.setPersonTypeString("AppMent");
