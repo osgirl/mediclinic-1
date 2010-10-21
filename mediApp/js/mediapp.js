@@ -142,8 +142,8 @@ function fn_addAppointment(){
 	if(firstSubmit == 0){
 		document.forms['createAppointment'].method ="post";	
 		document.forms["createAppointment"].submit();
-		firstSubmit = 1;
-		setTimeout(fn_addAppointment, 200); 
+		firstSubmit = 1;		
+		setTimeout(fn_addAppointment, 2000);
 	}else{
 		document.forms['createAppointment'].method ="post";	
 		document.forms['createAppointment'].action="dayAppointment.htm"; 
@@ -162,7 +162,7 @@ function fn_rescheduleAppointmentDate(){
 	    document.forms['rescheduleAppointment'].method ="post";
 	    document.forms["rescheduleAppointment"].submit();
 		firstSubmit = 1;
-		setTimeout(fn_rescheduleAppointmentDate, 200); 
+		setTimeout(fn_rescheduleAppointmentDate, 2000); 
 	    
     }else{
 	    document.forms['rescheduleAppointment'].method ="post";
@@ -286,7 +286,7 @@ function fn_GetYearView(indicator){
 
 function fn_openAppointment(){
 //	personID,timeOfAppointment,appointmentDate,appointmentID
-	var personID = document.getElementById('personID').value;
+	var personID = document.getElementById('PersonID').value;
 	var appointmentDate=document.getElementById('AppointmentDateR').value;
     var appointmentID=document.getElementById('AppointmentID').value;    
     var timeOfAppointment=document.getElementById('TimeOfAppointment').value;		
@@ -316,7 +316,7 @@ function fn_openAppointmentInbox(personID,appointmentDate,appointmentID,timeOfAp
 
 function fn_rescheduleAppointment(){
 	window.name = "Parent";
-	var personID = document.getElementById('personID').value;
+	var personID = document.getElementById('PersonID').value;
 	var appointmentDate=document.getElementById('AppointmentDateR').value;
     var appointmentID=document.getElementById('AppointmentID').value;    
     var timeOfAppointment=document.getElementById('TimeOfAppointment').value;		

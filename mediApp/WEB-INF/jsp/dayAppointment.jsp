@@ -102,7 +102,7 @@
 																							</c:if>
 																						</td>
 																						<c:if test='${appointments.headline != "OOO" && TakeAppointment ne "Y"}'>
-																							<td  style="background: url(/images/arrowbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:100%;"  align="center" onmouseover="this.style.cursor='hand'" id="clickMe" onclick="fn_showOptions('${LoggedOnUserID}','${appointments.patientPersonID}','${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>','${appointments.appointmentID}','${appointments.confirmedIndicator}');">  
+																							<td  style="background: url(/images/arrowbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:100%;"  align="center" onmouseover="this.style.cursor='hand'" id="clickMe" onclick="fn_showOptions(event,'${LoggedOnUserID}','${appointments.patientPersonID}','${appointments.timeOfAppointment}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointmentDate}"/>','${appointments.appointmentID}','${appointments.confirmedIndicator}');">  
 																				  			</td>
 																				  		</c:if>
 																					</c:if>

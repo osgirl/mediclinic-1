@@ -94,31 +94,31 @@
                </spring:bind> 
               </td>
               <spring:bind path="person.idPerson">
-               <input type="hidden" name="${status.expression}" value="${person.idPerson}"/>
+               <input type="hidden" name="${status.expression}" id="${status.expression}" value="${person.idPerson}"/>
               </spring:bind>
               <spring:bind path="person.doctorDetails.idDoctor">
-               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.idDoctor}"/>
+               <input type="hidden" name="${status.expression}" id="${status.expression}" value="${person.doctorDetails.idDoctor}"/>
               </spring:bind>
               <spring:bind path="person.doctorDetails.mondayWorking">
-               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.mondayWorking}"/>
+               <input type="hidden" name="${status.expression}" id="${status.expression}" value="${person.doctorDetails.mondayWorking}"/>
               </spring:bind>
               <spring:bind path="person.doctorDetails.tuesdayWorking">
-               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.tuesdayWorking}"/>
+               <input type="hidden" name="${status.expression}" id="${status.expression}" value="${person.doctorDetails.tuesdayWorking}"/>
               </spring:bind>
               <spring:bind path="person.doctorDetails.wednesdayWorking">
-               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.wednesdayWorking}"/>
+               <input type="hidden" name="${status.expression}" id="${status.expression}" value="${person.doctorDetails.wednesdayWorking}"/>
               </spring:bind>
               <spring:bind path="person.doctorDetails.thursdayWorking">
-               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.thursdayWorking}"/>
+               <input type="hidden" name="${status.expression}" id="${status.expression}" value="${person.doctorDetails.thursdayWorking}"/>
               </spring:bind>
               <spring:bind path="person.doctorDetails.fridayWorking">
-               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.fridayWorking}"/>
+               <input type="hidden" name="${status.expression}" id="${status.expression}" value="${person.doctorDetails.fridayWorking}"/>
               </spring:bind>
               <spring:bind path="person.doctorDetails.saturdayWorking">
-               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.saturdayWorking}"/>
+               <input type="hidden" name="${status.expression}" id="${status.expression}" value="${person.doctorDetails.saturdayWorking}"/>
               </spring:bind>
               <spring:bind path="person.doctorDetails.sundayWorking">
-               <input type="hidden" name="${status.expression}" value="${person.doctorDetails.sundayWorking}"/>
+               <input type="hidden" name="${status.expression}" id="${status.expression}" value="${person.doctorDetails.sundayWorking}"/>
               </spring:bind>
 
              </tr>

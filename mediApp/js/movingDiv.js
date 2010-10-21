@@ -83,9 +83,9 @@ window.onload = function () {
   //document.getElementById('other_clicky').onmousedown =
 }
 
-function fn_showOptions(loggedUserID,calendarUserID,appointmentTime,appointmentDate,appointmentID,confirmationIndicator){
-    var e = event || window.event;
-    var pos = getRelativeCoordinates(event, document.getElementById('reference'));
+function fn_showOptions(event,loggedUserID,calendarUserID,appointmentTime,appointmentDate,appointmentID,confirmationIndicator){
+    var e =event || window.event;   
+    var pos = getRelativeCoordinates(e, document.getElementById('reference'));
     var r = document.getElementById('reference');
     var m = document.getElementById('movingDiv');
    //this is done to align right corner
