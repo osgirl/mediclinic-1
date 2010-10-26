@@ -219,7 +219,7 @@ public class ScheduledJob {
 			}
 		}
 		boolean status =false;
-		List<InboundMessage> messageList = new ArrayList<InboundMessage>();
+/*		List<InboundMessage> messageList = new ArrayList<InboundMessage>();
 		try {
 			logger.debug("reading SMS");
 			ReadSMS readSMS = new ReadSMS();
@@ -258,6 +258,7 @@ public class ScheduledJob {
 			}
 
 		}
+		*/
 		
 	}
 

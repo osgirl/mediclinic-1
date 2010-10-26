@@ -92,7 +92,10 @@
 	
 	<bean id="commonDAO" class="com.mediapp.core.common.dao.impl.CommonDAOImpl" parent = "mediAppBaseDAOImpl">
 	</bean>
-	
+
+	<bean id="appmentCachingDAO" class="com.mediapp.core.common.dao.impl.AppmentCachingDAOImpl" parent = "mediAppBaseDAOImpl">
+	</bean>
+
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
   		<tx:attributes>
     		<tx:method name="get*" read-only="true"/>

@@ -831,4 +831,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		
 	}
 
+	public boolean sendOutSMS(String recipient, String text) throws DataAccessException{
+		return insertObject("common.insertSMS",recipient );
+	}
 }

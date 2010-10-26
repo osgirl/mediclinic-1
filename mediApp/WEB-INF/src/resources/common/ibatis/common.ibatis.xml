@@ -1157,5 +1157,15 @@
 		and time_to_sec(timediff(curtime(),time_of_appointment)) between  cd2.code_val and cd1.code_val;
  	</select>
 
+ 	<resultMap class="com.mediapp.domain.common.CodeDecode" id="Get-Code-Decode-Result-Map">
+	 	<result property="codeCategory" 			column="code_ctg"/> 	
+	 	<result property="codeDecode" 				column="code_val"/>
+	 	<result property="codeDescription" 			column="code_desc"/>
+	 	
+	</resultMap>
+
+	<select id="getCodeDecode" resultMap="Get-Code-Decode-Result-Map">
+           SELECT code_ctg,code_val,code_desc FROM code_decode ;
+ 	</select>
 	
 </sqlMap>
