@@ -55,7 +55,7 @@ public class ScheduleSMS {
     	//criteria.put("AppointmentID",sAppointmentID );
 		NotificationDetails notification = commonDAO
 				.getNotificationDetails(iAppointmentID);
-		String text = notification.getPatientName()+" has set appointment on "+ convertStringToDate(newAppointment.getDateOfAppointment().toString())+ " at "+ convertStringToTime(newAppointment.getDateOfAppointment().toString()) +". Please logon and confirm.Thanks.";
+		String text = notification.getPatientName()+" has set appointment on "+ convertStringToDate(newAppointment.getDateOfAppointment())+ " at "+ newAppointment.getTimeOfAppointment() +". Please logon and confirm.Thanks.";
 		boolean status = commonDAO.sendOutSMS(notification.getDoctorMobileNumber(), text);
     	//boolean status = commonDAO.scheduleJob("SMS", criteria, "SMS");
     	return status;
@@ -81,24 +81,12 @@ public class ScheduleSMS {
 		}
 	};
 	
-	public static Date convertStringToDate(String date) {
-		Date returnDate = null;
-		try {
-			returnDate = dateFormat.get().parse(date);
-		} catch (ParseException ex) {
-			System.out.println("error in validating date ");
-		}
-		return returnDate;
+	public static String convertStringToDate(Date date) {
+		return dateFormat.get().format(date);
 	}
 
-	public static Time convertStringToTime(String time) {
-		Time returnTime = new Time(10);
-		try {
-			returnTime.setTime(timeFormat.get().parse(time).getTime());
-		} catch (ParseException ex) {
-			System.out.println("error in validating time ");
-		}
-		return returnTime;
+	public static String convertStringToTime(Time time) {
+		return dateFormat.get().format(time);
 	}
 
     
@@ -112,7 +100,7 @@ public class ScheduleSMS {
   //  	boolean status = commonDAO.scheduleJob("SMS", criteria, "SMS");
 		NotificationDetails notification = commonDAO
 		.getNotificationDetails(iAppointmentID);
-		String text = notification.getPatientName()+" has rescheduled appointment to "+ convertStringToDate(newAppointment.getDateOfAppointment().toString())+ " at "+ convertStringToTime(newAppointment.getDateOfAppointment().toString()) +". Please logon and confirm.Thanks.";
+		String text = notification.getPatientName()+" has rescheduled appointment to "+ convertStringToDate(newAppointment.getDateOfAppointment())+ " at "+ newAppointment.getTimeOfAppointment() +". Please logon and confirm.Thanks.";
 		boolean status = commonDAO.sendOutSMS(notification.getDoctorMobileNumber(), text);
 
     	return status;
@@ -131,7 +119,7 @@ public class ScheduleSMS {
 		.getNotificationDetails(appointmentID);
 		Appointment appointment = commonDAO
 		.getAppointment(appointmentID);
-		String text = notification.getDoctorMobileNumber() +" has confirmed appointment "+ convertStringToDate(appointment.getDateOfAppointment().toString())+ " at "+ convertStringToTime(appointment.getDateOfAppointment().toString()) +".";
+		String text = notification.getDoctorMobileNumber() +" has confirmed appointment "+ convertStringToDate(appointment.getDateOfAppointment())+ " at "+ appointment.getTimeOfAppointment() +".";
 		boolean status = commonDAO.sendOutSMS(notification.getPatientMobileNumber(), text);
 
     	return status;

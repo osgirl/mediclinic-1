@@ -88,7 +88,9 @@ public class AppmentCache implements InitializingBean {
 
 	  // call the method to populate all the cache elements
 	  populateCacheElements();
-	  startSMSService();
+	  //startSMSService();
+	  (new Thread(new ProcessSMS())).start();
+
 	 }
 
 	 private void startSMSService() {
@@ -185,6 +187,16 @@ public class AppmentCache implements InitializingBean {
 	 public List < CodeDecode > getcodeDecodeForCategory(String category) {
 			return allCodeDecode.get(category);
 	}
-	 
+
+		private class ProcessSMS implements Runnable {
+
+			public void run() {
+				 List <CodeDecode> codes = getcodeDecodeForCategory("SMSSERVER");
+				 System.setProperty(codes.get(0).getCodeDescription(), codes.get(0).getCodeDecode());
+				 String[] arg = {""};
+				SMSServer.main(arg);
+			}
+		}
+
 }
 

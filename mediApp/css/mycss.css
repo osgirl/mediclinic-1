@@ -1,6 +1,6 @@
 body {
 font:76%/162% 'Lucida Sans Unicode', 'Lucida Grande', 'Bitstream Vera Sans', 'Trebuchet MS', Geneva, Arial, sans-serif;
-background:#FAFCFD url(/images/asual-bg.jpg) repeat-x;
+/*background:#FAFCFD url(/images/asual-bg.jpg) repeat-x;*/
 color:#000;
 text-align:center;
 }
@@ -141,7 +141,7 @@ text-decoration:underline;
 }
 
 #contentHeadLeft {
-background:url(/images/asual-headleft.jpg) no-repeat;
+/*background:url(/images/asual-headleft.jpg) no-repeat;*/
 height:28px;
 padding-left:22px;
 }
@@ -153,48 +153,48 @@ margin:0;
 }
 
 #contentHeadRight {
-background:url(/images/asual-headright.jpg) no-repeat right;
+/*background:url(/images/asual-headright.jpg) no-repeat right;*/
 height:100%;
 padding-right:22px;
 }
 
 #contentBodyLeft {
-background:url(/images/asual-bodyleft.jpg) repeat-y;
+/*background:url(/images/asual-bodyleft.jpg) repeat-y;*/
 padding-left:22px;
 clear:both;
 }
 
 #contentBodyCenter {
 height:auto;
-background:url(/images/asual-bodycenter.jpg);
+/*background:url(/images/asual-bodycenter.jpg);*/
 }
 
 #contentBodyRight {
 padding-right:22px;
-background:url(/images/asual-bodyright.jpg) repeat-y right;
+/*background:url(/images/asual-bodyright.jpg) repeat-y right;*/
 }
 
 #contentFootLeft {
-background:#FAFCFD url(/images/asual-footleft.jpg) no-repeat;
+/*background:#FAFCFD url(/images/asual-footleft.jpg) no-repeat;*/
 height:28px;
 padding-left:22px;
 clear:both;
 }
 
 #contentFootCenter {
-background:url(/images/asual-footcenter.jpg) repeat-x;
+/*background:url(/images/asual-footcenter.jpg) repeat-x;*/
 height:100%;
 margin:0 6px;
 }
 
 #contentFootRight {
-background:url(/images/asual-footright.jpg) no-repeat right;
+/*background:url(/images/asual-footright.jpg) no-repeat right;*/
 height:100%;
 padding-right:22px;
 }
 
 #content {
-background:url(/images/asual-content.jpg) repeat-x;
+/*background:url(/images/asual-content.jpg) repeat-x;*/
 width:auto;
 height:auto;
 color:#000;
@@ -203,7 +203,7 @@ padding:16px 22px 0;
 }
 
 #contentSingleEntry {
-background:url(/images/asual-content.jpg) repeat-x;
+/*background:url(/images/asual-content.jpg) repeat-x;*/
 width:auto;
 height:1024px;
 color:#000;
@@ -226,7 +226,7 @@ overflow:hidden;
 font-size:80%;
 width:210px;
 float:right;
-background:url(/images/asual-bodycenter.jpg);
+/*background:url(/images/asual-bodycenter.jpg);*/
 }
 
 #column a.rounded {

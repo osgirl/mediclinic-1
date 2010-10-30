@@ -14,6 +14,7 @@ import java.util.UUID;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.smslib.InboundMessage;
+import org.smslib.smsserver.SMSServer;
 import org.springframework.core.task.TaskExecutor;
 
 import com.mediapp.core.common.constants.CommonCoreConstants;
@@ -219,6 +220,7 @@ public class ScheduledJob {
 			}
 		}
 		boolean status =false;
+		//taskExecutor.execute(new ProcessSMS());
 /*		List<InboundMessage> messageList = new ArrayList<InboundMessage>();
 		try {
 			logger.debug("reading SMS");
@@ -721,4 +723,6 @@ public class ScheduledJob {
 		return returnTime;
 	}
 
+
+	
 }

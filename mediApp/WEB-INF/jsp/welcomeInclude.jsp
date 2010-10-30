@@ -20,7 +20,7 @@
 <body onLoad="initVar(); moveBanner()">
 	<div id="main" >
 		<div id="header">
-			<div id="name" style="background: url(/images/shake-hand.jpg) no-repeat;overflow: hidden;"> 
+			<div id="name" > 
 				<h3> AppMent 
 				</h3>
 				<h4> <font color="grey">Easy way to get organized!</font> 
