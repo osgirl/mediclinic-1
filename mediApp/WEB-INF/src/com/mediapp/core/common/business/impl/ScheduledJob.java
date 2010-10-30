@@ -259,7 +259,15 @@ public class ScheduledJob {
 
 		}
 		*/
-		
+		List<IncomingMessages> incomingMessages = commonDAO.getInSMS();
+		if(incomingMessages.size()>0){
+			uuid = UUID.randomUUID().toString();
+			boolean statusOfUpdates = commonDAO.updateInSMS(incomingMessages, uuid,"U");
+			logger.debug("message being processed are in number : "+incomingMessages.size());
+			for (IncomingMessages eachMessage : incomingMessages) {
+				taskExecutor.execute(new ProcessReadSMS(eachMessage));
+			}
+		}
 	}
 
 	private static final ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>() {
@@ -464,10 +472,16 @@ public class ScheduledJob {
 					//HELP				
 					help(readMessage);
 				default:
+					logger.debug("action is not valid! " +action);
 					error(readMessage, "Not valid Option");
 				}				
+			}else{
+				error(readMessage, "Not valid Option");
 			}
-			boolean status = commonDAO.updateIncomingSMSJob(uuid, "UPRS", uuid,"CMPL");
+			//boolean status = commonDAO.updateIncomingSMSJob(uuid, "UPRS", uuid,"CMPL");
+			List<IncomingMessages> updateMessage = new   ArrayList<IncomingMessages>();
+			updateMessage.add(readMessage);			
+			boolean statusOfUpdates = commonDAO.updateInSMS(updateMessage, uuid,"C");
 
 		}
 	}
@@ -659,20 +673,11 @@ public class ScheduledJob {
 	}
 
 	public void error(IncomingMessages readMessage, String errorMessage) {
-    	Map<String,String> criteria =  new HashMap < String, String > () ;
-    	criteria.put("SMSType", "sendErrorSMS");
-    	criteria.put("PhoneNumber", readMessage.getSenderNumber());
-    	criteria.put("Message", errorMessage);
-    	commonDAO.scheduleJob("SMS", criteria, "SMS");
+		boolean status = commonDAO.sendOutSMS(readMessage.getSenderNumber(), errorMessage);
 	}
 
 	public void sendSuccessMessage(IncomingMessages readMessage, String successMessage) {
-    	Map<String,String> criteria =  new HashMap < String, String > () ;
-    	criteria.put("SMSType", "sendErrorSMS");
-    	criteria.put("PhoneNumber", readMessage.getSenderNumber());
-    	criteria.put("Message", successMessage);
-    	commonDAO.scheduleJob("SMS", criteria, "SMS");
-
+    	boolean status = commonDAO.sendOutSMS(readMessage.getSenderNumber(), successMessage);
 	}
 
 	

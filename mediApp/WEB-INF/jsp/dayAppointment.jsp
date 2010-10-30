@@ -158,7 +158,7 @@
 	           			<tr id="reschedule">
 	           				<td>
 								<a href="javascript:void(0);" onClick="javascript:fn_rescheduleAppointment();document.getElementById('movingDiv').style.display='none';" style="text-decoration:none"  class="sansa"  > 
-									<font size="+1" color="blue" >Reschedule</font> 
+									<font size="+1" color="blue" >Postpone</font> 
 								</a>
 				           </td>
 	           			</tr>

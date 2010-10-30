@@ -337,15 +337,19 @@ function fn_Print(){
 
 function fn_confirmAppointment(){
 	document.forms['updateAppointment'].target="Parent";
-    document.forms['updateAppointment'].submit();
-	document.forms['updateAppointment'].method ="post";	
-	var oMyObject = window.dialogArguments;
-	document.forms['updateAppointment'].method ="get";
-	document.forms['updateAppointment'].action=oMyObject.URL; 
-	document.forms['updateAppointment'].submit();
-	 self.close();
-
-	
+	if(firstSubmit == 0){
+		document.forms['updateAppointment'].method ="post";	
+		document.forms['updateAppointment'].submit();
+		firstSubmit = 1;		
+		setTimeout(fn_confirmAppointment, 2000);
+	}else{
+		var oMyObject = window.dialogArguments;
+		document.forms['updateAppointment'].method ="get";
+		document.forms['updateAppointment'].action=oMyObject.URL; 
+		document.forms['updateAppointment'].submit();
+		firstSubmit = 0;
+		self.close();
+	}
 }
 function fn_deletePrescription(num){
 	  var elSel = document.getElementById("diagnosis["+num+"].prescriptionList");
@@ -355,9 +359,6 @@ function fn_deletePrescription(num){
 	      elSel.remove(i);
 	    }
 	  }
-	  
-	  
-
 }
 
 function fn_deleteTest(num){

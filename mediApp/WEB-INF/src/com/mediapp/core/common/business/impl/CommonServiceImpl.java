@@ -42,6 +42,7 @@ public class CommonServiceImpl implements CommonService{
 		return commonDAO.getAutoComplete( codeCategory,code);
 		
 	}
+	
 
 	public CommonDAO getCommonDAO() {
 		return commonDAO;
@@ -51,6 +52,8 @@ public class CommonServiceImpl implements CommonService{
 		this.commonDAO = commonDAO;
 	}
 	
+
+
 	public List <SearchResult> getDoctors(SearchCriteria searchCriteria){
 
 		if (searchCriteria.getDateOfAppointment() == null){
@@ -65,7 +68,7 @@ public class CommonServiceImpl implements CommonService{
 	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment, String personType, int doctorID) {
 		List <Appointment> appointmentList =commonDAO.getDayAppointment(idPerson, dateOfAppointment,personType, doctorID);
 		 List<DoctorWorkTimings> workTimings =new ArrayList();
-		if (!personType.equals(CommonCoreConstants.PATIENT)){
+		 if (personType.equals("Take")){
 			workTimings = commonDAO.getDoctorWorkTimingsForDay(idPerson, dateOfAppointment,doctorID);		
 			long startTimingLong=0;	
 			String startTiming=null;
@@ -96,6 +99,8 @@ public class CommonServiceImpl implements CommonService{
 				appointmentList.get(0).setDoctorWorkEndTime(endTiming);
 			}
 		}else{
+//			List <CodeDecode> workStartTiming = appmentCache.getcodeDecodeForCategory("WORKSTARTTIME");
+//			List <CodeDecode> workEndTiming = appmentCache.getcodeDecodeForCategory("WORKENDTIME");
 			if (appointmentList.size() > 0){
 				appointmentList.get(0).setDoctorWorkStartTime(CommonCoreConstants.WORK_START_TIME);
 				appointmentList.get(0).setDoctorWorkEndTime(CommonCoreConstants.WORK_END_TIME);

@@ -19,6 +19,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mediapp.core.common.business.LoginService;
+import com.mediapp.core.common.business.impl.AppmentCache;
 import com.mediapp.core.common.business.impl.ScheduleEMail;
 import com.mediapp.core.common.business.impl.ScheduleSMS;
 import com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl;
@@ -42,8 +43,7 @@ public class AppMentLoginController extends MediAppBaseController  {
 	}
 
 	ScheduleSMS sendSMS;
-	
-	
+
 	public ScheduleSMS getSendSMS() {
 		return sendSMS;
 	}

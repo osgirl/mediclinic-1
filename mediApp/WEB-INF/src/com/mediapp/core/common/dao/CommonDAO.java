@@ -130,4 +130,11 @@ public interface CommonDAO {
 	public Appointment checkIfAppointmentExists(Appointment appointment)throws DataAccessException;
 	
 	public boolean sendOutSMS(String recipient, String text) throws DataAccessException;
+	
+	public boolean sendOutSMSBatchClient(List<NotificationDetails> notification,List<Appointment> appointment) throws DataAccessException;
+	
+	public List<IncomingMessages> getInSMS() throws DataAccessException;
+	
+	public boolean updateInSMS(List<IncomingMessages> incomingMessages,String processingID, String status) throws DataAccessException;
+	
 }

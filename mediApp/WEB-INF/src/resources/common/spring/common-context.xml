@@ -13,6 +13,7 @@
 		MediApp Common classes Application Context
 	</description>
 
+
 	<bean id="loginService"	class="com.mediapp.core.common.business.impl.LoginServiceImpl">
 		<property name="commonDAO">
 			<ref bean="commonDAO"/>

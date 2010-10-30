@@ -1165,7 +1165,54 @@
 	</resultMap>
 
 	<select id="getCodeDecode" resultMap="Get-Code-Decode-Result-Map">
-           SELECT code_ctg,code_val,code_desc FROM code_decode ;
+           SELECT code_ctg,code_val,code_desc FROM code_decode cd , code_category cc
+			where cc.caching = 'Y' 
+			and cc.code_category = cd.code_ctg
+			order by code_ctg;
  	</select>
+
+	 <parameterMap id="Insert-SMS-Parm-Map"   class="java.util.HashMap">
+	    <parameter property="Recipient"   		javaType="java.lang.String"   	mode="IN"/>
+	    <parameter property="Text" 				javaType="java.lang.String"    mode="IN"/>
+	 </parameterMap>
+	
+	<insert id="insertSMS" parameterMap="Insert-SMS-Parm-Map">
+		INSERT INTO smsserver_out (recipient, text,create_date ) 
+		VALUES (?,?,current_date )
+	</insert>
+
+
+ 	<resultMap class="com.mediapp.domain.common.IncomingMessages" id="Get-SMS-Result-Map">
+ 		<result property="messageId" 		column="id"/>
+	 	<result property="senderNumber" 	column="originator"/>
+	 	<result property="messageText"		column="text"/>
+	</resultMap>
+	 	
+	<select id="getSMSToProcess"  resultMap="Get-SMS-Result-Map">
+           select id, originator, text
+			from smsserver_in si,
+			code_decode cd
+			where cd.code_ctg = 'SMSPROCESSTHRESHOLD'
+			and date_format(receive_date, '%y-%m-%d') = current_date
+			and (processing_status = 'S' 
+			or ( processing_status = 'U' 
+            and
+			time_to_sec(timediff(curtime(),DATE_FORMAT(receive_date, '%H:%i:%s'))) <![CDATA[ >= ]]> cd.code_val)
+			)
+
+ 	</select>
+
+	<parameterMap id="UpdateInSMS-Parm-Map"   class="java.util.HashMap">
+	    <parameter property="UUID" 					javaType="java.lang.String"    mode="IN"/>
+		<parameter property="Status" 				javaType="java.lang.String"   mode="IN"/>
+		<parameter property="ID" 					javaType="java.lang.Integer"   mode="IN"/>
+	 </parameterMap>
+
+	<update id="updateInSMS"  parameterMap="UpdateInSMS-Parm-Map" >
+		update smsserver_in
+			set processing_id = ? , processing_status = ? , processed_time = current_date
+		where id = ?
+	</update>
+
 	
 </sqlMap>

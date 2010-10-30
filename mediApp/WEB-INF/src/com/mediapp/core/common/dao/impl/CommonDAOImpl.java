@@ -39,6 +39,7 @@ import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.ScheduleJob;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Appinfo;
 
 
 
@@ -832,6 +833,59 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	}
 
 	public boolean sendOutSMS(String recipient, String text) throws DataAccessException{
-		return insertObject("common.insertSMS",recipient );
+		Map<String,Object> criteria =  new HashMap < String, Object> () ;		
+		criteria.put("Recipient", recipient);
+		criteria.put("Text", text);
+		return insertObject("common.insertSMS",criteria );
 	}
+
+	public boolean sendOutSMSBatchClient(List<NotificationDetails> notification,List<Appointment> appointment) throws DataAccessException{
+
+	
+			int count = 0;
+			Map<String,Object> criteria =  new HashMap < String, Object> () ;
+			try{
+				this.getSqlMapClient().startBatch();
+				for (Appointment eachAppointment : appointment) {
+					criteria = new HashMap < String, Object> ();
+					criteria.put("Recipient", notification.get(count).getPatientEmailAddress());
+					String text = notification.get(count).getDoctorMobileNumber() +" has cancelled appointment on "+ eachAppointment.getDateOfAppointment().toString()+".";
+					criteria.put("Text", text);
+						getSqlMapClient().insert("common.insertSMS",
+								criteria);	
+				}	
+				int insertCount = this.getSqlMapClient().executeBatch();
+			}catch (SQLException e) { 
+				throw new DataIntegrityViolationException(e.getMessage()); 
+			} 
+
+		return true;
+	}
+
+	public List<IncomingMessages> getInSMS() throws DataAccessException{
+		return (List <IncomingMessages>) getList("common.getSMSToProcess",null);
+		
+	}
+	
+	public boolean updateInSMS(List<IncomingMessages> incomingMessages,String processingID, String status) throws DataAccessException{
+		Map<String,Object> criteria =  new HashMap < String, Object> () ;
+		try{
+			this.getSqlMapClient().startBatch();
+			for (IncomingMessages eachIncomingMessages : incomingMessages) {
+				criteria = new HashMap < String, Object> ();
+				criteria.put("UUID", processingID);
+				criteria.put("Status", status);
+				criteria.put("ID",eachIncomingMessages.getMessageId());
+					getSqlMapClient().update("common.updateInSMS",
+							criteria);	
+			}	
+			int insertCount = this.getSqlMapClient().executeBatch();
+		}catch (SQLException e) { 
+			throw new DataIntegrityViolationException(e.getMessage()); 
+		} 
+
+		return true;
+		
+	}
+	
 }
