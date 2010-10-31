@@ -1,13 +1,3 @@
-/*function hide(menu){ 
-	var menuStyle=document.getElementById(menu).style; 
-	menuStyle.display="none";
-} 
-function show(menu) {
-	var menuStyle=document.getElementById(menu).style; 
-	menuStyle.display="block";
-}
-*/
-
 function fn_signUp(){
 	var e = document.forms["appmentSignUp"].elements;
 	if(e['password'].value != e['repassword'].value){
@@ -257,12 +247,12 @@ function fn_GetMonthView(indicator){
 	
 	var date = new Date(document.getElementById('AppointmentDate').value);
 	if (indicator == 1){		
-		document.getElementById('AppointmentDate').value = date.getMonth()+"/"+date.getDate()+"/"+ date.getFullYear();		
+		document.getElementById('AppointmentDate').value = date.getMonth()+"/01/"+ date.getFullYear();		
 		document.forms["takeAppointment"].submit();
 	}
-	if (indicator == 2){		
+	if (indicator == 2){	
 		var nextMonth = date.getMonth()+2;
-		document.getElementById('AppointmentDate').value = nextMonth+"/"+date.getDate()+"/"+ date.getFullYear();		
+		document.getElementById('AppointmentDate').value = nextMonth+"/01/"+ date.getFullYear();		
 		document.forms["takeAppointment"].submit();
 		
 	}
@@ -1017,305 +1007,6 @@ calDateText[((7*w)+d)-7].innerText = " ";
    }
 }
 
-//calendar
-/*
-//csengine for appointment
-//Get Cookie Function
-function getCookie(name) {
- var cname = name + "=";
- var dc = document.cookie;
-
- if (dc.length > 0) {
- begin = dc.indexOf(cname);
- if (begin != -1) {
- begin += cname.length;
- end = dc.indexOf(";", begin);
- if (end == -1) end = dc.length;
- return unescape(dc.substring(begin, end));
- }
- }
- return null;
-}
-
-//Set Cookie Function
-function setCookie(name, value, expires, path, domain, secure) {
- document.cookie = name + "=" + escape(value) +
- ((expires == null) ? "" : "; expires=" + expires.toGMTString()) +
- ((path == null) ? "" : "; path=" + path) +
- ((domain == null) ? "" : "; domain=" + domain) +
- ((secure == null) ? "" : "; secure");
-}
-
-//Delete Cookie Function
-function delCookie (name,path,domain) {
- if (getCookie(name)) {
- document.cookie = name + "=" +
- ((path == null) ? "" : "; path=" + path) +
- ((domain == null) ? "" : "; domain=" + domain) +
- "; expires=Thu, 01-Jan-70 00:00:01 GMT";
- }
-}
-
-//Get Advertisement from Array Function
-function getAdv(name) {
- var adv = "";
-
- for(var i = 0;i < seglist.length ;i+=3) {
- if(name == seglist[i]) {
- adv = seglist[i + 2];
-
- return adv;
- }
- }
-
- return null;
-}
-//csengine for appointment
-var today = new Date();
-
-var dt = today.getDate();
-var dy = today.getDay();
-
-var year = today.getFullYear();
-var months = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-var monthlen = new Array(31,checkLeapYear(year),31,30,31,30,31,31,30,31,30,31);
-var days = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
-
-var child = "";
-
-function checkLeapYear(theyear) {
- // 1.Years divisible by four are leap years, unless...
- // 2.Years also divisible by 100 are not leap years, except...
- // 3.Years divisible by 400 are leap years.
-
- if ( ((theyear % 4 == 0) && (theyear % 100 != 0)) || (theyear % 400 == 0) ) {
- return("29");
- } else {
- return("28");
- }
-}
-
-
-function open_window(url,width, height, resize, scroll) {
- child = window.open(url,"newwindow", "width=" + width + ",height=" + height + ",resizable=" + resize + ",scrollbars=" + scroll + "");
-} 
-//other script for appointment
-//appointment
-<!--
-var mo = "";
-var year = "";
-var currentmonth = today.getMonth();
-var currentyear = today.getFullYear();
-//cookies are not found
-if(document.cookie == "") {
-mo = today.getMonth();
-year = today.getFullYear();
-}
-else {
-mo = getCookie('whichmonth');
-//correct cookie is NOT set
-if(mo == null) {
-mo = today.getMonth();
-year = today.getFullYear();
-//alert number of reminders to user
-alertReminders();
-}
-//correct cookie is set
-else {
-mo = getCookie('whichmonth');
-year = getCookie('whichyear');
- }
-}
-//set a session cookie
-setCookie('whichmonth',mo);
-setCookie('whichyear', year);
-//backup one month and refresh
-function backup() {
-//check for a new year being set
-if(mo > 0) {
-mo--;
-} else {
-mo = 11;
-//check for 19**
-if(year == 2000) {
-year = 1999;
-} else if(year <= 1999) {
-syear = year.substring(2,year.length);
-syear--;
-year = "19" + syear;
-Number(year);
-}
-else {
-year--;
- }
-}
-setCookie('whichmonth',mo);
-setCookie('whichyear', year);
-//check for open child windows and close.
-if(child && !child.closed) {
-child.close();
-}
-document.location="calendar.html";
-}
-//go forward one month and refresh
-function stepup() {
-//check for a new year being set
-if(mo < 11) {
-mo++;
-}
-else {
-mo = 0;
-year++;
-}
-setCookie('whichmonth',mo);
-setCookie('whichyear', year);
-//check for open child windows and close.
-if(child && !child.closed) {
-child.close();
-}
-document.location="calendar.html";
-}
-//first starting day of month
-var first = months[mo] + " 01, " + year;
-firstday = new Date(first);
-startday = firstday.getDay();
-//variable for day count
-var count = 1;
-//variables for leap year
-var factor = startday - 1;
-var endday = parseInt(monthlen[mo]) + factor;
-var calbg = "#666666";
-var calwidth = "80%";
-var twidth = "14%";
-var theight = "70";
-var monthbg = "#000000";
-var monfam = "verdana,arial,helvetica";
-var monsize = "3"
-var moncol = "#ffffff"
-var weekbg = "#eeeeee";
-var weekfam = "verdana,arial,helvetica";
-var weeksize = "2";
-var weekcol = "#ff0000";
-var daybg = "#eeeeee";
-var dayfam = "verdana,arial,helvetica";
-var daysize = "1";
-var daycol = "#000000";
-var sdaycol = "#ff0000";
-var calendar = "";
-calendar = "<table bgcolor='" + calbg + "' width='" + calwidth + "' border='0' cellpadding='1' cellspacing='0'>";
-calendar += "<tr>";
-calendar += "<td align='center'>";
-
-<!-- Month Starts Here -->
-calendar += "<table width='100%' border='0' cellpadding='3' cellspacing='0'>";
-calendar += "<tr>";
-calendar += "<td align='center'> <a href='javascript:backup();'><font color='#ffffff'><b><<</b></font></a> </td>";
-calendar += "<td width='100%' bgcolor='" + monthbg + "' align='center'><font face='" + monfam + "' size=" + monsize + " color=" + moncol + "><b>";
-calendar += "<a href='javascript://' onclick='open_all(\"all_reminders.html\");'><font color='#ffffff'>" + months[mo] + ", " + year + "</font></a>";
-calendar += "</b></font></td>";
-calendar += "<td align='center'> <a href='javascript:stepup();'><font color='#ffffff'><b>>></b></font></a> </td>";
-calendar += "</tr>";
-calendar += "</table>";
-<!-- Month Ends Here -->
-
-calendar += "</td>";
-calendar += "</tr>";
-calendar += "<tr>";
-calendar += "<td align='center'>";
-
-<!-- Week Starts Here -->
-calendar += "<table width='100%' border='0' cellpadding='3' cellspacing='0'>";
-calendar += "<tr>";
-for(i = 0; i < 7; i++) {
-calendar += "<td width='" + twidth + "' bgcolor='" + weekbg + "' align='center' valign='middle'><font face='" + weekfam + "' size=" + weeksize + " color=" + weekcol + "><b>";
-calendar += days[i];
-calendar += "</b></font></td>";
-}
-calendar += "</tr>";
-calendar += "</table>";
-<!-- Week Ends Here -->
-
-calendar += "</td>";
-calendar += "</tr>";
-calendar += "<tr>";
-calendar += "<td align='center'>";
-
-<!-- Day Starts Here -->
-calendar += "<table width='100%' border='0' cellpadding='2' cellspacing='1'>";
-calendar += "<tr>";
-if(startday > 0) {
-for(empty = 0; empty < startday; empty++) {
-calendar += "<td width='" + twidth + "' height='" + theight + "'>&nbsp;</td>";
- }
-}
-for(i = startday; i <= endday; i++) {
-if( (i % 7) == 0) {
-calendar += "</tr><tr>";
-}
-//keep highlight info on the current month and day
-if( (i - (startday - 1)) == dt && currentmonth == mo && currentyear == year) {
-calendar += "<td width='" + twidth + "' height='" + theight + "' bgcolor='" + daybg + "' align='right' valign='top'><font face='" + dayfam + "' size=" + daysize + "><b>";
-calendar += "<a href='javascript://' onclick=javascript:open_window('day_scheduler.html?" + months[mo] + "&" + count + "',300,350,0,1);><font color=" + sdaycol + ">" + count + "</font></a>";
-if(currentmonth == mo && currentyear == year && document.cookie) {
-var isremind = getCookie(months[mo] + count);
-if(isremind) { //if a reminder exists for this day
-isremind = isremind.split("|");
-calendar += "<p><div align='center'><img src='reminder.gif' width='11' height='11' alt='you have " + isremind.length + " reminder(s)'></div>";
- }
-}
-calendar += "</b></font></td>";
-}
-else {
-calendar += "<td width='" + twidth + "' height='" + theight + "' bgcolor='" + daybg + "' align='right' valign='top'><font face='" + dayfam + "' size=" + daysize + ">";
-calendar += "<a href='javascript://' onclick=javascript:open_window('day_scheduler.html?" + months[mo] + "&" + count + "',300,350,0,1);><font color=" + daycol + ">" + count + "</font></a>";
-if(document.cookie) { //allows reminders to be displayed on other months
-var isremind = getCookie(months[mo] + count);
-if(isremind) { //if a reminder exists for this day
-isremind = isremind.split("|");
-calendar += "<p><div align='center'><img src='reminder.gif' width='11' height='11' alt='you have " + isremind.length + " reminder(s)'></div>";
- }
-}
-calendar += "</font></td>";
-}
-count++;
-}
-calendar += "</tr>";
-calendar += "</table>";
-<!-- Day Ends Here -->
-
-calendar += "</td>";
-calendar += "</tr>";
-calendar += "</table>";
-function open_all(url) {
-child = window.open(url,"allreminders", "width=430,height=400,resizable=0,scrollbars=1");
-}
-function alertReminders() {
-var alertit = getCookie(months[today.getMonth()] + dt);
-if(alertit != null) {
-alertit = alertit.split("|");
-//write out reminders into a string for display
-textit = " 1. " + alertit[0];
-for(var i = 1; i < alertit.length; i++) {
-textit += "\n " + (i + 1) + ". " + alertit[i];
-}
-//alert user of number of reminders for which day and display those reminders
-alert("You have " + alertit.length + " reminder(s) for " + months[today.getMonth()] + " " + dt + ".\n\n" + textit);
- }
-}
-
-//--> 
-//appointment
-
-<!--
-document.write(calendar);
-if(child && !child.closed) {
-child.focus();
-}
-//--> 
-
-//other script for appointment
-*/
-
 function fn_showReminder(){
 	if(document.buttonimgdown.src==eval('cacheoffimgdown.src')){
 		document.buttonimgdown.src=eval('cacheonimgdown.src');
@@ -1379,3 +1070,527 @@ function showbox(a) {
 	function hidebox() {
 	 document.getElementById('helpbox').style.display = 'none';
 	}
+
+
+var displayTime, speed, wait, banner1, banner2, link1, link2, bannerIndex, bannerLocations, bannerURLs;
+
+function initVar() {
+  displayTime = 3; // The amount of time each banner will be displayed in seconds.
+  speed = 5; // The speed at which the banners is moved (1 - 10, anything above 5 is not recommended).
+  wait = true;
+
+  banner1 = document.getElementById("banner1");
+  banner2 = document.getElementById("banner2");
+  link1 = document.getElementById("link1");
+  link2 = document.getElementById("link2");
+
+  banner1 = document.getElementById("banner1");
+  banner2 = document.getElementById("banner2");
+
+  banner1.style.left = 0;
+  banner2.style.left = 500;
+
+  bannerIndex = 1;
+
+  /* Important: In order for this script to work properly, please make sure that the banner graphic and the
+  URL associated with it have the same index in both, the bannerLocations and bannerURLs arrays.
+  Duplicate URLs are permitted. */
+
+  // Enter the location of the banner graphics in the array below.
+  bannerLocations = new Array("/images/oie_shake_hands_concepts_3.jpg","/images/oie_medical.jpg");
+
+  // Enter the URL's to which the banners will link to in the array below.
+  bannerURLs = new Array("/appmentSignUp.htm","appmentSignUp.htm");
+}
+
+function moveBanner(){
+  if(!wait){
+    banner1.style.left = parseInt(banner1.style.left) -  (speed * 5);
+    banner2.style.left = parseInt(banner2.style.left) - (speed * 5);
+    if(parseInt(banner1.style.left) <= -500){
+      banner1.style.left = 500;
+      bannerIndex = (bannerIndex < (bannerLocations.length - 1)) ? ++bannerIndex :0;
+      banner1.src = bannerLocations[bannerIndex];
+      link1.href = bannerURLs[bannerIndex];
+      wait = true;
+    }
+    if(parseInt(banner2.style.left) <= -500){
+      banner2.style.left = 500;
+      bannerIndex = (bannerIndex < (bannerLocations.length - 1)) ? ++bannerIndex :0;
+      banner2.src = bannerLocations[bannerIndex];
+      link2.href = bannerURLs[bannerIndex];
+      wait = true;
+    }
+
+    setTimeout("moveBanner()",100);
+  } else {
+      wait = false;
+      setTimeout("moveBanner()", displayTime * 1000);
+  }
+}
+
+
+/**
+ * Retrieve the absolute coordinates of an element.
+ *
+ * @param element
+ *   A DOM element.
+ * @return
+ *   A hash containing keys 'x' and 'y'.
+ */
+function getAbsolutePosition(element) {
+  var r = { x: element.offsetLeft, y: element.offsetTop };
+  if (element.offsetParent) {
+    var tmp = getAbsolutePosition(element.offsetParent);
+    r.x += tmp.x;
+    r.y += tmp.y;
+  }
+  return r;
+};
+ 
+/**
+ * Retrieve the coordinates of the given event relative to the center
+ * of the widget.
+ *
+ * @param event
+ *   A mouse-related DOM event.
+ * @param reference
+ *   A DOM element whose position we want to transform the mouse coordinates to.
+ * @return
+ *    A hash containing keys 'x' and 'y'.
+ */
+function getRelativeCoordinates(event, reference) {
+  var x, y;
+  event = event || window.event;
+  var el = event.target || event.srcElement;
+ 
+  if (!window.opera && typeof event.offsetX != 'undefined') {
+    // Use offset coordinates and find common offsetParent
+    var pos = { x: event.offsetX, y: event.offsetY };
+ 
+    // Send the coordinates upwards through the offsetParent chain.
+    var e = el;
+    while (e) {
+      e.mouseX = pos.x;
+      e.mouseY = pos.y;
+      pos.x += e.offsetLeft;
+      pos.y += e.offsetTop;
+      e = e.offsetParent;
+    }
+ 
+    // Look for the coordinates starting from the reference element.
+    var e = reference;
+    var offset = { x: 0, y: 0 }
+    while (e) {
+      if (typeof e.mouseX != 'undefined') {
+        x = e.mouseX - offset.x;
+        y = e.mouseY - offset.y;
+        break;
+      }
+      offset.x += e.offsetLeft;
+      offset.y += e.offsetTop;
+      e = e.offsetParent;
+    }
+ 
+    // Reset stored coordinates
+    e = el;
+    while (e) {
+      e.mouseX = undefined;
+      e.mouseY = undefined;
+      e = e.offsetParent;
+    }
+  }
+  else {
+    // Use absolute coordinates
+    var pos = getAbsolutePosition(reference);
+    x = event.pageX  - pos.x;
+    y = event.pageY - pos.y;
+  }
+  // Subtract distance to middle
+  return { x: x, y: y };
+}
+ 
+window.onload = function () {
+  //document.getElementById('more_clicky').onmousedown =
+  //document.getElementById('other_clicky').onmousedown =
+}
+
+function fn_showOptions(event,loggedUserID,calendarUserID,appointmentTime,appointmentDate,appointmentID,confirmationIndicator){
+    var e =event || window.event;   
+    var pos = getRelativeCoordinates(e, document.getElementById('reference'));
+    var r = document.getElementById('reference');
+    var m = document.getElementById('movingDiv');
+   //this is done to align right corner
+   // var referenceWidth = parseInt( r.style.width);
+    //var t = (pos.x - referenceWidth + 30) ;
+    //m.style.left = t +'px' ;
+    //var tbl  = document.getElementById('menuTable');
+    //var rows = tbl.getElementsByTagName('tr');
+    if (loggedUserID == calendarUserID){
+    	document.getElementById('confirm').style.display="none";
+    	document.getElementById('propose').style.display="none";
+    }else{
+    	if(confirmationIndicator !='N'){
+    		document.getElementById('confirm').style.display="none";
+    	}else{
+    		document.getElementById('open').style.display="none";
+    	}
+    	document.getElementById('reschedule').style.display="none";
+    	document.getElementById('cancel').style.display="none";
+    }    
+    document.getElementById('AppointmentDateR').value=appointmentDate;
+    document.getElementById('AppointmentID').value=appointmentID;
+    document.getElementById('TimeOfAppointment').value=appointmentTime;    
+    m.style.left = pos.x +'px' ;
+    m.style.top = pos.y +'px';
+	var menuStyle=document.getElementById('movingDiv').style; 
+	menuStyle.display="block";
+
+	
+}
+
+var commonPasswords = new Array('password', 'pass', '1234', '1246'); 
+ 
+var numbers = "0123456789"; 
+var lowercase = "abcdefghijklmnopqrstuvwxyz"; 
+var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+var punctuation = "!.@$£#*()%~<>{}[]"; 
+ 
+function checkPassword(password) { 
+ 
+    var combinations = 0; 
+ 
+    if (contains(password, numbers) > 0) { 
+        combinations += 10; 
+    } 
+ 
+    if (contains(password, lowercase) > 0) { 
+        combinations += 26; 
+    } 
+ 
+    if (contains(password, uppercase) > 0) { 
+        combinations += 26; 
+    } 
+ 
+    if (contains(password, punctuation) > 0) { 
+        combinations += punctuation.length; 
+    } 
+ 
+    // work out the total combinations 
+    var totalCombinations = Math.pow(combinations, password.length); 
+ 
+    // if the password is a common password, then everthing changes... 
+    if (isCommonPassword(password)) { 
+        totalCombinations = 75000 // about the size of the dictionary 
+    } 
+ 
+    // work out how long it would take to crack this (@ 200 attempts per second) 
+    var timeInSeconds = (totalCombinations / 200) / 2; 
+ 
+    // this is how many days? (there are 86,400 seconds in a day. 
+    var timeInDays = timeInSeconds / 86400 
+ 
+    // how long we want it to last 
+    var lifetime = 365; 
+ 
+    // how close is the time to the projected time? 
+    var percentage = timeInDays / lifetime; 
+ 
+    var friendlyPercentage = cap(Math.round(percentage * 100), 100); 
+    if (totalCombinations != 75000 && friendlyPercentage < (password.length * 5)) { 
+        friendlyPercentage += password.length * 5; 
+    } 
+ 
+    var progressBar = document.getElementById("progressBar"); 
+    progressBar.style.width = friendlyPercentage + "%"; 
+ 
+    if (percentage > 1) { 
+        // strong password 
+        progressBar.style.backgroundColor = "#3bce08"; 
+        return; 
+    } 
+ 
+    if (percentage > 0.5) { 
+        // reasonable password 
+        progressBar.style.backgroundColor = "#ffd801"; 
+        return; 
+    } 
+ 
+    if (percentage > 0.10) { 
+        // weak password 
+        progressBar.style.backgroundColor = "orange"; 
+        return; 
+    } 
+ 
+    // useless password! 
+    if (percentage <= 0.10) { 
+        // weak password 
+        progressBar.style.backgroundColor = "red"; 
+        return; 
+    } 
+ 
+ 
+} 
+ 
+function cap(number, max) { 
+    if (number > max) { 
+        return max; 
+    } else { 
+        return number; 
+    } 
+} 
+ 
+function isCommonPassword(password) { 
+ 
+    for (i = 0; i < commonPasswords.length; i++) { 
+        var commonPassword = commonPasswords[i]; 
+        if (password == commonPassword) { 
+            return true; 
+        } 
+    } 
+ 
+    return false; 
+ 
+} 
+ 
+function contains(password, validChars) { 
+ 
+    count = 0; 
+ 
+    for (i = 0; i < password.length; i++) { 
+        var char = password.charAt(i); 
+        if (validChars.indexOf(char) > -1) { 
+            count++; 
+        } 
+    } 
+ 
+    return count; 
+} 
+ 
+ 
+ 
+//** Animated Collapsible DIV v2.0- (c) Dynamic Drive DHTML code library: http://www.dynamicdrive.com.
+//** May 24th, 08'- Script rewritten and updated to 2.0.
+//** June 4th, 08'- Version 2.01: Bug fix to work with jquery 1.2.6 (which changed the way attr() behaves).
+//** March 5th, 09'- Version 2.2, which adds the following:
+			//1) ontoggle($, divobj, state) event that fires each time a DIV is expanded/collapsed, including when the page 1st loads
+			//2) Ability to expand a DIV via a URL parameter string, ie: index.htm?expanddiv=jason or index.htm?expanddiv=jason,kelly
+
+//** March 9th, 09'- Version 2.2.1: Optimized ontoggle event handler slightly.
+//** July 3rd, 09'- Version 2.4, which adds the following:
+			//1) You can now insert rel="expand[divid] | collapse[divid] | toggle[divid]" inside arbitrary links to act as DIV togglers
+			//2) For image toggler links, you can insert the attributes "data-openimage" and "data-closedimage" to update its image based on the DIV state
+
+var animatedcollapse={
+divholders: {}, //structure: {div.id, div.attrs, div.$divref, div.$togglerimage}
+divgroups: {}, //structure: {groupname.count, groupname.lastactivedivid}
+lastactiveingroup: {}, //structure: {lastactivediv.id}
+preloadimages: [],
+
+show:function(divids){ //public method
+	if (typeof divids=="object"){
+		for (var i=0; i<divids.length; i++)
+			this.showhide(divids[i], "show")
+	}
+	else
+		this.showhide(divids, "show")
+},
+
+hide:function(divids){ //public method
+	if (typeof divids=="object"){
+		for (var i=0; i<divids.length; i++)
+			this.showhide(divids[i], "hide")
+	}
+	else
+		this.showhide(divids, "hide")
+},
+
+toggle:function(divid){ //public method
+	if (typeof divid=="object")
+		divid=divid[0]
+	this.showhide(divid, "toggle")
+},
+
+addDiv:function(divid, attrstring){ //public function
+	this.divholders[divid]=({id: divid, $divref: null, attrs: attrstring})
+	this.divholders[divid].getAttr=function(name){ //assign getAttr() function to each divholder object
+		var attr=new RegExp(name+"=([^,]+)", "i") //get name/value config pair (ie: width=400px,)
+		return (attr.test(this.attrs) && parseInt(RegExp.$1)!=0)? RegExp.$1 : null //return value portion (string), or 0 (false) if none found
+	}
+	this.currentid=divid //keep track of current div object being manipulated (in the event of chaining)
+	return this
+},
+
+showhide:function(divid, action){
+	var $divref=this.divholders[divid].$divref //reference collapsible DIV
+	if (this.divholders[divid] && $divref.length==1){ //if DIV exists
+		var targetgroup=this.divgroups[$divref.attr('groupname')] //find out which group DIV belongs to (if any)
+		if ($divref.attr('groupname') && targetgroup.count>1 && (action=="show" || action=="toggle" && $divref.css('display')=='none')){ //If current DIV belongs to a group
+			if (targetgroup.lastactivedivid && targetgroup.lastactivedivid!=divid) //if last active DIV is set
+				this.slideengine(targetgroup.lastactivedivid, 'hide') //hide last active DIV within group first
+				this.slideengine(divid, 'show')
+			targetgroup.lastactivedivid=divid //remember last active DIV
+		}
+		else{
+			this.slideengine(divid, action)
+		}
+	}
+},
+
+slideengine:function(divid, action){
+	var $divref=this.divholders[divid].$divref
+	var $togglerimage=this.divholders[divid].$togglerimage
+	if (this.divholders[divid] && $divref.length==1){ //if this DIV exists
+		var animateSetting={height: action}
+		if ($divref.attr('fade'))
+			animateSetting.opacity=action
+		$divref.animate(animateSetting, $divref.attr('speed')? parseInt($divref.attr('speed')) : 500, function(){
+			if ($togglerimage){
+				$togglerimage.attr('src', ($divref.css('display')=="none")? $togglerimage.data('srcs').closed : $togglerimage.data('srcs').open)
+			}
+			if (animatedcollapse.ontoggle){
+				try{
+					animatedcollapse.ontoggle(jQuery, $divref.get(0), $divref.css('display'))
+				}
+				catch(e){
+					alert("An error exists inside your \"ontoggle\" function:\n\n"+e+"\n\nAborting execution of function.")
+				}
+			}
+		})
+		return false
+	}
+},
+
+generatemap:function(){
+	var map={}
+	for (var i=0; i<arguments.length; i++){
+		if (arguments[i][1]!=null){ //do not generate name/value pair if value is null
+			map[arguments[i][0]]=arguments[i][1]
+		}
+	}
+	return map
+},
+
+init:function(){
+	var ac=this
+	jQuery(document).ready(function($){
+		animatedcollapse.ontoggle=animatedcollapse.ontoggle || null
+		var urlparamopenids=animatedcollapse.urlparamselect() //Get div ids that should be expanded based on the url (['div1','div2',etc])
+		var persistopenids=ac.getCookie('acopendivids') //Get list of div ids that should be expanded due to persistence ('div1,div2,etc')
+		var groupswithpersist=ac.getCookie('acgroupswithpersist') //Get list of group names that have 1 or more divs with "persist" attribute defined
+		if (persistopenids!=null) //if cookie isn't null (is null if first time page loads, and cookie hasnt been set yet)
+			persistopenids=(persistopenids=='nada')? [] : persistopenids.split(',') //if no divs are persisted, set to empty array, else, array of div ids
+		groupswithpersist=(groupswithpersist==null || groupswithpersist=='nada')? [] : groupswithpersist.split(',') //Get list of groups with divs that are persisted
+		jQuery.each(ac.divholders, function(){ //loop through each collapsible DIV object
+			this.$divref=$('#'+this.id)
+			if ((this.getAttr('persist') || jQuery.inArray(this.getAttr('group'), groupswithpersist)!=-1) && persistopenids!=null){ //if this div carries a user "persist" setting, or belong to a group with at least one div that does
+				var cssdisplay=(jQuery.inArray(this.id, persistopenids)!=-1)? 'block' : 'none'
+			}
+			else{
+				var cssdisplay=this.getAttr('hide')? 'none' : null
+			}
+			if (urlparamopenids[0]=="all" || jQuery.inArray(this.id, urlparamopenids)!=-1){ //if url parameter string contains the single array element "all", or this div's ID
+				cssdisplay='block' //set div to "block", overriding any other setting
+			}
+			else if (urlparamopenids[0]=="none"){
+				cssdisplay='none' //set div to "none", overriding any other setting
+			}
+			this.$divref.css(ac.generatemap(['height', this.getAttr('height')], ['display', cssdisplay]))
+			this.$divref.attr(ac.generatemap(['groupname', this.getAttr('group')], ['fade', this.getAttr('fade')], ['speed', this.getAttr('speed')]))
+			if (this.getAttr('group')){ //if this DIV has the "group" attr defined
+				var targetgroup=ac.divgroups[this.getAttr('group')] || (ac.divgroups[this.getAttr('group')]={}) //Get settings for this group, or if it no settings exist yet, create blank object to store them in
+				targetgroup.count=(targetgroup.count||0)+1 //count # of DIVs within this group
+				if (jQuery.inArray(this.id, urlparamopenids)!=-1){ //if url parameter string contains this div's ID
+					targetgroup.lastactivedivid=this.id //remember this DIV as the last "active" DIV (this DIV will be expanded). Overrides other settings
+					targetgroup.overridepersist=1 //Indicate to override persisted div that would have been expanded
+				}
+				if (!targetgroup.lastactivedivid && this.$divref.css('display')!='none' || cssdisplay=="block" && typeof targetgroup.overridepersist=="undefined") //if this DIV was open by default or should be open due to persistence								
+					targetgroup.lastactivedivid=this.id //remember this DIV as the last "active" DIV (this DIV will be expanded)
+				this.$divref.css({display:'none'}) //hide any DIV that's part of said group for now
+			}
+		}) //end divholders.each
+		jQuery.each(ac.divgroups, function(){ //loop through each group
+			if (this.lastactivedivid && urlparamopenids[0]!="none") //show last "active" DIV within each group (one that should be expanded), unless url param="none"
+				ac.divholders[this.lastactivedivid].$divref.show()
+		})
+		if (animatedcollapse.ontoggle){
+			jQuery.each(ac.divholders, function(){ //loop through each collapsible DIV object and fire ontoggle event
+				animatedcollapse.ontoggle(jQuery, this.$divref.get(0), this.$divref.css('display'))
+			})
+		}
+ 		//Parse page for links containing rel attribute
+		var $allcontrols=$('a[rel]').filter('[rel^="collapse["], [rel^="expand["], [rel^="toggle["]') //get all elements on page with rel="collapse[]", "expand[]" and "toggle[]"
+		$allcontrols.each(function(){ //loop though each control link
+			this._divids=this.getAttribute('rel').replace(/(^\w+)|(\s+)/g, "").replace(/[\[\]']/g, "") //cache value 'div1,div2,etc' within identifier[div1,div2,etc]
+			if (this.getElementsByTagName('img').length==1 && ac.divholders[this._divids]){ //if control is an image link that toggles a single DIV (must be one to one to update status image)
+				animatedcollapse.preloadimage(this.getAttribute('data-openimage'), this.getAttribute('data-closedimage')) //preload control images (if defined)
+				$togglerimage=$(this).find('img').eq(0).data('srcs', {open:this.getAttribute('data-openimage'), closed:this.getAttribute('data-closedimage')}) //remember open and closed images' paths
+				ac.divholders[this._divids].$togglerimage=$(this).find('img').eq(0) //save reference to toggler image (to be updated inside slideengine()
+				ac.divholders[this._divids].$togglerimage.attr('src', (ac.divholders[this._divids].$divref.css('display')=="none")? $togglerimage.data('srcs').closed : $togglerimage.data('srcs').open)
+			}
+			$(this).click(function(){ //assign click behavior to each control link
+				var relattr=this.getAttribute('rel')
+				var divids=(this._divids=="")? [] : this._divids.split(',') //convert 'div1,div2,etc' to array 
+				if (divids.length>0){
+					animatedcollapse[/expand/i.test(relattr)? 'show' : /collapse/i.test(relattr)? 'hide' : 'toggle'](divids) //call corresponding public function
+					return false
+				}
+			}) //end control.click
+		})// end control.each
+
+		$(window).bind('unload', function(){
+			ac.uninit()
+		})
+	}) //end doc.ready()
+},
+
+uninit:function(){
+	var opendivids='', groupswithpersist=''
+	jQuery.each(this.divholders, function(){
+		if (this.$divref.css('display')!='none'){
+			opendivids+=this.id+',' //store ids of DIVs that are expanded when page unloads: 'div1,div2,etc'
+		}
+		if (this.getAttr('group') && this.getAttr('persist'))
+			groupswithpersist+=this.getAttr('group')+',' //store groups with which at least one DIV has persistance enabled: 'group1,group2,etc'
+	})
+	opendivids=(opendivids=='')? 'nada' : opendivids.replace(/,$/, '')
+	groupswithpersist=(groupswithpersist=='')? 'nada' : groupswithpersist.replace(/,$/, '')
+	this.setCookie('acopendivids', opendivids)
+	this.setCookie('acgroupswithpersist', groupswithpersist)
+},
+
+getCookie:function(Name){ 
+	var re=new RegExp(Name+"=[^;]*", "i"); //construct RE to search for target name/value pair
+	if (document.cookie.match(re)) //if cookie found
+		return document.cookie.match(re)[0].split("=")[1] //return its value
+	return null
+},
+
+setCookie:function(name, value, days){
+	if (typeof days!="undefined"){ //if set persistent cookie
+		var expireDate = new Date()
+		expireDate.setDate(expireDate.getDate()+days)
+		document.cookie = name+"="+value+"; path=/; expires="+expireDate.toGMTString()
+	}
+	else //else if this is a session only cookie
+		document.cookie = name+"="+value+"; path=/"
+},
+
+urlparamselect:function(){
+	window.location.search.match(/expanddiv=([\w\-_,]+)/i) //search for expanddiv=divid or divid1,divid2,etc
+	return (RegExp.$1!="")? RegExp.$1.split(",") : []
+},
+
+preloadimage:function(){
+	var preloadimages=this.preloadimages
+	for (var i=0; i<arguments.length; i++){
+		if (arguments[i] && arguments[i].length>0){
+			preloadimages[preloadimages.length]=new Image()
+			preloadimages[preloadimages.length-1].src=arguments[i]
+		}
+	}
+}
+
+} 
+ 
+

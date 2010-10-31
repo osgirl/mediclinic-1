@@ -12,8 +12,6 @@
     <title>AppMent</title>    
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/shakehand.ico" type="image/x-icon" />
     <link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="<%=request.getContextPath()%>/js/mediapp.js"></script>    
-	<script type="text/javascript" src="<%=request.getContextPath()%>/js/addRotator.js"></script>	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/customalert.js"></script>
 
 </head>
