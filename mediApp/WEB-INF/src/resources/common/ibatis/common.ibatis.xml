@@ -1178,7 +1178,7 @@
 	
 	<insert id="insertSMS" parameterMap="Insert-SMS-Parm-Map">
 		INSERT INTO smsserver_out (recipient, text,create_date ) 
-		VALUES (?,?,current_date )
+		VALUES (?,?,now() )
 	</insert>
 
 
@@ -1210,7 +1210,7 @@
 
 	<update id="updateInSMS"  parameterMap="UpdateInSMS-Parm-Map" >
 		update smsserver_in
-			set processing_id = ? , processing_status = ? , processed_time = current_date
+			set processing_id = ? , processing_status = ? , processed_time = now()
 		where id = ?
 	</update>
 

@@ -13,6 +13,8 @@
     <title>AppMent</title>
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/shakehand1.ico" type="image/x-icon" />    
 	<link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/openid.css" />
+	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/customalert.js" ></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
