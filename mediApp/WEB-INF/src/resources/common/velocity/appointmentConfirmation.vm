@@ -2,13 +2,13 @@
 <body>
 <h3>Hi $patientName</h3>
 
-<div>
-   Dr. $doctorName has confirmed appointment that you had scheduled. Details of the schedule are below-</br>
-   <pre>Headline: $headline<pre></br>
-   <pre>Date:     $date<pre></br>
-   <pre>Time:     $time<pre></br>
-   <pre>Duration: $duration<pre></br>
-   <pre>Comments: $comments<pre></br>
+<div class="font-family:Arial, Helvetica, sans-serif;">
+   $doctorName has confirmed appointment that you had scheduled. Details of the schedule are below-</br>
+   <pre>Headline: $headline</pre></br>
+   <pre>Date:     $date</pre></br>
+   <pre>Time:     $time</pre></br>
+   <pre>Duration: $duration</pre></br>
+   <pre>Comments: $comments</pre></br>
 	
 	
 Thanks and Regards,</br>

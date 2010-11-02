@@ -1,16 +1,16 @@
 <html>
 <body>
-<h3>Hi Dr. $patientName</h3>
+<h3>Hi $patientName</h3>
 
-<div>
+<div class="font-family:Arial, Helvetica, sans-serif;">
    $doctorName has cancelled an appointment. Following are the details -</br>
-   <pre>Headline: $headline<pre></br>
-   <pre>Date:     $date<pre></br>
-   <pre>Time:     $time<pre></br>
-   <pre>Duration: $duration<pre></br>
-   <pre>Comments: $comments<pre></br>
+   <pre>Headline: $headline</pre></br>
+   <pre>Date:     $date</pre></br>
+   <pre>Time:     $time</pre></br>
+   <pre>Duration: $duration</pre></br>
+   <pre>Comments: $comments</pre></br>
 	
-	Please logon to mediapp and set up a new appointment?</br>
+	Please logon and set up a new appointment?</br>
 	
 Thanks and Regards,</br>
 Appment Team.

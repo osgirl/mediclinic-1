@@ -198,6 +198,7 @@ public class CommonServiceImpl implements CommonService{
 		List <AppointmentForMonth> completeAppointmentList = new ArrayList();
 		AppointmentForMonth dayAppointment = new AppointmentForMonth();
 		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(dateOfAppointment);
 		int days = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 		int iday = 1;
 		Date date1 = dateOfAppointment;

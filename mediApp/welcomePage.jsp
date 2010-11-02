@@ -1,11 +1,11 @@
 <%@ include file="/WEB-INF/jsp/welcomeInclude.jsp" %>
 <script>
-IE7 = (navigator.appVersion.indexOf("MSIE 7.")==-1) ? false : true;
-IE8 = (navigator.appVersion.indexOf("MSIE 8.")==-1) ? false : true;
+//IE7 = (navigator.appVersion.indexOf("MSIE 7.")==-1) ? false : true;
+//IE8 = (navigator.appVersion.indexOf("MSIE 8.")==-1) ? false : true;
 
-if(!(IE7  || IE8)){
-	alert("This application is tested on Internet Explorer 7 and higher. It may not work properly on this browser.");
-}
+//if(!(IE7  || IE8)){
+//	alert("This application is tested on Internet Explorer 7 and higher. It may not work properly on this browser.");
+//}
 
 var cacheonimg = new Image ();
 var cacheoffimg = new Image ();

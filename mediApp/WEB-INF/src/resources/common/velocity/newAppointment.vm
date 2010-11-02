@@ -1,14 +1,14 @@
 <html>
 <body>
-<h3>Hi Dr. $doctorName</h3>
+<h3>Hi $doctorName</h3>
 
-<div>
+<div class="font-family:Arial, Helvetica, sans-serif;">
    $patientName has scheduled an appointment. Following are the details-</br>
-   <pre>Headline: $headline<pre></br>
-   <pre>Date:     $date<pre></br>
-   <pre>Time:     $time<pre></br>
-   <pre>Duration: $duration<pre></br>
-   <pre>Comments: $comments<pre></br>
+   <pre>Headline: $headline</pre></br>
+   <pre>Date:     $date</pre></br>
+   <pre>Time:     $time</pre></br>
+   <pre>Duration: $duration</pre></br>
+   <pre>Comments: $comments</pre></br>
 	
 	Could you please review and confirm the appointment?</br>
 	

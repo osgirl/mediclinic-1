@@ -26,7 +26,10 @@ import javax.mail.internet.MimeMessage;
 
 import java.io.StringWriter;
 import java.io.Writer;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,7 +113,7 @@ public class ScheduleEMail {
 	            	model.put("doctorName", notificationDetails.getDoctorName());
 	            	model.put("patientName", notificationDetails.getPatientName());
 	            	model.put("headline", appointment.getHeadline());
-	            	model.put("date", appointment.getDateOfAppointment());
+	            	model.put("date", convertStringToDate(appointment.getDateOfAppointment()));
 	            	model.put("time", appointment.getTimeOfAppointment());
 	            	model.put("duration", appointment.getAppointmentDuration());
 	            	model.put("comments", appointment.getComments());	            	
@@ -170,7 +173,7 @@ public class ScheduleEMail {
 	            	model.put("doctorName", notificationDetails.getDoctorName());
 	            	model.put("patientName", notificationDetails.getPatientName());
 	            	model.put("headline", appointment.getHeadline());
-	            	model.put("date", appointment.getDateOfAppointment());
+	            	model.put("date", convertStringToDate(appointment.getDateOfAppointment()));
 	            	model.put("time", appointment.getTimeOfAppointment());
 	            	model.put("duration", appointment.getAppointmentDuration());
 	            	model.put("comments", appointment.getComments());	            	
@@ -230,7 +233,7 @@ public class ScheduleEMail {
 	            	model.put("doctorName", notificationDetails.getDoctorName());
 	            	model.put("patientName", notificationDetails.getPatientName());
 	            	model.put("headline", appointment.getHeadline());
-	            	model.put("date", appointment.getDateOfAppointment());
+	            	model.put("date", convertStringToDate(appointment.getDateOfAppointment()));
 	            	model.put("time", appointment.getTimeOfAppointment());
 	            	model.put("duration", appointment.getAppointmentDuration());
 	            	model.put("comments", appointment.getComments());	            	
@@ -354,7 +357,7 @@ public class ScheduleEMail {
 	            	model.put("doctorName", notificationDetails.getDoctorName());
 	            	model.put("patientName", notificationDetails.getPatientName());
 	            	model.put("headline", appointment.getHeadline());
-	            	model.put("date", appointment.getDateOfAppointment());
+	            	model.put("date", convertStringToDate(appointment.getDateOfAppointment()));
 	            	model.put("time", appointment.getTimeOfAppointment());
 	            	model.put("duration", appointment.getAppointmentDuration());
 	            	model.put("comments", appointment.getComments());	            	
@@ -425,6 +428,34 @@ public class ScheduleEMail {
 
 		public void setVelocityEngine(VelocityEngine velocityEngine) {
 			this.velocityEngine = velocityEngine;
+		}
+
+		private static final ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>() {
+			@Override
+			protected SimpleDateFormat initialValue() {
+				SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+				df.setLenient(false);
+				// System.out.println("created");
+				return df;
+			}
+		};
+
+		private static final ThreadLocal<SimpleDateFormat> timeFormat = new ThreadLocal<SimpleDateFormat>() {
+			@Override
+			protected SimpleDateFormat initialValue() {
+				SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+				df.setLenient(false);
+				// System.out.println("created");
+				return df;
+			}
+		};
+		
+		public static String convertStringToDate(Date date) {
+			return dateFormat.get().format(date);
+		}
+
+		public static String convertStringToTime(Time time) {
+			return dateFormat.get().format(time);
 		}
 
 }

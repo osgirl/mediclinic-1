@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
+<%@ include file="/WEB-INF/jsp/welcomeInclude.jsp" %>
 		<div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
@@ -29,7 +29,7 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 								<table  border="0"   width=700 align="left">  
 										  <tr>
 										  		<td>
-													<form action="examples/consumer/try_auth.php" method="get" id="openid_form">
+													<form action="j_spring_openid_security_check" method="post" id="openid_form">
 														<input type="hidden" name="action" value="verify" />
 													 
 														<fieldset>
@@ -138,11 +138,14 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.2.6.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/openid-jquery.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/openid-jquery-en.js"></script>
-	<script type="text/javascript">
+	<script type="text/javascript">	 
+	//  var $j = jQuery.noConflict();
+		
 	$(document).ready(function() {
 	    openid.init('openid_identifier');
 	    openid.setDemoMode(true); //Stops form submission for client javascript-only test purposes
 	});
+	
 	</script>
 		
 <%@ include file="/WEB-INF/jsp/footer.jsp" %>

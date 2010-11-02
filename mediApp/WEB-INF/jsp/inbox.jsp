@@ -49,7 +49,17 @@
 												<tr>
 													<td style="vertical-align: top">
 														<table width=200 align="left"   class="sample" style="border-width: 0px 0px 0px 0px;"> 	
-															<menu:verticalMenuItemTag></menu:verticalMenuItemTag>
+										                   <tr>
+										        	           	<td>
+										            		       	<menu:verticalMenuItemTag></menu:verticalMenuItemTag>
+										                   		</td>
+										                   </tr>
+										                   <tr>
+														  		<td>
+															  		<iframe src="http://www.google.com/talk/service/badge/Show?tk=z01q6amlq78e1h9cn20207vosv2jub8nkh611ud07qu384ke37nqvenakpfnbeifrsg7l6qilun85qrshcphp2rtskqlr34cj16vv3j7n2sp1vmcpb1lsol8nejbkct5os0o75p8oco7mf878qik9ov02df8a1q6mk45l5cr3&amp;w=200&amp;h=60" allowtransparency="true" frameborder="0" height="60" width="200"></iframe>
+														  		</td>
+										                   
+										                   </tr>
 														</table>
 													</td>
 													<td>

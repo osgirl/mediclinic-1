@@ -1037,7 +1037,7 @@ function fn_confirmIt(){
 	}
 }
 
-function showbox(a) {
+function showbox(event,a) {
 	var e = event || window.event;
 	 if (!e)
 	   var e = window.event;
@@ -1049,7 +1049,7 @@ function showbox(a) {
 	   //You can even attach Common Text for each helpbox/Tipbox to be displayed
 	   //Note: here "Click here..." is a common text and will be displayed on top of every Tips displayed.
 	   //Similarly You can even attach common code at the end of each helptext.
-	   helpbox.innerHTML = '<b>Click here...</b><br>' + a;
+	   helpbox.innerHTML =  a;
 	   helpbox.style.display = 'block';
 
 	   var posx = (typeof e.pageX!= 'undefined')? e.pageX : e.clientX + (document.documentElement? document.documentElement.scrollLeft

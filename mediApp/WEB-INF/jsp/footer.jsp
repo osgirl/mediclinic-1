@@ -11,6 +11,8 @@
 		</div>
 	</div>
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/mediapp.js"></script>
+<!-- Attach events to Link -->
+<div id="helpbox"></div>
 
 </body>
 </html>

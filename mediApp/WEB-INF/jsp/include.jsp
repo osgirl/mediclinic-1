@@ -13,8 +13,6 @@
     <title>AppMent</title>
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/shakehand1.ico" type="image/x-icon" />    
 	<link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/openid.css" />
-	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/customalert.js" ></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
@@ -55,7 +53,7 @@
 	
 			</div>
 			<div id="controls">
-					<form id="searchform" action="<%=request.getContextPath()%>" method="post">
+					<form id="searchform" action="<%=request.getContextPath()%>" method="post">					
 					<a href="http://www.facebook.com/apps/application.php?id=152456314791817&v=info" TARGET="_blank">
 					<img src="/images/Facebook-Buttons-11-2.png" title="Find us on Facebook"  
 					alt="Find us on Facebook" width="21px" border="0"/></a><br/>
@@ -71,7 +69,8 @@
 		<%} %>	
 <div >
 							
-								<div align="right">							 									
+								<div align="right">		
+													 									
 								<%
 									if (p != null && p.getFirstName()==null){
 										out.print("Welcome " + p.getUsername() );
@@ -86,21 +85,20 @@
 			<div id="contentHeadRight">
 				
 				<div id="contentHeadCenter">
-								<table border="0" cellpadding="0" cellspacing="0" width="80" height="30" >      
-									<tr>     
-										<td  style="background: url(/images/homebutton_1.jpg) no-repeat;overflow: hidden;background-position: middle center;background-size: 100%;width:100%;height:30;"  align="center" class="sansa">  
-								  			<a href="/welcomePage.htm" onClick="" style="text-decoration:none"> 
-								  				<font size="+1" color="#3E3535" ><b> Home</b></font> 
+								<table border="0" cellpadding="0" cellspacing="0" width="200" height="30" >      
+									<tr >     
+										<td  >  
+								  			<a href="/welcomePage.htm" onClick="" style="text-decoration:none">
+								  			<img src="/images/Home11.png" ></img>
 								  			</a>
 								  		</td>
+								  		<td align="center">
+								  		<img src="/images/phone11.png"  onMouseover="showbox(event,'You can book appointment, postpone it or cancel it by sending SMS.</br>Following are the commands</br>1. To schedule an appointment with a fellow appmate at certain date and time</br>SCD &amp;lt;yourusername&amp;gt; &amp;lt;mm/dd/yyyy&amp;gt; &amp;lt;hh:mm:ss&amp;gt; &amp;lt;duration hh:mm:ss&amp;gt; &amp;lt;appmateusername&amp;gt; </br>2. To postpone any appointment that you have already schedule</br>RESCD &amp;lt;yourusername&amp;gt; &amp;lt;old mm/dd/yyyy&amp;gt; &amp;lt;old hh:mm:ss&amp;gt; &amp;lt;new mm/dd/yyyy&amp;gt; &amp;lt;new hh:mm:ss&amp;gt; &amp;lt;duration hh:mm:ss&amp;gt; </br>3. To cancel any appointment that you have already schedule</br>CANCEL &amp;lt;yourusername&amp;gt; &amp;lt;mm/dd/yyyy&amp;gt; &amp;lt;hh:mm:ss&amp;gt;</br>');" onMouseout="hidebox();"/>
+								  		</td>
+									
 									</tr>
 								</table>										
 							
 				</div>
 			</div>		
 		</div>
-<script type="text/javascript">
-//hide('Menu1');
-//hide('Menu2');
-
-</script>

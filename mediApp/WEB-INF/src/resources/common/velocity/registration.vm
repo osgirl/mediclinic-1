@@ -1,6 +1,6 @@
 <html>
 <body>
-<div>
+<div class="font-family:Arial, Helvetica, sans-serif;">
    Hi,</br>
    Thank you for registering with Appment. Your login details are -<br/>
    	User ID - $username<br/>
