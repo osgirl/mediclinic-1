@@ -25,10 +25,11 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`person` (
   `hint_question` VARCHAR(100) NULL DEFAULT NULL ,
   `hint_answer` VARCHAR(100) NULL DEFAULT NULL ,
   `person_type` VARCHAR(45) NULL DEFAULT NULL ,
+  `user_name` VARCHAR(100) NULL DEFAULT NULL ,
   PRIMARY KEY (`idPerson`) ,
-  UNIQUE INDEX `email_Address_UNIQUE` (`email_Address` ASC) )
+  UNIQUE INDEX `user_name_UNIQUE` (`user_name` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 16
+AUTO_INCREMENT = 84
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -55,40 +56,8 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`address` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 38
+AUTO_INCREMENT = 95
 DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `mediapp`.`doctor_details`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mediapp`.`doctor_details` ;
-
-CREATE  TABLE IF NOT EXISTS `mediapp`.`doctor_details` (
-  `idDoctor_details` INT(11) NOT NULL AUTO_INCREMENT ,
-  `idPerson` INT(11) NULL DEFAULT NULL ,
-  `specialization` VARCHAR(200) NULL DEFAULT NULL ,
-  `work_start_time` TIME NULL DEFAULT NULL ,
-  `work_end_time` TIME NULL DEFAULT NULL ,
-  `monday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `tuesday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `wednesday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `thursday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `friday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `saturday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `sunday_working` VARCHAR(1) NULL DEFAULT NULL ,
-  `registration_id` VARCHAR(45) NULL DEFAULT NULL ,
-  PRIMARY KEY (`idDoctor_details`) ,
-  INDEX `idPerson1` (`idPerson` ASC) ,
-  CONSTRAINT `idPerson1`
-    FOREIGN KEY (`idPerson` )
-    REFERENCES `mediapp`.`person` (`idPerson` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = latin1
-COMMENT = '\'doctor detail';
 
 
 -- -----------------------------------------------------
@@ -99,7 +68,7 @@ DROP TABLE IF EXISTS `mediapp`.`diagnosis` ;
 CREATE  TABLE IF NOT EXISTS `mediapp`.`diagnosis` (
   `idDiagnosis` INT(11) NOT NULL ,
   `idAppointment` INT(11) NULL DEFAULT NULL ,
-  `ICD_code` VARCHAR(45) NULL DEFAULT NULL ,
+  `ICD_code` VARCHAR(1000) NULL DEFAULT NULL ,
   `Prescription` VARCHAR(45) NULL DEFAULT NULL ,
   `Lnotes` VARCHAR(4500) NULL DEFAULT NULL ,
   `diagnosis` VARCHAR(4500) NULL DEFAULT NULL ,
@@ -136,18 +105,28 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`appointment_history` (
   INDEX `idDiagnosis` (`idDiagnosis` ASC) ,
   INDEX `idReferenceDoctor` (`reference_doctor_id` ASC) ,
   INDEX `ahDoctor` (`idDoctor_details` ASC) ,
-  CONSTRAINT `ahDoctor`
-    FOREIGN KEY (`idDoctor_details` )
-    REFERENCES `mediapp`.`doctor_details` (`idDoctor_details` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `idDiagnosis`
     FOREIGN KEY (`idDiagnosis` )
     REFERENCES `mediapp`.`diagnosis` (`idDiagnosis` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 50
+AUTO_INCREMENT = 160
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`code_category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`code_category` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`code_category` (
+  `idcode_category` INT(11) NOT NULL AUTO_INCREMENT ,
+  `code_category` VARCHAR(45) NULL DEFAULT NULL ,
+  `caching` CHAR(1) NULL DEFAULT 'N' ,
+  PRIMARY KEY (`idcode_category`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 18
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -169,6 +148,38 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
+-- Table `mediapp`.`doctor_details`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`doctor_details` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`doctor_details` (
+  `idDoctor_details` INT(11) NOT NULL AUTO_INCREMENT ,
+  `idPerson` INT(11) NULL DEFAULT NULL ,
+  `specialization` VARCHAR(200) NULL DEFAULT NULL ,
+  `work_start_time` TIME NULL DEFAULT NULL ,
+  `work_end_time` TIME NULL DEFAULT NULL ,
+  `monday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `tuesday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `wednesday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `thursday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `friday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `saturday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `sunday_working` VARCHAR(1) NULL DEFAULT NULL ,
+  `registration_id` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idDoctor_details`) ,
+  INDEX `idPerson1` (`idPerson` ASC) ,
+  CONSTRAINT `idPerson1`
+    FOREIGN KEY (`idPerson` )
+    REFERENCES `mediapp`.`person` (`idPerson` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 19
+DEFAULT CHARACTER SET = latin1
+COMMENT = '\'doctor detail';
+
+
+-- -----------------------------------------------------
 -- Table `mediapp`.`doctor_work_timings`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mediapp`.`doctor_work_timings` ;
@@ -187,7 +198,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`doctor_work_timings` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 69
+AUTO_INCREMENT = 373
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -234,6 +245,25 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
+-- Table `mediapp`.`inbound_messages`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`inbound_messages` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`inbound_messages` (
+  `idinbound_messages` INT(11) NOT NULL AUTO_INCREMENT ,
+  `sender_number` VARCHAR(45) NULL DEFAULT NULL ,
+  `inbound_message` VARCHAR(200) NULL DEFAULT NULL ,
+  `sent_date` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `processing_status` VARCHAR(10) NOT NULL DEFAULT 'SCDL' ,
+  `processed_on_datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  `idprocessing` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idinbound_messages`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 125
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
 -- Table `mediapp`.`schedule_job`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mediapp`.`schedule_job` ;
@@ -242,9 +272,14 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`schedule_job` (
   `idschedule_job` INT(11) NOT NULL AUTO_INCREMENT ,
   `action` VARCHAR(100) NULL DEFAULT NULL ,
   `comments` VARCHAR(4500) NULL DEFAULT NULL ,
-  PRIMARY KEY (`idschedule_job`) )
+  `effectiveDate` DATETIME NULL DEFAULT NULL ,
+  `job_status` VARCHAR(10) NULL DEFAULT 'SCDL' ,
+  `processingDateTIme` DATETIME NULL DEFAULT NULL ,
+  PRIMARY KEY (`idschedule_job`) ,
+  INDEX `job_status` (`job_status` ASC) ,
+  INDEX `effectiveDate` (`effectiveDate` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 27
+AUTO_INCREMENT = 408
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -256,8 +291,8 @@ DROP TABLE IF EXISTS `mediapp`.`job_inputs` ;
 CREATE  TABLE IF NOT EXISTS `mediapp`.`job_inputs` (
   `idjob_inputs` INT(11) NOT NULL AUTO_INCREMENT ,
   `idschedule_job` INT(11) NULL DEFAULT NULL ,
-  `input_parmeter_name` VARCHAR(100) NULL DEFAULT NULL ,
-  `input_paramenter_id` VARCHAR(100) NULL DEFAULT NULL ,
+  `input_parameter_name` VARCHAR(100) NULL DEFAULT NULL ,
+  `input_parameter_value` VARCHAR(100) NULL DEFAULT NULL ,
   PRIMARY KEY (`idjob_inputs`) ,
   INDEX `idScheduleJob` (`idschedule_job` ASC) ,
   CONSTRAINT `idScheduleJob`
@@ -266,7 +301,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`job_inputs` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 13
+AUTO_INCREMENT = 878
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -298,7 +333,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`menu_to_role_mapping` (
   `role` VARCHAR(100) NULL DEFAULT NULL ,
   PRIMARY KEY (`idmenu_to_role_mapping`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 9
+AUTO_INCREMENT = 75
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -322,7 +357,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`patient_details` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 30
 DEFAULT CHARACTER SET = latin1
 COMMENT = '\'patient detail';
 
@@ -345,7 +380,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`patient_allergies` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 33
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -368,6 +403,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`patient_document_details` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -389,6 +425,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`patient_prescription` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 30
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -441,6 +478,80 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
+-- Table `mediapp`.`smsserver_calls`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`smsserver_calls` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`smsserver_calls` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `call_date` DATETIME NOT NULL ,
+  `gateway_id` VARCHAR(64) NOT NULL ,
+  `caller_id` VARCHAR(16) NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = MyISAM
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`smsserver_in`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`smsserver_in` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`smsserver_in` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `process` INT(11) NOT NULL ,
+  `originator` VARCHAR(16) NOT NULL ,
+  `type` VARCHAR(1) NOT NULL ,
+  `encoding` CHAR(1) NOT NULL ,
+  `message_date` DATETIME NOT NULL ,
+  `receive_date` DATETIME NOT NULL ,
+  `text` VARCHAR(1000) NOT NULL ,
+  `original_ref_no` VARCHAR(64) NULL DEFAULT NULL ,
+  `original_receive_date` DATETIME NULL DEFAULT NULL ,
+  `gateway_id` VARCHAR(64) NULL DEFAULT NULL ,
+  `processing_status` VARCHAR(1) NULL DEFAULT 'S' ,
+  `processing_id` VARCHAR(45) NULL DEFAULT NULL ,
+  `processed_time` DATETIME NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = MyISAM
+AUTO_INCREMENT = 41
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mediapp`.`smsserver_out`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`smsserver_out` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`smsserver_out` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `type` VARCHAR(1) NOT NULL DEFAULT 'O' ,
+  `recipient` VARCHAR(16) NOT NULL ,
+  `text` VARCHAR(1000) NOT NULL ,
+  `wap_url` VARCHAR(100) NULL DEFAULT NULL ,
+  `wap_expiry_date` DATETIME NULL DEFAULT NULL ,
+  `wap_signal` VARCHAR(1) NULL DEFAULT NULL ,
+  `create_date` DATETIME NOT NULL ,
+  `originator` VARCHAR(16) NOT NULL DEFAULT ' ' ,
+  `encoding` VARCHAR(1) NOT NULL DEFAULT '7' ,
+  `status_report` INT(1) NOT NULL DEFAULT '0' ,
+  `flash_sms` INT(1) NOT NULL DEFAULT '0' ,
+  `src_port` INT(6) NOT NULL DEFAULT '-1' ,
+  `dst_port` INT(6) NOT NULL DEFAULT '-1' ,
+  `sent_date` DATETIME NULL DEFAULT NULL ,
+  `ref_no` VARCHAR(64) NULL DEFAULT NULL ,
+  `priority` INT(5) NOT NULL DEFAULT '0' ,
+  `status` VARCHAR(1) NOT NULL DEFAULT 'U' ,
+  `errors` INT(2) NOT NULL DEFAULT '0' ,
+  `gateway_id` VARCHAR(64) NOT NULL DEFAULT '*' ,
+  PRIMARY KEY (`id`) )
+ENGINE = MyISAM
+AUTO_INCREMENT = 56
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
 -- Table `mediapp`.`test_meta_data`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mediapp`.`test_meta_data` ;
@@ -474,7 +585,7 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`tests` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 43
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -582,6 +693,19 @@ BEGIN
  sequence_name = seq_name;  
  RETURN cur_val; 
  END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS `mediapp`.`trig_inbound_messages_insert` $$
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `mediapp`.`trig_inbound_messages_insert`
+BEFORE INSERT ON `mediapp`.`inbound_messages`
+FOR EACH ROW
+SET NEW.sent_date = NOW()$$
+
 
 DELIMITER ;
 
