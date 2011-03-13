@@ -39,14 +39,14 @@ import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.ScheduleJob;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.domain.common.SearchResult;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Appinfo;
+
 
 
 
 public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
 	private final Log logger = LogFactory.getLog(getClass());
-	
+
 	public Person getPersonDetails(Person person) throws DataAccessException {
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("Key", person.getKey());
@@ -55,7 +55,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	}
 
 	public List <CodeDecode> getPersonType() throws DataAccessException {
-		Person person = null;		
+		Person person = null;
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("Category", "PERSON_TY");
 		List <CodeDecode> CodeValueList =  new ArrayList() ;
@@ -79,7 +79,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		criteria.put("emailID", person.getEmailID());
 		Integer countOfeMail = null;
 		countOfeMail = (Integer) getObject("common.checkeMailExists",criteria );
-		
+
 		return countOfeMail.intValue();
 	}
 
@@ -89,14 +89,14 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		criteria.put("UserName", person.getUsername());
 		Integer countOfUser = null;
 		countOfUser = (Integer) getObject("common.checkUserExists",criteria );
-		
+
 		return countOfUser.intValue();
 	}
 
-	
+
 	public boolean addNewMember(Person person) throws DataAccessException {
 			person.setPersonTypeString(person.getPersonType().getCodeDecode());
-			person.setPassword("mediApp");			
+			person.setPassword("mediApp");
 			boolean insertStatus = false;
 			Map<String,Object> criteria =  new HashMap < String, Object > () ;
 			criteria.put("SequenceName","s_person_id" );
@@ -128,11 +128,11 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		}
 		return insertStatus;
 	}
-	
+
 	public int getMaxPersonId() throws DataAccessException {
 		return (Integer) getObject("common.maxPersonId", null);
 	}
-	
+
 	public boolean updateProfile(Person person)throws DataAccessException{
  		int count = updateObject("common.updateProfile", person);
  		boolean flag=false;
@@ -141,7 +141,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
  		}
 		return flag;
 	}
-	
+
 	public boolean insertAddress(Person person)throws DataAccessException{
 		int count=updateObject("common.insertAddress", person);
  		boolean flag=false;
@@ -152,7 +152,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	}
 
 	public List <CodeDecode> getCodeValue(String codeCategory) throws DataAccessException {
-		Person person = null;		
+		Person person = null;
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("Category", codeCategory);
 		List <CodeDecode> CodeValueList =  new ArrayList() ;
@@ -171,13 +171,13 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	}
 
 	public List <SearchResult> getDoctors(SearchCriteria searchCriteria) throws DataAccessException{
-		Person person = null;		
-		Map<String,Object> criteria =  new HashMap < String, Object > () ;		
+		Person person = null;
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		criteria.put("FirstName", searchCriteria.getDoctorFirstName());
 		criteria.put("LastName", searchCriteria.getDoctorLastName());
 		criteria.put("MiddleInitial", searchCriteria.getDoctorMiddleInitial());
 		criteria.put("Speciality", searchCriteria.getSpeciality());
-		criteria.put("Locality", searchCriteria.getLocality());		
+		criteria.put("Locality", searchCriteria.getLocality());
 		criteria.put("City", searchCriteria.getCity());
 		criteria.put("PersonType", searchCriteria.getPersonType());
 		criteria.put("Username", searchCriteria.getUsername());
@@ -186,7 +186,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		criteria.put("SelfPersonID", personID);
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(searchCriteria.getDateOfAppointment());
-		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);		
+		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		if(CommonCoreConstants.DAY_IS_MONDAY == dayOfWeek){
 			criteria.put("MondayWorking", "Y");
 		}else {
@@ -222,7 +222,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		}else{
 			criteria.put("SundayWorking", null);
 		}
-	
+
 		List <SearchResult> searchResultList =  new ArrayList() ;
 		try{
 			searchResultList= (ArrayList<SearchResult>) getList("common.searchDoctor",criteria );
@@ -232,63 +232,63 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		}
 		return searchResultList;
 	}
-	
+
 	public List <CodeDecode> getAutoComplete(String codeCategory,String code) throws DataAccessException {
-		Person person = null;		
+		Person person = null;
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("Category", codeCategory);
 		String codeLike = code+"%";
 		criteria.put("Code", codeLike);
-		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.autoComplete",criteria );	
+		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.autoComplete",criteria );
 		return codeValueList;
 	}
 
 	public List <Appointment> getDayAppointment(int idPerson,Date dateOfAppointment,String personType, int doctorID) throws DataAccessException{
-		Map<String,Object> criteria =  new HashMap < String, Object > () ;		
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		Integer idPersonInt = new Integer(idPerson);
-		criteria.put("PersonID", idPersonInt);		
+		criteria.put("PersonID", idPersonInt);
 		Integer idDoctorInt = new Integer(doctorID);
-		criteria.put("DoctorID", idDoctorInt);		
-		
-		criteria.put("DateOfAppointment", dateOfAppointment);	
+		criteria.put("DoctorID", idDoctorInt);
+
+		criteria.put("DateOfAppointment", dateOfAppointment);
 		List <Appointment> appointmentList =new ArrayList();
-		appointmentList = (ArrayList<Appointment>) getList("common.dayAppointment",criteria );	 
+		appointmentList = (ArrayList<Appointment>) getList("common.dayAppointment",criteria );
 		return appointmentList;
-		
-		
-	}	
+
+
+	}
 	public boolean insertNewAppointment(Appointment appointment) throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		criteria.put("SequenceName","s_appointment_id" );
 		Integer appointmentID =  (Integer)getObject("common.getNextVal",criteria );
 		appointment.setAppointmentID(appointmentID.intValue());
 		insertObject("common.insertNewAppointment",appointment );
-		return true;		
-	}	
+		return true;
+	}
 
 	public Person getPersonalProfile(int idPerson) throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		Integer idPersonInt = new Integer(idPerson);
-		criteria.put("PersonID", idPersonInt);		
+		criteria.put("PersonID", idPersonInt);
 		Person completeDetails = (Person) getObject("common.getPersonalProfile",criteria );
 		if (!completeDetails.getPersonTypeString().equals(CommonCoreConstants.PATIENT)){
 			List<DoctorWorkTimings> workTimings = (ArrayList<DoctorWorkTimings>) getList("common.getDoctorWorkTimings",criteria );
 			int i = 0;
-			for(DoctorWorkTimings  eachPerson: workTimings){				
+			for(DoctorWorkTimings  eachPerson: workTimings){
 				completeDetails.getDoctorWorkTiming().get(i).setWorkDayName(eachPerson.getWorkDayName());
 				completeDetails.getDoctorWorkTiming().get(i).setStartTime(eachPerson.getStartTime());
 				completeDetails.getDoctorWorkTiming().get(i).setEndTime(eachPerson.getEndTime());
 				i = i+1;
 			}
-			
+
 		}
-		
-		return completeDetails;		
+
+		return completeDetails;
 	}
-	
+
 	public Appointment getAppointment( int idAppointment) throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
-		criteria.put("AppointmentID", idAppointment);		
+		criteria.put("AppointmentID", idAppointment);
 		List<AppointmentTO> appointment = (ArrayList<AppointmentTO>) getList("common.getAppointment",criteria );
 		Appointment appointmentLast = new Appointment();
 		appointmentLast.setHeadline(appointment.get(0).getHeadline());
@@ -312,7 +312,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 				if(currentIDDiagnosis!=0){
 					eachDiagnosis.setPrescriptionList(prescriptionList);
 					eachDiagnosis.setTestList(testList);
-					diagnosis.add(eachDiagnosis); 
+					diagnosis.add(eachDiagnosis);
 				}
 				eachDiagnosis= new Diagnosis();
 				prescriptionList = new ArrayList<String>();
@@ -320,7 +320,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
 				currentIDDiagnosis = eachAppointment.getDiagnosisID();
 				eachDiagnosis.setCodeICD(eachAppointment.getCodeICD());
-				 
+
 			}
 				prescriptionList.add(eachAppointment.getPrescription());
 				testList.add(eachAppointment.getDiagnosisTest());
@@ -334,12 +334,12 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			Set testSet = new HashSet(testList);
 			ArrayList uniquetestList = new ArrayList(testSet);
 			eachDiagnosis.setTestList(uniquetestList);
-			
+
 		}
-		diagnosis.add(eachDiagnosis); 
+		diagnosis.add(eachDiagnosis);
 		appointmentLast.setDiagnosis(diagnosis);
 		return appointmentLast;
-		
+
 	}
 
 	@Override
@@ -347,9 +347,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			Date dateOfAppointment) throws DataAccessException {
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		Integer idPersonInt = new Integer(idPerson);
-		criteria.put("PersonID", idPersonInt);		
+		criteria.put("PersonID", idPersonInt);
 		criteria.put("DateOfAppointment", dateOfAppointment);
-		List<AppointmentForMonth>  appointmentForMonth = (ArrayList<AppointmentForMonth>) getList("common.getMonthAppointment",criteria );	
+		List<AppointmentForMonth>  appointmentForMonth = (ArrayList<AppointmentForMonth>) getList("common.getMonthAppointment",criteria );
 		return appointmentForMonth;
 	}
 
@@ -372,29 +372,29 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			whileCounter = whileCounter+1;
 			minDiagnosisID = minDiagnosisID+1;
 		}
-		try { 
-			this.getSqlMapClient().startBatch(); 
+		try {
+			this.getSqlMapClient().startBatch();
 			for (int i = 0; i < appointment.getDiagnosis().size(); i++) {
-				
+
 				criteria =  new HashMap < String, Object > () ;
 				Integer appointmentID = new Integer(appointment.getAppointmentID() );
 				criteria.put("AppointmentID",appointmentID);
-				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );				
+				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );
 				criteria.put("DiagnosisID", diagnosisID);
 				criteria.put("Prescription", appointment.getDiagnosis().get(i).getPrescription());
 				criteria.put("ICDCode", appointment.getDiagnosis().get(i).getCodeICD());
 				if(appointment.getDiagnosis().get(i).getCodeICD() !=null){
 					getSqlMapClient().insert("common.insertNewDiagnosis",
-							criteria);	
+							criteria);
 				}
-				
-			} 
+
+			}
 			int insertCount = this.getSqlMapClient().executeBatch();
 			//System.out.println("count "+insertCount);
-			this.getSqlMapClient().startBatch(); 
+			this.getSqlMapClient().startBatch();
 			for (int i = 0; i < appointment.getDiagnosis().size(); i++) {
 				criteria =  new HashMap < String, Object > () ;
-				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );				
+				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );
 				for(String eachTest:appointment.getDiagnosis().get(i).getTestList()){
 					criteria =  new HashMap < String, Object > () ;
 					criteria.put("DiagnosisID", diagnosisID);
@@ -407,10 +407,10 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 					}
 
 				}
-			} 
+			}
 			insertCount = this.getSqlMapClient().executeBatch();
 
-			this.getSqlMapClient().startBatch(); 
+			this.getSqlMapClient().startBatch();
 			for (int i = 0; i < appointment.getDiagnosis().size(); i++) {
 				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );
 				for(String eachPrescription:appointment.getDiagnosis().get(i).getPrescriptionList()){
@@ -423,17 +423,17 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 								criteria);
 					}
 				}
-			} 
+			}
 			insertCount = this.getSqlMapClient().executeBatch();
 
-			} catch (SQLException e) { 
-			throw new DataIntegrityViolationException(e.getMessage()); 
-			} 
+			} catch (SQLException e) {
+			throw new DataIntegrityViolationException(e.getMessage());
+			}
 
-		
+
 		return true;
 	}
-	
+
 	public boolean scheduleJob(String action, Map<String, String> parms, String comments) throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		criteria.put("SequenceName","s_schedule_job" );
@@ -446,32 +446,32 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		insertObject("common.insertScheduleJob",criteria );
 		try
 		{
-			this.getSqlMapClient().startBatch(); 
+			this.getSqlMapClient().startBatch();
 			Iterator it = parms.entrySet().iterator();
-		    while (it.hasNext()) { 
-		        Map.Entry pairs = (Map.Entry)it.next(); 
+		    while (it.hasNext()) {
+		        Map.Entry pairs = (Map.Entry)it.next();
 				criteria =  new HashMap < String, Object > () ;
 				criteria.put("InputParmName", pairs.getKey());
 				criteria.put("InputParmValue", pairs.getValue());
-				criteria.put("ScheduleID", scheduleID);				
+				criteria.put("ScheduleID", scheduleID);
 				getSqlMapClient().insert("common.insertJobInputs",
 						criteria);
-	//	        System.out.println(pairs.getKey() + " = " + pairs.getValue()); 
-		    } 			
+	//	        System.out.println(pairs.getKey() + " = " + pairs.getValue());
+		    }
 			int insertCount = this.getSqlMapClient().executeBatch();
 
-		}catch (SQLException e) { 
-			throw new DataIntegrityViolationException(e.getMessage()); 
-		} 
-		
+		}catch (SQLException e) {
+			throw new DataIntegrityViolationException(e.getMessage());
+		}
+
 		return true;
-		
+
 	}
 
 	public Map getMenuItems(String userRole) throws DataAccessException{
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("UserRole", userRole);
-		return  getMap("common.getMenuItems", criteria,"menu_name", "menu_url");		
+		return  getMap("common.getMenuItems", criteria,"menu_name", "menu_url");
 	}
 
 	public boolean deleteAddress(Person person)throws DataAccessException{
@@ -486,58 +486,58 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
  			flag = true;
  		}
 		return flag;
-		
+
 	}
-	
+
 	public boolean insertDoctorWorkTimings(Person person)throws DataAccessException{
 		boolean successFlag = false;
 		int insertCount;
-		try { 
+		try {
 			Map<String,Object> criteria =  new HashMap < String, Object > () ;
 			Integer doctorID = person.getDoctorDetails().getIdDoctor();
 			successFlag =deleteObject("common.deleteDoctorWorkTimings", person);
-			this.getSqlMapClient().startBatch(); 
+			this.getSqlMapClient().startBatch();
 			for (int i = 0; i < person.getDoctorWorkTiming().size(); i++) {
 				if(null != person.getDoctorWorkTiming().get(i).getWorkDayName()){
 					criteria =  new HashMap < String, Object > () ;
 					String workDayName = person.getDoctorWorkTiming().get(i).getWorkDayName();
 					criteria.put("WorkDay",workDayName);
-					Date startTime = person.getDoctorWorkTiming().get(i).getStartTime();				
+					Date startTime = person.getDoctorWorkTiming().get(i).getStartTime();
 					criteria.put("StartTime", startTime);
 					Date endTime = person.getDoctorWorkTiming().get(i).getEndTime();
 					criteria.put("EndTime", endTime);
-					criteria.put("DoctorID", doctorID);				
+					criteria.put("DoctorID", doctorID);
 					getSqlMapClient().insert("common.insertDoctorWorkTimings",
 							criteria);
 				}
 			}
 			insertCount = this.getSqlMapClient().executeBatch();
-		}catch (SQLException e) { 
-			throw new DataIntegrityViolationException(e.getMessage()); 
-		} 
+		}catch (SQLException e) {
+			throw new DataIntegrityViolationException(e.getMessage());
+		}
 		if (person.getDoctorWorkTiming().size() == insertCount){
 			successFlag = true;
 		}
 		return successFlag;
-		
+
 	}
 
 	public List <DoctorWorkTimings> getDoctorWorkTimingsForDay(int idPerson, Date dateOfAppointment, int doctorID) throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		Integer idPersonInt = new Integer(idPerson);
-		criteria.put("PersonID", idPersonInt);		
+		criteria.put("PersonID", idPersonInt);
 		Integer idDoctorInt = new Integer(idPerson);
 		criteria.put("DoctorID", idDoctorInt);
-		criteria.put("AppointmentDate", dateOfAppointment);		
+		criteria.put("AppointmentDate", dateOfAppointment);
 		List<DoctorWorkTimings> workTimings = (ArrayList<DoctorWorkTimings>) getList("common.getDoctorWorkTimingsForDay",criteria );
 		return   workTimings;
 	}
-	
+
 	public PatientDetails getPatientDetails(int idPerson) throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		Integer idPersonInt = new Integer(idPerson);
-		criteria.put("PersonID", idPersonInt);		
-		PatientDetails patientDetails = (PatientDetails)getObject("common.getPatientDetails", criteria);		
+		criteria.put("PersonID", idPersonInt);
+		PatientDetails patientDetails = (PatientDetails)getObject("common.getPatientDetails", criteria);
 		List<String> allegeries = (ArrayList<String>) getList("common.getAllergies", criteria);
 		patientDetails.setAllergies(allegeries);
 		List<MultiPartFileUploadBean> uploadedFiles = (ArrayList<MultiPartFileUploadBean>) getList("common.getuploadedFiles", criteria);
@@ -546,11 +546,11 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	}
 
 	public boolean updatePatientDetails(PatientDetails patientDetails) throws DataAccessException{
- 		int count = updateObject("common.updatePatientDetails", patientDetails); 		
+ 		int count = updateObject("common.updatePatientDetails", patientDetails);
  		boolean flag=false;
  		if (count > 0){
- 			try { 
- 				this.getSqlMapClient().startBatch(); 
+ 			try {
+ 				this.getSqlMapClient().startBatch();
  				Map<String,Object> criteria =  new HashMap < String, Object > () ;
  				for (int i =0;i < patientDetails.getAllergies().size();i++){
  					criteria =  new HashMap < String, Object > () ;
@@ -563,9 +563,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
  				if (count > 0){
  					flag = true;
  				}
- 			}catch (SQLException e) { 
- 				throw new DataIntegrityViolationException(e.getMessage()); 
- 			} 			
+ 			}catch (SQLException e) {
+ 				throw new DataIntegrityViolationException(e.getMessage());
+ 			}
  		}
  		return flag;
 	}
@@ -573,14 +573,14 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	public List <CodeDecode> getCodeDecode(String codeCategory) throws DataAccessException {
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		criteria.put("Category", codeCategory);
-		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.codeDecode",criteria );	
+		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.codeDecode",criteria );
 		return codeValueList;
 	}
 
 	public HolidayCalendarList getHolidays(int idPerson){
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		Integer idPersonInt = new Integer(idPerson);
-		criteria.put("PersonID", idPersonInt);		
+		criteria.put("PersonID", idPersonInt);
 		List <Holidays> holidays = (ArrayList <Holidays>) getList("common.getHolidays", criteria);
 		HolidayCalendarList holidayList = new HolidayCalendarList();
 		holidayList.setHolidays(holidays);
@@ -592,13 +592,13 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
  		boolean flag=false;
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		Integer idPersonInt = new Integer(holidayList.getIdDoctorPerson());
-		criteria.put("PersonID", idPersonInt);		
+		criteria.put("PersonID", idPersonInt);
 		Person completeDetails = (Person) getObject("common.getPersonalProfile",criteria );
 		holidayList.setIdDoctorSingle(completeDetails.getDoctorDetails().getIdDoctor());
-		deleteObject("common.deleteHolidays", holidayList);			
+		deleteObject("common.deleteHolidays", holidayList);
 
-		try { 
-			this.getSqlMapClient().startBatch(); 
+		try {
+			this.getSqlMapClient().startBatch();
 			for (Holidays holidays : holidayList.getHolidays()){
 				if(holidays !=null && holidays.getHolidayDate() !=null){
 					holidays.setIdDoctor(completeDetails.getDoctorDetails().getIdDoctor());
@@ -610,9 +610,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			if (count > 0){
 				flag = true;
 			}
-		}catch (SQLException e) { 
-			throw new DataIntegrityViolationException(e.getMessage()); 
-		} 			
+		}catch (SQLException e) {
+			throw new DataIntegrityViolationException(e.getMessage());
+		}
  		return flag;
 	}
 
@@ -631,14 +631,14 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		}
 		return flag;
 	}
-	
+
 	public List <ScheduleJob> getJobsToRun () throws DataAccessException{
 		//getMap("common.getMenuItems", criteria,"menu_name", "menu_url");
 		return (ArrayList<ScheduleJob>) getList("common.getJobDetails",null);
 	}
 
 	public Map getJobParms() throws DataAccessException{
-		return  getMap("common.getMenuItems", null,"input_parameter_name", "input_parameter_value");		
+		return  getMap("common.getMenuItems", null,"input_parameter_name", "input_parameter_value");
 	}
 
 	public boolean updateJobCompletionStatus (ScheduleJob job) throws DataAccessException{
@@ -650,41 +650,41 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return flag;
 	}
 
-	
+
 	public NotificationDetails getNotificationDetails(Integer appointmentID) throws DataAccessException{
 		Map<String,Integer> criteria =  new HashMap < String, Integer> () ;
 		criteria.put("AppointmentID", appointmentID);
-		return  (NotificationDetails) getObject("common.getDetailsForNotification", criteria);		
+		return  (NotificationDetails) getObject("common.getDetailsForNotification", criteria);
 	}
 
 	public List <CodeDecode> getDiagnosis(String code) throws DataAccessException {
-		Person person = null;		
+		Person person = null;
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		//criteria.put("Category", codeCategory);
 		String codeLike = code+"%";
 		criteria.put("Code", codeLike);
-		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.getICDCode",criteria );	
+		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.getICDCode",criteria );
 		return codeValueList;
 	}
 
-	
+
 	public List <CodeDecode> getPrescription(String code) throws DataAccessException {
-		Person person = null;		
+		Person person = null;
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		//criteria.put("Category", codeCategory);
 		String codeLike = code+"%";
 		criteria.put("Code", codeLike);
-		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.getPrescription",criteria );	
+		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.getPrescription",criteria );
 		return codeValueList;
 	}
 
 	public List <CodeDecode> getTests(String code) throws DataAccessException {
-		Person person = null;		
+		Person person = null;
 		Map<String,String> criteria =  new HashMap < String, String > () ;
 		//criteria.put("Category", codeCategory);
 		String codeLike = code+"%";
 		criteria.put("Code", codeLike);
-		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.getTests",criteria );	
+		List <CodeDecode> codeValueList= (ArrayList<CodeDecode>) getList("common.getTests",criteria );
 		return codeValueList;
 	}
 
@@ -695,29 +695,29 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
  			flag = true;
  		}
 		return flag;
-		
-	}	
+
+	}
 
 	public String getAppointmentList(int iPersonID) throws DataAccessException {
 		Integer personID = new Integer(iPersonID);
 		Map<String,Integer> criteria =  new HashMap < String, Integer > () ;
 		criteria.put("PersonID", personID);
-		String appointmentList= (String) getObject("common.authenticateUser", criteria);	
+		String appointmentList= (String) getObject("common.authenticateUser", criteria);
 		return appointmentList;
 	}
-	
+
 	public List <Appointment> getAppointmentAll(int iPersonID) throws DataAccessException{
 		Integer personID = new Integer(iPersonID);
 		Map<String,Integer> criteria =  new HashMap < String, Integer > () ;
 		criteria.put("PersonID", personID);
 		return (List <Appointment>) getList("common.getAllAppointmentList",criteria );
 	}
-	
+
 	public List <NotificationDetails> getNotificationDetailsAll(Integer iPersonID) throws DataAccessException{
 		Integer personID = new Integer(iPersonID);
 		Map<String,Integer> criteria =  new HashMap < String, Integer > () ;
 		criteria.put("PersonID", personID);
-		return  (List <NotificationDetails>) getList("common.getDetailsForNotificationAll", criteria);		
+		return  (List <NotificationDetails>) getList("common.getDetailsForNotificationAll", criteria);
 	}
 
 	public boolean cancelAllAppointments(int iPersonID)throws DataAccessException{
@@ -756,7 +756,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		boolean insertStatus = false;
 		boolean finalStatus = true;
 		try{
-			this.getSqlMapClient().startBatch(); 
+			this.getSqlMapClient().startBatch();
 			for(InboundMessage eachMessage :messages){
 				insertStatus=insertObject("common.insertInboundMessage", eachMessage );
 				if(!insertStatus){
@@ -769,9 +769,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			}else{
 				finalStatus = false;
 			}
-			
-		} catch (SQLException e) { 
-			throw new DataIntegrityViolationException(e.getMessage()); 
+
+		} catch (SQLException e) {
+			throw new DataIntegrityViolationException(e.getMessage());
 		}
 //		if(finalStatus){
 //		Map <String,String> parms = new HashMap < String, String > () ;
@@ -780,7 +780,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 //		}
 		return finalStatus;
 	}
-	
+
 	public boolean updateIncomingSMSJob (String oldProcessingId, String oldStatus, String newProcessingId, String newStatus) throws DataAccessException{
 		boolean processStatus = false;
 		Map<String,String> criteria =  new HashMap < String, String > () ;
@@ -804,7 +804,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
 	}
 
-	public boolean updateAppointmentConfirmationThruSMS (Appointment appointment) throws DataAccessException{		
+	public boolean updateAppointmentConfirmationThruSMS (Appointment appointment) throws DataAccessException{
 		int numberOfRecords = updateObject("common.updateAppointmentConfirmationThruSMS", appointment);
 		boolean flag = false;
 		if(numberOfRecords==1){
@@ -812,28 +812,28 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		}
 		return flag;
 	}
-	
+
 	public int checkIfAppointmentAvailable(Appointment appointment)throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object> () ;
 		criteria.put("DateOfAppointment", appointment.getDateOfAppointment());
 		criteria.put("TimeOfAppointment", appointment.getTimeOfAppointment());
 		criteria.put("AppointmentDuration", appointment.getAppointmentDuration());
 		criteria.put("PersonID", new Integer(appointment.getDoctorPersonID()));
-		return (Integer) getObject("common.checkIfAppointmentAvailable", criteria);		
-		
+		return (Integer) getObject("common.checkIfAppointmentAvailable", criteria);
+
 	}
-	
+
 	public Appointment checkIfAppointmentExists(Appointment appointment)throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object> () ;
 		criteria.put("DateOfAppointment", appointment.getDateOfAppointment());
 		criteria.put("TimeOfAppointment", appointment.getTimeOfAppointment());
-		criteria.put("PersonID", new Integer(appointment.getPatientPersonID()));		
-		return (Appointment) getObject("common.checkIfAppointmentExists", criteria);		
-		
+		criteria.put("PersonID", new Integer(appointment.getPatientPersonID()));
+		return (Appointment) getObject("common.checkIfAppointmentExists", criteria);
+
 	}
 
 	public boolean sendOutSMS(String recipient, String text) throws DataAccessException{
-		Map<String,Object> criteria =  new HashMap < String, Object> () ;		
+		Map<String,Object> criteria =  new HashMap < String, Object> () ;
 		criteria.put("Recipient", recipient);
 		criteria.put("Text", text);
 		return insertObject("common.insertSMS",criteria );
@@ -841,7 +841,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
 	public boolean sendOutSMSBatchClient(List<NotificationDetails> notification,List<Appointment> appointment) throws DataAccessException{
 
-	
+
 			int count = 0;
 			Map<String,Object> criteria =  new HashMap < String, Object> () ;
 			try{
@@ -852,21 +852,21 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 					String text = notification.get(count).getDoctorMobileNumber() +" has cancelled appointment on "+ eachAppointment.getDateOfAppointment().toString()+".";
 					criteria.put("Text", text);
 						getSqlMapClient().insert("common.insertSMS",
-								criteria);	
-				}	
+								criteria);
+				}
 				int insertCount = this.getSqlMapClient().executeBatch();
-			}catch (SQLException e) { 
-				throw new DataIntegrityViolationException(e.getMessage()); 
-			} 
+			}catch (SQLException e) {
+				throw new DataIntegrityViolationException(e.getMessage());
+			}
 
 		return true;
 	}
 
 	public List<IncomingMessages> getInSMS() throws DataAccessException{
 		return (List <IncomingMessages>) getList("common.getSMSToProcess",null);
-		
+
 	}
-	
+
 	public boolean updateInSMS(List<IncomingMessages> incomingMessages,String processingID, String status) throws DataAccessException{
 		Map<String,Object> criteria =  new HashMap < String, Object> () ;
 		try{
@@ -877,15 +877,15 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 				criteria.put("Status", status);
 				criteria.put("ID",eachIncomingMessages.getMessageId());
 					getSqlMapClient().update("common.updateInSMS",
-							criteria);	
-			}	
+							criteria);
+			}
 			int insertCount = this.getSqlMapClient().executeBatch();
-		}catch (SQLException e) { 
-			throw new DataIntegrityViolationException(e.getMessage()); 
-		} 
+		}catch (SQLException e) {
+			throw new DataIntegrityViolationException(e.getMessage());
+		}
 
 		return true;
-		
+
 	}
-	
+
 }
