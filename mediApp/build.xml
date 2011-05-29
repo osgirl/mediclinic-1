@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<project name="mediapp" default="all" basedir=".">
+
+	<target name="init">
+		<property name="dirs.base" value="${basedir}"/>
+		<property name="classdir" value="${dirs.base}/build/src"/>
+		<property name="src" value="${dirs.base}/WEB-INF/src"/>
+		<property name="web" value="${dirs.base}/web"/>
+		<property name="deploymentdescription" value="${dirs.base}/build/deploymentdescriptors"/>
+
+		<property name="warFile" value="mediapp.war"/>
+		<property name="earFile" value="mediapp.ear"/>
+
+
+		<property name="earDir" value="${dirs.base}/build/ear"/>
+		<property name="warDir" value="${dirs.base}/build/war"/>
+
+		<path id="master-classpath">
+		  <fileset dir="${basedir}/WEB-INF/lib">
+		    <include name="*.jar"/>
+		  </fileset>
+
+		 <fileset dir="C:\Program Files\Apache Software Foundation\Tomcat 6.0\lib">
+		    <include name="*.jar"/>
+		  </fileset>
+
+		  <pathelement path="${classdir}"/>
+		</path>
+		
+		
+	</target>
+	<target name="cleanup">
+	     <delete includeEmptyDirs="true">
+	       <fileset dir="${dirs.base}/build" includes="**/**"/>
+	       <fileset file="MANIFEST.MF"/>
+	     </delete>  
+
+		<mkdir dir="${warDir}"/>
+		<mkdir dir="${earDir}"/>
+		<mkdir dir="${deploymentdescription}"/>
+		<mkdir dir="${classdir}"/>
+		
+		<!-- Create Web-inf and classes directories -->
+		<mkdir dir="${warDir}/WEB-INF"/>
+		<mkdir dir="${warDir}/WEB-INF/classes"/>
+
+		<!-- Create Meta-inf and classes directories -->
+		<mkdir dir="${earDir}/META-INF"/>
+
+
+	     
+	</target>
+ 
+	<target name="manifest">
+	     <property name="version.num" value="1.00"/>
+	     <buildnumber file="build.num"/>
+	     <tstamp>
+		<format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+	     </tstamp>
+
+	     <manifest file="MANIFEST.MF">
+		<attribute name="Built-By" value="${user.name}"/>
+		<attribute name="Main-Class" value="mediapp"/>
+		<attribute name="Implementation-Version" 
+			 value="${version.num}-b${build.number}"/>     
+		<attribute name="Built-Date" value="${TODAY}"/>    
+	    </manifest>
+
+	</target>
+	
+	<!-- Main target -->
+	<target name="all" depends="init,cleanup,manifest,build,buildWar"/>
+
+
+	<!-- Compile Java Files and store in /build/src directory -->
+	<target name="build" >
+		<javac srcdir="${src}" destdir="${classdir}" debug="true" includes="**/*.java" >
+			<classpath refid="master-classpath"/>
+		</javac>
+
+	</target>
+
+	<!-- Create the War File -->
+	<target name="buildWar" depends="init">
+		<jar jarfile="${basedir}/WEB-INF/lib/appmentConfig.jar" basedir="${basedir}/WEB-INF/src"   includes="**/*.xml,**/*.properties" manifest="MANIFEST.MF"/>
+		
+		<jar jarfile="${basedir}/WEB-INF/lib/appment.jar" basedir="${classdir}" includes="**/*.class" manifest="MANIFEST.MF"/>
+		
+		<copy todir="${warDir}/WEB-INF">
+			<fileset dir="${basedir}/WEB-INF" includes="web.xml" /> 
+		</copy>
+
+		<copy todir="${warDir}/WEB-INF">
+			<fileset dir="${basedir}/WEB-INF" includes="SMSServer.conf" /> 
+		</copy>
+
+		<copy todir="${warDir}/WEB-INF">
+			<fileset dir="${basedir}/WEB-INF" includes="mediApp-servlet.xml" /> 
+		</copy>
+
+		<copy todir="${warDir}/WEB-INF">
+			<fileset dir="${basedir}/WEB-INF" includes="spring.tld" /> 
+		</copy>
+
+		<copy todir="${warDir}/css">
+			<fileset dir="${basedir}/css" includes="**/*.*" /> 
+		</copy>
+
+		<copy todir="${warDir}/images">
+			<fileset dir="${basedir}/images" includes="**/*.*" /> 
+		</copy>
+
+		<copy todir="${warDir}/js">
+			<fileset dir="${basedir}/js" includes="**/*.*" /> 
+		</copy>
+		
+		<copy todir="${warDir}/WEB-INF/jsp">
+			<fileset dir="${basedir}/WEB-INF/jsp" includes="**/*.*" /> 
+		</copy>
+
+		<copy todir="${warDir}/WEB-INF/tld">
+			<fileset dir="${basedir}/WEB-INF/tld" includes="*.*" /> 
+		</copy>
+
+		<copy todir="${warDir}/WEB-INF/lib">
+			<fileset dir="${basedir}/WEB-INF/lib" includes="*.*" /> 
+		</copy>
+
+		<copy todir="${warDir}/org">
+			<fileset dir="${basedir}/work/org" includes="**/*.*" /> 
+		</copy>
+
+		<copy todir="${warDir}">
+			<fileset dir="${basedir}/WEB-INF/src" includes="*.properties" /> 
+		</copy>
+
+
+		<!-- Create war file and place in ear directory -->
+		<jar jarfile="${earDir}/${warFile}" basedir="${warDir}"  manifest="MANIFEST.MF"/>
+
+
+	</target>
+
+
+	<!-- Create the War File -->
+	<target name="buildEar" depends="init">
+		<copy todir="${earDir}/META-INF">
+			<fileset dir="${deploymentdescription}" includes="application.xml" /> 
+		</copy>
+
+		<!-- Create ear file and place in ear directory -->
+		<jar jarfile="${dirs.base}/${earFile}" basedir="${earDir}" manifest="MANIFEST.MF"/>
+	</target>
+
+</project>
