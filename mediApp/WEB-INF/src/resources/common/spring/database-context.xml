@@ -8,7 +8,7 @@
 	
 	<!-- PropertyPlaceholderConfigurer used to abstract away the environment information into a properties file  -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="/WEB-INF/src/resources/common/properties/datasource.properties"/>
+		<property name="location" value="classpath:resources/common/properties/datasource.properties"/>
 		<property name="placeholderPrefix" value="$mediAppDataSource{"/>
 		<property name="ignoreUnresolvablePlaceholders" value="true"/>
 	</bean>
@@ -59,7 +59,7 @@
     <!-- SqlMapClient Configuration -->
 	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
 		<property name="configLocation">
-			<value>/WEB-INF/src/resources/common/ibatis/SqlMapConfig.xml</value>
+			<value>classpath:resources/common/ibatis/SqlMapConfig.xml</value>
 		</property>
 		<property name="dataSource">
 			<ref bean="$mediAppDataSource{mediApp.dataSourceBeanName}"/>
