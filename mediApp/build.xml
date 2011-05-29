@@ -136,7 +136,7 @@
 
 
 		<!-- Create war file and place in ear directory -->
-		<jar jarfile="${earDir}/${warFile}" basedir="${warDir}"  manifest="MANIFEST.MF"/>
+		<jar jarfile="${warFile}" basedir="${warDir}"  manifest="MANIFEST.MF"/>
 
 
 	</target>
