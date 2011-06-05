@@ -228,9 +228,9 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 												</td>
 											</tr>
 											    
-											<table border="0" cellpadding="0" cellspacing="0" width="500" height="30" >      
+											<table border="0" cellpadding="0" cellspacing="0" width="100" height="30" >      
 											<tr>     
-												<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:100%;"  align="center">  
+												<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
 										  			<a href="javascript:void(0);" onClick="fn_signUp();" style="text-decoration:none"> 
 										  				<font size="+1" color="#FFFFFF" >Register</font> 
 										  			</a>

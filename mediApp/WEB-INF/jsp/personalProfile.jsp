@@ -289,7 +289,7 @@
 	                	</td>                
 	                </tr>
 	                <tr>     
-						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:40;"  align="center">  
+						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:40;"  align="center">  
 				  			<a href="javascript:void(0);" onClick="javascript:fn_addRowForWorkHours();" style="text-decoration:none"> 
 				  				<font size="+1" color="#FFFFFF" >Add</font>  
 				  			</a>
@@ -361,9 +361,9 @@
 
       </div>
             </div>
-                    <table border="0" cellpadding="0" cellspacing="0" width="800" height="30"  align="bottom">       
+                    <table border="0" cellpadding="0" cellspacing="0" width="200" height="30"  align="bottom">       
 					<tr>     
-						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:100%;"  align="center">  
+						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
 				  			<a href="javascript:void(0);" onClick="javascript:saveProfile();" style="text-decoration:none"> 
 				  				<font size="+1" color="#FFFFFF" >Save</font> 
 				  			</a>
