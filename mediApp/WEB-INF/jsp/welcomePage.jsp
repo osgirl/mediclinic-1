@@ -1,5 +1,12 @@
 <%@ include file="/WEB-INF/jsp/welcomeInclude.jsp" %>
 <script>
+//IE7 = (navigator.appVersion.indexOf("MSIE 7.")==-1) ? false : true;
+//IE8 = (navigator.appVersion.indexOf("MSIE 8.")==-1) ? false : true;
+
+//if(!(IE7  || IE8)){
+//	alert("This application is tested on Internet Explorer 7 and higher. It may not work properly on this browser.");
+//}
+
 var cacheonimg = new Image ();
 var cacheoffimg = new Image ();
 cacheonimg.src = '/images/MCbutton_1.png';
@@ -14,13 +21,13 @@ cacheoffimgl.src = '/images/MLbutton_0.png';
 <div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
+					<div class="stp" style="margin-bottom:1.5em;">
+					<div class="or" style="margin:1em; padding:0;" >
 					<div id="contentSingleEntry" style="">
 						<div id="entries">
 							<div class="entryAlone" class="or">
 								<form name="welcomePage" id="welcomePage" method="post" >
-								<div class="stp" style="margin-bottom:1.5em;">
-								<div class="or" style="margin:1em; padding:0;" >
-								<table   width=900 height="200" align="center" >
+								<table   width=900 height="100" align="center" >
 									<tr >
               										<td class="sansa"><big><big><b>Welcome to AppMent!</b></big></big></td>	
              						</tr>
@@ -28,8 +35,8 @@ cacheoffimgl.src = '/images/MLbutton_0.png';
 										<td>
 											<div align="center">
 												<div name="addbox" id="addbox">
-												<a name="link1" id="link1" href="/appmentSignUp.htm"><img border="0" name="banner1" id="banner1" src="/images/oie_shake_hands_concepts_3.jpg"></a>
-												<a name="link2" id="link2" href="/appmentSignUp.htm"><img border="0" name="banner2" id="banner2" src="/images/oie_medical.jpg"></a>
+												<a name="link1" id="link1" href="/appmentSignUp.htm" ><img border="0" name="banner1" id="banner1" src="/images/oie_shake_hands_concepts_3.jpg"></a>
+												
 											</div>
 										</div>
 										 
@@ -45,8 +52,7 @@ cacheoffimgl.src = '/images/MLbutton_0.png';
 										</td>
 									</tr>  
 								</table>
-								</div>	
-								</div>
+								
 															
 							</form>
 	
@@ -96,9 +102,9 @@ cacheoffimgl.src = '/images/MLbutton_0.png';
 							
 							
 						</div>
-						
-						
 					</div>
+					</div>	
+								</div>
 				</div>
 			</div>
 		</div>

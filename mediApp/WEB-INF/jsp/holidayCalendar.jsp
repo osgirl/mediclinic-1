@@ -2,13 +2,14 @@
 <%@page import="com.mediapp.domain.common.Person"%><div id="contentBodyLeft">
    <div id="contentBodyRight">
     <div id="contentBodyCenter">
+        	<div class="stp" style="margin-bottom:1.5em;">
+				<div class="or" style="margin:1em; padding:0;" >
+    
      <div id="contentSingleEntry" style="">
      
       <div id="entries">
        <div class="entryAlone">
         <form name="holidayCalendar" id="holidayCalendar" method="post" >
-        	<div class="stp" style="margin-bottom:1.5em;">
-				<div class="or" style="margin:1em; padding:0;" >
 								
         
          <table width=900  border="1" class="sample"  > 
@@ -96,7 +97,6 @@
            </tr>
           
           </table>
-          </div></div>
           
         </form>
  
@@ -105,6 +105,8 @@
       <div id="column">
       </div>
      </div>
+               </div></div>
+     
     </div>
    </div>
   </div>

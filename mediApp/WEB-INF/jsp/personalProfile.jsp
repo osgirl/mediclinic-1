@@ -4,12 +4,13 @@
 <%@page import="com.mediapp.domain.common.Person"%><div id="contentBodyLeft">
    <div id="contentBodyRight">
     <div id="contentBodyCenter">
+			<div class="stp" style="margin-bottom:1.5em;">
+				<div class="or" style="margin:1em; padding:0;" >
+
      <div id="contentSingleEntry" style="">
       <div id="entries">
        <div class="entryAlone">
         <form name="personalProfile" id="personalProfile" method="post" >
-			<div class="stp" style="margin-bottom:1.5em;">
-				<div class="or" style="margin:1em; padding:0;" >
         
         <spring:hasBindErrors name="command">
          <c:if test="${not empty errors.globalErrors}">
@@ -42,10 +43,6 @@
 
             <div id="Personal Details"  style="display:block" align="center">
             <table  border=""  class="sample" width=720 cellpadding="200">
-             <tr bgcolor="lightblue" >
-              Personal Details
-             </tr>
-             
              <tr >
               <td >First Name: <font color="red">*</font></td> 
               <td >
@@ -378,14 +375,15 @@
           </tr>
            
          </table>
-         </div>
-         </div>
         </form>
        </div>
       </div>
       <div id="column">
       </div>
      </div>
+         </div>
+         </div>
+
     </div>
    </div>
   </div>

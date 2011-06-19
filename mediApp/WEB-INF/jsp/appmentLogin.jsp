@@ -2,6 +2,8 @@
 		<div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
+					<div class="stp" style="margin-bottom:1.5em;">
+						<div class="or" style="margin:1em; padding:0;" >								
 					<div id="contentSingleEntry" style="">
 						<div id="entries" align="left">
 <script>
@@ -131,6 +133,8 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 						<div id="column" align="right" style="width: 34em;" >
 						
 						</div>
+					</div>
+					</div>
 					</div>
 				</div>
 			</div> 

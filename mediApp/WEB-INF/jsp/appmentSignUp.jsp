@@ -2,6 +2,9 @@
 		<div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
+					<div class="stp" style="margin-bottom:1.5em;">
+						<div class="or" style="margin:1em; padding:0;" >								
+				
 					<div id="contentSingleEntry" >
 						<div id="entries" align="left">
 <script>
@@ -24,8 +27,6 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 						 
 							<div class="entryAlone" >
 								<form name="appmentSignUp" id="appmentSignUp" method="post"> 
-								<div class="stp" style="margin-bottom:1.5em;">
-									<div class="or" style="margin:1em; padding:0;" >								
 									<c:if test="${not empty SuccessMessage}">
 										
 										<font color="red"><c:out value="${SuccessMessage}" /></font><br/>
@@ -228,7 +229,7 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 												</td>
 											</tr>
 											    
-											<table border="0" cellpadding="0" cellspacing="0" width="100" height="30" >      
+											<table border="0" cellpadding="0" cellspacing="0" width="500" height="30" >      
 											<tr>     
 												<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
 										  			<a href="javascript:void(0);" onClick="fn_signUp();" style="text-decoration:none"> 
@@ -241,8 +242,6 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 										</table>
 										</br>
 										</c:if>
-									</div>
-								</div>  
 							</form>
 							
 							</div> 
@@ -250,6 +249,9 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 						<div id="column" align="right">
 						</div>
 					</div>
+					</div>
+					</div>  
+					
 				</div>
 			</div> 
 		</div>

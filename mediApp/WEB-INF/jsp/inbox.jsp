@@ -6,6 +6,9 @@
 	<div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
+				        	<div class="stp" style="margin-bottom:1.5em;">
+				<div class="or" style="margin:1em; padding:0;" >
+				
 					<div id="contentSingleEntry" style="">
 						<div id="entries">
 						<script>
@@ -229,7 +232,7 @@
 						</div>
 						<div id="column">
 						</div>
-					</div>
+					</div></div></div>
 				</div>
 			</div>
 	</div>

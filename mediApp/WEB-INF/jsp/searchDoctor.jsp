@@ -2,6 +2,9 @@
 <%@page import="com.mediapp.domain.common.Person"%><div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
+				        	<div class="stp" style="margin-bottom:1.5em;">
+				<div class="or" style="margin:1em; padding:0;" >
+				
 					<div id="contentSingleEntry" style="">
 						<div id="entries">
 							<div class="entryAlone">
@@ -19,9 +22,6 @@
 
 												<div id="Search"  style="display:block" align="center">
 													<table  border=""  class="sample" width=680 >
-														<tr bgcolor="lightblue">
-															Search AppMate
-														</tr>
 														<tr>
 															<td>User Name to Search:</td>
 																<td>
@@ -226,7 +226,7 @@
 						</div>
 						<div id="column">
 						</div>
-					</div>
+					</div></div></div>
 				</div>
 			</div>
 		</div>

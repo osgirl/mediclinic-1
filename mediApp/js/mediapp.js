@@ -128,18 +128,36 @@ var firstSubmit = 0;
 function fn_addAppointment(){	
 	document.getElementById('dateOfAppointment').disabled=false;
 	document.getElementById('timeOfAppointment').disabled=false;
+	if ((navigator.userAgent.indexOf("Chrome"))==-1) {
 	document.forms['createAppointment'].target="Parent";
+	}
 	if(firstSubmit == 0){
-		document.forms['createAppointment'].method ="post";	
-		document.forms["createAppointment"].submit();
+	//	document.getElementById("createAppointment").method ="post";	
+	//	document.getElementById("createAppointment").action="/createAppointment.htm";		
+		document.getElementById("createAppointment").submit();
+		//this.form.submit();
 		firstSubmit = 1;		
 		setTimeout(fn_addAppointment, 2000);
+	
+	 /*   document.forms['createAppointment'].method ="post";
+	    document.forms["createAppointment"].submit();
+		firstSubmit = 1;
+		setTimeout(fn_addAppointment, 2000); 
+	*/
 	}else{
-		document.forms['createAppointment'].method ="post";	
+		document.getElementById("createAppointment").target="Parent";		
+		document.getElementById("createAppointment").method ="post";	
+		document.getElementById("createAppointment").action="dayAppointment.htm"; 
+		document.getElementById("createAppointment").submit();
+		firstSubmit = 0;
+		self.close();
+				
+		/*document.forms['createAppointment'].method ="post";
 		document.forms['createAppointment'].action="dayAppointment.htm"; 
 		document.forms['createAppointment'].submit();
 		firstSubmit = 0;
 		self.close();
+		*/
 	}
 	 
 }
