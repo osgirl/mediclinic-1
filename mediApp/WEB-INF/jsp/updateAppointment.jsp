@@ -11,10 +11,12 @@
 
 <%@page import="com.mediapp.domain.common.NotificationDetails"%><html>
 	<head>
-	    <title>mediApp</title>    
-		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
+	    <title>AppMent</title>
 	    <link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
 	    <link href="<%=request.getContextPath()%>/css/autocomplete.css" rel="stylesheet" type="text/css">
+	    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css" type="text/css" />
+	    <script type="text/javascript"  src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
+    	<script type="text/javascript"  src="<%=request.getContextPath()%>/js/jquery-ui.min.js"></script>
 	    <script type="text/javascript" src="<%=request.getContextPath()%>/js/mediapp.js"></script>    
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar_us.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
@@ -94,20 +96,20 @@
 							<input type="hidden" name="AppointmentID"  value="${appointment.appointmentID}"/>
 							<input type="hidden" name="UserName"  value="${UserName}"/>
 					</table>
-					<table border="0" cellpadding="0" cellspacing="0" width="400" height="30" >						         
+					<table border="0" cellpadding="0" cellspacing="0" width="450" height="30" align="center">						         
 						<tr >     
 							<%Person p = (Person)request.getSession().getAttribute("person");
 							NotificationDetails n = (NotificationDetails) request.getAttribute("Notification");
 							if(!p.getEmailID().equals(n.getPatientEmailAddress())){ %>
 							
 							<c:if test="${appointment.confirmedIndicator == 'N'}">
-								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%"  align="center">  
+								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
 						  			<a href="javascript:void(0);" onClick="javascript:fn_confirmAppointment();" style="text-decoration:none"> 
 						  				<font size="+1" color="#FFFFFF" >Confirm</font> 
 						  			</a>
 						  		</td>
 					  		</c:if>
-								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%"  align="center">  
+								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
 						  			<a href="javascript:void(0);" onClick="" style="text-decoration:none"> 
 						  				<font size="+1" color="#FFFFFF" >Follow Up</font> 
 						  			</a>
@@ -115,8 +117,8 @@
 					  		
 					  		<%} %>
 					  		
-					  		<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height:100%;width:33%" align="center">  
-					  			<a href="javascript:void(0);" onClick="self.close();" style="text-decoration:none"> 
+					  		<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%" align="center">  
+					  			<a href="javascript:void(0);" onClick="javascript:fn_close();" style="text-decoration:none"> 
 					  				<font size="+1" color="#FFFFFF" >Close</font>
 					  			</a>
 					  		</td>

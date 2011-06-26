@@ -118,7 +118,19 @@ function fn_createAppointment(personID,doctorID,timeOfAppointment,appointmentDat
 		if (userName !=""){
 			window.name = "Parent";
 			var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:630px;status:no;edge:sunken';	
-		    var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&UserName="+userName+"&DoctorPersonID="+doctorPersonID, window, WinSettings);
+		    //var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&UserName="+userName+"&DoctorPersonID="+doctorPersonID, window, WinSettings);
+			var url = '/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&UserName="+userName+"&DoctorPersonID="+doctorPersonID;
+			var rurl= "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+userName+"&TakeAppointment=Y";
+			jQuery.showModalDialog({
+				 url: url,
+				 dialogArguments: null,
+				 height: 500,
+				 width: 900,
+				 scrollable: false,
+				 onClose: function(){  var returnedValue = this.returnValue;window.location.href=rurl;  }
+			});
+
+
 		}else{
 			alert("We are sorry, there seems to be some issue with the appmate profile with whom you are trying to take appointment.");
 		}
@@ -131,19 +143,25 @@ function fn_addAppointment(){
 	if ((navigator.userAgent.indexOf("Chrome"))==-1) {
 	document.forms['createAppointment'].target="Parent";
 	}
-	if(firstSubmit == 0){
+	window.close();
+	var form=document.getElementById('createAppointment');
+    form.setAttribute('target', 'iframeDialog');
+    form.submit();
+
+	//if(firstSubmit == 0){
 	//	document.getElementById("createAppointment").method ="post";	
 	//	document.getElementById("createAppointment").action="/createAppointment.htm";		
-		document.getElementById("createAppointment").submit();
+		//document.getElementById("createAppointment").submit();
 		//this.form.submit();
-		firstSubmit = 1;		
-		setTimeout(fn_addAppointment, 2000);
+	//	firstSubmit = 1;		
+	//	setTimeout(fn_addAppointment, 2000);
 	
 	 /*   document.forms['createAppointment'].method ="post";
 	    document.forms["createAppointment"].submit();
 		firstSubmit = 1;
 		setTimeout(fn_addAppointment, 2000); 
 	*/
+	/*
 	}else{
 		document.getElementById("createAppointment").target="Parent";		
 		document.getElementById("createAppointment").method ="post";	
@@ -152,14 +170,14 @@ function fn_addAppointment(){
 		firstSubmit = 0;
 		self.close();
 				
-		/*document.forms['createAppointment'].method ="post";
+		document.forms['createAppointment'].method ="post";
 		document.forms['createAppointment'].action="dayAppointment.htm"; 
 		document.forms['createAppointment'].submit();
 		firstSubmit = 0;
 		self.close();
-		*/
+		
 	}
-	 
+	 */
 }
 
 function fn_rescheduleAppointmentDate(){
@@ -316,8 +334,17 @@ function fn_openAppointmentInbox(personID,appointmentDate,appointmentID,timeOfAp
 	var myObject = new Object();
 	myObject.URL = 'inbox.htm';
 	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:670px;status:no;edge:sunken';
-    var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID, myObject, WinSettings);
-    
+    //var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID, myObject, WinSettings);
+	var url = '/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID;
+	jQuery.showModalDialog({
+		 url: url,
+		 dialogArguments: null,
+		 height: 500,
+		 width: 900,
+		 scrollable: false,
+		 onClose: function(){  var returnedValue = this.returnValue;window.location.href="/inbox.htm";  }
+	});
+
 	
 }
 
@@ -344,20 +371,47 @@ function fn_Print(){
 }
 
 function fn_confirmAppointment(){
-	document.forms['updateAppointment'].target="Parent";
+	//document.forms['updateAppointment'].target="iframeDialog";
+	//alert(firstSubmit);
+	//document.forms['updateAppointment'].method ="post";
+	//document.frames['iframeDialog'].forms['updateAppointment'].method ="post";
+	//document.frames['iframeDialog'].forms['updateAppointment'].submit();
+	//setTimeout("", 2000);
+	//window.close();
+	//document.getElementById ("iframeDialog").style.display="none";
+	window.close();
+	var form=document.getElementById('updateAppointment');
+    form.setAttribute('target', 'iframeDialog');
+    form.submit();
+    //var prntWindow = getParentWindowWithDialog(); //$(top)[0];
+    //var $dlg = prntWindow && prntWindow.$dialog;
+    //if ($dlg) window.dialogArguments = $dlg.dialogArguments;
+    //if ($dlg) window.close = function() { if ($dlg) $dlg.dialogWindow.dialog('close'); };
+    //window.close();
+	
+ //   setTimeout("window.close()", 2000);
+	//window.close();
+    
+/*
 	if(firstSubmit == 0){
 		document.forms['updateAppointment'].method ="post";	
 		document.forms['updateAppointment'].submit();
-		firstSubmit = 1;		
+		firstSubmit = 1;
+		setTimeout("", 2000);
+		document.forms['updateAppointment'].method ="get";
+		window.location.href = "/inbox.htm";
 		setTimeout(fn_confirmAppointment, 2000);
 	}else{
-		var oMyObject = window.dialogArguments;
-		document.forms['updateAppointment'].method ="get";
-		document.forms['updateAppointment'].action=oMyObject.URL; 
-		document.forms['updateAppointment'].submit();
+		alert(firstSubmit);
+	//	var oMyObject = window.dialogArguments;
+	//	document.forms['updateAppointment'].method ="get";
+	//	document.forms['updateAppointment'].action=oMyObject.URL; 
+	//	document.forms['updateAppointment'].submit();
+		window.location.href = "/inbox.htm";
 		firstSubmit = 0;
-		self.close();
+		window.close();
 	}
+*/
 }
 function fn_deletePrescription(num){
 	  var elSel = document.getElementById("diagnosis["+num+"].prescriptionList");
@@ -1612,3 +1666,145 @@ preloadimage:function(){
 } 
  
 
+// start new modal
+var $dialog = null;
+
+jQuery.showModalDialog = function(options) {
+
+    var defaultOptns = {
+        url: null,
+        dialogArguments: null,
+        height: 'auto',
+        width: 'auto',
+        position: 'center',
+        resizable: true,
+        scrollable: true,
+        onClose: function() { },
+        returnValue: null,
+        doPostBackAfterCloseCallback: false,
+        postBackElementId: null
+    };
+
+    var fns = {
+        close: function() {
+            opts.returnValue = $dialog.returnValue;
+            $dialog = null;
+            opts.onClose();
+            if (opts.doPostBackAfterCloseCallback) {
+                postBackForm(opts.postBackElementId);
+            }
+        },
+        adjustWidth: function() { $frame.css("width", "100%"); }
+    };
+
+    // build main options before element iteration
+
+    var opts = jQuery.extend({}, defaultOptns, options);
+
+    var $frame = jQuery('<iframe id="iframeDialog" name="iframeDialog" />');
+
+    if (opts.scrollable)
+        $frame.css('overflow', 'auto');
+
+    $frame.css({
+        'padding': 0,
+        'margin': 0,
+        'padding-bottom': 10
+    });
+
+    var $dialogWindow = $frame.dialog({
+        autoOpen: true,
+        modal: true,
+        width: opts.width,
+        height: opts.height,
+        resizable: opts.resizable,
+        position: opts.position,
+        overlay: {
+            opacity: 0.5,
+            background: "black"
+        },
+        close: fns.close,
+        resizeStop: fns.adjustWidth
+    });
+
+    $frame.attr('src', opts.url);
+    fns.adjustWidth();
+    $frame.load(function() {
+        if ($dialogWindow) {
+            var maxTitleLength = 50;
+            var title =jQuery(this).contents().find("title").html();
+            if(title !=null){
+	            if (title.length > maxTitleLength) {
+	                title = title.substring(0, maxTitleLength) + '...';
+	            }
+	            $dialogWindow.dialog('option', 'title', title);
+            }     
+        }
+    });
+
+	    $dialog = new Object();
+	    $dialog.dialogArguments = opts.dialogArguments;
+	    $dialog.dialogWindow = $dialogWindow;
+	    $dialog.returnValue = null;
+}
+
+function postBackForm(targetElementId) {
+    var theform;
+    theform = document.forms[0];
+    theform.__EVENTTARGET.value = targetElementId;
+    theform.__EVENTARGUMENT.value = "";
+    theform.submit();
+}
+
+
+//end new modal
+//close modal
+var prntWindow = getParentWindowWithDialog(); //$(top)[0];
+
+var $dlg = prntWindow && prntWindow.$dialog;
+
+function getParentWindowWithDialog() {
+	var p = window.parent;
+	var previousParent = p;
+	while (p != null) {
+		if (jQuery(p.document).find('#iframeDialog').length) return p;
+
+		p = p.parent;
+
+		if (previousParent == p) return null;
+
+		// save previous parent
+
+		previousParent = p;
+	}
+	return null;
+}
+
+function setWindowReturnValue(value) {
+	if ($dlg) $dlg.returnValue = value;
+	window.returnValue = value; // in case popup is called using showModalDialog
+
+}
+
+function getWindowReturnValue() {
+	// in case popup is called using showModalDialog
+
+	if (!$dlg && window.returnValue != null)
+		return window.returnValue;
+
+	return $dlg && $dlg.returnValue;
+}
+
+if ($dlg) window.dialogArguments = $dlg.dialogArguments;
+if ($dlg) window.close = function() { if ($dlg) $dlg.dialogWindow.dialog('close'); };
+//END of dialog Required Code
+
+function fn_close() {
+    //setWindowReturnValue('The Return Value. And Passed Dialog Arguments: ' + window.dialogArguments);
+	
+	window.close();
+    
+  //   $dlg.dialogWindow.dialog('close');
+}
+
+//close modal

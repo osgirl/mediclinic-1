@@ -28,7 +28,7 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 							<table>
 							<tr>
 								<td width="65%">
-								<table  border="0"   width=700 align="left">  
+								<table  border="0"    align="left">  
 										  <tr>
 										  		<td>
 													<form action="j_spring_openid_security_check" method="post" id="openid_form">
@@ -58,17 +58,23 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 								</table>													
 								
 								</td>
-								<td width="35%">
+							</tr>
+							</table>
+							</div> 
+						</div>
+						<div id="column" >
 							<form name="appMentlogin" id="appMentlogin" method="post"> 
-							<div class="stp" style="margin-bottom:1.5em;width: 20em;" >
-								<div class="or" style="margin:1em; padding:0;" align="center"> 		
-									<span  style="font-size:1.5em;font-color:black;font:Verdana">Login to account</span><br /><br />       
-									<table class="sample" width="100%" >  						
+							<div class="stp" style="margin-bottom:1.em;">
+	  							<div class="or" style="margin:1em; padding:0;">	  							 
+	  								<span style="font-size:2.0em;font-color:black;font:Verdana">  Login</span>
+	  								<br> <br> 
+									<table class="sample" width="100%" >  
+																
 										<tr >
-											<td width="33%" align="right" >Username: </td>
-											<td width="66%" align="left">
+											<td  align="right" >Name: </td>
+											<td align="left">
 												<spring:bind path="person.username">
-													<input type="text" name="username"  id="username"  value="<c:out value="${status.value}"/>" tabindex="1"/>		
+													<input type="text" name="username"  id="username"  value="<c:out value="${status.value}"/>" size="10" tabindex="1" />		
 													<script>document.getElementById('username').focus()</script>
 
 												</spring:bind>
@@ -85,10 +91,10 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 										</tr>
 
 										<tr>
-											<td width="33%" align="right" >Password: </td>
-											<td width="66%" align="left">
+											<td  align="right" >Key: </td>
+											<td  align="left">
 												<spring:bind	path="person.password">
-													<input type="password" name="password" id="password" tabindex="2"/>
+													<input type="password" name="password" id="password" tabindex="2" size="10" />
 												</spring:bind>
 											</td>
 											<td colspan="2" align="center">
@@ -103,7 +109,7 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 										</tr>						
 									</table>
 									</br>
-									<table border="0" cellpadding="0" cellspacing="0" width="300" height="30" >    
+									<table border="0" cellpadding="0" cellspacing="0" width="100%" height="30" >    
 										<tr>  
 											<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center"> 										  		
 									  			<a href="javascript:void(0);" onClick="fn_login();" style="text-decoration:none">
@@ -112,26 +118,18 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 									  		</td>
 										</tr>
 									</table>										
-								</div>
-							</div>  
-							<div class="stp" style="margin-bottom:1.5em;width: 20em" >
+	  								 
+	  							</div>							
+							</div>
+							<div class="stp" style="margin-bottom:1.5em;" >
 	  							<div class="or" style="margin:1em; padding:0;" > 
 	  								<span style="font-size:1.3em;font-color:black;font:Verdana" >Don't have account yet?</span><br />   
-	  								<a href="/appmentSignUp.htm" onMouseover="document.buttonimg.src=eval('cacheonimg.src')" onMouseout="document.buttonimg.src=eval('cacheoffimg.src')">
-	  									<img src="/images/MCbutton_0.png" name="buttonimg" width="200" height="68" alt="AppMent-Create a new Account">   
+	  								<a href="/appmentSignUp.htm" onMouseover="document.buttonimg1.src=eval('cacheonimg.src')" onMouseout="document.buttonimg1.src=eval('cacheoffimg.src')">
+	  									<img src="/images/MCbutton_0.png" name="buttonimg1" width="170" height="68" alt="AppMent-Create a new Account">   
 	  								</a>
 	  							</div>							
 							</div>
-																					
 						</form>
-								
-								</td>
-							</tr>
-							</table>
-							</div> 
-						</div>
-						<div id="column" align="right" style="width: 34em;" >
-						
 						</div>
 					</div>
 					</div>
