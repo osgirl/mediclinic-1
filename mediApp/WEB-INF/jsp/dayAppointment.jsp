@@ -145,14 +145,14 @@
 		         
 			           <tr>               
 				            <td id="confirm">
-								<a href="javascript:void(0);" onClick="javascript:fn_openAppointment();document.getElementById('movingDiv').style.display='none';" style="text-decoration:none" class="sansa"> 
+								<a href="javascript:void(0);" onClick="javascript:fn_openAppointment('N');document.getElementById('movingDiv').style.display='none';" style="text-decoration:none" class="sansa"> 
 									<font size="+1" color="blue" >Confirm</font> 
 								</a>
 				           </td>
 	        		   </tr>
 			           <tr>               
 				            <td id="open">
-								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';javascript:fn_openAppointment();" style="text-decoration:none" class="sansa"> 
+								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';javascript:fn_openAppointment('N');" style="text-decoration:none" class="sansa"> 
 									<font size="+1" color="blue" >Open</font> 
 								</a>
 				           </td>

@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
+<%@ include file="/WEB-INF/jsp/include.jsp" %> 
 <%@page import="com.mediapp.domain.common.Person"%><div id="contentBodyLeft">
    <div id="contentBodyRight">
     <div id="contentBodyCenter">

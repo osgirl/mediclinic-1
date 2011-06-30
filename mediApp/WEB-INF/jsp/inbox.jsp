@@ -41,7 +41,7 @@
 						</script>
 						
 							<div class="entryAlone">
-								<form name="inbox" id="inbox" method="post" >
+								<form name="inbox" id="inbox" method="get" >
 									<input type="hidden" name="AppointmentID"  id="AppointmentID" value=""/>
 									<input type="hidden" name="UserName"  id="UserName" value="${UserName}"/>
 									<input type="hidden" name="TakeAppointment"  id="TakeAppointment" value="${TakeAppointment}"/>
@@ -61,7 +61,7 @@
 														<table  border="0"   width=680 height="20">															
 															<tr>
 																<td align="right">
-																	<a href="/inbox.htm" onMouseover="document.buttonimg.src=eval('cacheonimg.src')" onMouseout="document.buttonimg.src=eval('cacheoffimg.src')">
+																	<a href="/inbox.htm" id="refresh" onMouseover="document.buttonimg.src=eval('cacheonimg.src')" onMouseout="document.buttonimg.src=eval('cacheoffimg.src')">
 																		<img src="/images/refresh_0.png" name="buttonimg" width="100" height="15" alt="Refresh">   
 																	</a>
 																</td>

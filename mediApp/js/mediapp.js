@@ -181,7 +181,7 @@ function fn_addAppointment(){
 }
 
 function fn_rescheduleAppointmentDate(){
-	document.getElementById('dateOfAppointment').disabled=false;
+/*	document.getElementById('dateOfAppointment').disabled=false;
 	document.getElementById('timeOfAppointment').disabled=false;	
     document.forms['rescheduleAppointment'].target="Parent";
     if(firstSubmit == 0){
@@ -197,6 +197,12 @@ function fn_rescheduleAppointmentDate(){
 		firstSubmit = 0;
 		self.close();
     }
+    */
+	window.close();
+	var form=document.getElementById('rescheduleAppointment');
+    form.setAttribute('target', 'iframeDialog');
+    form.submit();
+
 }
 
 function fn_GetDayAppointment(indicator){
@@ -310,7 +316,7 @@ function fn_GetYearView(indicator){
 	}
 }
 
-function fn_openAppointment(){
+function fn_openAppointment(takeAppointment){
 //	personID,timeOfAppointment,appointmentDate,appointmentID
 	var personID = document.getElementById('PersonID').value;
 	var appointmentDate=document.getElementById('AppointmentDateR').value;
@@ -324,7 +330,18 @@ function fn_openAppointment(){
 	var myObject = new Object();
 	myObject.URL = '/dayAppointment.htm';
 	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:670px;status:no;edge:sunken';
-    var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName, myObject, WinSettings);
+    //var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName, myObject, WinSettings);
+	var url = '/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName;	
+	var rurl= "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+UserName+"&TakeAppointment=N";
+	jQuery.showModalDialog({
+		 url: url,
+		 dialogArguments: null,
+		 height: 500,
+		 width: 900,
+		 scrollable: false,
+		 onClose: function(){  var returnedValue = this.returnValue;window.location.href=rurl;  }
+	});
+
     
 	
 }
@@ -357,7 +374,18 @@ function fn_rescheduleAppointment(){
     var timeOfAppointment=document.getElementById('TimeOfAppointment').value;		
     var UserName=document.getElementById('UserName').value;
 	var WinSettings = 'scroll:no;help:0;center:yes;resizable:yes;dialogHeight:630px;dialogWidth:1000px;status:no;edge:sunken';	
-    var c = window.showModalDialog('/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName, window, WinSettings);
+    //var c = window.showModalDialog('/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName, window, WinSettings);
+	var url = '/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName;
+	var rurl= "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+UserName+"&TakeAppointment=Y";
+	jQuery.showModalDialog({
+		 url: url,
+		 dialogArguments: null,
+		 height: 900,
+		 width: 900,
+		 scrollable: false,
+		 onClose: function(){  var returnedValue = this.returnValue;window.location.href=rurl;  }
+	});
+
 	//window.open('/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID,"reportWindow");
 }
 
@@ -383,6 +411,9 @@ function fn_confirmAppointment(){
 	var form=document.getElementById('updateAppointment');
     form.setAttribute('target', 'iframeDialog');
     form.submit();
+    //setTimeout("location.reload(true);",2000);
+    //location.href=document.getElementById("refresh").href;
+    //window.location.href="/inbox.htm";
     //var prntWindow = getParentWindowWithDialog(); //$(top)[0];
     //var $dlg = prntWindow && prntWindow.$dialog;
     //if ($dlg) window.dialogArguments = $dlg.dialogArguments;
