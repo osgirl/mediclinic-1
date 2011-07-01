@@ -59,7 +59,10 @@ public class PersonalProfileController extends MediAppBaseController  {
 		person = commonService.getPersonalProfile(sessionPerson.getIdPerson());
 		logonMap.put("person", person );
 		List <CodeDecode> personType = commonService.getCodeValue("PERSONTYPE");
-		logonMap.put("personType", personType);		
+		logonMap.put("personType", personType);
+		List <CodeDecode> packages = commonService.getCodeValue("PACKAGES");
+		logonMap.put("packages", packages);		
+		
 		return logonMap;
 	}
 	

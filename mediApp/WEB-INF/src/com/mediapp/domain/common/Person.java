@@ -57,6 +57,18 @@ public class Person extends MediAppBaseDomain{
 				new ArrayList < DoctorWorkTimings > (),
 			FactoryUtils.instantiateFactory(DoctorWorkTimings.class)); 
     
+	private List<String> packages = LazyList.decorate(
+			new ArrayList < String > (),
+		FactoryUtils.instantiateFactory(String.class)); 
+
+	
+	public List<String> getPackages() {
+		return packages;
+	}
+
+	public void setPackages(List<String> packages) {
+		this.packages = packages;
+	}
 
 	public String getLandlinePhoneNumber() {
 		return landlinePhoneNumber;

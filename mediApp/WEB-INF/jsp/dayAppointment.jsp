@@ -136,8 +136,7 @@
 			</div>
 	</div>
 	<div style="margin-left: -100px; top: -40px; background: white; width: 200px; height: 200px; position: relative;" id="reference">
-		<div id="movingDiv" class="stp" style="top=0;left=0;position:absolute;;margin-bottom:1.5em;display:none" >
-			<div class="or" style="margin:1em; padding:0;border-width: 0px 0px 0px 0px;" > 
+		<div id="movingDiv" class="stp1" style="top=0;left=0;position:absolute;;margin-bottom:1.5em;display:none" >
 		         <table  border=""  id="menuTable" width=130 class="sample" style="border-width: 0px 0px 0px 0px;">
        				<input type="hidden" name="TimeOfAppointment"  id="TimeOfAppointment" />
    					<input type="hidden" name="AppointmentDateR"  id="AppointmentDateR" />
@@ -188,7 +187,6 @@
 	        		   </tr>
 	           			
 	         		</table>
-			</div>
 		</div>				  		
 	</div>															
 	

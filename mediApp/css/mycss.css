@@ -580,6 +580,31 @@ float:right;
 margin:0 0 0 20px;
 }
 
+.stp1 {
+border:1px solid #b2d8b2;
+background-color:#b2d8b2;
+}
+
+.stp1.with-icon {
+text-align:left;
+font-size:14px;
+font-weight:700;
+padding:20px;
+}
+
+.stp1.with-icon .icon {
+float:right;
+margin:0 0 0 20px;
+}
+
+a:hover {
+color:#b2d8b2;
+background:#b2d8b2;
+border-top:1px solid #93A9C9;
+border-bottom:1px solid #93A9C9;
+padding:0;
+}
+
 table.sample {
 border-spacing:2px;
 border-collapse:separate;
