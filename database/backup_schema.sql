@@ -289,8 +289,9 @@ CREATE TABLE `menu_to_role_mapping` (
   `menu_name` varchar(50) DEFAULT NULL,
   `menu_url` varchar(100) DEFAULT NULL,
   `role` varchar(100) DEFAULT NULL,
+  `position` int(3) DEFAULT NULL,
   PRIMARY KEY (`idmenu_to_role_mapping`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -404,13 +405,13 @@ DROP TABLE IF EXISTS `person_package`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `person_package` (
-  `idperson_package` int(11) NOT NULL,
+  `idperson_package` int(11) NOT NULL AUTO_INCREMENT,
   `person_id` int(11) DEFAULT NULL,
   `package` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idperson_package`),
   KEY `person_id` (`person_id`),
   CONSTRAINT `person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -746,4 +747,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-07-01 23:32:05
+-- Dump completed on 2011-07-02 16:33:55
