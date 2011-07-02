@@ -96,7 +96,7 @@ public class LoginController extends MediAppBaseController  {
 		}
 		CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);		
 		HttpSession sessionObj = request.getSession(true);
-		sessionObj.setAttribute("menuItems", loginService.getMenuItems(person.getPersonTypeString()));
+		sessionObj.setAttribute("menuItems", loginService.getMenuItems(person.getIdPerson()));
 		if(person.getLastName()!= null){
 			return new ModelAndView("redirect:/takeAppointment.htm",CommonWebConstants.USER_ID, person);	
 		}else{
