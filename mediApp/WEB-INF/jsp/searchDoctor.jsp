@@ -187,7 +187,7 @@
 																				<table width=100>
 																					<tr>
 																						<c:forEach var="num" items="${fn:split(searchResult.workDays, '-')}">
-																							<td style="background: url(/images/blankbutton_0.jpg) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;height=100%;"  align="center">
+																							<td style="background: url(/images/blankbutton_0.jpg) no-repeat;overflow: hidden;background-position: top center;height=100%;"  align="center">
 			                        															<c:out value="${num}" /> 
 																							</td>
 																						</c:forEach>
