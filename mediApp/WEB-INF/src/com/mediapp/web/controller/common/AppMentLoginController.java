@@ -18,6 +18,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mediapp.core.common.business.CommonService;
 import com.mediapp.core.common.business.LoginService;
 import com.mediapp.core.common.business.impl.AppmentCache;
 import com.mediapp.core.common.business.impl.ScheduleEMail;
@@ -34,6 +35,14 @@ public class AppMentLoginController extends MediAppBaseController  {
 	 
 	private final Log logger = LogFactory.getLog(getClass());
 	LoginService loginService;
+	CommonService commonService;
+	public CommonService getCommonService() {
+		return commonService;
+	}
+	public void setCommonService(CommonService commonService) {
+		this.commonService = commonService;
+	}
+
 	ScheduleEMail sendeMail;
 	public ScheduleEMail getSendeMail() {
 		return sendeMail;
@@ -61,9 +70,10 @@ public class AppMentLoginController extends MediAppBaseController  {
 		Person person = loginService.authenticate((Person)command);
 		CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);		
 		HttpSession sessionObj = request.getSession(true);
-		sessionObj.setAttribute("menuItems", loginService.getMenuItems(person.getPersonTypeString()));
+		sessionObj.setAttribute("menuItems", loginService.getMenuItems(person.getIdPerson()));
+		sessionObj.setAttribute("ePackages", commonService.getCodeValue("PACKAGES"));
 		if(person.getLastName()!= null){
-			return new ModelAndView("redirect:/takeAppointment.htm",CommonWebConstants.USER_ID, person);	
+			return new ModelAndView("redirect:/inbox.htm",CommonWebConstants.USER_ID, person);	
 		}else{
 			return new ModelAndView("redirect:/personalProfile.htm",CommonWebConstants.USER_ID, person);
 		}

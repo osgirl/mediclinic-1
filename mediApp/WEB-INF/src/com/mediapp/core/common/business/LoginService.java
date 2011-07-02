@@ -35,5 +35,5 @@ public interface LoginService {
 
 	public List <CodeDecode> getSpecialities() ;
 
-	public Map getMenuItems(String userRole);
+	public Map getMenuItems(int personID);
 }

@@ -282,7 +282,8 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 			}
 
 		}
-
+		 List<String> packages = (ArrayList<String>) getList("common.getPackages",criteria );
+		 completeDetails.setPackages(packages);
 		return completeDetails;
 	}
 
@@ -468,9 +469,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
 	}
 
-	public Map getMenuItems(String userRole) throws DataAccessException{
-		Map<String,String> criteria =  new HashMap < String, String > () ;
-		criteria.put("UserRole", userRole);
+	public Map getMenuItems(int personID) throws DataAccessException{
+		Map<String,Integer> criteria =  new HashMap < String, Integer > () ;
+		criteria.put("PersonID", new Integer(personID));
 		return  getMap("common.getMenuItems", criteria,"menu_name", "menu_url");
 	}
 

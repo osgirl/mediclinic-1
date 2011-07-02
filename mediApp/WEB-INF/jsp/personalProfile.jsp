@@ -215,8 +215,25 @@
               <td >Select Package: <font color="red">*</font></td>
               <td >
 		           <div style="overflow:auto;width:150px;height:80px;border:1px solid #336699;padding-left:5px;background-color:white;">
+		           <%@page import="com.mediapp.domain.common.CodeDecode"%>
+		           <%@page import="java.util.ArrayList"%>
+		           <%@page import="java.util.List"%>
+		           <%int i = 0; 
+		           String chk="";
+		           List<CodeDecode> pack = (ArrayList<CodeDecode>)request.getAttribute("packages");
+		           Person personDetails = (Person)request.getAttribute("person");
+		           %>
 						<c:forEach items="${packages}" var="data" >
-							<input type="checkbox" name="${data.codeDecode}" id="${data.codeDecode}" value="Y" >${data.codeDecode}</input><br>
+						<%
+						chk="";
+						for(String packages: personDetails.getPackages()){
+							if(packages.equals(pack.get(i).getCodeDecode())){								
+								chk = "checked";
+							}
+						}
+						i++;
+						%>
+							<input type="checkbox" name="${data.codeDecode}" id="${data.codeDecode}" value="Y" <%=chk %> readonly>${data.codeDecode}</input><br>
 						</c:forEach>
 	                </div>
               </td>

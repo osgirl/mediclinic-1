@@ -115,8 +115,8 @@ public class LoginServiceImpl implements LoginService {
 		return commonDAO.getCodeValue(CommonCoreConstants.SPECIALITY);
 	}
 
-	public Map getMenuItems(String userRole){		
-		return commonDAO.getMenuItems(userRole);
+	public Map getMenuItems(int personID){		
+		return commonDAO.getMenuItems(personID);
 	}
 
 }

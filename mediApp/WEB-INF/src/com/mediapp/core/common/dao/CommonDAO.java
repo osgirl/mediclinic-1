@@ -65,7 +65,7 @@ public interface CommonDAO {
 	
 	public boolean scheduleJob(String action, Map<String, String> parms, String comments) throws DataAccessException;
 	
-	public Map getMenuItems(String userRole) throws DataAccessException;
+	public Map getMenuItems(int personID) throws DataAccessException;
 	
 	public boolean deleteAddress(Person person)throws DataAccessException;
 	
