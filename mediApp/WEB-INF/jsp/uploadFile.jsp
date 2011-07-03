@@ -9,33 +9,35 @@
 <%@page import="com.mediapp.domain.common.Person"%>
 <html>
 <head>
-<title>mediApp</title>
-<link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/images/favicon.ico"
-	type="image/x-icon" />
-<link href="<%=request.getContextPath()%>/css/mycss.css"
-	rel="stylesheet" type="text/css">
-<link href="<%=request.getContextPath()%>/css/autocomplete.css"
-	rel="stylesheet" type="text/css">
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/js/mediapp.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/js/calendar_us.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/js/prototype.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/calendar.css">
+<title>AppMent - Upload File</title>
+	<link rel="shortcut icon"
+		href="<%=request.getContextPath()%>/images/favicon.ico"
+		type="image/x-icon" />
+	<link href="<%=request.getContextPath()%>/css/mycss.css"
+		rel="stylesheet" type="text/css">
+	<link href="<%=request.getContextPath()%>/css/autocomplete.css"
+		rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css" type="text/css" />
+    <script type="text/javascript"  src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
+   	<script type="text/javascript"  src="<%=request.getContextPath()%>/js/jquery-ui.min.js"></script>
+		
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/js/mediapp.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/js/calendar_us.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/js/prototype.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
+	<link rel="stylesheet"
+		href="<%=request.getContextPath()%>/css/calendar.css">
 </head>
 <body>
 <form name="uploadFile" id="uploadFile" method="post"
 	action="uploadFile.htm" enctype="multipart/form-data">
-<div id="createApt" style="display: block" align="center">
-<table border="" class="login" width=680 cellpadding="200">
-	<tr bgcolor="lightblue">
-		Upload File
-	</tr>
+			<div class="stp" style="margin-bottom:1.5em;" >
+				<div class="or" style="margin:1em; padding:0;" >
+<table border="" class="sample" width=680  height=200 cellpadding="200" align="center">
 	<spring:bind path="fileUpload.idPatient">
 		<input type="hidden" name="${status.expression}"  value="<c:out value="${fileUpload.idPatient}"/>"/>					
 	</spring:bind>
@@ -70,16 +72,25 @@
         	</spring:bind>
         </td>
 	</tr>
-	<tr>
-		<td align="center" colspan="2"><input type="button"
-			onClick="javascript:fn_uploadSelectedFile();" alignment="center"
-			value="Upload" class="bsubmit" width="75" /></td>
-	</tr>
+					<tr>     
+						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
+				  			<a href="javascript:void(0);" onClick="javascript:fn_uploadSelectedFile();" style="text-decoration:none"> 
+				  				<font size="+1" color="#FFFFFF" >Upload</font> 
+				  			</a>
+				  		</td>
+						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
+				  			<a href="javascript:void(0);" onClick="javascript:window.close();" style="text-decoration:none"> 
+				  				<font size="+1" color="#FFFFFF" >Cancel</font> 
+				  			</a>
+				  		</td>
+				  		
+					</tr>
+	
 
 
 
 </table>
-</div>
+</div></div>
 </form>
 
 </body>

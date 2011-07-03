@@ -688,8 +688,19 @@ function deleteRow(tableID,form) {
 
 function fn_uploadFile(){
 	 window.name = "ParentWindow"; 
-	 var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:300px;dialogWidth:700px;status:no;edge:sunken'; 
-    var c = window.showModalDialog('/uploadFile.htm', window, WinSettings);
+	 //var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:300px;dialogWidth:700px;status:no;edge:sunken'; 
+    //var c = window.showModalDialog('/uploadFile.htm', window, WinSettings);
+	var url = '/uploadFile.htm';
+	var rurl= "/pastHistory.htm";
+	jQuery.showModalDialog({
+		 url: url,
+		 dialogArguments: null,
+		 height: 500,
+		 width: 900,
+		 scrollable: false,
+		 onClose: function(){  var returnedValue = this.returnValue;window.location.href=rurl;  }
+	});
+    
 }
 
 function fn_deleteAllergy(){

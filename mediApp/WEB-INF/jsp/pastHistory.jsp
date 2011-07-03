@@ -2,6 +2,9 @@
 <div id="contentBodyLeft">
    <div id="contentBodyRight">
     <div id="contentBodyCenter">
+    			<div class="stp" style="margin-bottom:1.5em;">
+				<div class="or" style="margin:1em; padding:0;" >
+    
      <div id="contentSingleEntry" style="">
       <div id="entries">
        <div class="entryAlone">
@@ -9,14 +12,14 @@
          <table width=900  border="1" class="layout"  > 
           <tr>
            <td> 
-            <table width=100 align="left"  border="1" class="layout" > 
+             <table width=200 align="left"   class="sample" style="border-width: 0px 0px 0px 0px;">  
              <menu:verticalMenuItemTag></menu:verticalMenuItemTag>
             </table>
             
             <div id="History"  style="display:block" align="center">
-             <table  border=""  class="login" width=680 cellpadding="200">
-              <tr bgcolor="lightblue" >
-               Personal Details
+             <table  border=""  class="sample" width=680 cellpadding="200">
+              <tr  >
+               Personal Information
               </tr>
               <tr>
               		<spring:bind path="patientDetails.idPatient">
@@ -65,9 +68,9 @@
               </tr>
              </table>
             </div>
-            <div id="History"  style="display:block" align="right">
-             <table  border=""  class="login" width=680 cellpadding="200" >
-              <tr bgcolor="lightblue" >
+            <div id="History"  style="display:block" align="center">
+             <table  border=""  class="sample" width=680 cellpadding="200" >
+              <tr >
                Allergies
               </tr>
               <tr>
@@ -95,16 +98,29 @@
 		               </td>
               </tr>
              </table>
-             
-             <input type="button"  onClick="javascript:fn_saveHistory();" alignment="center" value="Save" class="bsubmit" id="btnUpload" width="75" />
+              <table border="0" cellpadding="0" cellspacing="0" width="200" height="30"  align="bottom">       
+					<tr>     
+						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
+				  			<a href="javascript:void(0);" onClick="javascript:fn_saveHistory();" style="text-decoration:none"> 
+				  				<font size="+1" color="#FFFFFF" >Save</font> 
+				  			</a>
+				  		</td>
+					</tr>
+				</table>
             </div>
             
             <div id="History"  style="display:block" align="right" >
-             <table  border=""  class="login" width=680 cellpadding="200">
-              <tr bgcolor="lightblue" >
-               Upload Past History Files &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               <input type="button"  onClick="javascript:fn_uploadFile();" alignment="center" value="Upload" class="bsubmit" id="btnUpload" width="75" />
-              </tr>
+              <table border="0" cellpadding="0" cellspacing="0" width="100" height="30"  align="right">       
+					<tr>     
+						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
+				  			<a href="javascript:void(0);" onClick="javascript:fn_uploadFile();" style="text-decoration:none"> 
+				  				<font size="+1" color="#FFFFFF" >Upload</font> 
+				  			</a>
+				  		</td>
+					</tr>
+				</table><br></br>
+            
+             <table  border=""  class="sample" width=680 cellpadding="200">
 					<tr>
 						<td>
 						</td>						
@@ -144,7 +160,7 @@
       </div>
       <div id="column">
       </div>
-     </div>
+     </div></div></div>
     </div>
    </div>
   </div>

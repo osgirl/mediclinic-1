@@ -538,11 +538,17 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		Integer idPersonInt = new Integer(idPerson);
 		criteria.put("PersonID", idPersonInt);
-		PatientDetails patientDetails = (PatientDetails)getObject("common.getPatientDetails", criteria);
+		PatientDetails patientDetails =new PatientDetails();
+		patientDetails = (PatientDetails)getObject("common.getPatientDetails", criteria);
+		
 		List<String> allegeries = (ArrayList<String>) getList("common.getAllergies", criteria);
-		patientDetails.setAllergies(allegeries);
+		if(null != allegeries && allegeries.size() > 0){
+			patientDetails.setAllergies(allegeries);
+		}
 		List<MultiPartFileUploadBean> uploadedFiles = (ArrayList<MultiPartFileUploadBean>) getList("common.getuploadedFiles", criteria);
-		patientDetails.setUploadedFiles(uploadedFiles);
+		if(null != uploadedFiles && uploadedFiles.size() > 0){
+			patientDetails.setUploadedFiles(uploadedFiles);
+		}
 		return patientDetails;
 	}
 

@@ -599,10 +599,13 @@ margin:0 0 0 20px;
 
 a:hover {
 color:#b2d8b2;
-background:#b2d8b2;
+background-color:#b2d8b2;
 border-top:1px solid #93A9C9;
 border-bottom:1px solid #93A9C9;
-padding:0;
+border-color:#b2d8b2;
+border-style:outset;
+border-width:1px;
+
 }
 
 table.sample {
