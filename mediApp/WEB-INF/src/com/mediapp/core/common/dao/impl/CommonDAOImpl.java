@@ -48,10 +48,16 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	private final Log logger = LogFactory.getLog(getClass());
 
 	public Person getPersonDetails(Person person) throws DataAccessException {
-		Map<String,String> criteria =  new HashMap < String, String > () ;
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		criteria.put("Key", person.getKey());
 		criteria.put("Username", person.getUsername());
-		return (Person) getObject("common.authenticateUser", criteria);
+		Person detailsOfPerson = (Person)getObject("common.authenticateUser", criteria);
+		criteria = new HashMap < String, Object > () ;
+		Integer idPersonInt = new Integer(detailsOfPerson.getIdPerson());
+		criteria.put("PersonID", idPersonInt);
+		 List<String> packages = (ArrayList<String>) getList("common.getPackages",criteria );
+		 detailsOfPerson.setPackages(packages);
+		return detailsOfPerson ;
 	}
 
 	public List <CodeDecode> getPersonType() throws DataAccessException {

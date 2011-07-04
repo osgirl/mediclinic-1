@@ -28,7 +28,7 @@
 		<form name="updateAppointment" id="updateAppointment" method="post" >
 			<div class="stp" style="margin-bottom:1.5em;" >
 				<div class="or" style="margin:1em; padding:0;" >
-					<table border="0" cellpadding="3" class="sample" cellspacing="0" width=450 height=300 align="center">
+					<table border="0" cellpadding="3" class="sample" cellspacing="0" width=850 height=325 align="center">
 						<tr bgcolor="lightblue">
 							<font style="text-align: center;font-size: 120%;font-weight: bold;">Appointment Details</font>
 						</tr>
@@ -95,12 +95,48 @@
 							<input type="hidden" name="AppointmentDate"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>"/>							
 							<input type="hidden" name="AppointmentID"  value="${appointment.appointmentID}"/>
 							<input type="hidden" name="UserName"  value="${UserName}"/>
+					<%	Person p = (Person)request.getSession().getAttribute("person");
+						NotificationDetails n = (NotificationDetails) request.getAttribute("Notification");
+					%>
+					<% if(!p.getEmailID().equals(n.getPatientEmailAddress()) &&
+							p.getPackages().contains("Doctor")){
+							
+					%>
+					<c:if test="${appointment.confirmedIndicator == 'Y'}">
+						
+						<table  border=""  class="sample" width=850 id="tblSample" align="center">
+							<tr>
+								<td></td>
+								<td>Diagnosis Details</td>
+								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
+						  			<a href="javascript:void(0);" onClick="javascript:fn_showDiagnosis();" style="text-decoration:none"> 
+						  				<font size="+1" color="#FFFFFF" >Add</font> 
+						  			</a>
+						  		</td>
+							</tr>
+						
+						</table>							
+						<table  border=""  class="sample" width=850 height= 80  align="center">
+							<tbody id="aa">						
+							<tr>
+								<td>Diagnosis:
+								</td>
+								<td  >Prescription:
+								</td>
+								<td>Tests:
+								</td>
+							</tr>
+							</tbody>
+						</table>
+							  	
+					</c:if>
+					<%} %>
 					</table>
+					
 					<table border="0" cellpadding="0" cellspacing="0" width="450" height="30" align="center">						         
 						<tr >     
-							<%Person p = (Person)request.getSession().getAttribute("person");
-							NotificationDetails n = (NotificationDetails) request.getAttribute("Notification");
-							if(!p.getEmailID().equals(n.getPatientEmailAddress())){ %>
+							
+							<%if(!p.getEmailID().equals(n.getPatientEmailAddress())){ %>
 							
 							<c:if test="${appointment.confirmedIndicator == 'N'}">
 								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
@@ -109,6 +145,14 @@
 						  			</a>
 						  		</td>
 					  		</c:if>
+							<c:if test="${appointment.confirmedIndicator == 'Y'}">
+								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
+						  			<a href="javascript:void(0);" onClick="javascript:fn_updateAppointmentDetails();" style="text-decoration:none"> 
+						  				<font size="+1" color="#FFFFFF" >Save</font> 
+						  			</a>
+						  		</td>
+					  		</c:if>
+					  		
 								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
 						  			<a href="javascript:void(0);" onClick="" style="text-decoration:none"> 
 						  				<font size="+1" color="#FFFFFF" >Follow Up</font> 
@@ -127,7 +171,74 @@
 					
 				</div>
 			</div>
+	<div style="margin-left: -100px; top: -40px; background: white; width: 200px; height: 200px; position: relative;" id="reference1">
+		<div id="diagnosisBox" class="stp1" style="top=0;left=0;position:absolute;;margin-bottom:1.5em;display:none" >
+		         <table  border=""  id="diagnosisTable" width=700 height=300 class="sample" style="border-width: 0px 0px 0px 0px;">
+			           <tr>
+			           		<td> Diagnosis:
+			           		</td>               
+				            <td>
+									<input type="text" name="diagnosis"   />
+									<script type="text/javascript">
+											new Autocomplete('diagnosis', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
+									</script>
+				           </td>
+				           <td>
+				           </td>
+	        		   </tr>
+			           <tr>               
+				            <td >
+				            	Find Prescription:
+				           </td>
+				           <td>
+				           </td>
+				           <td>
+				           </td>
+	        		   </tr>
 
+	           			<tr >
+	           				<td>
+	           					<input type="text" name="findPrescription"  id="findPrescription" value=""/>
+								<script type="text/javascript">
+										new Autocomplete('findPrescription', { serviceUrl:'/appointmentPopUp.htm' },'table.PRESCRIPTION');
+								</script>
+	           				
+				           </td>
+				           <td>
+				           		<input type="button"  onClick="javascript:fn_addToSelect('diagnosis[${diagnosisAndtest.index}].prescriptionList','findPrescription[${diagnosisAndtest.index}]');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+								</br>
+								<input type="button"  onClick="javascript:fn_deletePrescription(${diagnosisAndtest.index});" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
+				           
+				           </td>
+				           <td>
+				           </td>
+	           			</tr>
+	           			<tr >
+	           				<td>
+								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';" style="text-decoration:none"  class="sansa"  > 
+									<font size="+1" color="blue" >Propose Time</font> 
+								</a>
+				           </td>
+	           			</tr>	           			
+			           <tr >               
+				            <td>
+								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';" style="text-decoration:none"  class="sansa"> 
+									<font size="+1" color="blue" >Cancel</font> 
+								</a>
+				           </td>
+	        		   </tr>
+			           <tr >               
+				            <td>
+								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';" style="text-decoration:none"  class="sansa"> 
+									<font size="+1" color="blue" >Close</font> 
+								</a>
+				           </td>
+	        		   </tr>
+	           			
+	         		</table>
+		</div>				  		
+	</div>															
+			
 		</form>
 	</body>
 </html>

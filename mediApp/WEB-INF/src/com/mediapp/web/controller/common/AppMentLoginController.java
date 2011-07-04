@@ -68,10 +68,9 @@ public class AppMentLoginController extends MediAppBaseController  {
 	
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
 		Person person = loginService.authenticate((Person)command);
-		CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);		
 		HttpSession sessionObj = request.getSession(true);
 		sessionObj.setAttribute("menuItems", loginService.getMenuItems(person.getIdPerson()));
-		sessionObj.setAttribute("ePackages", commonService.getCodeValue("PACKAGES"));
+		CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);		
 		if(person.getLastName()!= null){
 			return new ModelAndView("redirect:/inbox.htm",CommonWebConstants.USER_ID, person);	
 		}else{

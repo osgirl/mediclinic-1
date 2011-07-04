@@ -1329,6 +1329,17 @@ window.onload = function () {
   //document.getElementById('other_clicky').onmousedown =
 }
 
+function fn_showDiagnosis(){
+    var e =event || window.event;   
+    var pos = getRelativeCoordinates(e, document.getElementById('reference1'));
+    var r = document.getElementById('reference1');
+    var m = document.getElementById('diagnosisBox');
+    m.style.left = '200px' ;
+    m.style.top = '-400px';
+	var menuStyle=document.getElementById('diagnosisBox').style; 
+	menuStyle.display="block";
+	
+}
 function fn_showOptions(event,loggedUserID,calendarUserID,appointmentTime,appointmentDate,appointmentID,confirmationIndicator){
     var e =event || window.event;   
     var pos = getRelativeCoordinates(e, document.getElementById('reference'));
