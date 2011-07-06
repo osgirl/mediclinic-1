@@ -14,6 +14,9 @@
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/shakehand1.ico" type="image/x-icon" />    
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css" type="text/css" />
 	<link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
+        <LINK REL=StyleSheet HREF="dimming.css" TYPE="text/css">
+		<SCRIPT LANGUAGE="JavaScript" SRC="dimmingdiv.js"></script>
+	
     <script type="text/javascript"  src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
     <script type="text/javascript"  src="<%=request.getContextPath()%>/js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/customalert.js" ></script>

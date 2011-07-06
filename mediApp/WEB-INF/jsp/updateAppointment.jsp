@@ -104,7 +104,7 @@
 					%>
 					<c:if test="${appointment.confirmedIndicator == 'Y'}">
 						
-						<table  border=""  class="sample" width=850 id="tblSample" align="center">
+						<table  border=""  class="sample" width=850 height=40 id="tblSample" align="center">
 							<tr>
 								<td></td>
 								<td>Diagnosis Details</td>
@@ -171,24 +171,24 @@
 					
 				</div>
 			</div>
-	<div style="margin-left: -100px; top: -40px; background: white; width: 200px; height: 200px; position: relative;" id="reference1">
-		<div id="diagnosisBox" class="stp1" style="top=0;left=0;position:absolute;;margin-bottom:1.5em;display:none" >
+			<div style="width: 518px; height: 287px;visibility:hidden" id="windowcontent">
 		         <table  border=""  id="diagnosisTable" width=700 height=300 class="sample" style="border-width: 0px 0px 0px 0px;">
 			           <tr>
-			           		<td> Diagnosis:
-			           		</td>               
-				            <td>
+			           		<td width="40%"> Diagnosis:
+			           		</td>
+			           		<td width="20%">
+				           </td>
+			           		               
+				            <td width="40%">
 									<input type="text" name="diagnosis"   />
 									<script type="text/javascript">
 											new Autocomplete('diagnosis', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
 									</script>
 				           </td>
-				           <td>
-				           </td>
 	        		   </tr>
 			           <tr>               
 				            <td >
-				            	Find Prescription:
+				            	Add Prescription:
 				           </td>
 				           <td>
 				           </td>
@@ -205,39 +205,60 @@
 	           				
 				           </td>
 				           <td>
-				           		<input type="button"  onClick="javascript:fn_addToSelect('diagnosis[${diagnosisAndtest.index}].prescriptionList','findPrescription[${diagnosisAndtest.index}]');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+				           		<input type="button"  onClick="javascript:fn_addToSelect('prescriptionList','findPrescription');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 								</br>
 								<input type="button"  onClick="javascript:fn_deletePrescription(${diagnosisAndtest.index});" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 				           
 				           </td>
 				           <td>
+								<select  name="prescriptionList" id="prescriptionList" style="width: 15em;" size="3" multiple >
 				           </td>
 	           			</tr>
+			           <tr>               
+				            <td >
+				            	Add Test:
+				           </td>
+				           <td>
+				           </td>
+				           <td>
+				           </td>
+	        		   </tr>
+
 	           			<tr >
 	           				<td>
-								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';" style="text-decoration:none"  class="sansa"  > 
-									<font size="+1" color="blue" >Propose Time</font> 
-								</a>
+	           					<input type="text" name="findTest"  id="findTest" value=""/>
+								<script type="text/javascript">
+										new Autocomplete('findTest', { serviceUrl:'/appointmentPopUp.htm' },'table.PRESCRIPTION');
+								</script>
+	           				
 				           </td>
-	           			</tr>	           			
-			           <tr >               
-				            <td>
-								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';" style="text-decoration:none"  class="sansa"> 
-									<font size="+1" color="blue" >Cancel</font> 
-								</a>
+				           <td>
+				           		<input type="button"  onClick="javascript:fn_addToSelect('testList','findTest');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
+								</br>
+								<input type="button"  onClick="javascript:fn_deletePrescription(${diagnosisAndtest.index});" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
+				           
 				           </td>
-	        		   </tr>
-			           <tr >               
-				            <td>
-								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';" style="text-decoration:none"  class="sansa"> 
-									<font size="+1" color="blue" >Close</font> 
-								</a>
+				           <td>
+								<select  name="testList" id="testList" style="width: 15em;" size="3" multiple >
 				           </td>
-	        		   </tr>
-	           			
+	           			</tr>
 	         		</table>
-		</div>				  		
-	</div>															
+					<table border="0" cellpadding="0" cellspacing="0" width="700" height="40" class="sample">						         
+						<tr >     
+							<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
+					  			<a href="javascript:void(0);" onClick="javascript:fn_addDetails();" style="text-decoration:none"> 
+					  				<font size="+1" color="#FFFFFF" >Add</font> 
+					  			</a>
+					  		</td>
+							<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
+					  			<a href="javascript:void(0);" onClick="javascript:fn_close();" style="text-decoration:none"> 
+					  				<font size="+1" color="#FFFFFF" >Close</font> 
+					  			</a>
+					  		</td>
+					  	</tr>
+					  	
+					  </table>	         		
+			</div>
 			
 		</form>
 	</body>

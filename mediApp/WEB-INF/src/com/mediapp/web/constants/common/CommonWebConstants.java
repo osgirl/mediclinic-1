@@ -28,7 +28,7 @@ public interface CommonWebConstants {
 	 String QUOTES ="\""; 
 	 
 	 //String VERTICAL_MENU_BUTTON_AFTER_ONCLICK_TAG = " );' alignment='center' value='";
-	 String VERTICAL_MENU_BUTTON_AFTER_ONCLICK_TAG =");' style='text-decoration:none;font: sans-serif;' ><font size='4px' color='black' >";
+	 String VERTICAL_MENU_BUTTON_AFTER_ONCLICK_TAG =");' style='text-decoration:none;font-family:Verdana,Arial,Sans-Serif;' ><font size='4px' color='black' >";
 //	 String VERTICAL_MENU_BUTTON_AFTER_VALUE_TAG = "' class='gsubmit'    /></td></tr> ";
 	 String VERTICAL_MENU_BUTTON_AFTER_VALUE_TAG ="</font></a></td></tr><tr><td></td></tr>"; 
 	// String MENU_TABLE_END_TAG = "</table></td></tr>";
