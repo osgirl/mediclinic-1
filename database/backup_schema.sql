@@ -309,7 +309,7 @@ CREATE TABLE `patient_allergies` (
   PRIMARY KEY (`idpatient_allergies`),
   KEY `allergies_to_patient` (`idPatient_details`),
   CONSTRAINT `allergies_to_patient` FOREIGN KEY (`idPatient_details`) REFERENCES `patient_details` (`idPatient_details`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -747,4 +747,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-07-02 16:33:55
+-- Dump completed on 2011-07-06 23:37:13
