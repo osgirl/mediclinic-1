@@ -336,7 +336,7 @@ function fn_openAppointment(takeAppointment){
 	jQuery.showModalDialog({
 		 url: url,
 		 dialogArguments: null,
-		 height: 800,
+		 height: 600,
 		 width: 900,
 		 scrollable: false,
 		 onClose: function(){  var returnedValue = this.returnValue;window.location.href=rurl;  }
@@ -452,6 +452,17 @@ function fn_deletePrescription(num){
 	      elSel.remove(i);
 	    }
 	  }
+}
+
+function fn_deleteFromList(listName){
+	  var elSel = document.getElementById(listName);
+	  var i;
+	  for (i = elSel.length - 1; i>=0; i--) {
+	    if (elSel.options[i].selected) {
+	      elSel.remove(i);
+	    }
+	  }
+	
 }
 
 function fn_deleteTest(num){
@@ -1341,7 +1352,7 @@ function fn_showDiagnosis(){
 */		
 	var w, h, l, t;
 	w = 700;
-	h = 400;
+	h = 360;
 	l = 100;
 	t = 100;
 	displayFloatingDiv('windowcontent', 'AppMent', w, h, l, t);

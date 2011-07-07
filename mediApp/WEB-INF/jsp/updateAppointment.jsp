@@ -207,7 +207,7 @@
 				           <td>
 				           		<input type="button"  onClick="javascript:fn_addToSelect('prescriptionList','findPrescription');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 								</br>
-								<input type="button"  onClick="javascript:fn_deletePrescription(${diagnosisAndtest.index});" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
+								<input type="button"  onClick="javascript:fn_deleteFromList('prescriptionList');" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 				           
 				           </td>
 				           <td>
@@ -235,7 +235,7 @@
 				           <td>
 				           		<input type="button"  onClick="javascript:fn_addToSelect('testList','findTest');" alignment="center" value=">>" class="bsubmit" id="btnAdd" width="75" />
 								</br>
-								<input type="button"  onClick="javascript:fn_deletePrescription(${diagnosisAndtest.index});" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
+								<input type="button"  onClick="javascript:fn_deleteFromList('testList');" alignment="center" value="<<" class="bsubmit" id="btnDel" width="75" />
 				           
 				           </td>
 				           <td>
