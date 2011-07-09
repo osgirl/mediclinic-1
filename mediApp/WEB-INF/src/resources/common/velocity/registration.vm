@@ -1,12 +1,18 @@
 <html>
 <body>
-<div class="font-family:Arial, Helvetica, sans-serif;">
-   Hi,</br>
-   Thank you for registering with Appment. Your login details are -<br/>
-   	User ID - $username<br/>
-	password - $password<br/>
-	
-Thanks and Regards,<br/>
+<div style="white-space: pre;background-color:#cadef4;">
+	<img src="cid:${logo}"/>
+</div>
+
+<div class="font-family:Arial;" style="white-space: pre;background-color:#cadef4;" >
+Hi,
+   Thank you for registering with Appment. Your login details are -
+			<b>User ID:</b> $username
+			<b>password:</b>$password
+
+	Could you please review and confirm the appointment?
+
+Thanks and Regards,
 Appment Team.
 
 </div>

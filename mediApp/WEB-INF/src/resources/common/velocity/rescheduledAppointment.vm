@@ -1,20 +1,23 @@
 <html>
 <body>
-<h3>Hi $doctorName</h3>
+<div style="white-space: pre;background-color:#cadef4;">
+	<img src="cid:${logo}"/>
+</div>
 
-<div class="font-family:Arial, Helvetica, sans-serif;">
-   $patientName has rescheduled an appointment. Following are the latest details -</br>
-   <pre>Headline: $headline</pre></br>
-   <pre>Date:     $date</pre></br>
-   <pre>Time:     $time</pre></br>
-   <pre>Duration: $duration</pre></br>
-   <pre>Comments: $comments</pre></br>
-	
-	Could you please review and confirm the appointment?</br>
-	
-Thanks and Regards,</br>
+<div class="font-family:Arial;" style="white-space: pre;background-color:#cadef4;" >
+Hi $doctorName,
+   $patientName has rescheduled an appointment. Following are the latest details-
+			<b>Headline:</b> $headline
+			<b>Date:</b>     $date
+			<b>Time:</b>     $time
+			<b>Duration:</b> $duration
+			<b>Comments:</b> $comments
+
+	Could you please review and confirm the appointment?
+
+Thanks and Regards,
 Appment Team.
-	
+
 </div>
 </body>
 

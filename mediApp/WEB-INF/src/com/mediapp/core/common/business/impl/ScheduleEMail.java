@@ -4,6 +4,7 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -24,6 +25,7 @@ import com.mediapp.domain.common.Person;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import java.io.File;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.sql.Time;
@@ -117,10 +119,14 @@ public class ScheduleEMail {
 	            	model.put("time", appointment.getTimeOfAppointment());
 	            	model.put("duration", appointment.getAppointmentDuration());
 	            	model.put("comments", appointment.getComments());	            	
+	            	
 	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 	               message.setTo(notificationDetails.getDoctorEmailAddress());
 	               message.setCc(notificationDetails.getPatientEmailAddress());
-	                   message.setSubject("New Appointment Notification");
+	               message.setSubject("New Appointment Notification");
+	               FileSystemResource res = new FileSystemResource(new File("C:\\Documents and Settings\\Administrator\\Desktop\\padmaraj\\demo\\mediclinic\\workspace\\with search\\work1\\mediApp\\images\\logoForEmail.JPG"));
+	               message.addInline("logo", res);
+	                   
 		               String body = null;
 		               if(velocityEngine==null){		            	   
 		            	   VelocityEngine velocityEngine = new VelocityEngine();
