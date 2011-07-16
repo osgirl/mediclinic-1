@@ -1,8 +1,5 @@
 <html>
 <body>
-<div style="white-space: pre;background-color:#cadef4;">
-	<img src="cid:${logo}"/>
-</div>
 
 <div class="font-family:Arial;" style="white-space: pre;background-color:#cadef4;" >
 Hi $patientName,

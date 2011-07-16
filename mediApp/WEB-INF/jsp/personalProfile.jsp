@@ -219,6 +219,7 @@
 		           <%@page import="java.util.ArrayList"%>
 		           <%@page import="java.util.List"%>
 		           <%int i = 0; 
+		           boolean docPerson = false;
 		           String chk="";
 		           List<CodeDecode> pack = (ArrayList<CodeDecode>)request.getAttribute("packages");
 		           Person personDetails = (Person)request.getAttribute("person");
@@ -229,6 +230,9 @@
 						for(String packages: personDetails.getPackages()){
 							if(packages.equals(pack.get(i).getCodeDecode())){								
 								chk = "checked";
+								if("Doctor".equals(pack.get(i).getCodeDecode())){
+									docPerson = true;
+								}
 							}
 						}
 						i++;
@@ -247,10 +251,10 @@
 			</tr>
             
           
-           	<input type="hidden" value="1" id="counter"/>               
-           
-             <c:if test="${'Doctor' == person.personTypeString}">
-             
+           	<input type="hidden" value="1" id="counter"/>
+           	<%
+           		if(docPerson){
+           	%>               
              <tr>
                <td>Registration Number:<font color="red">*</font></td>
                <td>
@@ -273,7 +277,8 @@
                 </script>
                </td>
               </tr>
-             </c:if>
+             <%} %>
+             
              	<tr>
 				<td>
 				</td>

@@ -29,6 +29,7 @@
 			<div class="stp" style="margin-bottom:1.5em;" >
 				<div class="or" style="margin:1em; padding:0;" >
 					<table border="0" cellpadding="3" class="sample" cellspacing="0" width=850 height=325 align="center">
+					<input type="hidden" value="1" id="counter"/>
 						<tr bgcolor="lightblue">
 							<font style="text-align: center;font-size: 120%;font-weight: bold;">Appointment Details</font>
 						</tr>
@@ -104,7 +105,7 @@
 					%>
 					<c:if test="${appointment.confirmedIndicator == 'Y'}">
 						
-						<table  border=""  class="sample" width=850 height=40 id="tblSample" align="center">
+						<table  border=""  class="sample" width=850 height=40  align="center">
 							<tr>
 								<td></td>
 								<td>Diagnosis Details</td>
@@ -116,7 +117,7 @@
 							</tr>
 						
 						</table>							
-						<table  border=""  class="sample" width=850 height= 80  align="center">
+						<table  border=""  id="tblSample" class="sample" width=850 height= 80  align="center">
 							<tbody id="aa">						
 							<tr>
 								<td>Diagnosis:
@@ -180,7 +181,7 @@
 				           </td>
 			           		               
 				            <td width="40%">
-									<input type="text" name="diagnosis"   />
+									<input type="text" name="diagnosis" id="diagnosis"  disabled="disabled" />
 									<script type="text/javascript">
 											new Autocomplete('diagnosis', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
 									</script>
@@ -198,7 +199,7 @@
 
 	           			<tr >
 	           				<td>
-	           					<input type="text" name="findPrescription"  id="findPrescription" value=""/>
+	           					<input type="text" name="findPrescription"  id="findPrescription" value="" disabled="disabled"/>
 								<script type="text/javascript">
 										new Autocomplete('findPrescription', { serviceUrl:'/appointmentPopUp.htm' },'table.PRESCRIPTION');
 								</script>
@@ -211,7 +212,7 @@
 				           
 				           </td>
 				           <td>
-								<select  name="prescriptionList" id="prescriptionList" style="width: 15em;" size="3" multiple >
+								<select  name="prescriptionList" id="prescriptionList" style="width: 15em;" size="3" multiple disabled="disabled" >
 				           </td>
 	           			</tr>
 			           <tr>               
@@ -226,7 +227,7 @@
 
 	           			<tr >
 	           				<td>
-	           					<input type="text" name="findTest"  id="findTest" value=""/>
+	           					<input type="text" name="findTest"  id="findTest" value="" disabled="disabled"/>
 								<script type="text/javascript">
 										new Autocomplete('findTest', { serviceUrl:'/appointmentPopUp.htm' },'table.PRESCRIPTION');
 								</script>
@@ -239,7 +240,7 @@
 				           
 				           </td>
 				           <td>
-								<select  name="testList" id="testList" style="width: 15em;" size="3" multiple >
+								<select  name="testList" id="testList" style="width: 15em;" size="3" multiple disabled="disabled">
 				           </td>
 	           			</tr>
 	         		</table>

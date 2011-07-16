@@ -538,135 +538,42 @@ function addRowToTable()
   var iteration = lastRow;
   var row = tbl.insertRow(lastRow);
   
-  var cellRight = row.insertCell(0);
-  var el = document.createElement('input');
-  el.type = 'checkbox';
-  cellRight.appendChild(el);
+//  var cellRight = row.insertCell(0);
+//  var el = document.createElement('input');
+//  el.type = 'checkbox';
+//  cellRight.appendChild(el);
 
   // left cell
-  var cellLeft = row.insertCell(1);
-  //var textNode = document.createTextNode(iteration);
+  var cellLeft = row.insertCell(0);
+
   var el0 = document.createElement('input');
   el0.type = 'text';
   el0.name = "diagnosis[" + (num -1 )+ "].codeICD";
   el0.id = "diagnosis[" + (num -1 )+ "].codeICD";
   el0.size = 20;
+  el0.setAttribute("readOnly","true");   
   cellLeft.appendChild(el0);
-  //add script
-  var ss = document.createElement('script');	  
-  var scr = "new Autocomplete('"+el0.name+"', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');";
-  ss.text = scr;
-  var hh = document.getElementsByTagName('head')[0];
-  hh.appendChild(ss);
-  
-  // right cell
-  var cellRight = row.insertCell(2);
-  var el = document.createElement('input');
-  el.type = 'text';
-  el.name = 'findPrescription[' + (num -1 )+']';
-  var pr = el.name;	  
-  el.id = 'findPrescription[' + (num -1 ) +']';
-  el.size = 20;	  
-  //el.onkeypress = keyPressTest;
-  cellRight.appendChild(el);
+  document.getElementById(el0.name).value= document.getElementById("diagnosis").value;
 
-  //add script
-  var ss = document.createElement('script');
-  var scr = "new Autocomplete('"+el.name+"', { serviceUrl:'/appointmentPopUp.htm' },'table.PRESCRIPTION');";
-  ss.text = scr;
-  var hh = document.getElementsByTagName('head')[0];
-  hh.appendChild(ss);
-  
-  var cellRight = row.insertCell(3);
-  var el = document.createElement('input');
-  el.type = 'button';
-  el.value='>>';
-  el.name = 'btnAdd' + iteration;
-  el.id = 'btnAdd' + iteration;
-  el.setAttribute("class","bsubmit");
-  var selName = "diagnosis[" + (num -1 )+ "].prescriptionList" ;
-  el.onclick =  function() { fn_addToSelect(selName,pr) };
-  el.className='bsubmit';	   
-  //el.onkeypress = keyPressTest;
-  cellRight.appendChild(el);
-  cellRight.appendChild(document.createElement("br"));
-	
-  //delete button	  
-  var el = document.createElement('input');
-  el.type = 'button';
-  el.value='<<';
-  el.name = 'btnDel' + iteration;
-  el.id = 'btnDdd' + iteration;
-  el.setAttribute("class","bsubmit");
-//  el.setAttribute("onClick","javascript:fn_addPrescription();");  
-  el.onclick = function() { fn_deletePrescription(num-1); }; 
-  el.className='bsubmit';	   
-  //el.onkeypress = keyPressTest;
-  cellRight.appendChild(el);
-  
   // select cell
-  var cellRightSel = row.insertCell(4);
-  var sel = document.createElement('<select multiple size=3 style="width: 15em">');
+  var cellRightSel = row.insertCell(1);
+  var sel = document.createElement("SELECT");
+  sel.multiple =true;  
   sel.name = "diagnosis[" + (num -1 )+ "].prescriptionList" ;
   sel.id = "diagnosis[" + (num -1 )+ "].prescriptionList" ;
-  el.size = 3;	  
-  //sel.options[0] = new Option('text zero', 'value0');
-  //sel.options[1] = new Option('text one', 'value1');
+  sel.size = 3;	  
+  sel.setAttribute("readOnly","true");
+  sel.style.width="15em";
   cellRightSel.appendChild(sel);
-
-//start
-  // right cell
-  var cellRight = row.insertCell(5);
-  var el = document.createElement('input');
-  el.type = 'text';
-  el.name = 'findTest[' + (num -1 ) +']';	
-  var pr1 = el.name;  
-  el.id = 'findTest[' + (num -1 ) +']';
-  testName = 'findTest[' + (num -1 ) +']';
-  el.size = 20;	  
-  //el.onkeypress = keyPressTest;
-  cellRight.appendChild(el);
-
-  //add script
-  var ss = document.createElement('script');
-  var scr = "new Autocomplete('"+el.name+"', { serviceUrl:'/appointmentPopUp.htm' },'table.TEST');";
-  ss.text = scr;
-  var hh = document.getElementsByTagName('head')[0];
-  hh.appendChild(ss);
-  
-  var cellRight = row.insertCell(6);
-  var el = document.createElement('input');
-  el.type = 'button';
-  el.value='>>';
-  el.name = 'btnAdd' + iteration;
-  el.id = 'btnAdd' + iteration;
-  el.setAttribute("class","bsubmit");
-  var selName1 = "diagnosis[" + (num -1 )+ "].testList";
-  el.onclick =  function() { fn_addToSelect(selName1,pr1) };
-  testNames ="diagnosis[" + (num -1 )+ "].testList";
-  el.className='bsubmit';	   
-  //el.onkeypress = keyPressTest;
-  cellRight.appendChild(el);
-  cellRight.appendChild(document.createElement("br"));
-
-  //delete button
-  var el = document.createElement('input');
-  el.type = 'button';
-  el.value='<<';
-  el.name = 'btnDel' + iteration;
-  el.id = 'btnDel' + iteration;
-  el.setAttribute("class","bsubmit");
-  el.onclick = function() { fn_deleteTest(num-1); }; 
-  el.className='bsubmit';	   
-  //el.onkeypress = keyPressTest;
-  cellRight.appendChild(el);
   
   // select cell
-  var cellRightSel = row.insertCell(7);
-  var sel = document.createElement("<select multiple size=3 style='width: 15em'>");
+  var cellRightSel = row.insertCell(2);
+  var sel = document.createElement("SELECT");
   sel.name = "diagnosis[" + (num -1 )+ "].testList";
   sel.id = "diagnosis[" + (num -1 )+ "].testList";
-  el.size = 3;	  
+  sel.size = 3;	  
+  sel.setAttribute("readOnly","true");
+  sel.style.width="15em";
   cellRightSel.appendChild(sel);
   num=num+1;
   document.getElementById("counter").value  =num;
@@ -1349,14 +1256,31 @@ function fn_showDiagnosis(){
     m.style.top = '-400px';
 	var menuStyle=document.getElementById('diagnosisBox').style; 
 	menuStyle.display="block";
-*/		
+*/	
+	document.updateAppointment.diagnosis.disabled = false;
+	document.updateAppointment.findPrescription.disabled = false;
+	document.updateAppointment.prescriptionList.disabled = false;
+	document.updateAppointment.findTest.disabled = false;
+	document.updateAppointment.testList.disabled = false;
 	var w, h, l, t;
+	
 	w = 700;
 	h = 360;
 	l = 100;
 	t = 100;
 	displayFloatingDiv('windowcontent', 'AppMent', w, h, l, t);
 }
+
+function fn_addDetails(){
+	document.updateAppointment.diagnosis.disabled = true;
+	document.updateAppointment.findPrescription.disabled = true;
+	document.updateAppointment.prescriptionList.disabled = true;
+	document.updateAppointment.findTest.disabled = true;
+	document.updateAppointment.testList.disabled = true;
+	addRowToTable();
+	hiddenFloatingDiv('windowcontent');
+}
+
 function fn_showOptions(event,loggedUserID,calendarUserID,appointmentTime,appointmentDate,appointmentID,confirmationIndicator){
     var e =event || window.event;   
     var pos = getRelativeCoordinates(e, document.getElementById('reference'));

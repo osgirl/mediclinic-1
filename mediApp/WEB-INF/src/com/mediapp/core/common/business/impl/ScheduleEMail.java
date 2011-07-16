@@ -4,6 +4,7 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -120,12 +121,12 @@ public class ScheduleEMail {
 	            	model.put("duration", appointment.getAppointmentDuration());
 	            	model.put("comments", appointment.getComments());	            	
 	            	
-	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage,true,"UTF-8");
 	               message.setTo(notificationDetails.getDoctorEmailAddress());
 	               message.setCc(notificationDetails.getPatientEmailAddress());
 	               message.setSubject("New Appointment Notification");
-	               FileSystemResource res = new FileSystemResource(new File("C:\\Documents and Settings\\Administrator\\Desktop\\padmaraj\\demo\\mediclinic\\workspace\\with search\\work1\\mediApp\\images\\logoForEmail.JPG"));
-	               message.addInline("logo", res);
+	             //  FileSystemResource res = new FileSystemResource(new File("C:\\Documents and Settings\\Administrator\\Desktop\\padmaraj\\demo\\mediclinic\\workspace\\with search\\work1\\mediApp\\images\\logoForEmail.JPG"));
+	               message.addInline("logo", new ClassPathResource("/resources/common/velocity/logoForEmail.JPG"));
 	                   
 		               String body = null;
 		               if(velocityEngine==null){		            	   
