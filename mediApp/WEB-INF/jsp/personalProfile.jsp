@@ -237,7 +237,7 @@
 						}
 						i++;
 						%>
-							<input type="checkbox" name="${data.codeDecode}" id="${data.codeDecode}" value="Y" <%=chk %> readonly>${data.codeDecode}</input><br>
+							<input type="checkbox" name="${data.codeDecode}" id="${data.codeDecode}" value="Y" <%=chk %>   disabled="disabled">${data.codeDecode}</input><br>
 						</c:forEach>
 	                </div>
               </td>
