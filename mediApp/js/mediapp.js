@@ -549,8 +549,27 @@ function addRowToTable()
   var lastRow = tbl.rows.length;
   // if there's no header row in the table, then iteration = lastRow + 1
   var iteration = lastRow;
-  var row = tbl.insertRow(lastRow);
-  
+  var row = tbl.insertRow(lastRow);  
+  if(num==1  ){
+	  document.getElementById("diagnosis[0].codeICD").value= document.getElementById("diagnosis").value;
+	  for(var i = 0; i < document.getElementById("prescriptionList").options.length; i++){
+		     var newElem = document.createElement("OPTION");
+		     newElem.text = document.getElementById("prescriptionList").options[i].text;
+		     newElem.value = document.getElementById("prescriptionList").options[i].value;
+		     document.getElementById("diagnosis[0].prescriptionList").options.add(newElem);
+		     document.getElementById("diagnosis[0].prescriptionList").options[i].selected = true;
+		  }
+	  for(var i = 0; i < document.getElementById("testList").options.length; i++){
+		     var newElem = document.createElement("OPTION");
+		     newElem.text = document.getElementById("testList").options[i].text;
+		     newElem.value = document.getElementById("testList").options[i].value;
+		     document.getElementById("diagnosis[0].testList").options.add(newElem);
+		     document.getElementById("diagnosis[0].testList").options[i].selected = true;
+		  }
+	  num=num+1;
+	  document.getElementById("counter").value  =num;
+	  return true;
+  }
 //  var cellRight = row.insertCell(0);
 //  var el = document.createElement('input');
 //  el.type = 'checkbox';

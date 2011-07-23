@@ -96,10 +96,11 @@
 							<input type="hidden" name="AppointmentDate"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>"/>							
 							<input type="hidden" name="AppointmentID"  value="${appointment.appointmentID}"/>
 							<input type="hidden" name="UserName"  value="${UserName}"/>
+							
 					<%	Person p = (Person)request.getSession().getAttribute("person");
 						NotificationDetails n = (NotificationDetails) request.getAttribute("Notification");
 					%>
-					<% out.print("h "+p.getPackages().get(0)); 
+					<%  
 					if(!p.getEmailID().equals(n.getPatientEmailAddress()) &&
 							p.getPackages().contains("Doctor")){
 							
@@ -128,6 +129,86 @@
 								<td>Tests:
 								</td>
 							</tr>
+							
+						<c:choose>
+							<c:when test="${!empty appointment.diagnosis[0].codeICD}">
+							
+								<c:forEach items="${appointment.diagnosis}" varStatus="diagnosisAndtest">
+									<script type="text/javascript">
+											var num = (document.getElementById("counter").value - 1) + 2;
+											document.getElementById("counter").value = num;
+									</script>
+									
+									<tr>
+										<td  >
+											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].codeICD">												
+												
+												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].codeICD}"/>" />
+												<script type="text/javascript">
+														new Autocomplete('<c:out value="diagnosis[${diagnosisAndtest.index}].codeICD"/>', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
+												</script>
+												
+																									
+											</spring:bind>
+										</td>
+										<td >
+											
+											<spring:bind  path="appointment.diagnosis[${diagnosisAndtest.index}].prescriptionList">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple >
+													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}" varStatus="legg">
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList[legg.index]}"/></option>		
+													</c:forEach>
+												</select>
+											</spring:bind>
+										</td>
+										<td >
+											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].testList">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple >
+													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].testList}" varStatus="legg">
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList[legg.index]}"/></option>		
+													</c:forEach>
+												</select>
+											</spring:bind>
+										</td>
+										
+									</tr>								
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+									<tr>
+									
+										<td  >
+											<spring:bind path="appointment.diagnosis[0].codeICD">
+												<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>"  value="<c:out value="${status.value}"/>"/>
+												<script type="text/javascript">
+														new Autocomplete('<c:out value="diagnosis[0].codeICD"/>', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
+												</script>
+																									
+											</spring:bind>
+										</td>
+										<td >
+											<spring:bind path="appointment.diagnosis[0].prescriptionList">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple >													
+													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}" varStatus="legg">
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}"/></option>		
+													</c:forEach>
+												</select>
+											</spring:bind>
+										</td>
+										<td >
+											<spring:bind path="appointment.diagnosis[0].testList">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple onclick="javascript:fn_moveDiv(event);" >
+													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].testList}" varStatus="legg">
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}"/></option>		
+													</c:forEach>
+												</select>
+											</spring:bind>
+										</td>
+									</tr>								
+							
+							</c:otherwise>
+						</c:choose>
+							
 							</tbody>
 						</table>
 							  	
