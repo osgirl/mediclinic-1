@@ -99,7 +99,8 @@
 					<%	Person p = (Person)request.getSession().getAttribute("person");
 						NotificationDetails n = (NotificationDetails) request.getAttribute("Notification");
 					%>
-					<% if(!p.getEmailID().equals(n.getPatientEmailAddress()) &&
+					<% out.print("h "+p.getPackages().get(0)); 
+					if(!p.getEmailID().equals(n.getPatientEmailAddress()) &&
 							p.getPackages().contains("Doctor")){
 							
 					%>

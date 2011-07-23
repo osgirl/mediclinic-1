@@ -480,30 +480,43 @@ function fn_updateAppointmentDetails(){
 
     var num = (document.getElementById("counter").value - 2) + 1 ;
     //alert(num);
-    for(var j=0;j<num;j++) {    	
+    for(var j=0;j<num;j++) {
+    	var elSel = document.getElementById("diagnosis["+j+"].codeICD");
+    	elSel.disabled = false;
   	  var elSel = document.getElementById("diagnosis["+j+"].prescriptionList");
   	  //alert(j+" "+document.getElementById("diagnosis["+j+"].prescriptionList"));
-	  var i;
-	  for (i = elSel.length - 1; i>=0; i--) {
+	  //var i;
+	  elSel.disabled = false;
+/*	  for (i = elSel.length - 1; i>=0; i--) {
 	   elSel.options[i].selected = true;
 	  }
+*/
 	  //alert(j+" "+document.getElementById("diagnosis["+j+"].prescriptionList"));
   	  var elSel = document.getElementById("diagnosis["+j+"].testList");
-	  var i;
-	  for (i = elSel.length - 1; i>=0; i--) {
-	   elSel.options[i].selected = true;
-	  }
+  	  elSel.disabled = false;
+//	  var i;
+//	  for (i = elSel.length - 1; i>=0; i--) {
+//	   elSel.options[i].selected = true;
+//	  }
 
     	
 //    	document.getElementById("diagnosis["+i+"].prescription").disabled = false;
  //   	document.getElementById("diagnosis["+i+"].diagnosisTest").disabled = false;
-    } 
+    }
+/*
 	document.forms['updateAppointment'].target="Parent";
     document.forms["updateAppointment"].submit();
 	document.forms['updateAppointment'].method ="get";
 	document.forms['updateAppointment'].action="dayAppointment.htm"; 
 	document.forms['updateAppointment'].submit();
 	 self.close();
+*/
+	window.close();
+	var form=document.getElementById('updateAppointment');
+    form.setAttribute('target', 'iframeDialog');
+    form.submit();
+
+
 }
 
 function fn_addToSelect(selectName,tempName){
@@ -551,7 +564,7 @@ function addRowToTable()
   el0.name = "diagnosis[" + (num -1 )+ "].codeICD";
   el0.id = "diagnosis[" + (num -1 )+ "].codeICD";
   el0.size = 20;
-  el0.setAttribute("readOnly","true");   
+  el0.setAttribute("disabled","true");   
   cellLeft.appendChild(el0);
   document.getElementById(el0.name).value= document.getElementById("diagnosis").value;
 
@@ -562,19 +575,34 @@ function addRowToTable()
   sel.name = "diagnosis[" + (num -1 )+ "].prescriptionList" ;
   sel.id = "diagnosis[" + (num -1 )+ "].prescriptionList" ;
   sel.size = 3;	  
-  sel.setAttribute("readOnly","true");
+  sel.setAttribute("disabled","true");
   sel.style.width="15em";
   cellRightSel.appendChild(sel);
+  for(var i = 0; i < document.getElementById("prescriptionList").options.length; i++){
+     var newElem = document.createElement("OPTION");
+     newElem.text = document.getElementById("prescriptionList").options[i].text;
+     newElem.value = document.getElementById("prescriptionList").options[i].value;
+     document.getElementById(sel.id).options.add(newElem);
+     document.getElementById(sel.id).options[i].selected = true;
+  }
   
   // select cell
   var cellRightSel = row.insertCell(2);
   var sel = document.createElement("SELECT");
-  sel.name = "diagnosis[" + (num -1 )+ "].testList";
-  sel.id = "diagnosis[" + (num -1 )+ "].testList";
+  sel.multiple =true;  
+  sel.name = "diagnosis[" + (num -1 )+ "].testList" ;
+  sel.id = "diagnosis[" + (num -1 )+ "].testList" ;
   sel.size = 3;	  
-  sel.setAttribute("readOnly","true");
+  sel.setAttribute("disabled","true");
   sel.style.width="15em";
   cellRightSel.appendChild(sel);
+  for(var i = 0; i < document.getElementById("testList").options.length; i++){
+     var newElem = document.createElement("OPTION");
+     newElem.text = document.getElementById("testList").options[i].text;
+     newElem.value = document.getElementById("testList").options[i].value;
+     document.getElementById(sel.id).options.add(newElem);
+     document.getElementById(sel.id).options[i].selected = true;
+  }
   num=num+1;
   document.getElementById("counter").value  =num;
 
