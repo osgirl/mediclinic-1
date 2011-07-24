@@ -131,6 +131,9 @@
 		</property>
     </bean>
 
+	<bean id="downloadFileController" class="com.mediapp.web.controller.common.DownloadFilesController">
+	</bean>
+	
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
 	<bean id="holidayCalendar" class="com.mediapp.web.controller.common.HolidayCalendarController">
@@ -347,6 +350,9 @@
 				</entry>
 				<entry key="/inbox.htm">
 					<ref bean="inboxForm"/>
+				</entry>
+				<entry key="/download.htm">
+					<ref bean="downloadFileController"/>
 				</entry>
 			</map>
 		</property>

@@ -178,6 +178,14 @@
 								</a>
 				           </td>
 	        		   </tr>
+			           <tr>               
+				            <td id="print">
+								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';javascript:fn_Print();" style="text-decoration:none" class="sansa"> 
+									<font size="+1" color="blue" >Print</font> 
+								</a>
+				           </td>
+	        		   </tr>
+	        		   
 			           <tr id="close">               
 				            <td>
 								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';" style="text-decoration:none"  class="sansa"> 

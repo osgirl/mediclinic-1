@@ -63,14 +63,14 @@ public class MultiPartFileUploadController extends SimpleFormController {
         }
         MultiPartFileUploadBean bean = (MultiPartFileUploadBean) command;
         MultipartFile file  = bean.getFile();
-        File destination = new File(destinationDir + bean.getFileName());
-        file.transferTo(destination);
  		Person sessionPerson = (Person) request.getSession().getAttribute(CommonWebConstants.USER_ID);
 		int idPerson = sessionPerson.getIdPerson(); 
         bean.setFilePath(bean.getFileName());
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();		
-        bean.setFilePath(file.getOriginalFilename()+idPerson+dateFormat.format(date));        
+        bean.setFilePath(idPerson+dateFormat.format(date)+file.getOriginalFilename());
+        File destination = new File(destinationDir + idPerson+dateFormat.format(date)+file.getOriginalFilename());
+        file.transferTo(destination);
         commonService.insertPatientDocumentDetials(bean);
 //        res.getWriter().write("Success, wrote to " + destination.getAbsolutePath());        
  //       res.flushBuffer();

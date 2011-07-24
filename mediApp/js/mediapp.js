@@ -4,23 +4,25 @@ function fn_signUp(){
 		alert("Passwords entered in the two fields are not same. Please enter it again.");
 		e['repassword'].value = "";
 		e['password'].value ="";
-		
 	}else{
 		document.forms["appmentSignUp"].submit();
 	}
 }
-
 function fn_login(){
 	document.forms["appMentlogin"].submit();
 }
 function fn_showType(){
 	var menuStyle=document.getElementById("TypeForm").style; 
 	menuStyle.display="block";
-	
+}
+function fn_openFile(fileName){
+	window.open("/download.htm?file="+fileName,"download","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
+}
+function fn_Print(){
+	window.open("/simpleReportCompile.pdf?AppointmentID="+document.getElementById('AppointmentID').value,"Print","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
 }
 function fn_showPatientRgFrm(){
 	document.getElementById("Doctor").disabled =true;
-//	fn_hideDoctorRgFrm();
 	var menuStyle=document.getElementById("RegistrationForm").style; 
 	document.getElementById("PersonType").value ="Patient";
 	menuStyle.display="block";
@@ -31,7 +33,6 @@ function fn_showPatientRgFrm(){
 	document.getElementById("username").disabled = true;
 	document.getElementById("password").disabled= true;
 	document.getElementById("PersonType").disabled = true;
-	//alert(document.getElementById("hRegisterMe").value);
 }
 function fn_hidePatientRgFrm(){
 	var menuStyle=document.getElementById("RegistrationForm").style; 
@@ -40,7 +41,6 @@ function fn_hidePatientRgFrm(){
 
 }
 function fn_showDoctorRgFrm(){
-	//fn_hidePatientRgFrm();
 	document.getElementById("Patient").disabled =true;
 	document.getElementById("PersonType").value ="Doctor";
 	var menuStyle=document.getElementById("RegistrationForm").style; 
@@ -52,16 +52,12 @@ function fn_showDoctorRgFrm(){
 	document.getElementById("username").disabled = true;
 	document.getElementById("password").disabled= true;
 	document.getElementById("PersonType").disabled = true;
-
-
 }
 function fn_hideDoctorRgFrm(){
 	var menuStyle=document.getElementById("RegistrationForm").style; 
 	menuStyle.display="none";
 	document.getElementById("hRegisterMe").value ="N";
-	
 }
-
 function fn_showMessage(){
 	document.getElementById("username").value="";
 	document.getElementById("password").value="";
@@ -69,17 +65,11 @@ function fn_showMessage(){
 	document.forms["logon"].submit();
 }
 function fn_submitLogin(){	
-	//alert(document.getElementById('PersonType').options[indexValue].text);
 	document.getElementById('hPersonType').value=document.getElementById('PersonType').value;
-	//alert(document.getElementById("hPersonType").value);
-	
-	//document.forms["logon"].submit();
 }
 function fn_nextURL(URL){	
 	window.location.href = URL;
-	//document.forms["logon"].submit();
 }
-
 function fn_searchDoctor(){
 	if(CkDate(document.getElementById('searchCriteria.dateOfAppointment'),'mm/dd/yyyy')){
 		document.forms["searchDoctor"].submit();
@@ -96,9 +86,7 @@ function CkDate(obj,format){
 	 }
 	 return true;
 }
-
 function CkDateValue(obj,format){
-	 //if (typeof(obj)=='string') obj=document.myform[obj];	
 	 var date=obj.split('/');
 	 var mydate=new Date(date[2],date[(format.charAt(0)=='d')?1:0]-1,date[(format.charAt(0)=='d')?0:1]);
 	 if (mydate<new Date().setHours(0,0,0,0)){
@@ -107,18 +95,14 @@ function CkDateValue(obj,format){
 	 }
 	 return true;
 }
-
 function fn_dayAppointment(personID, userName){	
 	 window.location.href = "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('searchCriteria.dateOfAppointment').value+"&UserName="+userName+"&TakeAppointment=Y";
 }
-
 function fn_createAppointment(personID,doctorID,timeOfAppointment,appointmentDate,userName,doctorPersonID){
 	if(CkDateValue(appointmentDate,'mm/dd/yyyy')){		 
-		//CkDate(document.getElementById('searchCriteria.dateOfAppointment'),'mm/dd/yyyy'),1);
 		if (userName !=""){
 			window.name = "Parent";
 			var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:630px;status:no;edge:sunken';	
-		    //var c = window.showModalDialog('/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&UserName="+userName+"&DoctorPersonID="+doctorPersonID, window, WinSettings);
 			var url = '/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&UserName="+userName+"&DoctorPersonID="+doctorPersonID;
 			var rurl= "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+userName+"&TakeAppointment=Y";
 			jQuery.showModalDialog({
@@ -147,64 +131,13 @@ function fn_addAppointment(){
 	var form=document.getElementById('createAppointment');
     form.setAttribute('target', 'iframeDialog');
     form.submit();
-
-	//if(firstSubmit == 0){
-	//	document.getElementById("createAppointment").method ="post";	
-	//	document.getElementById("createAppointment").action="/createAppointment.htm";		
-		//document.getElementById("createAppointment").submit();
-		//this.form.submit();
-	//	firstSubmit = 1;		
-	//	setTimeout(fn_addAppointment, 2000);
-	
-	 /*   document.forms['createAppointment'].method ="post";
-	    document.forms["createAppointment"].submit();
-		firstSubmit = 1;
-		setTimeout(fn_addAppointment, 2000); 
-	*/
-	/*
-	}else{
-		document.getElementById("createAppointment").target="Parent";		
-		document.getElementById("createAppointment").method ="post";	
-		document.getElementById("createAppointment").action="dayAppointment.htm"; 
-		document.getElementById("createAppointment").submit();
-		firstSubmit = 0;
-		self.close();
-				
-		document.forms['createAppointment'].method ="post";
-		document.forms['createAppointment'].action="dayAppointment.htm"; 
-		document.forms['createAppointment'].submit();
-		firstSubmit = 0;
-		self.close();
-		
-	}
-	 */
 }
-
 function fn_rescheduleAppointmentDate(){
-/*	document.getElementById('dateOfAppointment').disabled=false;
-	document.getElementById('timeOfAppointment').disabled=false;	
-    document.forms['rescheduleAppointment'].target="Parent";
-    if(firstSubmit == 0){
-	    document.forms['rescheduleAppointment'].method ="post";
-	    document.forms["rescheduleAppointment"].submit();
-		firstSubmit = 1;
-		setTimeout(fn_rescheduleAppointmentDate, 2000); 
-	    
-    }else{
-	    document.forms['rescheduleAppointment'].method ="post";
-		document.forms['rescheduleAppointment'].action="dayAppointment.htm"; 
-		document.forms['rescheduleAppointment'].submit();
-		firstSubmit = 0;
-		self.close();
-    }
-    */
 	window.close();
 	var form=document.getElementById('rescheduleAppointment');
     form.setAttribute('target', 'iframeDialog');
     form.submit();
-
 }
-
 function fn_GetDayAppointment(indicator){
 	var date = new Date(document.getElementById('AppointmentDate').value);
 	window.name = "mySelf";
@@ -218,12 +151,9 @@ function fn_GetDayAppointment(indicator){
 		var nextDay = date.getDate()+1;
 		document.getElementById('AppointmentDate').value = currentMonth+"/"+nextDay+"/"+ date.getFullYear();		
 	}
-//	window.location ='/rescheduleAppointment.htm';
 	document.forms['rescheduleAppointment'].method ="get";
 	document.forms["rescheduleAppointment"].submit();
-	
 }
-
 function fn_GetMonthAppointment(indicator){
 	var date = new Date(document.getElementById('AppointmentDate').value);
 	window.name = "mySelf";
@@ -234,13 +164,10 @@ function fn_GetMonthAppointment(indicator){
 	if (indicator == 2){		
 		var nextMonth = date.getMonth()+2;
 		document.getElementById('AppointmentDate').value = nextMonth+"/"+date.getDate()+"/"+ date.getFullYear();
-		
 	}
 	document.forms['rescheduleAppointment'].method ="get";
 	document.forms["rescheduleAppointment"].submit();
-
 }
-
 function fn_GetDayAppointmentDayView(indicator){
 	var date = new Date(document.getElementById('AppointmentDate').value);
 	window.name = "mySelf";
@@ -254,12 +181,9 @@ function fn_GetDayAppointmentDayView(indicator){
 		var nextDay = date.getDate()+1;
 		document.getElementById('AppointmentDate').value = currentMonth+"/"+nextDay+"/"+ date.getFullYear();		
 	}
-//	window.location ='/rescheduleAppointment.htm';
 	document.forms['dayAppointment'].method ="get";
 	document.forms["dayAppointment"].submit();
-	
 }
-
 function fn_GetMonthAppointmentDayView(indicator){
 	var date = new Date(document.getElementById('AppointmentDate').value);
 	window.name = "mySelf";
@@ -270,23 +194,17 @@ function fn_GetMonthAppointmentDayView(indicator){
 	if (indicator == 2){		
 		var nextMonth = date.getMonth()+2;
 		document.getElementById('AppointmentDate').value = nextMonth+"/"+date.getDate()+"/"+ date.getFullYear();
-		
 	}
 	document.forms['dayAppointment'].method ="get";
 	document.forms["dayAppointment"].submit();
-
 }
-
 function fn_updateDateOfAppointment(timeOfAppointment,appointmentDate){
-	
 	if (CkDateValue(appointmentDate,'mm/dd/yyyy')){		
 		document.getElementById('dateOfAppointment').value =appointmentDate;
 		document.getElementById('timeOfAppointment').value =timeOfAppointment;
 	}
 }
-
 function fn_GetMonthView(indicator){
-	
 	var date = new Date(document.getElementById('AppointmentDate').value);
 	if (indicator == 1){		
 		document.getElementById('AppointmentDate').value = date.getMonth()+"/01/"+ date.getFullYear();		
@@ -296,10 +214,8 @@ function fn_GetMonthView(indicator){
 		var nextMonth = date.getMonth()+2;
 		document.getElementById('AppointmentDate').value = nextMonth+"/01/"+ date.getFullYear();		
 		document.forms["takeAppointment"].submit();
-		
 	}
 }
-
 function fn_GetYearView(indicator){
 	
 	var date = new Date(document.getElementById('AppointmentDate').value);
@@ -315,22 +231,16 @@ function fn_GetYearView(indicator){
 		document.forms["takeAppointment"].submit();
 	}
 }
-
 function fn_openAppointment(takeAppointment){
-//	personID,timeOfAppointment,appointmentDate,appointmentID
 	var personID = document.getElementById('PersonID').value;
 	var appointmentDate=document.getElementById('AppointmentDateR').value;
     var appointmentID=document.getElementById('AppointmentID').value;    
     var timeOfAppointment=document.getElementById('TimeOfAppointment').value;		
     var UserName=document.getElementById('UserName').value;    
-	//alert(appointmentID);
-	//alert('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID);
 	window.name = "Parent";	
-	//var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:600px;dialogWidth:1500px;status:no;edge:sunken';
 	var myObject = new Object();
 	myObject.URL = '/dayAppointment.htm';
 	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:670px;status:no;edge:sunken';
-    //var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName, myObject, WinSettings);
 	var url = '/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName;	
 	var rurl= "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+UserName+"&TakeAppointment=N";
 	jQuery.showModalDialog({
@@ -341,17 +251,12 @@ function fn_openAppointment(takeAppointment){
 		 scrollable: false,
 		 onClose: function(){  var returnedValue = this.returnValue;window.location.href=rurl;  }
 	});
-
-    
-	
 }
-
 function fn_openAppointmentInbox(personID,appointmentDate,appointmentID,timeOfAppointment){
 	window.name = "Parent";
 	var myObject = new Object();
 	myObject.URL = 'inbox.htm';
 	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:670px;status:no;edge:sunken';
-    //var c = window.showModalDialog('/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID, myObject, WinSettings);
 	var url = '/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID;
 	jQuery.showModalDialog({
 		 url: url,
@@ -361,11 +266,7 @@ function fn_openAppointmentInbox(personID,appointmentDate,appointmentID,timeOfAp
 		 scrollable: false,
 		 onClose: function(){  var returnedValue = this.returnValue;window.location.href="/inbox.htm";  }
 	});
-
-	
 }
-
-
 function fn_rescheduleAppointment(){
 	window.name = "Parent";
 	var personID = document.getElementById('PersonID').value;
@@ -374,7 +275,6 @@ function fn_rescheduleAppointment(){
     var timeOfAppointment=document.getElementById('TimeOfAppointment').value;		
     var UserName=document.getElementById('UserName').value;
 	var WinSettings = 'scroll:no;help:0;center:yes;resizable:yes;dialogHeight:630px;dialogWidth:1000px;status:no;edge:sunken';	
-    //var c = window.showModalDialog('/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName, window, WinSettings);
 	var url = '/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName;
 	var rurl= "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+UserName+"&TakeAppointment=Y";
 	jQuery.showModalDialog({
@@ -385,64 +285,12 @@ function fn_rescheduleAppointment(){
 		 scrollable: false,
 		 onClose: function(){  var returnedValue = this.returnValue;window.location.href=rurl;  }
 	});
-
-	//window.open('/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID,"reportWindow");
 }
-
-function fn_Print(){
-	window.open("about:blank","reportWindow");
-	document.forms['updateAppointment'].target="reportWindow";
-	document.forms['updateAppointment'].method ="post";
-	document.forms['updateAppointment'].action="simpleReportCompile.pdf"; 
-	document.forms['updateAppointment'].submit();
-	
-}
-
 function fn_confirmAppointment(){
-	//document.forms['updateAppointment'].target="iframeDialog";
-	//alert(firstSubmit);
-	//document.forms['updateAppointment'].method ="post";
-	//document.frames['iframeDialog'].forms['updateAppointment'].method ="post";
-	//document.frames['iframeDialog'].forms['updateAppointment'].submit();
-	//setTimeout("", 2000);
-	//window.close();
-	//document.getElementById ("iframeDialog").style.display="none";
 	window.close();
 	var form=document.getElementById('updateAppointment');
     form.setAttribute('target', 'iframeDialog');
     form.submit();
-    //setTimeout("location.reload(true);",2000);
-    //location.href=document.getElementById("refresh").href;
-    //window.location.href="/inbox.htm";
-    //var prntWindow = getParentWindowWithDialog(); //$(top)[0];
-    //var $dlg = prntWindow && prntWindow.$dialog;
-    //if ($dlg) window.dialogArguments = $dlg.dialogArguments;
-    //if ($dlg) window.close = function() { if ($dlg) $dlg.dialogWindow.dialog('close'); };
-    //window.close();
-	
- //   setTimeout("window.close()", 2000);
-	//window.close();
-    
-/*
-	if(firstSubmit == 0){
-		document.forms['updateAppointment'].method ="post";	
-		document.forms['updateAppointment'].submit();
-		firstSubmit = 1;
-		setTimeout("", 2000);
-		document.forms['updateAppointment'].method ="get";
-		window.location.href = "/inbox.htm";
-		setTimeout(fn_confirmAppointment, 2000);
-	}else{
-		alert(firstSubmit);
-	//	var oMyObject = window.dialogArguments;
-	//	document.forms['updateAppointment'].method ="get";
-	//	document.forms['updateAppointment'].action=oMyObject.URL; 
-	//	document.forms['updateAppointment'].submit();
-		window.location.href = "/inbox.htm";
-		firstSubmit = 0;
-		window.close();
-	}
-*/
 }
 function fn_deletePrescription(num){
 	  var elSel = document.getElementById("diagnosis["+num+"].prescriptionList");
@@ -453,7 +301,6 @@ function fn_deletePrescription(num){
 	    }
 	  }
 }
-
 function fn_deleteFromList(listName){
 	  var elSel = document.getElementById(listName);
 	  var i;
@@ -462,9 +309,7 @@ function fn_deleteFromList(listName){
 	      elSel.remove(i);
 	    }
 	  }
-	
 }
-
 function fn_deleteTest(num){
 	  var elSel = document.getElementById("diagnosis["+num+"].testList");
 	  var i;
@@ -475,42 +320,17 @@ function fn_deleteTest(num){
 	  }
 
 }
-
 function fn_updateAppointmentDetails(){
 
     var num = (document.getElementById("counter").value - 2) + 1 ;
-    //alert(num);
     for(var j=0;j<num;j++) {
     	var elSel = document.getElementById("diagnosis["+j+"].codeICD");
-    	elSel.disabled = false;
   	  var elSel = document.getElementById("diagnosis["+j+"].prescriptionList");
-  	  //alert(j+" "+document.getElementById("diagnosis["+j+"].prescriptionList"));
-	  //var i;
+  	  elSel.disabled = false;
 	  elSel.disabled = false;
-/*	  for (i = elSel.length - 1; i>=0; i--) {
-	   elSel.options[i].selected = true;
-	  }
-*/
-	  //alert(j+" "+document.getElementById("diagnosis["+j+"].prescriptionList"));
   	  var elSel = document.getElementById("diagnosis["+j+"].testList");
   	  elSel.disabled = false;
-//	  var i;
-//	  for (i = elSel.length - 1; i>=0; i--) {
-//	   elSel.options[i].selected = true;
-//	  }
-
-    	
-//    	document.getElementById("diagnosis["+i+"].prescription").disabled = false;
- //   	document.getElementById("diagnosis["+i+"].diagnosisTest").disabled = false;
     }
-/*
-	document.forms['updateAppointment'].target="Parent";
-    document.forms["updateAppointment"].submit();
-	document.forms['updateAppointment'].method ="get";
-	document.forms['updateAppointment'].action="dayAppointment.htm"; 
-	document.forms['updateAppointment'].submit();
-	 self.close();
-*/
 	window.close();
 	var form=document.getElementById('updateAppointment');
     form.setAttribute('target', 'iframeDialog');
@@ -520,23 +340,17 @@ function fn_updateAppointmentDetails(){
 }
 
 function fn_addToSelect(selectName,tempName){
-	//alert(selectName,tempName);
 	if(document.getElementById(tempName).value == ""){
 		alert("Please enter the text to be added.");
 		document.getElementById(tempName).focus();
 	}else{
-		//alert();
-		// Create an Option object
 		var opt = document.createElement("OPTION");
-		// Add an Option object to Drop Down/List Box
 	    document.getElementById(selectName).options.add(opt);
-	    // Assign text and value to Option object
 	    opt.text = document.getElementById(tempName).value;
 	    opt.value = document.getElementById(tempName).value;
 	    opt.selected = "true";
 	    document.getElementById(tempName).value = "";
 	    document.getElementById(tempName).focus();
-	    
 	}
 }
 
@@ -552,6 +366,7 @@ function addRowToTable()
   var row = tbl.insertRow(lastRow);  
   if(num==1  ){
 	  document.getElementById("diagnosis[0].codeICD").value= document.getElementById("diagnosis").value;
+	  document.getElementById("diagnosis[0].codeICD").disabled=true;
 	  for(var i = 0; i < document.getElementById("prescriptionList").options.length; i++){
 		     var newElem = document.createElement("OPTION");
 		     newElem.text = document.getElementById("prescriptionList").options[i].text;
@@ -559,6 +374,7 @@ function addRowToTable()
 		     document.getElementById("diagnosis[0].prescriptionList").options.add(newElem);
 		     document.getElementById("diagnosis[0].prescriptionList").options[i].selected = true;
 		  }
+	  document.getElementById("diagnosis[0].prescriptionList").disabled=true;
 	  for(var i = 0; i < document.getElementById("testList").options.length; i++){
 		     var newElem = document.createElement("OPTION");
 		     newElem.text = document.getElementById("testList").options[i].text;
@@ -566,18 +382,12 @@ function addRowToTable()
 		     document.getElementById("diagnosis[0].testList").options.add(newElem);
 		     document.getElementById("diagnosis[0].testList").options[i].selected = true;
 		  }
+	  document.getElementById("diagnosis[0].testList").disabled=true;
 	  num=num+1;
 	  document.getElementById("counter").value  =num;
 	  return true;
   }
-//  var cellRight = row.insertCell(0);
-//  var el = document.createElement('input');
-//  el.type = 'checkbox';
-//  cellRight.appendChild(el);
-
-  // left cell
   var cellLeft = row.insertCell(0);
-
   var el0 = document.createElement('input');
   el0.type = 'text';
   el0.name = "diagnosis[" + (num -1 )+ "].codeICD";
@@ -690,9 +500,10 @@ function fn_saveHistory(){
 }
 
 function fn_uploadSelectedFile(){
-	 document.forms['uploadFile'].target="ParentWindow";
-     document.forms["uploadFile"].submit();
-	 self.close();
+	window.close();
+	var form=document.getElementById('uploadFile');
+    form.setAttribute('target', 'iframeDialog');
+    form.submit();
 }
 
 //new script
@@ -1295,15 +1106,6 @@ window.onload = function () {
 }
 
 function fn_showDiagnosis(){
-/*    var e =event || window.event;   
-    var pos = getRelativeCoordinates(e, document.getElementById('reference1'));
-    var r = document.getElementById('reference1');
-    var m = document.getElementById('diagnosisBox');
-    m.style.left = '200px' ;
-    m.style.top = '-400px';
-	var menuStyle=document.getElementById('diagnosisBox').style; 
-	menuStyle.display="block";
-*/	
 	document.updateAppointment.diagnosis.disabled = false;
 	document.updateAppointment.findPrescription.disabled = false;
 	document.updateAppointment.prescriptionList.disabled = false;
@@ -1333,12 +1135,6 @@ function fn_showOptions(event,loggedUserID,calendarUserID,appointmentTime,appoin
     var pos = getRelativeCoordinates(e, document.getElementById('reference'));
     var r = document.getElementById('reference');
     var m = document.getElementById('movingDiv');
-   //this is done to align right corner
-   // var referenceWidth = parseInt( r.style.width);
-    //var t = (pos.x - referenceWidth + 30) ;
-    //m.style.left = t +'px' ;
-    //var tbl  = document.getElementById('menuTable');
-    //var rows = tbl.getElementsByTagName('tr');
     if (loggedUserID == calendarUserID){
     	document.getElementById('confirm').style.display="none";
     	document.getElementById('propose').style.display="none";
@@ -1983,19 +1779,10 @@ function MouseMove(e)
      }
  }
 }
-
-//
-//
-//
 function MouseUp() 
 {
  objDiv = null;
 }
-
-
-//
-//
-//
 function init()
 {
  // check browser
