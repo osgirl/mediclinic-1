@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="new_report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="63"/>
+	<subDataset name="dataset1"/>
+	<subDataset name="dataset2"/>
+	<parameter name="AppointmentID" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select idappointment_history,concat(ps_doc.first_name,' ',ps_doc.last_name) as doctor,
+concat(ps_pat.first_name,' ',ps_pat.last_name) as Patient, appointment_headline,appointment_comment,
+concat(DATE_FORMAT(appointment_duration,'%H'), " hours ", DATE_FORMAT(appointment_duration,'%i'), "minutes") as appointmentDuration,
+concat(DATE_FORMAT(date_of_appointment, '%W %d %M %Y'),' ',
+DATE_FORMAT(time_of_appointment, '%r' ) ) as apt
+from
+mediapp.appointment_history ah
+join mediapp.person ps_pat
+on ps_pat.idperson = ah.idpatient_details
+join mediapp.person ps_doc
+on ah.iddoctor_details = ps_doc.idperson
+join mediapp.doctor_details dd
+on dd.idperson = ps_doc.idperson
+left outer join mediapp.diagnosis dg
+on dg.idappointment = ah.idappointment_history
+left outer join mediapp.address ad
+on ad.personID = ps_doc.idperson
+left outer join mediapp.tests tst
+on dg.iddiagnosis = tst.fdiagnosis
+left outer join mediapp.patient_prescription mpr
+on dg.iddiagnosis = mpr.iddiagnosis
+where idappointment_history =$P{AppointmentID}
+order by idappointment_history;]]>
+	</queryString>
+	<field name="idappointment_history" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="doctor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Patient" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="appointment_headline" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="appointment_comment" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="appointmentDuration" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apt" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="33"/>
+	</title>
+	<pageHeader>
+		<band height="85">
+			<staticText>
+				<reportElement x="0" y="16" width="233" height="34" forecolor="#FF3333"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AppMent]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="55" y="50" width="178" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Easy way to get organized!]]></text>
+			</staticText>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="405" y="16" width="150" height="20" isPrintInFirstWholeBand="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Patient}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="236">
+			<textField>
+				<reportElement x="182" y="66" width="132" height="20"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{doctor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="55" y="66" width="83" height="20" isPrintInFirstWholeBand="true"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[With:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="55" y="106" width="78" height="20" isPrintInFirstWholeBand="true"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date and Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="60" y="146" width="78" height="20" isPrintInFirstWholeBand="true"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Duration:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="60" y="186" width="78" height="20" isPrintInFirstWholeBand="true"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comments:]]></text>
+			</staticText>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="182" y="106" width="92" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{apt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="182" y="146" width="136" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{appointmentDuration}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="182" y="186" width="353" height="48"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{appointment_comment}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="55" y="26" width="127" height="20" isPrintInFirstWholeBand="true"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Appointment about:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="182" y="26" width="132" height="20"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{appointment_headline}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40"/>
+	</detail>
+	<columnFooter>
+		<band height="45"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54"/>
+	</pageFooter>
+</jasperReport>

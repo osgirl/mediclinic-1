@@ -13,13 +13,11 @@ IFNULL(mpr.prescription_name,'None')as Prescription, IFNULL(tst.suggested_test,'
 concat(ps_pat.first_name,' ',ps_pat.last_name) as Patient
 from
 mediapp.appointment_history ah
-join mediapp.patient_details pd
-on  pd.idPatient_details = ah.idPatient_details
 join mediapp.person ps_pat
-on ps_pat.idperson = pd.idperson
-join mediapp.doctor_details dd
-on dd.iddoctor_details = ah.iddoctor_details
+on ps_pat.idperson = ah.idpatient_details
 join mediapp.person ps_doc
+on ah.iddoctor_details = ps_doc.idperson
+join mediapp.doctor_details dd
 on dd.idperson = ps_doc.idperson
 left outer join mediapp.diagnosis dg
 on dg.idappointment = ah.idappointment_history
