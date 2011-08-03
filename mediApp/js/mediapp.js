@@ -1713,8 +1713,7 @@ function displayFloatingDiv(divId, title, width, height, left, top)
 	            '<td style="width:18px" align="right"><a href="javascript:hiddenFloatingDiv(\'' + divId + '\');void(0);">' + 
 	            '<img alt="Close..." title="Close..." src="/images/close.jpg" border="0"></a></td></tr></table>';
 	
-
- // add to your div an header	
+	//add to your div an header	
 	document.getElementById(divId).innerHTML = addHeader + originalDivHTML;
 	
 	

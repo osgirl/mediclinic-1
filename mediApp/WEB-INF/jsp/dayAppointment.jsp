@@ -46,7 +46,7 @@
 																					<font size="3" color="#ff0000" face="verdana,arial,helvetica">
 																						<input type="hidden" name="AppointmentMonth" value="<fmt:formatDate pattern="MM" value="${AppointmentDate}"/>">
 																						<input type="hidden" name="AppointmentYear" value="<fmt:formatDate pattern="yyyy" value="${AppointmentDate}"/>">
-																						<input type="hidden" name="AppointmentDate" value="<fmt:formatDate pattern="MM/dd/yyyy" value="${AppointmentDate}"/>">																																							
+																						<input type="hidden" name="AppointmentDate" id="AppointmentDate" value="<fmt:formatDate pattern="MM/dd/yyyy" value="${AppointmentDate}"/>">																																							
 																						<b><fmt:formatDate pattern="MMMMMMMMM" value="${AppointmentDate}"/></b>
 																					</font>
 																				</td>

@@ -21,8 +21,8 @@
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar_us.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/customalert.js"></script>		
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/calendar.css">
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/customalert.js" ></script>
 	</head>
 	<body>
 		<form name="updateAppointment" id="updateAppointment" method="post" >
@@ -139,11 +139,11 @@
 											document.getElementById("counter").value = num;
 									</script>
 									
-									<tr>
+									<tr >
 										<td  >
 											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].codeICD">												
 												
-												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].codeICD}"/>" />
+												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].codeICD}"/>" disabled="disabled" />
 												<script type="text/javascript">
 														new Autocomplete('<c:out value="diagnosis[${diagnosisAndtest.index}].codeICD"/>', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
 												</script>
@@ -154,7 +154,7 @@
 										<td >
 											
 											<spring:bind  path="appointment.diagnosis[${diagnosisAndtest.index}].prescriptionList">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple >
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple disabled="disabled">
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList[legg.index]}"/></option>		
 													</c:forEach>
@@ -163,7 +163,7 @@
 										</td>
 										<td >
 											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].testList">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple >
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple disabled="disabled">
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].testList}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList[legg.index]}"/></option>		
 													</c:forEach>
@@ -179,7 +179,7 @@
 									
 										<td  >
 											<spring:bind path="appointment.diagnosis[0].codeICD">
-												<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>"  value="<c:out value="${status.value}"/>"/>
+												<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>"  value="<c:out value="${status.value}"/>" disabled="disabled"/>
 												<script type="text/javascript">
 														new Autocomplete('<c:out value="diagnosis[0].codeICD"/>', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
 												</script>
@@ -188,7 +188,7 @@
 										</td>
 										<td >
 											<spring:bind path="appointment.diagnosis[0].prescriptionList">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple >													
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple disabled="disabled">													
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}"/></option>		
 													</c:forEach>
@@ -197,7 +197,7 @@
 										</td>
 										<td >
 											<spring:bind path="appointment.diagnosis[0].testList">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple onclick="javascript:fn_moveDiv(event);" >
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple onclick="javascript:fn_moveDiv(event);" disabled="disabled">
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].testList}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}"/></option>		
 													</c:forEach>
@@ -263,8 +263,8 @@
 				           </td>
 			           		               
 				            <td width="40%">
-									<input type="text" name="diagnosis" id="diagnosis"  disabled="disabled" />
-									<script type="text/javascript">
+									<input  type="text" name="diagnosis" id="diagnosis"   />
+									<script type="text/javascript">											
 											new Autocomplete('diagnosis', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
 									</script>
 				           </td>
@@ -281,7 +281,7 @@
 
 	           			<tr >
 	           				<td>
-	           					<input type="text" name="findPrescription"  id="findPrescription" value="" disabled="disabled"/>
+	           					<input type="text" name="findPrescription"  id="findPrescription" value="" />
 								<script type="text/javascript">
 										new Autocomplete('findPrescription', { serviceUrl:'/appointmentPopUp.htm' },'table.PRESCRIPTION');
 								</script>
@@ -309,7 +309,7 @@
 
 	           			<tr >
 	           				<td>
-	           					<input type="text" name="findTest"  id="findTest" value="" disabled="disabled"/>
+	           					<input type="text" name="findTest"  id="findTest" value="" />
 								<script type="text/javascript">
 										new Autocomplete('findTest', { serviceUrl:'/appointmentPopUp.htm' },'table.PRESCRIPTION');
 								</script>
@@ -334,7 +334,7 @@
 					  			</a>
 					  		</td>
 							<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
-					  			<a href="javascript:void(0);" onClick="javascript:fn_close();" style="text-decoration:none"> 
+					  			<a href="javascript:void(0);" onClick="javascript:hiddenFloatingDiv('windowcontent');void(0);" style="text-decoration:none"> 
 					  				<font size="+1" color="#FFFFFF" >Close</font> 
 					  			</a>
 					  		</td>
