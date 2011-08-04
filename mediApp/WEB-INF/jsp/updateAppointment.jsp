@@ -22,7 +22,6 @@
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/calendar.css">
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/customalert.js" ></script>
 	</head>
 	<body>
 		<form name="updateAppointment" id="updateAppointment" method="post" >
@@ -255,6 +254,18 @@
 				</div>
 			</div>
 			<div style="width: 518px; height: 287px;visibility:hidden" id="windowcontent">
+			<table style="width:700px" class="floatingHeader">
+			    <tr>
+			       	<td ondblclick="void(0);" onmouseover="over=true;" onmouseout="over=false;" style="cursor:move;height:18px">
+			       		Add Diagnosis 
+			       	</td>
+			       	<td style="width:18px" align="right">
+			       		<a href="javascript:hiddenFloatingDiv('windowcontent');void(0);">
+			       			<img alt="Close..." title="Close..." src="/images/close.jpg" border="0">
+			       		</a>
+			       	</td>
+			     </tr>
+			</table>
 		         <table  border=""  id="diagnosisTable" width=700 height=300 class="sample" style="border-width: 0px 0px 0px 0px;">
 			           <tr>
 			           		<td width="40%"> Diagnosis:
@@ -294,7 +305,7 @@
 				           
 				           </td>
 				           <td>
-								<select  name="prescriptionList" id="prescriptionList" style="width: 15em;" size="3" multiple disabled="disabled" >
+								<select  name="prescriptionList" id="prescriptionList" style="width: 15em;" size="3" multiple  >
 				           </td>
 	           			</tr>
 			           <tr>               
@@ -322,7 +333,7 @@
 				           
 				           </td>
 				           <td>
-								<select  name="testList" id="testList" style="width: 15em;" size="3" multiple disabled="disabled">
+								<select  name="testList" id="testList" style="width: 15em;" size="3" multiple >
 				           </td>
 	           			</tr>
 	         		</table>

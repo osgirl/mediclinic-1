@@ -1120,7 +1120,7 @@ div.dimming {
 	background-color: #b2d8b2;
 	position:absolute;
 	/* set z-index higher than possible */
-	z-index:10000;
+	z-index:3;
 	visibility: hidden;
 	
 	border-style: solid;

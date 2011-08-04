@@ -323,14 +323,16 @@ function fn_deleteTest(num){
 function fn_updateAppointmentDetails(){
 
     var num = (document.getElementById("counter").value - 2) + 1 ;
+    
     for(var j=0;j<num;j++) {
     	var elSel = document.getElementById("diagnosis["+j+"].codeICD");
-  	  var elSel = document.getElementById("diagnosis["+j+"].prescriptionList");
-  	  elSel.disabled = false;
+    	  elSel.disabled = false;
+    	var elSel = document.getElementById("diagnosis["+j+"].prescriptionList");
 	  elSel.disabled = false;
   	  var elSel = document.getElementById("diagnosis["+j+"].testList");
   	  elSel.disabled = false;
     }
+    
 	window.close();
 	var form=document.getElementById('updateAppointment');
     form.setAttribute('target', 'iframeDialog');
@@ -1106,11 +1108,11 @@ window.onload = function () {
 }
 
 function fn_showDiagnosis(){
-	document.updateAppointment.diagnosis.disabled = false;
-	document.updateAppointment.findPrescription.disabled = false;
-	document.updateAppointment.prescriptionList.disabled = false;
-	document.updateAppointment.findTest.disabled = false;
-	document.updateAppointment.testList.disabled = false;
+//	document.updateAppointment.diagnosis.disabled = false;
+//	document.updateAppointment.findPrescription.disabled = false;
+//	document.updateAppointment.prescriptionList.disabled = false;
+//	document.updateAppointment.findTest.disabled = false;
+//	document.updateAppointment.testList.disabled = false;
 	var w, h, l, t;
 	
 	w = 700;
@@ -1121,11 +1123,11 @@ function fn_showDiagnosis(){
 }
 
 function fn_addDetails(){
-	document.updateAppointment.diagnosis.disabled = true;
-	document.updateAppointment.findPrescription.disabled = true;
-	document.updateAppointment.prescriptionList.disabled = true;
-	document.updateAppointment.findTest.disabled = true;
-	document.updateAppointment.testList.disabled = true;
+	//document.updateAppointment.diagnosis.disabled = true;
+	//document.updateAppointment.findPrescription.disabled = true;
+	//document.updateAppointment.prescriptionList.disabled = true;
+	//document.updateAppointment.findTest.disabled = true;
+	//document.updateAppointment.testList.disabled = true;
 	addRowToTable();
 	hiddenFloatingDiv('windowcontent');
 }
@@ -1707,14 +1709,14 @@ function displayFloatingDiv(divId, title, width, height, left, top)
 	
 	if (originalDivHTML == "")
 	    originalDivHTML = document.getElementById(divId).innerHTML;
-	
+	/*
 	addHeader = '<table style="width:' + width + 'px" class="floatingHeader">' +
 	            '<tr><td ondblclick="void(0);" onmouseover="over=true;" onmouseout="over=false;" style="cursor:move;height:18px">' + title + '</td>' + 
 	            '<td style="width:18px" align="right"><a href="javascript:hiddenFloatingDiv(\'' + divId + '\');void(0);">' + 
 	            '<img alt="Close..." title="Close..." src="/images/close.jpg" border="0"></a></td></tr></table>';
-	
+	*/
 	//add to your div an header	
-	document.getElementById(divId).innerHTML = addHeader + originalDivHTML;
+//	document.getElementById(divId).innerHTML = addHeader + originalDivHTML;
 	
 	
 	document.getElementById(divId).className = 'dimming';
