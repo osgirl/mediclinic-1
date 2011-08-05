@@ -367,7 +367,7 @@ function addRowToTable()
   var iteration = lastRow;
   var row = tbl.insertRow(lastRow);  
   if(num==1  ){
-	  document.getElementById("diagnosis[0].codeICD").value= document.getElementById("diagnosis").value;
+	  document.getElementById("diagnosis[0].codeICD").value= document.getElementById("finddiagnosis").value;
 	  document.getElementById("diagnosis[0].codeICD").disabled=true;
 	  for(var i = 0; i < document.getElementById("prescriptionList").options.length; i++){
 		     var newElem = document.createElement("OPTION");
@@ -397,7 +397,7 @@ function addRowToTable()
   el0.size = 20;
   el0.setAttribute("disabled","true");   
   cellLeft.appendChild(el0);
-  document.getElementById(el0.name).value= document.getElementById("diagnosis").value;
+  document.getElementById(el0.name).value= document.getElementById("finddiagnosis").value;
 
   // select cell
   var cellRightSel = row.insertCell(1);

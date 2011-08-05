@@ -143,10 +143,6 @@
 											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].codeICD">												
 												
 												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].codeICD}"/>" disabled="disabled" />
-												<script type="text/javascript">
-														new Autocomplete('<c:out value="diagnosis[${diagnosisAndtest.index}].codeICD"/>', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
-												</script>
-												
 																									
 											</spring:bind>
 										</td>
@@ -274,9 +270,9 @@
 				           </td>
 			           		               
 				            <td width="40%">
-									<input  type="text" name="diagnosis" id="diagnosis"   />
+									<input  type="text" name="finddiagnosis" id="finddiagnosis"   />
 									<script type="text/javascript">											
-											new Autocomplete('diagnosis', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
+											new Autocomplete('finddiagnosis', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
 									</script>
 				           </td>
 	        		   </tr>

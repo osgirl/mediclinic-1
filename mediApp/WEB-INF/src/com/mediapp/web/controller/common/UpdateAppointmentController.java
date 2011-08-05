@@ -2,7 +2,9 @@ package com.mediapp.web.controller.common;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -88,6 +90,7 @@ public class UpdateAppointmentController extends MediAppBaseController{
 	@Override
 	protected void initBinder(HttpServletRequest request,
 		ServletRequestDataBinder binder) throws Exception {
+		
 		 String dateFormat = getMessageSourceAccessor().getMessage("format.date",
 	     "MM/dd/yyyy");
 		 SimpleDateFormat df = new SimpleDateFormat(dateFormat);
