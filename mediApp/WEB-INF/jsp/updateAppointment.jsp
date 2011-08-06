@@ -142,7 +142,7 @@
 										<td  >
 											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].codeICD">												
 												
-												<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].codeICD}"/>" disabled="disabled" />
+												<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].codeICD}"/>" disabled="disabled" />
 																									
 											</spring:bind>
 										</td>
@@ -164,6 +164,7 @@
 													</c:forEach>
 												</select>
 											</spring:bind>
+											
 										</td>
 										
 									</tr>								
@@ -185,7 +186,7 @@
 											<spring:bind path="appointment.diagnosis[0].prescriptionList">
 												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple disabled="disabled">													
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}" varStatus="legg">
-														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}"/></option>		
+														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}" /></option>		
 													</c:forEach>
 												</select>
 											</spring:bind>

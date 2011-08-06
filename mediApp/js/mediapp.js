@@ -324,13 +324,21 @@ function fn_updateAppointmentDetails(){
 
     var num = (document.getElementById("counter").value - 2) + 1 ;
     
-    for(var j=0;j<num;j++) {
+    for(var j=0;j<num;j++) {    	
     	var elSel = document.getElementById("diagnosis["+j+"].codeICD");
     	  elSel.disabled = false;
     	var elSel = document.getElementById("diagnosis["+j+"].prescriptionList");
 	  elSel.disabled = false;
   	  var elSel = document.getElementById("diagnosis["+j+"].testList");
   	  elSel.disabled = false;
+	  for(var i = 0; i < document.getElementById("diagnosis["+j+"].prescriptionList").options.length; i++){
+		     document.getElementById("diagnosis["+j+"].prescriptionList").options[i].selected = true;
+	  }
+	  for(var i = 0; i < document.getElementById("diagnosis["+j+"].testList").options.length; i++){
+		     document.getElementById("diagnosis["+j+"].testList").options[i].selected = true;
+	  }
+															
+  	  
     }
     
 	window.close();
