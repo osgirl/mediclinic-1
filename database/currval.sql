@@ -3,7 +3,7 @@
 -- --------------------------------------------------------------------------------
 DELIMITER //
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `mediapp3`.`currval`(`seq_name` varchar(100)) RETURNS bigint(20)
+CREATE DEFINER=`root`@`localhost` FUNCTION `mediapp`.`currval`(`seq_name` varchar(100)) RETURNS bigint(20)
 BEGIN    
  DECLARE cur_val bigint(20); 
   SELECT

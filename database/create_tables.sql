@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.1.43, for Win32 (ia32)
 --
--- Host: localhost    Database: mediapp3
+-- Host: localhost    Database: mediapp
 -- ------------------------------------------------------
 -- Server version	5.1.43-community
 
@@ -15,16 +15,16 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE SCHEMA IF NOT EXISTS `mediapp3` DEFAULT CHARACTER SET latin1 ;
+CREATE SCHEMA IF NOT EXISTS `mediapp` DEFAULT CHARACTER SET latin1 ;
 
 --
--- Table structure for table `mediapp3`.`address`
+-- Table structure for table `mediapp`.`address`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`address`;
+DROP TABLE IF EXISTS `mediapp`.`address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`address` (
+CREATE TABLE `mediapp`.`address` (
   `idAddress` int(11) NOT NULL AUTO_INCREMENT,
   `address1` varchar(100) DEFAULT NULL,
   `address2` varchar(100) DEFAULT NULL,
@@ -44,10 +44,10 @@ CREATE TABLE `mediapp3`.`address` (
 -- Table structure for table `appointment_history`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`appointment_history`;
+DROP TABLE IF EXISTS `mediapp`.`appointment_history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`appointment_history` (
+CREATE TABLE `mediapp`.`appointment_history` (
   `idAppointment_History` int(11) NOT NULL AUTO_INCREMENT,
   `idPatient_details` int(11) DEFAULT NULL,
   `idDoctor_details` int(11) DEFAULT NULL,
@@ -77,10 +77,10 @@ CREATE TABLE `mediapp3`.`appointment_history` (
 -- Table structure for table `code_category`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`code_category`;
+DROP TABLE IF EXISTS `mediapp`.`code_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`code_category` (
+CREATE TABLE `mediapp`.`code_category` (
   `idcode_category` int(11) NOT NULL AUTO_INCREMENT,
   `code_category` varchar(45) DEFAULT NULL,
   `caching` char(1) DEFAULT 'N',
@@ -92,10 +92,10 @@ CREATE TABLE `mediapp3`.`code_category` (
 -- Table structure for table `code_decode`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`code_decode`;
+DROP TABLE IF EXISTS `mediapp`.`code_decode`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`code_decode` (
+CREATE TABLE `mediapp`.`code_decode` (
   `idCode_Decode` int(11) NOT NULL,
   `code_ctg` varchar(45) DEFAULT NULL,
   `code_val` varchar(200) DEFAULT NULL,
@@ -110,10 +110,10 @@ CREATE TABLE `mediapp3`.`code_decode` (
 -- Table structure for table `diagnosis`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`diagnosis`;
+DROP TABLE IF EXISTS `mediapp`.`diagnosis`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`diagnosis` (
+CREATE TABLE `mediapp`.`diagnosis` (
   `idDiagnosis` int(11) NOT NULL,
   `idAppointment` int(11) DEFAULT NULL,
   `ICD_code` varchar(1000) DEFAULT NULL,
@@ -129,10 +129,10 @@ CREATE TABLE `mediapp3`.`diagnosis` (
 -- Table structure for table `doctor_details`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`doctor_details`;
+DROP TABLE IF EXISTS `mediapp`.`doctor_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`doctor_details` (
+CREATE TABLE `mediapp`.`doctor_details` (
   `idDoctor_details` int(11) NOT NULL AUTO_INCREMENT,
   `idPerson` int(11) DEFAULT NULL,
   `specialization` varchar(200) DEFAULT NULL,
@@ -156,10 +156,10 @@ CREATE TABLE `mediapp3`.`doctor_details` (
 -- Table structure for table `doctor_work_timings`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`doctor_work_timings`;
+DROP TABLE IF EXISTS `mediapp`.`doctor_work_timings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`doctor_work_timings` (
+CREATE TABLE `mediapp`.`doctor_work_timings` (
   `iddoctor_work_timings` int(11) NOT NULL AUTO_INCREMENT,
   `work_day` varchar(45) DEFAULT NULL,
   `start_time` time DEFAULT NULL,
@@ -175,10 +175,10 @@ CREATE TABLE `mediapp3`.`doctor_work_timings` (
 -- Table structure for table `holiday_calendar`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`holiday_calendar`;
+DROP TABLE IF EXISTS `mediapp`.`holiday_calendar`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`holiday_calendar` (
+CREATE TABLE `mediapp`.`holiday_calendar` (
   `idholiday_calendar` int(11) NOT NULL,
   `idDoctor` int(11) NOT NULL,
   `date_of_holiday` date NOT NULL,
@@ -196,10 +196,10 @@ CREATE TABLE `mediapp3`.`holiday_calendar` (
 -- Table structure for table `icd_code_10`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`icd_code_10`;
+DROP TABLE IF EXISTS `mediapp`.`icd_code_10`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`icd_code_10` (
+CREATE TABLE `mediapp`.`icd_code_10` (
   `idicd_code_10` int(11) NOT NULL AUTO_INCREMENT,
   `icd_10_code` varchar(45) DEFAULT NULL,
   `ccs_category` varchar(10) DEFAULT NULL,
@@ -214,10 +214,10 @@ CREATE TABLE `mediapp3`.`icd_code_10` (
 -- Table structure for table `inbound_messages`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`inbound_messages`;
+DROP TABLE IF EXISTS `mediapp`.`inbound_messages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`inbound_messages` (
+CREATE TABLE `mediapp`.`inbound_messages` (
   `idinbound_messages` int(11) NOT NULL AUTO_INCREMENT,
   `sender_number` varchar(45) DEFAULT NULL,
   `inbound_message` varchar(200) DEFAULT NULL,
@@ -245,10 +245,10 @@ CREATE TABLE `mediapp3`.`inbound_messages` (
 -- Table structure for table `job_inputs`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`job_inputs`;
+DROP TABLE IF EXISTS `mediapp`.`job_inputs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`job_inputs` (
+CREATE TABLE `mediapp`.`job_inputs` (
   `idjob_inputs` int(11) NOT NULL AUTO_INCREMENT,
   `idschedule_job` int(11) DEFAULT NULL,
   `input_parameter_name` varchar(100) DEFAULT NULL,
@@ -263,10 +263,10 @@ CREATE TABLE `mediapp3`.`job_inputs` (
 -- Table structure for table `log`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`log`;
+DROP TABLE IF EXISTS `mediapp`.`log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`log` (
+CREATE TABLE `mediapp`.`log` (
   `idlog` int(11) NOT NULL AUTO_INCREMENT,
   `pname` varchar(1000) DEFAULT NULL,
   `ptime` datetime DEFAULT NULL,
@@ -279,10 +279,10 @@ CREATE TABLE `mediapp3`.`log` (
 -- Table structure for table `menu_to_role_mapping`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`menu_to_role_mapping`;
+DROP TABLE IF EXISTS `mediapp`.`menu_to_role_mapping`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`menu_to_role_mapping` (
+CREATE TABLE `mediapp`.`menu_to_role_mapping` (
   `idmenu_to_role_mapping` int(11) NOT NULL AUTO_INCREMENT,
   `menu_name` varchar(50) DEFAULT NULL,
   `menu_url` varchar(100) DEFAULT NULL,
@@ -296,10 +296,10 @@ CREATE TABLE `mediapp3`.`menu_to_role_mapping` (
 -- Table structure for table `patient_allergies`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`patient_allergies`;
+DROP TABLE IF EXISTS `mediapp`.`patient_allergies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`patient_allergies` (
+CREATE TABLE `mediapp`.`patient_allergies` (
   `idpatient_allergies` int(11) NOT NULL AUTO_INCREMENT,
   `allergy` varchar(4500) DEFAULT NULL,
   `comments` varchar(4500) DEFAULT NULL,
@@ -314,10 +314,10 @@ CREATE TABLE `mediapp3`.`patient_allergies` (
 -- Table structure for table `patient_details`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`patient_details`;
+DROP TABLE IF EXISTS `mediapp`.`patient_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`patient_details` (
+CREATE TABLE `mediapp`.`patient_details` (
   `idPatient_details` int(11) NOT NULL AUTO_INCREMENT,
   `idPerson` int(11) DEFAULT NULL,
   `idPastHistory` int(11) DEFAULT NULL,
@@ -334,10 +334,10 @@ CREATE TABLE `mediapp3`.`patient_details` (
 -- Table structure for table `patient_document_details`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`patient_document_details`;
+DROP TABLE IF EXISTS `mediapp`.`patient_document_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`patient_document_details` (
+CREATE TABLE `mediapp`.`patient_document_details` (
   `idpatient_document_details` int(11) NOT NULL AUTO_INCREMENT,
   `document_name` varchar(1000) DEFAULT NULL,
   `document_path` varchar(2000) DEFAULT NULL,
@@ -353,10 +353,10 @@ CREATE TABLE `mediapp3`.`patient_document_details` (
 -- Table structure for table `patient_prescription`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`patient_prescription`;
+DROP TABLE IF EXISTS `mediapp`.`patient_prescription`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`patient_prescription` (
+CREATE TABLE `mediapp`.`patient_prescription` (
   `idpatient_prescription` int(11) NOT NULL AUTO_INCREMENT,
   `prescription_name` varchar(1000) DEFAULT NULL,
   `dosage` varchar(45) DEFAULT NULL,
@@ -371,10 +371,10 @@ CREATE TABLE `mediapp3`.`patient_prescription` (
 -- Table structure for table `person`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`person`;
+DROP TABLE IF EXISTS `mediapp`.`person`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`person` (
+CREATE TABLE `mediapp`.`person` (
   `idPerson` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
@@ -399,10 +399,10 @@ CREATE TABLE `mediapp3`.`person` (
 -- Table structure for table `person_package`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`person_package`;
+DROP TABLE IF EXISTS `mediapp`.`person_package`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`person_package` (
+CREATE TABLE `mediapp`.`person_package` (
   `idperson_package` int(11) NOT NULL AUTO_INCREMENT,
   `person_id` int(11) DEFAULT NULL,
   `package` varchar(45) DEFAULT NULL,
@@ -416,10 +416,10 @@ CREATE TABLE `mediapp3`.`person_package` (
 -- Table structure for table `postal_codes`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`postal_codes`;
+DROP TABLE IF EXISTS `mediapp`.`postal_codes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`postal_codes` (
+CREATE TABLE `mediapp`.`postal_codes` (
   `idpostal_codes` int(11) NOT NULL AUTO_INCREMENT,
   `country_name` varchar(1000) DEFAULT NULL,
   `state_name` varchar(1000) DEFAULT NULL,
@@ -433,10 +433,10 @@ CREATE TABLE `mediapp3`.`postal_codes` (
 -- Table structure for table `prescription_meta_data`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`prescription_meta_data`;
+DROP TABLE IF EXISTS `mediapp`.`prescription_meta_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`prescription_meta_data` (
+CREATE TABLE `mediapp`.`prescription_meta_data` (
   `idprescription_meta_data` int(11) NOT NULL AUTO_INCREMENT,
   `prescription` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`idprescription_meta_data`)
@@ -447,10 +447,10 @@ CREATE TABLE `mediapp3`.`prescription_meta_data` (
 -- Table structure for table `schedule_job`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`schedule_job`;
+DROP TABLE IF EXISTS `mediapp`.`schedule_job`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`schedule_job` (
+CREATE TABLE `mediapp`.`schedule_job` (
   `idschedule_job` int(11) NOT NULL AUTO_INCREMENT,
   `action` varchar(100) DEFAULT NULL,
   `comments` varchar(4500) DEFAULT NULL,
@@ -467,10 +467,10 @@ CREATE TABLE `mediapp3`.`schedule_job` (
 -- Table structure for table `sequence_data`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`sequence_data`;
+DROP TABLE IF EXISTS `mediapp`.`sequence_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`sequence_data` (
+CREATE TABLE `mediapp`.`sequence_data` (
   `sequence_name` varchar(100) NOT NULL,
   `sequence_increment` int(11) NOT NULL DEFAULT '1',
   `sequence_min_value` int(11) NOT NULL DEFAULT '1',
@@ -485,10 +485,10 @@ CREATE TABLE `mediapp3`.`sequence_data` (
 -- Table structure for table `smsserver_calls`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`smsserver_calls`;
+DROP TABLE IF EXISTS `mediapp`.`smsserver_calls`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`smsserver_calls` (
+CREATE TABLE `mediapp`.`smsserver_calls` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `call_date` datetime NOT NULL,
   `gateway_id` varchar(64) NOT NULL,
@@ -501,10 +501,10 @@ CREATE TABLE `mediapp3`.`smsserver_calls` (
 -- Table structure for table `smsserver_in`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`smsserver_in`;
+DROP TABLE IF EXISTS `mediapp`.`smsserver_in`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`smsserver_in` (
+CREATE TABLE `mediapp`.`smsserver_in` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `process` int(11) NOT NULL,
   `originator` varchar(16) NOT NULL,
@@ -527,10 +527,10 @@ CREATE TABLE `mediapp3`.`smsserver_in` (
 -- Table structure for table `smsserver_out`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`smsserver_out`;
+DROP TABLE IF EXISTS `mediapp`.`smsserver_out`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`smsserver_out` (
+CREATE TABLE `mediapp`.`smsserver_out` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(1) NOT NULL DEFAULT 'O',
   `recipient` varchar(16) NOT NULL,
@@ -559,10 +559,10 @@ CREATE TABLE `mediapp3`.`smsserver_out` (
 -- Table structure for table `test_meta_data`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`test_meta_data`;
+DROP TABLE IF EXISTS `mediapp`.`test_meta_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`test_meta_data` (
+CREATE TABLE `mediapp`.`test_meta_data` (
   `idtest_meta_data` int(11) NOT NULL AUTO_INCREMENT,
   `test_description` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`idtest_meta_data`)
@@ -573,10 +573,10 @@ CREATE TABLE `mediapp3`.`test_meta_data` (
 -- Table structure for table `tests`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`tests`;
+DROP TABLE IF EXISTS `mediapp`.`tests`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`tests` (
+CREATE TABLE `mediapp`.`tests` (
   `idTests` int(11) NOT NULL AUTO_INCREMENT,
   `suggested_Test` varchar(1000) DEFAULT NULL,
   `test_Result_Value` varchar(45) DEFAULT NULL,
