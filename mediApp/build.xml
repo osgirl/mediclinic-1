@@ -82,9 +82,6 @@
 
 	<!-- Create the War File -->
 	<target name="buildWar" depends="init">
-		<jar jarfile="${basedir}/WEB-INF/lib/appmentConfig.jar" basedir="${basedir}/WEB-INF/src"   includes="**/*.xml,**/*.properties" manifest="MANIFEST.MF"/>
-		
-		<jar jarfile="${basedir}/WEB-INF/lib/appment.jar" basedir="${classdir}" includes="**/*.class" manifest="MANIFEST.MF"/>
 		
 		<copy todir="${warDir}/WEB-INF">
 			<fileset dir="${basedir}/WEB-INF" includes="web.xml" /> 
@@ -126,13 +123,43 @@
 			<fileset dir="${basedir}/WEB-INF/lib" includes="*.*" /> 
 		</copy>
 
-		<copy todir="${warDir}/org">
+		<copy todir="${warDir}/WEB-INF/classes/org">
 			<fileset dir="${basedir}/work/org" includes="**/*.*" /> 
 		</copy>
 
-		<copy todir="${warDir}">
+		<copy todir="${warDir}/WEB-INF/src">
 			<fileset dir="${basedir}/WEB-INF/src" includes="*.properties" /> 
 		</copy>
+
+		<copy todir="${warDir}/WEB-INF/reports">
+			<fileset dir="${basedir}/WEB-INF/reports" includes="*.jrxml" /> 
+		</copy>
+
+		<copy todir="${warDir}/WEB-INF/src/resources/common/ibatis">
+			<fileset dir="${basedir}/WEB-INF/src/resources/common/ibatis" includes="*.xml" /> 
+		</copy>
+
+		<copy todir="${warDir}/WEB-INF/src/resources/common/properties">
+			<fileset dir="${basedir}/WEB-INF/src/resources/common/properties" includes="*.properties" /> 
+		</copy>
+
+		<copy todir="${warDir}/WEB-INF/src/resources/common/spring">
+			<fileset dir="${basedir}/WEB-INF/src/resources/common/spring" includes="*.xml" /> 
+		</copy>
+
+
+		<copy todir="${warDir}/WEB-INF/src/resources/common/velocity">
+			<fileset dir="${basedir}/WEB-INF/src/resources/common/velocity" includes="*.vm" /> 
+		</copy>
+
+
+		<copy todir="${warDir}/WEB-INF/src/resources/common/velocity">
+			<fileset dir="${basedir}/WEB-INF/src/resources/common/velocity" includes="*.JPG" /> 
+		</copy>
+
+		<jar jarfile="${basedir}/WEB-INF/lib/appmentConfig.jar" basedir="${basedir}/WEB-INF/src"   includes="**/*.xml,**/*.properties,**/*.vm" manifest="MANIFEST.MF"/>
+		
+		<jar jarfile="${basedir}/WEB-INF/lib/appment.jar" basedir="${classdir}" includes="**/*.class" manifest="MANIFEST.MF"/>
 
 
 		<!-- Create war file and place in ear directory -->
