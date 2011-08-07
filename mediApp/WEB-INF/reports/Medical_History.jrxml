@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="new_report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MedicalHistory" pageWidth="595" pageHeight="842" columnWidth="270" columnSpacing="15" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="141"/>
-	<subDataset name="dataset1"/>
-	<subDataset name="dataset2"/>
-	<parameter name="AppointmentID" class="java.lang.Integer"/>
+	<property name="ireport.y" value="20"/>
+	<style name="Arial_Normal" isDefault="true" fontName="Arial" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Arial_Bold" fontName="Arial" fontSize="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Arial_Italic" fontName="Arial" fontSize="8" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Comic_Normal" fontName="Comic Sans MS" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="COMIC.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<style name="Comic_Bold" fontName="Comic Sans MS" fontSize="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="COMICBD.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<parameter name="PatientID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select idappointment_history,date_of_appointment,dd.registration_id, ICD_code,
-IFNULL(mpr.prescription_name,'None')as Prescription, IFNULL(tst.suggested_test,'None')as Test,
+		<![CDATA[select idappointment_history,date_format(date_of_appointment,'%D %M %Y') as date_of_appointment , ICD_code as ShipName,
+IFNULL(mpr.prescription_name,'None')as ShipRegion, IFNULL(tst.suggested_test,'None')as OrderDate,
 concat('Dr. ',ps_doc.first_name,' ',ps_doc.last_name) as doctor, concat(ps_pat.first_name,' ',ps_pat.last_name) as Patient
 from
 mediapp.appointment_history ah
@@ -24,141 +27,204 @@ left outer join mediapp.tests tst
 on dg.iddiagnosis = tst.fdiagnosis
 left outer join mediapp.patient_prescription mpr
 on dg.iddiagnosis = mpr.iddiagnosis
-where idappointment_history = $P{AppointmentID}
-group by idappointment_history;]]>
+where idpatient_details = $P{PatientID}
+order by idappointment_history desc]]>
 	</queryString>
-	<field name="idappointment_history" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="date_of_appointment" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="registration_id" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ICD_code" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Prescription" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Test" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="doctor" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Patient" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<background>
-		<band/>
-	</background>
+	<field name="idappointment_history" class="java.lang.Integer"/>
+	<field name="date_of_appointment" class="java.lang.String"/>
+	<field name="doctor" class="java.lang.String"/>
+	<field name="Patient" class="java.lang.String"/>
+	<field name="ShipName" class="java.lang.String"/>
+	<field name="OrderDate" class="java.lang.String"/>
+	<field name="ShipRegion" class="java.lang.String"/>
+	<variable name="FirstLetter" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[$F{doctor}]]></variableExpression>
+	</variable>
+	<variable name="DateHighestCountryGroup" class="java.lang.String" resetType="Group" resetGroup="CountryGroup" calculation="Highest">
+		<variableExpression><![CDATA[$F{date_of_appointment}]]></variableExpression>
+	</variable>
+	<variable name="RegionCountCountryGroup" class="java.lang.Integer" resetType="Group" resetGroup="CountryGroup" calculation="Count">
+		<variableExpression><![CDATA[$F{ShipRegion}]]></variableExpression>
+	</variable>
+	<group name="FirstLetterGroup" isStartNewColumn="true" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="200">
+		<groupExpression><![CDATA[$V{FirstLetter}]]></groupExpression>
+		<groupHeader>
+			<band height="25" splitType="Stretch">
+				<staticText>
+					<reportElement style="Arial_Italic" mode="Opaque" x="1" y="3" width="120" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement>
+						<font size="12" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Appointment With:]]></text>
+				</staticText>
+				<textField>
+					<reportElement style="Arial_Bold" mode="Opaque" x="121" y="3" width="311" height="22" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{FirstLetter}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="15" splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="CountryGroup" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{date_of_appointment}]]></groupExpression>
+		<groupHeader>
+			<band height="46" splitType="Stretch">
+				<textField>
+					<reportElement style="Arial_Bold" x="121" y="0" width="311" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{date_of_appointment}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Arial_Italic" mode="Opaque" x="1" y="0" width="120" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement>
+						<font size="12" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Appointment On:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Arial_Bold" mode="Opaque" x="2" y="20" width="198" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[Diagnosis]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Arial_Bold" mode="Opaque" x="200" y="20" width="202" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[Prescription]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Arial_Bold" mode="Opaque" x="402" y="20" width="148" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[Tests]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="26" splitType="Stretch">
+				<rectangle>
+					<reportElement x="0" y="0" width="550" height="11" forecolor="#C0C0C0" backcolor="#C0C0C0"/>
+				</rectangle>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="BreakGroup">
+		<groupExpression><![CDATA[new Boolean($V{BreakGroup_COUNT}.intValue() > 5)]]></groupExpression>
+		<groupHeader>
+			<band height="10" splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="5" splitType="Stretch"/>
+		</groupFooter>
+	</group>
 	<title>
-		<band height="33"/>
-	</title>
-	<pageHeader>
-		<band height="72">
+		<band height="100" splitType="Stretch">
+			<elementGroup>
+				<line>
+					<reportElement x="2" y="81" width="550" height="1"/>
+				</line>
+			</elementGroup>
 			<staticText>
-				<reportElement mode="Transparent" x="57" y="44" width="178" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Verdana" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Easy way to get organized!]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="2" y="10" width="233" height="34" forecolor="#FF3333"/>
+				<reportElement x="2" y="1" width="233" height="34" forecolor="#FF3333"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[AppMent]]></text>
 			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="57" y="35" width="178" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Easy way to get organized!]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="10" y="0" width="540" height="40" forecolor="#000000" backcolor="#CADEF4"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Medical History of "+$F{Patient}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61">
-			<textField>
-				<reportElement isPrintRepeatedValues="false" x="235" y="1" width="150" height="21" isPrintInFirstWholeBand="true"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{Patient}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="96" y="1" width="139" height="20" isPrintInFirstWholeBand="true"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Medical History of ]]></text>
-			</staticText>
-		</band>
+		<band height="28" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="242">
-			<textField>
-				<reportElement isPrintRepeatedValues="false" x="179" y="143" width="166" height="43"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{Prescription}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement isPrintRepeatedValues="false" x="365" y="143" width="172" height="43"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{Test}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement isPrintRepeatedValues="false" x="2" y="143" width="159" height="43"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{ICD_code}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="233" y="102" width="78" height="20" isPrintInFirstWholeBand="true"/>
+		<band height="27" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="10" y="0" width="204" height="15"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="10"/>
 				</textElement>
-				<text><![CDATA[Prescription]]></text>
-			</staticText>
-			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="42" y="102" width="78" height="20" isPrintInFirstWholeBand="true"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Diagnosis	]]></text>
-			</staticText>
-			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="419" y="102" width="78" height="20" isPrintInFirstWholeBand="true"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Test Suggested]]></text>
-			</staticText>
-			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="2" y="14" width="139" height="20" isPrintInFirstWholeBand="true"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Appointment was with :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="2" y="49" width="139" height="20" isPrintInFirstWholeBand="true"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Date of Appointment:]]></text>
-			</staticText>
-			<textField>
-				<reportElement isPrintRepeatedValues="false" x="235" y="14" width="150" height="21" isPrintInFirstWholeBand="true"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{doctor}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ShipName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement isPrintRepeatedValues="false" x="235" y="48" width="150" height="21" isPrintInFirstWholeBand="true"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{date_of_appointment}]]></textFieldExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement x="214" y="0" width="188" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ShipRegion}]]></textFieldExpression>
 			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="402" y="0" width="148" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{OrderDate}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="0" y="19" width="550" height="1" forecolor="#808080"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="100"/>
+		<band height="11" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="65"/>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="200" y="10" width="75" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="275" y="10" width="5" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="280" y="10" width="75" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
+	<summary>
+		<band height="65" splitType="Stretch"/>
+	</summary>
 </jasperReport>

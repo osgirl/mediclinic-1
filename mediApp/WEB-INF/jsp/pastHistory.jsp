@@ -97,6 +97,26 @@
 			                	</spring:bind>
 		               </td>
               </tr>
+					<%  
+					if(p.getPackages().contains("Patient")){
+							
+					%>
+              
+              <tr>
+              <tr>
+              </tr>
+              	<td> Treatment History :
+              	</td>
+              	<td> 
+              		<a href="javascript:void(0);" onClick="javascript:generateHistory(<%=p.getIdPerson() %>);" >
+              			View 
+					</a>
+              	</td>
+              </tr>
+              <%}%>
+              <tr>
+              </tr>
+              		
              </table>
               <table border="0" cellpadding="0" cellspacing="0" width="200" height="30"  align="bottom">       
 					<tr>     

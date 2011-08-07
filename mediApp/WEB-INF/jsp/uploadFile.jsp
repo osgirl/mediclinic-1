@@ -67,8 +67,7 @@
 		<td>Comments:</td>
 		<td>
 			<spring:bind path="fileUpload.comments">
-				<textarea name="${status.expression}" value="" rows="4" cols="50">
-        		</textarea>
+				<textarea name="${status.expression}" value="" rows="4" cols="50"></textarea>
         	</spring:bind>
         </td>
 	</tr>

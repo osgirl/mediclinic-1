@@ -7,19 +7,23 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<%@page import="com.mediapp.domain.common.Person"%><html>
+<%@page import="com.mediapp.domain.common.Person"%>
+<html>
 <head>
 <% response.setHeader("Expires","Mon, 26 Jul 2020 05:00:00 GMT"); %>
     <title>AppMent</title>
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/shakehand1.ico" type="image/x-icon" />    
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css" type="text/css" />
 	<link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
+	<link href="<%=request.getContextPath()%>/css/jquery.jgrowl.css" rel="stylesheet" type="text/css">
     <script type="text/javascript"  src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
     <script type="text/javascript"  src="<%=request.getContextPath()%>/js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/customalert.js" ></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/prototype.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar_us.js"></script>	
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.4.2.js" ></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.jgrowl.js" ></script>	
 	
 
 </head>
@@ -68,7 +72,8 @@
 			</div>
 		</div>
 		
-		<%} %>	
+		<%} %>
+			
 <div >
 							
 								<div align="right">		
