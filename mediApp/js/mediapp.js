@@ -1822,3 +1822,9 @@ function generateHistory(personID){
 	
 	window.open("/generateHistory.pdf?PatientID="+personID,"History","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
 }
+
+function fn_updatePackage(){
+	admin.method="post";
+	admin.submit(); 
+
+	}

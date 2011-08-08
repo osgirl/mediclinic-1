@@ -23,6 +23,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 import com.mediapp.core.common.constants.CommonCoreConstants;
 import com.mediapp.core.common.dao.CommonDAO;
+import com.mediapp.domain.common.Admin;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.AppointmentTO;
@@ -907,4 +908,28 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 	public List <String> getAppMates(){		
 		return (ArrayList<String>) getListNoOptions("common.getAppMates" ); 
 	}
+	
+	public boolean updatePackage(Admin admin) throws DataAccessException,DataIntegrityViolationException{
+		Map<String,Object> criteria =  new HashMap < String, Object > () ;
+		String personName = admin.getPersonID();
+		criteria.put("PersonID", personName);
+		deleteObject("common.deletePackage", criteria);
+		try
+		{
+			this.getSqlMapClient().startBatch();
+			for(String packages: admin.getPackages()){
+				criteria =  new HashMap < String, Object > () ;
+				criteria.put("PersonID", personName);
+				criteria.put("PackageName", packages);
+				getSqlMapClient().insert("common.insertPackages",
+						criteria);
+				
+			}
+		}catch (SQLException e) {
+			throw new DataIntegrityViolationException(e.getMessage());
+		}
+		return true;
+	}
 }
+
+

@@ -8,6 +8,7 @@ import org.smslib.InboundMessage;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import com.mediapp.domain.common.Admin;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.CodeDecode;
@@ -138,4 +139,6 @@ public interface CommonDAO {
 	public boolean updateInSMS(List<IncomingMessages> incomingMessages,String processingID, String status) throws DataAccessException;
 	
 	public List <String> getAppMates() throws DataAccessException;
+	
+	public boolean updatePackage(Admin admin) throws DataAccessException,DataIntegrityViolationException;
 }

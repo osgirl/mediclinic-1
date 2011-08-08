@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import com.mediapp.domain.common.Admin;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.CodeDecode;
@@ -66,5 +67,7 @@ public interface CommonService {
 	
 	public List<List<Appointment>> getInbox(int  idPerson ) ;
 	
-	public List <String> getAppMates() throws DataAccessException;
+	public List <String> getAppMates() ;
+	
+	public boolean updatePackage(Admin admin) ;
 }

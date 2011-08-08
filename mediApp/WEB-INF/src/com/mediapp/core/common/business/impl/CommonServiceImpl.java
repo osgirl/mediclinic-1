@@ -16,10 +16,12 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import com.mediapp.core.common.business.CommonService;
 import com.mediapp.core.common.constants.CommonCoreConstants;
 import com.mediapp.core.common.dao.CommonDAO;
+import com.mediapp.domain.common.Admin;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.AppointmentForMonth;
 import com.mediapp.domain.common.CodeDecode;
@@ -331,5 +333,9 @@ public class CommonServiceImpl implements CommonService{
 	
 	public List <String> getAppMates(){
 		return commonDAO.getAppMates();
+	}
+	
+	public boolean updatePackage(Admin admin) {
+		return commonDAO.updatePackage(admin);
 	}
 }

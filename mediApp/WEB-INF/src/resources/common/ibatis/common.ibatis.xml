@@ -1239,5 +1239,24 @@
 		select user_name from person where
 		status_of_account != 'C'
  	</select>
+
+	 <parameterMap id="Insert-Packages-Parm-Map"   class="java.util.HashMap">
+	    <parameter property="PersonID" 		javaType="java.lang.String"    mode="IN"/>	    
+		<parameter property="PackageName"  	javaType="java.lang.String"   	mode="IN"/>
+	 </parameterMap>
+
+	<insert id="insertPackages" parameterMap="Insert-Packages-Parm-Map">
+		INSERT INTO person_package (person_id, package ) 
+		VALUES ((select idPerson from person where user_name = ?),?)
+		
+	</insert>
+
+	 <parameterMap id="Delete-Packages-Parm-Map"   class="java.util.HashMap">
+	    <parameter property="PersonID" 		javaType="java.lang.String"    mode="IN"/>	    
+	 </parameterMap>
+
+	<delete id="deletePackage"  parameterMap="Delete-Packages-Parm-Map">
+		delete from person_package where person_id in (select idPerson from person where user_name = ?);
+	</delete>
 	
 </sqlMap>
