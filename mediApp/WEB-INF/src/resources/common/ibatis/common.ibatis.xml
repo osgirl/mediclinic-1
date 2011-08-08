@@ -79,7 +79,7 @@
 
 	<insert id="insertNewAppMentPerson">
 		INSERT INTO person (idPerson, email_Address,status_of_account,person_type,password,mobile_phone_number,user_name,first_name,last_name,middle_name ) 
-		VALUES (#idPerson#, #emailID#,'T','AppMent',AES_ENCRYPT(#password#,#key#),#cellPhoneNumber#,#username#,#firstName#,#lastName#,#middleInitial# )
+		VALUES (#idPerson#, #emailID#,'T','Basic',AES_ENCRYPT(#password#,#key#),#cellPhoneNumber#,#username#,#firstName#,#lastName#,#middleInitial# )
 	</insert>
 
 	
@@ -475,6 +475,11 @@
 	<insert id="insertDoctor" >
 			insert into doctor_details (idPerson) values
 			(#idPerson#);
+	</insert>
+	
+	<insert id="insertPackage" >
+			insert into person_package (person_id,package) values
+			(#idPerson#, 'Basic');
 	</insert>
 	
 	<insert id="insertPatient" >
@@ -1230,5 +1235,9 @@
 		person_id = ?
  	</select>
 
+	<select id="getAppMates"   resultClass="java.lang.String">
+		select user_name from person where
+		status_of_account != 'C'
+ 	</select>
 	
 </sqlMap>

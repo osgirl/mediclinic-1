@@ -137,4 +137,5 @@ public interface CommonDAO {
 	
 	public boolean updateInSMS(List<IncomingMessages> incomingMessages,String processingID, String status) throws DataAccessException;
 	
+	public List <String> getAppMates() throws DataAccessException;
 }

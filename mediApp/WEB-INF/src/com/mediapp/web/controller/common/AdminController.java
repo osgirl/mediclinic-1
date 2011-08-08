@@ -24,6 +24,7 @@ import com.mediapp.core.common.business.impl.AppmentCache;
 import com.mediapp.core.common.business.impl.ScheduleEMail;
 import com.mediapp.core.common.business.impl.ScheduleSMS;
 import com.mediapp.core.common.dao.impl.MediAppBaseDAOImpl;
+import com.mediapp.domain.common.Admin;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.LogonDomain;
@@ -31,10 +32,10 @@ import com.mediapp.web.constants.common.CommonWebConstants;
 import com.mediapp.web.util.common.CommonWebUtil;
 
 
-public class AppMentLoginController extends MediAppBaseController  {
+public class AdminController extends MediAppBaseController  {
 	 
 	private final Log logger = LogFactory.getLog(getClass());
-	LoginService loginService;
+	
 	CommonService commonService;
 	public CommonService getCommonService() {
 		return commonService;
@@ -43,50 +44,24 @@ public class AppMentLoginController extends MediAppBaseController  {
 		this.commonService = commonService;
 	}
 
-	ScheduleEMail sendeMail;
-	public ScheduleEMail getSendeMail() {
-		return sendeMail;
-	}
-	public void setSendeMail(ScheduleEMail sendeMail) {
-		this.sendeMail = sendeMail;
-	}
-
-	ScheduleSMS sendSMS;
-
-	public ScheduleSMS getSendSMS() {
-		return sendSMS;
-	}
-	public void setSendSMS(ScheduleSMS sendSMS) {
-		this.sendSMS = sendSMS;
-	}
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)
 	throws Exception {
 		Map < String , List > logonMap = new HashMap < String , List > ();
+		List <String> appMates = commonService.getAppMates();
+		List <CodeDecode> allPackages = new ArrayList<CodeDecode>();
+		allPackages=commonService.getAutoComplete("PACKAGES", "%");	
+		logonMap.put("personIDS", appMates);
+		logonMap.put("allPackages", allPackages);
 		return logonMap;
 	}
 	
 	
-	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
-		Person person = loginService.authenticate((Person)command);
-		HttpSession sessionObj = request.getSession(true);
-		sessionObj.setAttribute("menuItems", loginService.getMenuItems(person.getIdPerson()));
-		CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);
-		if("Admin".equals(person.getPersonTypeString())){
-			return new ModelAndView("redirect:/adminConsole.htm",CommonWebConstants.USER_ID, person);
-		}else{
-			if(person.getLastName()!= null){
-				return new ModelAndView("redirect:/inbox.htm",CommonWebConstants.USER_ID, person);	
-			}else{
-				return new ModelAndView("redirect:/personalProfile.htm",CommonWebConstants.USER_ID, person);
-			}
-			
-		}
+	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
+		Admin admin = (Admin)command;
+			return new ModelAndView(getFormView());
 		
     }
 	/**
 	 * @param loginService the loginService to set
 	 */
-	public void setLoginService(LoginService loginService) {
-		this.loginService = loginService;
-	}
 }

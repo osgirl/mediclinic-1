@@ -65,4 +65,6 @@ public interface CommonService {
 	public NotificationDetails getNotificationDetails(Integer appointmentID);
 	
 	public List<List<Appointment>> getInbox(int  idPerson ) ;
+	
+	public List <String> getAppMates() throws DataAccessException;
 }

@@ -212,7 +212,7 @@
               </td>
              </tr>
              <tr>
-              <td >Select Package: <font color="red">*</font></td>
+              <td >Packages: <font color="red">*</font></td>
               <td >
 		           <div style="overflow:auto;width:150px;height:80px;border:1px solid #336699;padding-left:5px;background-color:white;">
 		           <%@page import="com.mediapp.domain.common.CodeDecode"%>

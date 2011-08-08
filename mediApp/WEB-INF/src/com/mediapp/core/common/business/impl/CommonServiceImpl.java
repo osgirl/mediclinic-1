@@ -328,5 +328,8 @@ public class CommonServiceImpl implements CommonService{
 	public List<List<Appointment>> getInbox(int  idPerson ) {
 		return commonDAO.getInbox(idPerson);
 	}
-
+	
+	public List <String> getAppMates(){
+		return commonDAO.getAppMates();
+	}
 }

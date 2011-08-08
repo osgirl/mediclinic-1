@@ -132,6 +132,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		if (insertStatus){
 			insertStatus= insertObject("common.insertDoctor",person );
 		}
+		if (insertStatus){
+			insertStatus= insertObject("common.insertPackage",person );
+		}
 		return insertStatus;
 	}
 
@@ -900,5 +903,8 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return true;
 
 	}
-
+	
+	public List <String> getAppMates(){		
+		return (ArrayList<String>) getListNoOptions("common.getAppMates" ); 
+	}
 }

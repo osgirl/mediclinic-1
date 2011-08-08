@@ -109,6 +109,18 @@
 		
     </bean>
 
+	<bean id="adminConsole" class="com.mediapp.web.controller.common.AdminController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>admin</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Admin</value></property>
+        <property name="formView"><value>adminConsole</value></property>
+        <property name="successView"><value>adminConsole</value></property>
+        <property name="commonService">
+			<ref bean="commonService"/>
+		</property>
+		
+    </bean>
+
 	<bean id="pastHistory" class="com.mediapp.web.controller.common.PastHistoryController">
         <property name="sessionForm"><value>true</value></property>
         <property name="commandName"><value>patientDetails</value></property>
@@ -353,6 +365,9 @@
 				</entry>
 				<entry key="/download.htm">
 					<ref bean="downloadFileController"/>
+				</entry>
+				<entry key="/adminConsole.htm">
+					<ref bean="adminConsole"/>
 				</entry>
 			</map>
 		</property>
