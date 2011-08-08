@@ -58,7 +58,8 @@ public class AdminController extends MediAppBaseController  {
 	
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		Admin admin = (Admin)command;
-			return new ModelAndView(getFormView());
+		
+		return new ModelAndView(getFormView());
 		
     }
 	/**
