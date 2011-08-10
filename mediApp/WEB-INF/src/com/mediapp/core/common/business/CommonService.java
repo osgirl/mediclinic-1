@@ -70,4 +70,6 @@ public interface CommonService {
 	public List <String> getAppMates() ;
 	
 	public boolean updatePackage(Admin admin) ;
+	
+	public List <String> getPackagesForPerson(Admin admin);
 }

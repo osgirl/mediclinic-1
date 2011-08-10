@@ -101,11 +101,7 @@ public class AppmentCache implements InitializingBean {
 		
 	}
 
-	/**
-	  * This method is called from the Cash Avail OMC for refreshing the
-	  * entire application cache
-	  * @throws CashAvailBaseException -
-	  */
+	 
 	 public synchronized void reloadCache()  {
 	  // call the method to re-populate the different data structures on the cache
 	  populateCacheElements();

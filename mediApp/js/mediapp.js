@@ -1823,8 +1823,27 @@ function generateHistory(personID){
 	window.open("/generateHistory.pdf?PatientID="+personID,"History","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
 }
 
-function fn_updatePackage(){
+function fn_updatePackage(){	
 	admin.method="post";
 	admin.submit(); 
 
-	}
+}
+
+function fn_populatePackage(){
+	selObj = document.getElementById('packages');
+	document.getElementById('personIDSel').value=document.getElementById('personID').value;
+	for (var i = 0; i < selObj.length; i++)
+		selObj.options[i].selected = false;
+
+	admin.method="get";
+	admin.submit(); 
+	
+}
+
+var str =window.location.toString();
+var htm = str.indexOf(".htm");
+var sls = str.indexOf("/");
+var sls = str.indexOf("/",(sls-1)+3);
+//alert(str.substring(sls,htm+4));
+var url = str.substring(sls,htm+4);
+document.getElementById(url).style.fontWeight ='900';

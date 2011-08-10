@@ -51,6 +51,8 @@ public class VerticalMenuTag  extends TagSupport {
 			          .append(CommonWebConstants.QUOTES)
 			          .append(pairs.getValue())
 			          .append(CommonWebConstants.QUOTES)
+			          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_AFTER_ID_TAG)
+			          .append(pairs.getValue())
 			          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_AFTER_ONCLICK_TAG)
 			          .append(pairs.getKey())
 			          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_AFTER_VALUE_TAG);

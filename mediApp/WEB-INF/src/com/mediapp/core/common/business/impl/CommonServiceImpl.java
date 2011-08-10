@@ -335,6 +335,10 @@ public class CommonServiceImpl implements CommonService{
 		return commonDAO.getAppMates();
 	}
 	
+	public List <String> getPackagesForPerson(Admin admin){
+		return commonDAO.getPackagesForPerson(admin);
+	}
+	
 	public boolean updatePackage(Admin admin) {
 		return commonDAO.updatePackage(admin);
 	}

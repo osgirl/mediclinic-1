@@ -905,26 +905,37 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 
 	}
 	
-	public List <String> getAppMates(){		
+	public List <String> getAppMates() throws DataAccessException{		
 		return (ArrayList<String>) getListNoOptions("common.getAppMates" ); 
+	}
+	
+	public List <String> getPackagesForPerson(Admin admin) throws DataAccessException{
+		Map<String,Object> criteria =  new HashMap < String, Object> () ;
+		criteria.put("PersonID", admin.getPersonID());		
+		return (ArrayList<String>) getList("common.getPackagesForPerson",criteria );
 	}
 	
 	public boolean updatePackage(Admin admin) throws DataAccessException,DataIntegrityViolationException{
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		String personName = admin.getPersonID();
+		personName= personName.substring(0, personName.indexOf(","));
 		criteria.put("PersonID", personName);
+		Integer iDPerson = (Integer)getObject("common.getPersonIDForUserName", criteria);
+		criteria = new HashMap < String, Object> ();
+		criteria.put("PersonID", iDPerson);
 		deleteObject("common.deletePackage", criteria);
 		try
 		{
 			this.getSqlMapClient().startBatch();
 			for(String packages: admin.getPackages()){
 				criteria =  new HashMap < String, Object > () ;
-				criteria.put("PersonID", personName);
+				criteria.put("PersonID", iDPerson);
 				criteria.put("PackageName", packages);
 				getSqlMapClient().insert("common.insertPackages",
 						criteria);
 				
 			}
+			int insertCount = this.getSqlMapClient().executeBatch();
 		}catch (SQLException e) {
 			throw new DataIntegrityViolationException(e.getMessage());
 		}

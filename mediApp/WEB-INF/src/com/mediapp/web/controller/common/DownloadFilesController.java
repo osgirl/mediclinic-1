@@ -5,6 +5,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.ModelAndView;
 public class DownloadFilesController extends SimpleFormController{
 
-	private static final String destinationDir = "C:/Documents and Settings/Administrator/Desktop/padmaraj/myfiles/";
+	private static  String destinationDir = "C:/Documents and Settings/Administrator/Desktop/padmaraj/myfiles/";
 	  
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
@@ -23,6 +24,14 @@ public class DownloadFilesController extends SimpleFormController{
 
         String file = request.getParameter("file");
       //  String fileName = request.getParameter("fileName");
+        Map<String, String> env = System.getenv();
+        for (String envName : env.keySet()) {
+        	if("FILE_STORAGE".equals(envName)){
+        		destinationDir= env.get(envName);
+        	}
+            //System.out.format("%s=%s%n", envName, env.get(envName));
+        }        
+
         String tempDestPath=destinationDir+file;
         File uFile = new File(tempDestPath);
         System.out.println("filepath:"+tempDestPath);

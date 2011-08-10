@@ -30,23 +30,49 @@
 													<td> Select AppMate:
 													</td>
 													<td>
+														<input type="hidden" name="personIDSel" id="personIDSel" value=""/>
 														<spring:bind  path="admin.personID">
-															<select id="<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>"  style="WIDTH: 150px">
+															<select id="<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>"  style="WIDTH: 150px" onchange="javascript:fn_populatePackage();">
+															<option>-Select-</option>
 																<c:forEach items="${personIDS}" var="data">
-																	<option value='${data}' >${data}</option>
+																	<option value='${data}' ${data==personIDSel?"selected=\"selected\"":"" } >${data}</option>
 																</c:forEach>
 															</select>
 														</spring:bind>
 													</td>
 												</tr>
 												<tr>
-													<td> Select Pacakages:
+													<td> Select Packages:
 													</td>
 													<td>
+														<%@page import="com.mediapp.domain.common.CodeDecode"%>
+											           <%@page import="java.util.ArrayList"%>
+											           <%@page import="java.util.List"%>
+											           <%int i = 0; 
+											           
+											           String chk="";
+											           List<CodeDecode> allPackages = (ArrayList<CodeDecode>)request.getAttribute("allPackages");
+											           List<String> personPackages = (ArrayList<String>)request.getAttribute("selectedPackages");
+											           
+											           %>
+													
 										                <spring:bind  path="admin.packages">
 										                 	<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 25em;" size="3" multiple >
 										                 		<c:forEach items="${allPackages}" varStatus="legg">
-										                   			<option value ="<c:out value="${allPackages[legg.index].codeDecode}"/>"><c:out value="${allPackages[legg.index].codeDecode}"/></option>
+																<%
+																chk="";		
+																if(personPackages != null){
+																	for(String packages: personPackages){
+																		if(packages.equals(allPackages.get(i).getCodeDecode())){								
+																			chk = "selected";
+																		}
+																	}
+																	
+																}
+																i++;
+																%>
+										                 		
+										                   			<option value ="<c:out value="${allPackages[legg.index].codeDecode}"/>" <%=chk %>><c:out value="${allPackages[legg.index].codeDecode}" /></option>
 										                   		</c:forEach>  
 										                 	</select>
 									                	</spring:bind>

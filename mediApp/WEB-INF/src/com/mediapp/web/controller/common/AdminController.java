@@ -46,12 +46,20 @@ public class AdminController extends MediAppBaseController  {
 
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)
 	throws Exception {
-		Map < String , List > logonMap = new HashMap < String , List > ();
+		Map < String , Object > logonMap = new HashMap < String , Object > ();
 		List <String> appMates = commonService.getAppMates();
 		List <CodeDecode> allPackages = new ArrayList<CodeDecode>();
-		allPackages=commonService.getAutoComplete("PACKAGES", "%");	
+		allPackages=commonService.getAutoComplete("PACKAGES", "%");
 		logonMap.put("personIDS", appMates);
 		logonMap.put("allPackages", allPackages);
+		String userName = request.getParameter("personIDSel");
+		logonMap.put("personIDSel", userName);
+		if(userName != null){
+			Admin admin = new Admin();
+			admin.setPersonID(userName);			
+			List <String> selectedPackages = commonService.getPackagesForPerson(admin);
+			logonMap.put("selectedPackages", selectedPackages);
+		}
 		return logonMap;
 	}
 	
@@ -59,7 +67,7 @@ public class AdminController extends MediAppBaseController  {
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		Admin admin = (Admin)command;
 		boolean result = commonService.updatePackage(admin);
-		return new ModelAndView("redirect:/adminConsole.htm");
+		return new ModelAndView("redirect:/adminConsole.htm?personIDSel="+admin.getPersonID().substring(0, admin.getPersonID().indexOf(",")));
 		
     }
 	/**
