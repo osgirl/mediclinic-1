@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.1.43, for Win32 (ia32)
 --
--- Host: localhost    Database: mediapp3
+-- Host: localhost    Database: mediapp
 -- ------------------------------------------------------
 -- Server version	5.1.43-community
 
@@ -15,16 +15,14 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE SCHEMA IF NOT EXISTS `mediapp3` DEFAULT CHARACTER SET latin1 ;
-
 --
--- Table structure for table `mediapp3`.`address`
+-- Table structure for table `address`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`address`;
+DROP TABLE IF EXISTS `address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`address` (
+CREATE TABLE `address` (
   `idAddress` int(11) NOT NULL AUTO_INCREMENT,
   `address1` varchar(100) DEFAULT NULL,
   `address2` varchar(100) DEFAULT NULL,
@@ -37,17 +35,17 @@ CREATE TABLE `mediapp3`.`address` (
   PRIMARY KEY (`idAddress`),
   KEY `personID` (`personID`),
   CONSTRAINT `personID` FOREIGN KEY (`personID`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `appointment_history`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`appointment_history`;
+DROP TABLE IF EXISTS `appointment_history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`appointment_history` (
+CREATE TABLE `appointment_history` (
   `idAppointment_History` int(11) NOT NULL AUTO_INCREMENT,
   `idPatient_details` int(11) DEFAULT NULL,
   `idDoctor_details` int(11) DEFAULT NULL,
@@ -70,32 +68,32 @@ CREATE TABLE `mediapp3`.`appointment_history` (
   KEY `idReferenceDoctor` (`reference_doctor_id`),
   KEY `ahDoctor` (`idDoctor_details`),
   CONSTRAINT `idDiagnosis` FOREIGN KEY (`idDiagnosis`) REFERENCES `diagnosis` (`idDiagnosis`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `code_category`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`code_category`;
+DROP TABLE IF EXISTS `code_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`code_category` (
+CREATE TABLE `code_category` (
   `idcode_category` int(11) NOT NULL AUTO_INCREMENT,
   `code_category` varchar(45) DEFAULT NULL,
   `caching` char(1) DEFAULT 'N',
   PRIMARY KEY (`idcode_category`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `code_decode`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`code_decode`;
+DROP TABLE IF EXISTS `code_decode`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`code_decode` (
+CREATE TABLE `code_decode` (
   `idCode_Decode` int(11) NOT NULL,
   `code_ctg` varchar(45) DEFAULT NULL,
   `code_val` varchar(200) DEFAULT NULL,
@@ -110,10 +108,10 @@ CREATE TABLE `mediapp3`.`code_decode` (
 -- Table structure for table `diagnosis`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`diagnosis`;
+DROP TABLE IF EXISTS `diagnosis`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`diagnosis` (
+CREATE TABLE `diagnosis` (
   `idDiagnosis` int(11) NOT NULL,
   `idAppointment` int(11) DEFAULT NULL,
   `ICD_code` varchar(1000) DEFAULT NULL,
@@ -129,10 +127,10 @@ CREATE TABLE `mediapp3`.`diagnosis` (
 -- Table structure for table `doctor_details`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`doctor_details`;
+DROP TABLE IF EXISTS `doctor_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`doctor_details` (
+CREATE TABLE `doctor_details` (
   `idDoctor_details` int(11) NOT NULL AUTO_INCREMENT,
   `idPerson` int(11) DEFAULT NULL,
   `specialization` varchar(200) DEFAULT NULL,
@@ -149,17 +147,17 @@ CREATE TABLE `mediapp3`.`doctor_details` (
   PRIMARY KEY (`idDoctor_details`),
   KEY `idPerson1` (`idPerson`),
   CONSTRAINT `idPerson1` FOREIGN KEY (`idPerson`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1 COMMENT='doctor details';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='doctor details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `doctor_work_timings`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`doctor_work_timings`;
+DROP TABLE IF EXISTS `doctor_work_timings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`doctor_work_timings` (
+CREATE TABLE `doctor_work_timings` (
   `iddoctor_work_timings` int(11) NOT NULL AUTO_INCREMENT,
   `work_day` varchar(45) DEFAULT NULL,
   `start_time` time DEFAULT NULL,
@@ -168,17 +166,17 @@ CREATE TABLE `mediapp3`.`doctor_work_timings` (
   PRIMARY KEY (`iddoctor_work_timings`),
   KEY `fk_doctor_id` (`doctor_id`),
   CONSTRAINT `fk_doctor_id` FOREIGN KEY (`doctor_id`) REFERENCES `doctor_details` (`idDoctor_details`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=521 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `holiday_calendar`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`holiday_calendar`;
+DROP TABLE IF EXISTS `holiday_calendar`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`holiday_calendar` (
+CREATE TABLE `holiday_calendar` (
   `idholiday_calendar` int(11) NOT NULL,
   `idDoctor` int(11) NOT NULL,
   `date_of_holiday` date NOT NULL,
@@ -196,10 +194,10 @@ CREATE TABLE `mediapp3`.`holiday_calendar` (
 -- Table structure for table `icd_code_10`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`icd_code_10`;
+DROP TABLE IF EXISTS `icd_code_10`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`icd_code_10` (
+CREATE TABLE `icd_code_10` (
   `idicd_code_10` int(11) NOT NULL AUTO_INCREMENT,
   `icd_10_code` varchar(45) DEFAULT NULL,
   `ccs_category` varchar(10) DEFAULT NULL,
@@ -214,10 +212,10 @@ CREATE TABLE `mediapp3`.`icd_code_10` (
 -- Table structure for table `inbound_messages`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`inbound_messages`;
+DROP TABLE IF EXISTS `inbound_messages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`inbound_messages` (
+CREATE TABLE `inbound_messages` (
   `idinbound_messages` int(11) NOT NULL AUTO_INCREMENT,
   `sender_number` varchar(45) DEFAULT NULL,
   `inbound_message` varchar(200) DEFAULT NULL,
@@ -226,7 +224,7 @@ CREATE TABLE `mediapp3`.`inbound_messages` (
   `processed_on_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `idprocessing` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idinbound_messages`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -249,10 +247,10 @@ DELIMITER ;
 -- Table structure for table `job_inputs`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`job_inputs`;
+DROP TABLE IF EXISTS `job_inputs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`job_inputs` (
+CREATE TABLE `job_inputs` (
   `idjob_inputs` int(11) NOT NULL AUTO_INCREMENT,
   `idschedule_job` int(11) DEFAULT NULL,
   `input_parameter_name` varchar(100) DEFAULT NULL,
@@ -260,33 +258,33 @@ CREATE TABLE `mediapp3`.`job_inputs` (
   PRIMARY KEY (`idjob_inputs`),
   KEY `idScheduleJob` (`idschedule_job`),
   CONSTRAINT `idScheduleJob` FOREIGN KEY (`idschedule_job`) REFERENCES `schedule_job` (`idschedule_job`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1060 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `log`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`log`;
+DROP TABLE IF EXISTS `log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`log` (
+CREATE TABLE `log` (
   `idlog` int(11) NOT NULL AUTO_INCREMENT,
   `pname` varchar(1000) DEFAULT NULL,
   `ptime` datetime DEFAULT NULL,
   `log_text` varchar(4500) DEFAULT NULL,
   PRIMARY KEY (`idlog`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `menu_to_role_mapping`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`menu_to_role_mapping`;
+DROP TABLE IF EXISTS `menu_to_role_mapping`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`menu_to_role_mapping` (
+CREATE TABLE `menu_to_role_mapping` (
   `idmenu_to_role_mapping` int(11) NOT NULL AUTO_INCREMENT,
   `menu_name` varchar(50) DEFAULT NULL,
   `menu_url` varchar(100) DEFAULT NULL,
@@ -300,10 +298,10 @@ CREATE TABLE `mediapp3`.`menu_to_role_mapping` (
 -- Table structure for table `patient_allergies`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`patient_allergies`;
+DROP TABLE IF EXISTS `patient_allergies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`patient_allergies` (
+CREATE TABLE `patient_allergies` (
   `idpatient_allergies` int(11) NOT NULL AUTO_INCREMENT,
   `allergy` varchar(4500) DEFAULT NULL,
   `comments` varchar(4500) DEFAULT NULL,
@@ -311,17 +309,17 @@ CREATE TABLE `mediapp3`.`patient_allergies` (
   PRIMARY KEY (`idpatient_allergies`),
   KEY `allergies_to_patient` (`idPatient_details`),
   CONSTRAINT `allergies_to_patient` FOREIGN KEY (`idPatient_details`) REFERENCES `patient_details` (`idPatient_details`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `patient_details`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`patient_details`;
+DROP TABLE IF EXISTS `patient_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`patient_details` (
+CREATE TABLE `patient_details` (
   `idPatient_details` int(11) NOT NULL AUTO_INCREMENT,
   `idPerson` int(11) DEFAULT NULL,
   `idPastHistory` int(11) DEFAULT NULL,
@@ -331,17 +329,17 @@ CREATE TABLE `mediapp3`.`patient_details` (
   PRIMARY KEY (`idPatient_details`),
   KEY `idPerson` (`idPerson`),
   CONSTRAINT `idPerson` FOREIGN KEY (`idPerson`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1 COMMENT='patient details';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='patient details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `patient_document_details`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`patient_document_details`;
+DROP TABLE IF EXISTS `patient_document_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`patient_document_details` (
+CREATE TABLE `patient_document_details` (
   `idpatient_document_details` int(11) NOT NULL AUTO_INCREMENT,
   `document_name` varchar(1000) DEFAULT NULL,
   `document_path` varchar(2000) DEFAULT NULL,
@@ -350,17 +348,17 @@ CREATE TABLE `mediapp3`.`patient_document_details` (
   PRIMARY KEY (`idpatient_document_details`),
   KEY `document_to_patient` (`idPatient_details`),
   CONSTRAINT `document_to_patient` FOREIGN KEY (`idPatient_details`) REFERENCES `patient_details` (`idPatient_details`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `patient_prescription`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`patient_prescription`;
+DROP TABLE IF EXISTS `patient_prescription`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`patient_prescription` (
+CREATE TABLE `patient_prescription` (
   `idpatient_prescription` int(11) NOT NULL AUTO_INCREMENT,
   `prescription_name` varchar(1000) DEFAULT NULL,
   `dosage` varchar(45) DEFAULT NULL,
@@ -368,17 +366,17 @@ CREATE TABLE `mediapp3`.`patient_prescription` (
   PRIMARY KEY (`idpatient_prescription`),
   KEY `prescription_to_diagnosis` (`idDiagnosis`),
   CONSTRAINT `prescription_to_diagnosis` FOREIGN KEY (`idDiagnosis`) REFERENCES `diagnosis` (`idDiagnosis`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `person`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`person`;
+DROP TABLE IF EXISTS `person`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`person` (
+CREATE TABLE `person` (
   `idPerson` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
@@ -396,34 +394,34 @@ CREATE TABLE `mediapp3`.`person` (
   `user_name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idPerson`),
   UNIQUE KEY `user_name_UNIQUE` (`user_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `person_package`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`person_package`;
+DROP TABLE IF EXISTS `person_package`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`person_package` (
+CREATE TABLE `person_package` (
   `idperson_package` int(11) NOT NULL AUTO_INCREMENT,
   `person_id` int(11) DEFAULT NULL,
   `package` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idperson_package`),
   KEY `person_id` (`person_id`),
   CONSTRAINT `person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `postal_codes`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`postal_codes`;
+DROP TABLE IF EXISTS `postal_codes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`postal_codes` (
+CREATE TABLE `postal_codes` (
   `idpostal_codes` int(11) NOT NULL AUTO_INCREMENT,
   `country_name` varchar(1000) DEFAULT NULL,
   `state_name` varchar(1000) DEFAULT NULL,
@@ -437,10 +435,10 @@ CREATE TABLE `mediapp3`.`postal_codes` (
 -- Table structure for table `prescription_meta_data`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`prescription_meta_data`;
+DROP TABLE IF EXISTS `prescription_meta_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`prescription_meta_data` (
+CREATE TABLE `prescription_meta_data` (
   `idprescription_meta_data` int(11) NOT NULL AUTO_INCREMENT,
   `prescription` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`idprescription_meta_data`)
@@ -451,10 +449,10 @@ CREATE TABLE `mediapp3`.`prescription_meta_data` (
 -- Table structure for table `schedule_job`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`schedule_job`;
+DROP TABLE IF EXISTS `schedule_job`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`schedule_job` (
+CREATE TABLE `schedule_job` (
   `idschedule_job` int(11) NOT NULL AUTO_INCREMENT,
   `action` varchar(100) DEFAULT NULL,
   `comments` varchar(4500) DEFAULT NULL,
@@ -464,17 +462,17 @@ CREATE TABLE `mediapp3`.`schedule_job` (
   PRIMARY KEY (`idschedule_job`),
   KEY `job_status` (`job_status`),
   KEY `effectiveDate` (`effectiveDate`)
-) ENGINE=InnoDB AUTO_INCREMENT=499 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=501 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `sequence_data`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`sequence_data`;
+DROP TABLE IF EXISTS `sequence_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`sequence_data` (
+CREATE TABLE `sequence_data` (
   `sequence_name` varchar(100) NOT NULL,
   `sequence_increment` int(11) NOT NULL DEFAULT '1',
   `sequence_min_value` int(11) NOT NULL DEFAULT '1',
@@ -489,10 +487,10 @@ CREATE TABLE `mediapp3`.`sequence_data` (
 -- Table structure for table `smsserver_calls`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`smsserver_calls`;
+DROP TABLE IF EXISTS `smsserver_calls`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`smsserver_calls` (
+CREATE TABLE `smsserver_calls` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `call_date` datetime NOT NULL,
   `gateway_id` varchar(64) NOT NULL,
@@ -505,10 +503,10 @@ CREATE TABLE `mediapp3`.`smsserver_calls` (
 -- Table structure for table `smsserver_in`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`smsserver_in`;
+DROP TABLE IF EXISTS `smsserver_in`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`smsserver_in` (
+CREATE TABLE `smsserver_in` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `process` int(11) NOT NULL,
   `originator` varchar(16) NOT NULL,
@@ -531,10 +529,10 @@ CREATE TABLE `mediapp3`.`smsserver_in` (
 -- Table structure for table `smsserver_out`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`smsserver_out`;
+DROP TABLE IF EXISTS `smsserver_out`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`smsserver_out` (
+CREATE TABLE `smsserver_out` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(1) NOT NULL DEFAULT 'O',
   `recipient` varchar(16) NOT NULL,
@@ -563,10 +561,10 @@ CREATE TABLE `mediapp3`.`smsserver_out` (
 -- Table structure for table `test_meta_data`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`test_meta_data`;
+DROP TABLE IF EXISTS `test_meta_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`test_meta_data` (
+CREATE TABLE `test_meta_data` (
   `idtest_meta_data` int(11) NOT NULL AUTO_INCREMENT,
   `test_description` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`idtest_meta_data`)
@@ -577,10 +575,10 @@ CREATE TABLE `mediapp3`.`test_meta_data` (
 -- Table structure for table `tests`
 --
 
-DROP TABLE IF EXISTS `mediapp3`.`tests`;
+DROP TABLE IF EXISTS `tests`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp3`.`tests` (
+CREATE TABLE `tests` (
   `idTests` int(11) NOT NULL AUTO_INCREMENT,
   `suggested_Test` varchar(1000) DEFAULT NULL,
   `test_Result_Value` varchar(45) DEFAULT NULL,
@@ -590,11 +588,11 @@ CREATE TABLE `mediapp3`.`tests` (
   KEY `fDiagnosis` (`fDiagnosis`),
   KEY `tests_diagnosis` (`fDiagnosis`),
   CONSTRAINT `tests_diagnosis` FOREIGN KEY (`fDiagnosis`) REFERENCES `diagnosis` (`idDiagnosis`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping routines for database 'mediapp3'
+-- Dumping routines for database 'mediapp'
 --
 /*!50003 DROP FUNCTION IF EXISTS `bulknextval` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -612,12 +610,12 @@ BEGIN
   SELECT
  sequence_cur_value INTO cur_val     
  FROM        
- mediapp3.sequence_data     
+ mediapp.sequence_data     
  WHERE        
  sequence_name = seq_name;    
  IF cur_val IS NOT NULL THEN        
  UPDATE            
- mediapp3.sequence_data         
+ mediapp.sequence_data         
  SET            
  sequence_cur_value = IF (                 
  (sequence_cur_value + sequence_increment*incrementamt) > sequence_max_value,                 
@@ -635,7 +633,7 @@ BEGIN
   SELECT
  sequence_cur_value INTO cur_val     
  FROM        
- mediapp3.sequence_data     
+ mediapp.sequence_data     
  WHERE        
  sequence_name = seq_name;  
  RETURN cur_val; 
@@ -661,7 +659,7 @@ BEGIN
   SELECT
  sequence_cur_value INTO cur_val     
  FROM        
- mediapp3.sequence_data     
+ mediapp.sequence_data     
  WHERE        
  sequence_name = seq_name;    
  RETURN cur_val; 
@@ -687,12 +685,12 @@ BEGIN
   SELECT
  sequence_cur_value INTO cur_val     
  FROM        
- mediapp3.sequence_data     
+ mediapp.sequence_data     
  WHERE        
  sequence_name = seq_name;    
  IF cur_val IS NOT NULL THEN        
  UPDATE            
- mediapp3.sequence_data         
+ mediapp.sequence_data         
  SET            
  sequence_cur_value = IF (                 
  (sequence_cur_value + sequence_increment) > sequence_max_value,                 
@@ -710,7 +708,7 @@ BEGIN
   SELECT
  sequence_cur_value INTO cur_val     
  FROM        
- mediapp3.sequence_data     
+ mediapp.sequence_data     
  WHERE        
  sequence_name = seq_name;  
  RETURN cur_val; 
@@ -749,4 +747,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-08-07 20:30:21
+-- Dump completed on 2011-08-11 22:43:27
