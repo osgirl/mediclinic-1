@@ -20,6 +20,16 @@ public class Admin  extends MediAppBaseDomain {
 			new ArrayList < String > (),
 		FactoryUtils.instantiateFactory(String.class));
 
+	private String fileStoragePath;
+	
+	public String getFileStoragePath() {
+		return fileStoragePath;
+	}
+
+	public void setFileStoragePath(String fileStoragePath) {
+		this.fileStoragePath = fileStoragePath;
+	}
+
 	public String getPersonID() {
 		return personID;
 	}

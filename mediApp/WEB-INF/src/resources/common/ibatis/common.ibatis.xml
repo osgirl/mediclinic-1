@@ -1276,5 +1276,9 @@
 		select idPerson from person where user_name = ?
  	</select>
 
+	<update id="updatefilePath" >
+		UPDATE code_decode set code_val=#fileStoragePath#
+		where code_ctg='FILESTORAGE'			
+	</update>
 		
 </sqlMap>

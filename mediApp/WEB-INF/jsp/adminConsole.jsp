@@ -25,7 +25,9 @@
 												</table>
 											</td>
 											<td>
+												AppMate Package Configuration Section:
 												<table  border=""  class="sample" width=720 cellpadding="200">
+												
 												<tr>
 													<td> Select AppMate:
 													</td>
@@ -57,7 +59,7 @@
 											           %>
 													
 										                <spring:bind  path="admin.packages">
-										                 	<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 25em;" size="3" multiple >
+										                 	<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 25em;" size="3" multiple onclick="document.getElementById('fileStoragePath').disabled =true;">
 										                 		<c:forEach items="${allPackages}" varStatus="legg">
 																<%
 																chk="";		
@@ -82,7 +84,26 @@
 													
 												</table>
 											</td>
+											
 										</tr>
+										<tr>
+											<td align="right" colspan="2">
+												
+												<table  border=""  class="sample" width=720 cellpadding="200">
+												
+												<tr>
+													<td> Select Path where files should be stored:
+													</td>
+													<td>
+														<spring:bind  path="admin.fileStoragePath">
+															<input type="text"  name="${status.expression}" id="${status.expression}"  value="${storagePath}" width="100"/>														
+														</spring:bind>
+													</td>
+												</tr>
+													
+												</table>
+											</td>										
+										</tr>										
            <tr>
             <td align="center" colspan="2">
             

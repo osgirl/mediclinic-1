@@ -941,6 +941,16 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		}
 		return true;
 	}
+	
+	public boolean updateStorageFilePath(Admin admin) throws DataAccessException{
+ 		int count = updateObject("common.updatefilePath", admin);
+ 		boolean flag=false;
+ 		if (count > 0){
+ 			flag = true;
+ 		}
+		return flag;
+		
+	}
 }
 
 

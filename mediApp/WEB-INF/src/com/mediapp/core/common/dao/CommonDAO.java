@@ -143,4 +143,6 @@ public interface CommonDAO {
 	public List <String> getPackagesForPerson(Admin admin) throws DataAccessException;
 	
 	public boolean updatePackage(Admin admin) throws DataAccessException,DataIntegrityViolationException;
+	
+	public boolean updateStorageFilePath(Admin admin) throws DataAccessException;
 }

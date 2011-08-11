@@ -72,4 +72,6 @@ public interface CommonService {
 	public boolean updatePackage(Admin admin) ;
 	
 	public List <String> getPackagesForPerson(Admin admin);
+	
+	public boolean updateStorageFilePath(Admin admin) ;
 }

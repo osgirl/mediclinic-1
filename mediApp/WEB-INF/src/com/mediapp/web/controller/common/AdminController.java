@@ -37,6 +37,15 @@ public class AdminController extends MediAppBaseController  {
 	private final Log logger = LogFactory.getLog(getClass());
 	
 	CommonService commonService;
+	
+	AppmentCache appmentCache;
+	
+	public AppmentCache getAppmentCache() {
+		return appmentCache;
+	}
+	public void setAppmentCache(AppmentCache appmentCache) {
+		this.appmentCache = appmentCache;
+	}
 	public CommonService getCommonService() {
 		return commonService;
 	}
@@ -60,14 +69,32 @@ public class AdminController extends MediAppBaseController  {
 			List <String> selectedPackages = commonService.getPackagesForPerson(admin);
 			logonMap.put("selectedPackages", selectedPackages);
 		}
+		List <CodeDecode> storageLocation= appmentCache.getcodeDecodeForCategory("FILESTORAGE");
+		if(storageLocation.size()>0){
+			logonMap.put("storagePath", storageLocation.get(0).getCodeDecode());			
+		}else{
+			logonMap.put("storagePath", "");
+		}
 		return logonMap;
 	}
 	
 	
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		Admin admin = (Admin)command;
-		boolean result = commonService.updatePackage(admin);
-		return new ModelAndView("redirect:/adminConsole.htm?personIDSel="+admin.getPersonID().substring(0, admin.getPersonID().indexOf(",")));
+		
+		if(!"-Select-".equals(admin.getPersonID())){
+			boolean result = commonService.updatePackage(admin);
+				
+		}
+				boolean result1 = commonService.updateStorageFilePath(admin);
+				appmentCache.reloadCache();
+				
+		if(!"-Select-".equals(admin.getPersonID())){
+			return new ModelAndView("redirect:/adminConsole.htm?personIDSel="+admin.getPersonID().substring(0, admin.getPersonID().indexOf(",")));	
+		}else{
+			return new ModelAndView("redirect:/adminConsole.htm");
+		}
+		
 		
     }
 	/**

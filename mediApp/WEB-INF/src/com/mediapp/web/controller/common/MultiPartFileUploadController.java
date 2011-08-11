@@ -21,13 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import com.mediapp.core.common.business.CommonService;
+import com.mediapp.core.common.business.impl.AppmentCache;
 import com.mediapp.domain.common.CodeDecode;
 import com.mediapp.domain.common.MultiPartFileUploadBean;
 import com.mediapp.domain.common.Person;
 import com.mediapp.web.constants.common.CommonWebConstants;
 
 public class MultiPartFileUploadController extends SimpleFormController {
-    private static  String destinationDir = "C:/Documents and Settings/Administrator/Desktop/padmaraj/myfiles/";
+    private static  String destinationDir = null;
 	CommonService commonService;
 	
 	
@@ -38,6 +39,16 @@ public class MultiPartFileUploadController extends SimpleFormController {
 	public void setCommonService(CommonService commonService) {
 		this.commonService = commonService;
 	}
+	
+	AppmentCache appmentCache;
+	
+	public AppmentCache getAppmentCache() {
+		return appmentCache;
+	}
+	public void setAppmentCache(AppmentCache appmentCache) {
+		this.appmentCache = appmentCache;
+	}
+
 
     
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)throws Exception {
@@ -69,13 +80,7 @@ public class MultiPartFileUploadController extends SimpleFormController {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();		
         bean.setFilePath(idPerson+dateFormat.format(date)+file.getOriginalFilename());
-        Map<String, String> env = System.getenv();
-        for (String envName : env.keySet()) {
-        	if("FILE_STORAGE".equals(envName)){
-        		destinationDir= env.get(envName);
-        	}
-            //System.out.format("%s=%s%n", envName, env.get(envName));
-        }        
+        destinationDir = appmentCache.getcodeDecodeForCategory("FILESTORAGE").get(0).getCodeDecode();
         File destination = new File(destinationDir + idPerson+dateFormat.format(date)+file.getOriginalFilename());
         file.transferTo(destination);
         commonService.insertPatientDocumentDetials(bean);

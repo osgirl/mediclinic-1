@@ -1847,3 +1847,14 @@ var sls = str.indexOf("/",(sls-1)+3);
 //alert(str.substring(sls,htm+4));
 var url = str.substring(sls,htm+4);
 document.getElementById(url).style.fontWeight ='900';
+document.getElementById(url).style.backgroundColor = "#CCCCB4";
+
+function fn_easyBugs(){
+	if(document.getElementById('easyBugDiv').style.display == 'none'){
+		document.getElementById('easyBugDiv').style.display = 'block';	
+	}else{
+		document.getElementById('easyBugDiv').style.display = 'none';
+	}
+	 
+	document.getElementById('if').src='http://www.easy-bugs.com/projects/appment/issues/new.widget';
+}

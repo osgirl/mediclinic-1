@@ -53,9 +53,25 @@
 								</div>
 </div>
 		<div id="contentHeadLeft">
-			<div id="contentHeadRight">
-				
+			<div id="contentHeadRight">				
 				<div id="contentHeadCenter">
+					<table border="0" cellpadding="0" cellspacing="0" width="200" height="30" >      
+									<tr >     
+								  		<td>
+								  			<a href="javascript:void(0);" onclick="fn_easyBugs();" style="font:100% 'ARIAL BLACK'; text-decoration:none;color:black;background: url(/images/down_1.png)">
+								  			ReportIt!<img src="/images/warning.jpg" ></img>
+								  			</a>
+								  		
+								  		</td>
+									
+									</tr>
+								</table>										
+									 <div id="easyBugDiv" style="display: none;">
+									 	<b>Click on ReportIt! to go back to application</b>
+										 <iframe id="if" src="" width="1000" height="800" frameborder="0">
+										<p>No iframe support</p>
+										</iframe>
+									</div>
 				</div>
 			</div>		
 		</div>

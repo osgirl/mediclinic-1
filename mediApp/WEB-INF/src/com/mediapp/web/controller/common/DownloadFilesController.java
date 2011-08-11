@@ -13,9 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.mediapp.core.common.business.impl.AppmentCache;
 public class DownloadFilesController extends SimpleFormController{
 
-	private static  String destinationDir = "C:/Documents and Settings/Administrator/Desktop/padmaraj/myfiles/";
+	private static  String destinationDir = null;
+	
+	AppmentCache appmentCache;
+	
+	public AppmentCache getAppmentCache() {
+		return appmentCache;
+	}
+	public void setAppmentCache(AppmentCache appmentCache) {
+		this.appmentCache = appmentCache;
+	}
+
 	  
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
@@ -31,7 +43,7 @@ public class DownloadFilesController extends SimpleFormController{
         	}
             //System.out.format("%s=%s%n", envName, env.get(envName));
         }        
-
+        destinationDir = appmentCache.getcodeDecodeForCategory("FILESTORAGE").get(0).getCodeDecode();
         String tempDestPath=destinationDir+file;
         File uFile = new File(tempDestPath);
         System.out.println("filepath:"+tempDestPath);

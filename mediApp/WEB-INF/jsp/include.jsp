@@ -102,9 +102,21 @@
 								  		<td align="center">
 								  		<img src="/images/phone11.png"  onMouseover="showbox(event,'You can book appointment, postpone it or cancel it by sending SMS.</br>Following are the commands</br>1. To schedule an appointment with a fellow appmate at certain date and time</br>SCD &amp;lt;yourusername&amp;gt; &amp;lt;mm/dd/yyyy&amp;gt; &amp;lt;hh:mm:ss&amp;gt; &amp;lt;duration hh:mm:ss&amp;gt; &amp;lt;appmateusername&amp;gt; </br>2. To postpone any appointment that you have already schedule</br>RESCD &amp;lt;yourusername&amp;gt; &amp;lt;old mm/dd/yyyy&amp;gt; &amp;lt;old hh:mm:ss&amp;gt; &amp;lt;new mm/dd/yyyy&amp;gt; &amp;lt;new hh:mm:ss&amp;gt; &amp;lt;duration hh:mm:ss&amp;gt; </br>3. To cancel any appointment that you have already schedule</br>CANCEL &amp;lt;yourusername&amp;gt; &amp;lt;mm/dd/yyyy&amp;gt; &amp;lt;hh:mm:ss&amp;gt;</br>');" onMouseout="hidebox();"/>
 								  		</td>
+								  		<td>
+								  			<a href="javascript:void(0);" onclick="fn_easyBugs();" style="font:100% 'ARIAL BLACK'; text-decoration:none;color:black;background: url(/images/down_1.png)">
+								  			   &nbsp;&nbsp;&nbsp;&nbsp;ReportIt!<img src="/images/warning.jpg" ></img>
+								  			</a>
+								  		
+								  		</td>
 									
 									</tr>
 								</table>										
+									 <div id="easyBugDiv" style="display: none;">
+									 	<b>Click on ReportIt! to go back to application</b>
+										 <iframe id="if" src="" width="1000" height="800" frameborder="0">
+										<p>No iframe support</p>
+										</iframe>
+									</div>
 							
 				</div>
 			</div>		

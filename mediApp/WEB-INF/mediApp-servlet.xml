@@ -118,6 +118,10 @@
         <property name="commonService">
 			<ref bean="commonService"/>
 		</property>
+		<property name="appmentCache">
+			<ref bean="appMentCache"/>
+		</property>
+		
 		
     </bean>
 
@@ -141,9 +145,17 @@
         <property name="commonService">
 			<ref bean="commonService"/>
 		</property>
+		<property name="appmentCache">
+			<ref bean="appMentCache"/>
+		</property>
+		
     </bean>
 
 	<bean id="downloadFileController" class="com.mediapp.web.controller.common.DownloadFilesController">
+		<property name="appmentCache">
+			<ref bean="appMentCache"/>
+		</property>
+	
 	</bean>
 	
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
