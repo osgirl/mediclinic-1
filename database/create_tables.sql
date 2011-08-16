@@ -132,7 +132,7 @@ CREATE TABLE `mediapp`.`diagnosis` (
 DROP TABLE IF EXISTS `mediapp`.`doctor_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp`.`doctor_details` (
+CREATE TABLE `doctor_details` (
   `idDoctor_details` int(11) NOT NULL AUTO_INCREMENT,
   `idPerson` int(11) DEFAULT NULL,
   `specialization` varchar(200) DEFAULT NULL,
@@ -147,9 +147,9 @@ CREATE TABLE `mediapp`.`doctor_details` (
   `sunday_working` varchar(1) DEFAULT NULL,
   `registration_id` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idDoctor_details`),
-  KEY `idPerson1` (`idPerson`),
+  UNIQUE KEY `idPerson1` (`idPerson`),
   CONSTRAINT `idPerson1` FOREIGN KEY (`idPerson`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1 COMMENT='doctor details';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='doctor details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -317,7 +317,7 @@ CREATE TABLE `mediapp`.`patient_allergies` (
 DROP TABLE IF EXISTS `mediapp`.`patient_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mediapp`.`patient_details` (
+CREATE TABLE `patient_details` (
   `idPatient_details` int(11) NOT NULL AUTO_INCREMENT,
   `idPerson` int(11) DEFAULT NULL,
   `idPastHistory` int(11) DEFAULT NULL,
@@ -325,9 +325,9 @@ CREATE TABLE `mediapp`.`patient_details` (
   `height` decimal(10,0) DEFAULT NULL,
   `blood_group` varchar(4) DEFAULT NULL,
   PRIMARY KEY (`idPatient_details`),
-  KEY `idPerson` (`idPerson`),
+  UNIQUE KEY `idPerson` (`idPerson`),
   CONSTRAINT `idPerson` FOREIGN KEY (`idPerson`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1 COMMENT='patient details';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='patient details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

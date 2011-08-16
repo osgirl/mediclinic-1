@@ -145,7 +145,7 @@ CREATE TABLE `doctor_details` (
   `sunday_working` varchar(1) DEFAULT NULL,
   `registration_id` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idDoctor_details`),
-  KEY `idPerson1` (`idPerson`),
+  UNIQUE KEY `idPerson1` (`idPerson`),
   CONSTRAINT `idPerson1` FOREIGN KEY (`idPerson`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='doctor details';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -327,7 +327,7 @@ CREATE TABLE `patient_details` (
   `height` decimal(10,0) DEFAULT NULL,
   `blood_group` varchar(4) DEFAULT NULL,
   PRIMARY KEY (`idPatient_details`),
-  KEY `idPerson` (`idPerson`),
+  UNIQUE KEY `idPerson` (`idPerson`),
   CONSTRAINT `idPerson` FOREIGN KEY (`idPerson`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='patient details';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -348,7 +348,7 @@ CREATE TABLE `patient_document_details` (
   PRIMARY KEY (`idpatient_document_details`),
   KEY `document_to_patient` (`idPatient_details`),
   CONSTRAINT `document_to_patient` FOREIGN KEY (`idPatient_details`) REFERENCES `patient_details` (`idPatient_details`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -747,4 +747,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-08-11 22:43:27
+-- Dump completed on 2011-08-16 20:40:59
