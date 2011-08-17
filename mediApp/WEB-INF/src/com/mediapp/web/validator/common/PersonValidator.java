@@ -42,9 +42,31 @@ public class PersonValidator implements Validator{
 			errors.rejectValue("lastName", "error.lastName.not-specified", null,
 			"Value required.");
 		}
-		if(null == person.getDateOfBirth()) {
+		if(null == person.getDateOfBirth() || person.getDateOfBirth().toString().trim().length() == 0) {
 			errors.rejectValue("dateOfBirth", "error.dateOfBirth.not-specified", null,
 			"Value required.");
 		}
+		if(null == person.getGender() || person.getGender().toString().trim().length() == 0) {
+			errors.rejectValue("gender", "error.required.field", null,
+			"Value required.");			
+		}
+		if(null == person.getCellPhoneNumber() || person.getCellPhoneNumber().toString().trim().length() == 0) {
+			errors.rejectValue("cellPhoneNumber", "error.required.field", null,
+			"Value required.");
+		}
+		if(null == person.getEmailID() || person.getEmailID().toString().trim().length() == 0) {
+			errors.rejectValue("emailID", "error.required.field", null,
+			"Value required.");
+		}
+		
+		if(null == person.getDoctorDetails().getRegistrationNumber() || person.getDoctorDetails().getRegistrationNumber().toString().trim().length() == 0) {
+			errors.rejectValue("doctorDetails.registrationNumber", "error.required.field", null,
+			"Value required.");			
+		}
+		if(null == person.getDoctorDetails().getSpecialization() || person.getDoctorDetails().getSpecialization().toString().trim().length() == 0) {
+			errors.rejectValue("doctorDetails.specialization", "error.required.field", null,
+			"Value required.");
+		}
+
 	}
 }

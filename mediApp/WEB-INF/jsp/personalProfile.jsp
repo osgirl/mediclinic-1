@@ -66,6 +66,7 @@
               <td >
                <spring:bind path="person.lastName">
                 <input type="text"  name="${status.expression}" id="${status.expression}"  value="${person.lastName}"/>
+                <font color="red"><c:out value="${status.errorMessage}" /></font>
                </spring:bind>  
               </td>
              </tr>
@@ -74,6 +75,7 @@
               <td >
               	<spring:bind path="person.dateOfBirth">              	
                 	<input type="text" name="${status.expression}" id="${status.expression}" value='<fmt:formatDate pattern="MM/dd/yyyy" value="${person.dateOfBirth}" />' style="WIDTH: 130px" onblur="check_date(this)"/>
+                	<font color="red"><c:out value="${status.errorMessage}" /></font>
                 </spring:bind>
                  <script language="JavaScript">
                   new tcal ({
@@ -92,6 +94,7 @@
                <spring:bind path="person.gender">
                 <input type="radio" name="${status.expression}" id="${status.expression}"  value="M"  <c:if test="${person.gender == 'M'}">checked</c:if> /> Male  
                 <input type="radio" name="${status.expression}" id="${status.expression}"  value="F" <c:if test="${person.gender == 'F'}">checked</c:if>/> Female
+                <font color="red"><c:out value="${status.errorMessage}" /></font>
                </spring:bind> 
               </td>
               <spring:bind path="person.idPerson">
@@ -185,6 +188,7 @@
               <td >
               <spring:bind path="person.cellPhoneNumber">
                <input type="text" name="${status.expression}" id="${status.expression}"  value="${person.cellPhoneNumber}" onKeyUp="if(this.value.match(/\D/))this.value=this.value.replace(/\D/g,'')" onblur="if(this.value.match(/\D/))this.value=this.value.replace(/\D/g,'')"/>
+               <font color="red"><c:out value="${status.errorMessage}" /></font>
               </spring:bind>  
               </td>
              </tr>
@@ -194,12 +198,13 @@
               <td >
               <spring:bind path="person.emailID">
                <input type="text" name="${status.expression}" id="${status.expression}"  value="${person.emailID}" />
+               <font color="red"><c:out value="${status.errorMessage}" /></font>
               </spring:bind>  
               </td>
              </tr>
              
              <tr>
-              <td >Profession: <font color="red">*</font></td>
+              <td >Profession: </td>
               <td >
 				<spring:bind path="person.personTypeString">				
 					<select id="${status.expression}" name="${status.expression}" style="WIDTH: 150px">
@@ -260,6 +265,7 @@
                <td>
                		<spring:bind path="person.doctorDetails.registrationNumber">
                			<input type="text" name="${status.expression}" id="${status.expression}"  value="${person.doctorDetails.registrationNumber}"  style="WIDTH: 200px"/>
+               			<font color="red"><c:out value="${status.errorMessage}" /></font>
                		</spring:bind>
                	</td>
                		
@@ -271,6 +277,7 @@
                <td>
 					<spring:bind path="person.doctorDetails.specialization">
                 	<input type="text" name="${status.expression}" id="${status.expression}"  value="${person.doctorDetails.specialization}" style="WIDTH: 300px"/>
+                	<font color="red"><c:out value="${status.errorMessage}" /></font>
                 	</spring:bind>  
                 <script type="text/javascript">
                  new Autocomplete('doctorDetails.specialization', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
@@ -338,7 +345,7 @@
                 	</tr>
                 	<c:choose>                		
 						<c:when test="${!empty person.doctorWorkTiming[0].workDayName}">
-							<c:forEach items="${person.doctorWorkTiming}" varStatus="workTimings">
+							<c:forEach items="${person.doctorWorkTiming}" varStatus="workTimings">							
 								<script type="text/javascript">										
 										var num = (document.getElementById("counter").value - 1) + 2;
 										document.getElementById("counter").value = num;										
