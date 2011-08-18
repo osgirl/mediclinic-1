@@ -37,4 +37,6 @@ public interface CommonWebConstants {
 	 String PATIENT_DETAILS = "patientDetails";
 
 	 String DOCTOR = "Doctor";
+	 
+	 String SUCCESS = "Changes have been successfully saved!";
 }

@@ -54,10 +54,13 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		criteria.put("Username", person.getUsername());
 		Person detailsOfPerson = (Person)getObject("common.authenticateUser", criteria);
 		criteria = new HashMap < String, Object > () ;
-		Integer idPersonInt = new Integer(detailsOfPerson.getIdPerson());
-		criteria.put("PersonID", idPersonInt);
-		 List<String> packages = (ArrayList<String>) getList("common.getPackages",criteria );
-		 detailsOfPerson.setPackages(packages);
+		if(null != detailsOfPerson){
+			Integer idPersonInt = new Integer(detailsOfPerson.getIdPerson());
+			criteria.put("PersonID", idPersonInt);
+			 List<String> packages = (ArrayList<String>) getList("common.getPackages",criteria );
+			 detailsOfPerson.setPackages(packages);
+			
+		}
 		return detailsOfPerson ;
 	}
 

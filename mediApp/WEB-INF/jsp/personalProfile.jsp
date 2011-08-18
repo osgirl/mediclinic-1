@@ -3,7 +3,7 @@
   
 <%@page import="com.mediapp.domain.common.Person"%><div id="contentBodyLeft">
    <div id="contentBodyRight">
-    <div id="contentBodyCenter">
+    <div id="contentBodyCenter" >
 			<div class="stp" style="margin-bottom:1.5em;">
 				<div class="or" style="margin:1em; padding:0;" >
 
@@ -11,6 +11,9 @@
       <div id="entries">
        <div class="entryAlone">
         <form name="personalProfile" id="personalProfile" method="post" >
+			<c:if test="${not empty SuccessMessage}">			
+				<font color="green"><c:out value="${SuccessMessage}" /></font><br/>
+			</c:if>
         
         <spring:hasBindErrors name="command">
          <c:if test="${not empty errors.globalErrors}">
@@ -23,7 +26,6 @@
           </div>
          </c:if>
         </spring:hasBindErrors>
-        <font color="red"><c:out value="${SuccessMessage}" /></font><br/>  		
         
         <c:set var="PersonType" value=""/>
         <c:set var="PersonID" value=""/>

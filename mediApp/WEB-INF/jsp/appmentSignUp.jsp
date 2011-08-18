@@ -29,7 +29,7 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 								<form name="appmentSignUp" id="appmentSignUp" method="post"> 
 									<c:if test="${not empty SuccessMessage}">
 										
-										<font color="red"><c:out value="${SuccessMessage}" /></font><br/>
+										<font color="green"><c:out value="${SuccessMessage}" /></font><br/>
 										<script>
 											window.setTimeout('fn1()', 3000);
 											function fn1(){

@@ -89,6 +89,7 @@ public class PersonalProfileController extends MediAppBaseController  {
 		person.setAuthenticated(true);
 		request.getSession().removeAttribute(CommonWebConstants.USER_ID);
 		CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);
+		request.setAttribute("SuccessMessage", CommonWebConstants.SUCCESS);
 		return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
 	}
 		
