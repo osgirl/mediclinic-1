@@ -41,6 +41,7 @@ public class PastHistoryController extends MediAppBaseController  {
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		PatientDetails patientDetails = (PatientDetails)command;
 		boolean successFlag = commonService.updatePatientDetails(patientDetails);
+		request.setAttribute("SuccessMessage", CommonWebConstants.SUCCESS);
 		return new ModelAndView(getSuccessView(),CommonWebConstants.PATIENT_DETAILS, patientDetails);
 	}
 }

@@ -89,7 +89,7 @@ public class AppointmentPopUpController extends MediAppBaseController  {
 				data.append(eachCodeValue.getCodeDecode());
 				suggestions.append("','");
 				data.append("','");
-			}
+			}			
 			int poss = suggestions.lastIndexOf("','");
 			suggestions.replace(poss, poss+3, "'],");
 			suggestions.append("\n");
@@ -104,8 +104,8 @@ public class AppointmentPopUpController extends MediAppBaseController  {
 			out.write(dataString);			
 		    out.write("}\n");
 		    out.flush();		    
-		}catch (IOException e){
-			System.out.println("AppointmentPopUpController.onSubmit()");
+		}catch (Exception e){
+			System.out.println("No Matches Found for " + codeCategory + " & " + code);
 		}
 		
 		

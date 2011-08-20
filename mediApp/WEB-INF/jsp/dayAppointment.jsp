@@ -180,9 +180,26 @@
 	        		   </tr>
 			           <tr>               
 				            <td id="print">
-								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';javascript:fn_Print();" style="text-decoration:none" class="sansa"> 
+				            <% 
+				            boolean docPerson = false;
+							for(String packages: p.getPackages()){
+								if("Doctor".equals(packages)){
+										docPerson = true;
+								}
+							}
+
+							if(docPerson){
+				            %>
+				            
+								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';javascript:fn_Print(1);" style="text-decoration:none" class="sansa"> 
 									<font size="+1" color="blue" >Print</font> 
 								</a>
+							<%}else{ %>
+								<a href="javascript:void(0);" onClick="document.getElementById('movingDiv').style.display='none';javascript:fn_Print(2);" style="text-decoration:none" class="sansa"> 
+									<font size="+1" color="blue" >Print</font> 
+								</a>
+							
+							<%} %>
 				           </td>
 	        		   </tr>
 	        		   

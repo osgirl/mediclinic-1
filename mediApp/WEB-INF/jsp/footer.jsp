@@ -7,7 +7,7 @@
 				   {header: 'SMS Support!' ,life: 10000 }
 				  );
 
-
+		jQuery.noConflict(true);
 
 
 </script>

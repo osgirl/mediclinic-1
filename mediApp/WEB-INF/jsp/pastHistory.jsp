@@ -9,6 +9,10 @@
       <div id="entries">
        <div class="entryAlone">
         <form name="pastHistory" id="pastHistory" method="post" >
+        	<c:if test="${not empty SuccessMessage}">			
+				<font color="green"><c:out value="${SuccessMessage}" /></font><br/>
+			</c:if>
+        
          <table width=900  border="1" class="layout"  > 
           <tr>
            <td> 

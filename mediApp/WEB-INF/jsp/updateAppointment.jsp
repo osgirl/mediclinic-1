@@ -319,7 +319,7 @@
 	           				<td>
 	           					<input type="text" name="findTest"  id="findTest" value="" />
 								<script type="text/javascript">
-										new Autocomplete('findTest', { serviceUrl:'/appointmentPopUp.htm' },'table.PRESCRIPTION');
+										new Autocomplete('findTest', { serviceUrl:'/appointmentPopUp.htm' },'table.TEST');
 								</script>
 	           				
 				           </td>

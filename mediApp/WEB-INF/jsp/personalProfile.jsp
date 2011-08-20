@@ -356,17 +356,17 @@
 								<tr>
 									<td>
 										<spring:bind path="person.doctorWorkTiming[${workTimings.index}].workDayName">
-											<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${person.doctorWorkTiming[workTimings.index].workDayName}"/>" readonly="readonly" style="width: 7em;"/>
+											<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${person.doctorWorkTiming[workTimings.index].workDayName}"/>" readonly="readonly" style="width: 7em;"/>
 										</spring:bind>
 									</td>
 									<td>
 										<spring:bind path="person.doctorWorkTiming[${workTimings.index}].startTime">												
-											<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${person.doctorWorkTiming[workTimings.index].startTime}"/>" readonly="readonly" style="width: 7em;"/>
+											<input type="text" name="<c:out value="${status.expression}"/>"  id="<c:out value="${status.expression}"/>" value="<c:out value="${person.doctorWorkTiming[workTimings.index].startTime}"/>" readonly="readonly" style="width: 7em;"/>
 										</spring:bind>
 									</td>
 									<td>
 										<spring:bind path="person.doctorWorkTiming[${workTimings.index}].endTime">												
-											<input type="text" name="<c:out value="${status.expression}"/>"  value="<c:out value="${person.doctorWorkTiming[workTimings.index].endTime}"/>" readonly="readonly" style="width: 7em;"/>
+											<input type="text" name="<c:out value="${status.expression}"/>"  id="<c:out value="${status.expression}"/>" value="<c:out value="${person.doctorWorkTiming[workTimings.index].endTime}"/>" readonly="readonly" style="width: 7em;"/>
 										</spring:bind>
 									</td>
 								</tr>
@@ -376,17 +376,17 @@
 							<tr>
 								<td>
 									<spring:bind path="person.doctorWorkTiming[0].workDayName">
-										<input type="text" name="<c:out value="${status.expression}"/>"  value="" readonly="readonly" style="width: 7em;"/>
+										<input type="text" name="<c:out value="${status.expression}"/>"  id="<c:out value="${status.expression}"/>" value="" readonly="readonly" style="width: 7em;"/>
 									</spring:bind>
 								</td>
 								<td>
 									<spring:bind path="person.doctorWorkTiming[0].startTime">												
-										<input type="text" name="<c:out value="${status.expression}"/>"  value="" readonly="readonly" style="width: 7em;"/>
+										<input type="text" name="<c:out value="${status.expression}"/>"  id="<c:out value="${status.expression}"/>" value="" readonly="readonly" style="width: 7em;"/>
 									</spring:bind>
 								</td>
 								<td>
 									<spring:bind path="person.doctorWorkTiming[0].endTime">												
-										<input type="text" name="<c:out value="${status.expression}"/>"  value="" readonly="readonly" style="width: 7em;"/>
+										<input type="text" name="<c:out value="${status.expression}"/>"  id="<c:out value="${status.expression}"/>" value="" readonly="readonly" style="width: 7em;"/>
 									</spring:bind>
 								</td>
 							</tr>

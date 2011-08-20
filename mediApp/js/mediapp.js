@@ -18,8 +18,13 @@ function fn_showType(){
 function fn_openFile(fileName){
 	window.open("/download.htm?file="+fileName,"download","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
 }
-function fn_Print(){
-	window.open("/simpleReportCompile.pdf?AppointmentID="+document.getElementById('AppointmentID').value,"Print","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
+function fn_Print(type){
+	if(type == 1){
+		window.open("/generateMedicalReport.pdf?AppointmentID="+document.getElementById('AppointmentID').value,"Print","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
+	}else{
+		window.open("/simpleReportCompile.pdf?AppointmentID="+document.getElementById('AppointmentID').value,"Print","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
+	}
+	
 }
 function fn_showPatientRgFrm(){
 	document.getElementById("Doctor").disabled =true;
@@ -1739,10 +1744,10 @@ function displayFloatingDiv(divId, title, width, height, left, top)
 //
 function hiddenFloatingDiv(divId) 
 {
-	document.getElementById(divId).innerHTML = originalDivHTML;
+	//document.getElementById(divId).innerHTML = originalDivHTML;
 	document.getElementById(divId).style.visibility='hidden';
 	document.getElementById('dimmer').style.visibility = 'hidden';
-	
+	document.getElementById(divId).style.visibility = "hidden";
 	DivID = "";
 }
 

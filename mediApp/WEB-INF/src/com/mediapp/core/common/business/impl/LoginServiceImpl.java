@@ -34,6 +34,7 @@ public class LoginServiceImpl implements LoginService {
 				person.setIdPerson(dbDetails.getIdPerson());
 				person.setFirstName(dbDetails.getFirstName());
 				person.setLastName(dbDetails.getLastName());
+				person.setPackages(dbDetails.getPackages());
 			} else {
 				//dbDetails = person;
 				dbDetails.setAuthenticated(false);	

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AddressReport" pageWidth="400" pageHeight="50" columnWidth="175" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="AppointmentID" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select prescription_name , 
+concat('(',dosage,')') as dose
+from patient_prescription pp
+join diagnosis d
+on pp.idDiagnosis =d.idDiagnosis
+where idappointment  =$P{AppointmentID}]]>
+	</queryString>
+	<field name="prescription_name" class="java.lang.String"/>
+	<field name="dose" class="java.lang.String"/>
+	<detail>
+		<band height="15">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="13" y="3" width="216" height="10"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{prescription_name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="229" y="3" width="161" height="10"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dose}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
