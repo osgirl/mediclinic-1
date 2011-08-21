@@ -13,7 +13,7 @@
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="13" y="3" width="280" height="15"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{icd_code}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["-"+$F{icd_code}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

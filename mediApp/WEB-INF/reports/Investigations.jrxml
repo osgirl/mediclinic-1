@@ -19,7 +19,7 @@ where idappointment  =$P{AppointmentID}]]>
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="13" y="3" width="350" height="10"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{prescription_name}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["-"+$F{prescription_name}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="229" y="3" width="100" height="10"/>

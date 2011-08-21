@@ -121,97 +121,105 @@ order by idappointment_history;]]>
 	<pageHeader>
 		<band height="151">
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="10" y="10" width="127" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="10" y="10" width="74" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Patient Name:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="10" y="50" width="78" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="10" y="50" width="95" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Previous History:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="137" y="10" width="132" height="20"/>
+				<reportElement x="84" y="10" width="271" height="20"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="false"/>
+					<font size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{Patient}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement isPrintRepeatedValues="false" x="135" y="50" width="353" height="35"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement isPrintRepeatedValues="false" x="107" y="50" width="353" height="35"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{appointment_comment}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="135" y="30" width="132" height="20"/>
+				<reportElement x="40" y="30" width="65" height="20"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="false"/>
+					<font size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{age} + "yrs"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="270" y="30" width="78" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="135" y="30" width="46" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Gender:]]></text>
 			</staticText>
 			<textField>
-				<reportElement isPrintRepeatedValues="false" x="379" y="30" width="136" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement isPrintRepeatedValues="false" x="181" y="30" width="136" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{sex}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement isPrintRepeatedValues="false" x="378" y="0" width="167" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{apt}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="10" y="30" width="83" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="10" y="30" width="29" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Age:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="12" y="85" width="123" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="12" y="85" width="93" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Presenting Complain:]]></text>
 			</staticText>
 			<textField>
-				<reportElement isPrintRepeatedValues="false" x="137" y="85" width="353" height="38"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement isPrintRepeatedValues="false" x="107" y="85" width="353" height="38"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{appointment_comment}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="13" y="123" width="64" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="13" y="123" width="71" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Temperature:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="176" y="123" width="62" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="135" y="123" width="62" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[BP:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="338" y="123" width="39" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="268" y="124" width="39" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pulse:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="5" y="143" width="553" height="1"/>
+				<reportElement x="0" y="150" width="553" height="1"/>
 			</line>
 		</band>
 	</pageHeader>

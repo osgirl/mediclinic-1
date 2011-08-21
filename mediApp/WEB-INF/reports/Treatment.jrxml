@@ -17,7 +17,7 @@ where idappointment  =$P{AppointmentID}]]>
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="13" y="3" width="370" height="10"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{suggested_test}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["-"+$F{suggested_test}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
