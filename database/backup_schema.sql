@@ -35,7 +35,7 @@ CREATE TABLE `address` (
   PRIMARY KEY (`idAddress`),
   KEY `personID` (`personID`),
   CONSTRAINT `personID` FOREIGN KEY (`personID`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,7 +60,13 @@ CREATE TABLE `appointment_history` (
   `appointment_headline` varchar(500) DEFAULT NULL,
   `appointment_comment` varchar(4500) DEFAULT NULL,
   `appointment_duration` time DEFAULT NULL,
+  `previous_history` varchar(4500) DEFAULT NULL,
+  `presenting_complain` varchar(4500) DEFAULT NULL,
+  `BP` varchar(20) DEFAULT NULL,
+  `Temperature` varchar(20) DEFAULT NULL,
+  `Pulse` varchar(20) DEFAULT NULL,
   `appointment_end_time` time DEFAULT NULL,
+  `original_appointment_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`idAppointment_History`),
   KEY `idPatient` (`idPatient_details`),
   KEY `idDoctor` (`idDoctor_details`),
@@ -68,7 +74,7 @@ CREATE TABLE `appointment_history` (
   KEY `idReferenceDoctor` (`reference_doctor_id`),
   KEY `ahDoctor` (`idDoctor_details`),
   CONSTRAINT `idDiagnosis` FOREIGN KEY (`idDiagnosis`) REFERENCES `diagnosis` (`idDiagnosis`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,10 +121,6 @@ CREATE TABLE `diagnosis` (
   `idDiagnosis` int(11) NOT NULL,
   `idAppointment` int(11) DEFAULT NULL,
   `ICD_code` varchar(1000) DEFAULT NULL,
-  `Prescription` varchar(45) DEFAULT NULL,
-  `Lnotes` varchar(4500) DEFAULT NULL,
-  `diagnosis` varchar(4500) DEFAULT NULL,
-  `allergy` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idDiagnosis`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -166,7 +168,7 @@ CREATE TABLE `doctor_work_timings` (
   PRIMARY KEY (`iddoctor_work_timings`),
   KEY `fk_doctor_id` (`doctor_id`),
   CONSTRAINT `fk_doctor_id` FOREIGN KEY (`doctor_id`) REFERENCES `doctor_details` (`idDoctor_details`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,7 +260,7 @@ CREATE TABLE `job_inputs` (
   PRIMARY KEY (`idjob_inputs`),
   KEY `idScheduleJob` (`idschedule_job`),
   CONSTRAINT `idScheduleJob` FOREIGN KEY (`idschedule_job`) REFERENCES `schedule_job` (`idschedule_job`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -366,7 +368,7 @@ CREATE TABLE `patient_prescription` (
   PRIMARY KEY (`idpatient_prescription`),
   KEY `prescription_to_diagnosis` (`idDiagnosis`),
   CONSTRAINT `prescription_to_diagnosis` FOREIGN KEY (`idDiagnosis`) REFERENCES `diagnosis` (`idDiagnosis`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -413,6 +415,35 @@ CREATE TABLE `person_package` (
   CONSTRAINT `person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = latin1 */ ;
+/*!50003 SET character_set_results = latin1 */ ;
+/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER createrow AFTER INSERT ON person_package
+  FOR EACH ROW BEGIN
+  
+    IF (NEW.package = 'Patient') THEN        
+    	INSERT INTO patient_details SET idPerson = NEW.person_id
+        on DUPLICATE KEY UPDATE idPerson = NEW.person_id;
+    END IF;
+    
+    IF (NEW.package = 'Doctor') THEN
+        
+    	INSERT INTO doctor_details SET idPerson = NEW.person_id
+        on DUPLICATE KEY UPDATE idPerson = NEW.person_id;
+    END IF;
+ 
+ END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `postal_codes`
@@ -462,7 +493,7 @@ CREATE TABLE `schedule_job` (
   PRIMARY KEY (`idschedule_job`),
   KEY `job_status` (`job_status`),
   KEY `effectiveDate` (`effectiveDate`)
-) ENGINE=InnoDB AUTO_INCREMENT=501 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=502 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -554,7 +585,7 @@ CREATE TABLE `smsserver_out` (
   `errors` int(2) NOT NULL DEFAULT '0',
   `gateway_id` varchar(64) NOT NULL DEFAULT '*',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=144 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=145 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -588,7 +619,7 @@ CREATE TABLE `tests` (
   KEY `fDiagnosis` (`fDiagnosis`),
   KEY `tests_diagnosis` (`fDiagnosis`),
   CONSTRAINT `tests_diagnosis` FOREIGN KEY (`fDiagnosis`) REFERENCES `diagnosis` (`idDiagnosis`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -747,4 +778,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-08-16 20:40:59
+-- Dump completed on 2011-08-21 22:04:55
