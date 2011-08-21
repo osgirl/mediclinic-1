@@ -27,62 +27,36 @@
 		<form name="updateAppointment" id="updateAppointment" method="post" >
 			<div class="stp" style="margin-bottom:1.5em;" >
 				<div class="or" style="margin:1em; padding:0;" >
-					<table border="0" cellpadding="3" class="sample" cellspacing="0" width=850 height=325 align="center">
+					<font style="text-align: center;font-size: 120%;font-weight: bold;">Appointment Details</font>
+					<table border="0" cellpadding="0" class="sample" cellspacing="0" width=850  align="center" >
 					<input type="hidden" value="1" id="counter"/>
-						<tr bgcolor="lightblue">
-							<font style="text-align: center;font-size: 120%;font-weight: bold;">Appointment Details</font>
-						</tr>
-						<tr>
-							<td >Appointment With:</td>
-							<td class="sansa">
+						<tr >
+							<td width="15%">With:</td>
+							<td width="35%" class="sansa">
 								<c:out value="${Notification.patientName}"></c:out> 
 							</td>
-							<td></td>
-							<td></td>
-						</tr>
-						
-						<tr>
-							<td >Headline :</td>
-							<td class="sansa">
-								<spring:bind path="appointment.headline">
-									<input type="text" name="${status.expression}"  value="<c:out value="${appointment.headline}"/>" disabled="disabled"/>					
-								</spring:bind>
-							</td>
-							<td></td>
-							<td></td>
+							<td width="15%">Purpose :</td>
+							<td width="35%" class="sansa">
+									<c:out value="${appointment.headline}"/>					
+							</td>							
 						</tr>
 						<tr>
-							<td >Date :</td>
-							<td class="sansa">
-								<spring:bind path="appointment.dateOfAppointment">
-									<input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" disabled="disabled" />
-								</spring:bind>
-							</td>
-							<td></td>
-							<td></td>
 						</tr>
-
 						<tr>
-							<td >Time :</td>
-							<td class="sansa">
-								<spring:bind path="appointment.timeOfAppointment">
-									<input type="text" name="${status.expression}"  id="${status.expression}" value="<c:out value="${appointment.timeOfAppointment}"/>" disabled="disabled" />
-								</spring:bind>
+							<td width="15%" >At:</td>
+							<td width="35%" class="sansa">
+								<fmt:formatDate pattern="dd MMM yyyy" value="${appointment.dateOfAppointment}"/> at
+								<fmt:formatDate pattern="hh:mm a" value="${appointment.timeOfAppointment}"/>
 							</td>
-							<td>Duration :</td>
-							<td class="sansa">
-								<spring:bind path="appointment.appointmentDuration">
-									<input type="text" name="${status.expression}"  id="${status.expression}" value="<c:out value="${appointment.appointmentDuration}"/>" disabled="disabled" width="10"/>
-								</spring:bind>
+							<td width="15%">Duration :</td>
+							<td width="35%" class="sansa">
+									<fmt:formatDate pattern="KK:mm " value="${appointment.appointmentDuration}"/>									
 							</td>
 						</tr>
-
 						<tr>
-							<td >Comments:</td>
-							<td class="sansa">
-								<spring:bind path="appointment.comments">
-									<textarea name="${status.expression}"  value="${fn:trim(appointment.comments)}"  rows="6" cols="25" ></textarea>													
-								</spring:bind>
+							<td width="15%">Comments:</td>
+							<td width="35%" class="sansa">
+								<c:out value="${fn:trim(appointment.comments)}"/>
 							</td>
 						</tr>
 							<spring:bind path="appointment.doctorID">
@@ -106,20 +80,59 @@
 					%>
 					<c:if test="${appointment.confirmedIndicator == 'Y'}">
 						
-						<table  border=""  class="sample" width=850 height=40  align="center">
+						<table  border=""  class="sample" width=850   align="center">
 							<tr>
 								<td></td>
-								<td>Diagnosis Details</td>
-								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
+								<td align="center" width="80%">Diagnosis Details</td>
+							</tr>
+							<tr>
+								<td >Previous History:</td>
+								<td class="sansa">
+									<spring:bind path="appointment.previousHistory">
+										<textarea name="${status.expression}"  value="${fn:trim(status.value)}"  rows="3" cols="50" ></textarea>													
+									</spring:bind>
+								</td>
+							</tr>
+							<tr>
+								<td >Complain:</td>
+								<td class="sansa">
+									<spring:bind path="appointment.presentingComplain">
+										<textarea name="${status.expression}"  value="${fn:trim(status.value)}"  rows="3" cols="50" ></textarea>													
+									</spring:bind>
+								</td>
+							</tr>
+								<td >BP:&nbsp;&nbsp;&nbsp;&nbsp;
+									<spring:bind path="appointment.bP">
+										<input type="text" name="${status.expression}"  id="${status.expression}" value="<c:out value="${appointment.bP}"/>"  size="2"/>													
+									</spring:bind>
+								</td>
+								<td >
+									Pulse:&nbsp;&nbsp;&nbsp;&nbsp;
+									<spring:bind path="appointment.pulse">
+										<input type="text" name="${status.expression}"  id="${status.expression}" value="<c:out value="${appointment.pulse}"/>"  size="2"/>													
+									</spring:bind> 		
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									Temperature :&nbsp;&nbsp;&nbsp;&nbsp;
+									<spring:bind path="appointment.temperature">
+										<input type="text" name="${status.expression}"  id="${status.expression}" value="<c:out value="${appointment.temperature}"/>"  size="2"/>													
+									</spring:bind> 		
+									
+								</td>
+							</tr>
+						
+						</table>							
+						<table  border=""  id="tblSample" class="sample" width=850   align="center">
+							<tbody id="aa">		
+							<tr height="40">
+								<td  style="background: url(/images/submitbutton_0.png) no-repeat ;background-position: top center;"  align="center">  
 						  			<a href="javascript:void(0);" onClick="javascript:fn_showDiagnosis();" style="text-decoration:none"> 
 						  				<font size="+1" color="#FFFFFF" >Add</font> 
 						  			</a>
 						  		</td>
-							</tr>
-						
-						</table>							
-						<table  border=""  id="tblSample" class="sample" width=850 height= 80  align="center">
-							<tbody id="aa">						
+								<td></td>
+								<td></td>
+							</tr>				
 							<tr>
 								<td>Diagnosis:
 								</td>
@@ -142,14 +155,14 @@
 										<td  >
 											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].codeICD">												
 												
-												<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].codeICD}"/>" disabled="disabled" />
+												<input type="text"  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].codeICD}"/>" disabled="disabled" style="background:#cadef4;border:1px solid #93b4d9"/>
 																									
 											</spring:bind>
 										</td>
 										<td >
 											
 											<spring:bind  path="appointment.diagnosis[${diagnosisAndtest.index}].prescriptionList">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple disabled="disabled">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;background:#cadef4;border:1px solid #93b4d9" size="3" multiple disabled="disabled" >
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList[legg.index]}"/></option>		
 													</c:forEach>
@@ -158,7 +171,7 @@
 										</td>
 										<td >
 											<spring:bind path="appointment.diagnosis[${diagnosisAndtest.index}].testList">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;" size="3" multiple disabled="disabled">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 15em;background:#cadef4;border:1px solid #93b4d9" size="3" multiple disabled="disabled" >
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].testList}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList[legg.index]}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList[legg.index]}"/></option>		
 													</c:forEach>
@@ -175,7 +188,7 @@
 									
 										<td  >
 											<spring:bind path="appointment.diagnosis[0].codeICD">
-												<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>"  value="<c:out value="${status.value}"/>" disabled="disabled"/>
+												<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>"  value="<c:out value="${status.value}"/>" disabled="disabled" style="background:#cadef4;border:1px solid #93b4d9"/>
 												<script type="text/javascript">
 														new Autocomplete('<c:out value="diagnosis[0].codeICD"/>', { serviceUrl:'/appointmentPopUp.htm' },'table.DIAGNOSIS');
 												</script>
@@ -184,7 +197,7 @@
 										</td>
 										<td >
 											<spring:bind path="appointment.diagnosis[0].prescriptionList">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple disabled="disabled">													
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px;background:#cadef4;border:1px solid #93b4d9" size="3" multiple disabled="disabled" >													
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescriptionList}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].prescription}" /></option>		
 													</c:forEach>
@@ -193,7 +206,7 @@
 										</td>
 										<td >
 											<spring:bind path="appointment.diagnosis[0].testList">
-												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px" size="3" multiple onclick="javascript:fn_moveDiv(event);" disabled="disabled">
+												<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="WIDTH: 280px;background:#cadef4;border:1px solid #93b4d9" size="3" multiple onclick="javascript:fn_moveDiv(event);" disabled="disabled" >
 													<c:forEach items="${appointment.diagnosis[diagnosisAndtest.index].testList}" varStatus="legg">
 														<option value ="<c:out value="${appointment.diagnosis[diagnosisAndtest.index].testList}"/>"><c:out value="${appointment.diagnosis[diagnosisAndtest.index].diagnosisTest}"/></option>		
 													</c:forEach>

@@ -50,6 +50,16 @@ public class Appointment extends MediAppBaseDomain{
     
     private String patientLastName;
 	
+	private String previousHistory;
+
+	private String presentingComplain;
+	
+	private String bP;
+	
+	private String temperature;
+	
+	private String pulse;
+
 
 	public String getDoctorFirstName() {
 		return doctorFirstName;
@@ -326,5 +336,45 @@ public class Appointment extends MediAppBaseDomain{
 		this.workingHour = workingHour;
 	}
 
+
+	public String getPreviousHistory() {
+		return previousHistory;
+	}
+
+	public void setPreviousHistory(String previousHistory) {
+		this.previousHistory = previousHistory;
+	}
+
+	public String getPresentingComplain() {
+		return presentingComplain;
+	}
+
+	public void setPresentingComplain(String presentingComplain) {
+		this.presentingComplain = presentingComplain;
+	}
+
+	public String getbP() {
+		return bP;
+	}
+
+	public void setbP(String bP) {
+		this.bP = bP;
+	}
+
+	public String getTemperature() {
+		return temperature;
+	}
+
+	public void setTemperature(String temperature) {
+		this.temperature = temperature;
+	}
+
+	public String getPulse() {
+		return pulse;
+	}
+
+	public void setPulse(String pulse) {
+		this.pulse = pulse;
+	}
 	
 }

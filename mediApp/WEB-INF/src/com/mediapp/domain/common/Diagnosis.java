@@ -25,11 +25,8 @@ public class Diagnosis extends MediAppBaseDomain{
 	
 	private String diagnosisTestResultValue;
 	
-	private String lNotes;
-	
 	private String diagnosis;
-	
-	private String allergy;
+
 	
 	private int testID;
 	
@@ -84,36 +81,12 @@ public class Diagnosis extends MediAppBaseDomain{
 
 
 
-	public String getLNotes() {
-		return lNotes;
-	}
-
-	public void setLNotes(String notes) {
-		lNotes = notes;
-	}
-
-	public String getlNotes() {
-		return lNotes;
-	}
-
-	public void setlNotes(String lNotes) {
-		this.lNotes = lNotes;
-	}
-
 	public String getDiagnosis() {
 		return diagnosis;
 	}
 
 	public void setDiagnosis(String diagnosis) {
 		this.diagnosis = diagnosis;
-	}
-
-	public String getAllergy() {
-		return allergy;
-	}
-
-	public void setAllergy(String allergy) {
-		this.allergy = allergy;
 	}
 
 	public int getTestID() {

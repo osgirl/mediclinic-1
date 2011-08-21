@@ -1136,3 +1136,20 @@ table.floatingHeader
 }
 
 /*diming*/
+
+input
+{
+	border:1px solid #93b4d9;
+
+}
+
+select
+{
+	border:1px solid #93b4d9;
+
+}
+textarea
+{
+	border:1px solid #93b4d9;
+
+}
