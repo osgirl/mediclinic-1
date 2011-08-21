@@ -2,12 +2,10 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MedicalHistory" pageWidth="595" pageHeight="842" columnWidth="270" columnSpacing="15" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="94"/>
 	<style name="Arial_Normal" isDefault="true" fontName="Arial" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 	<style name="Arial_Bold" fontName="Arial" fontSize="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 	<style name="Arial_Italic" fontName="Arial" fontSize="8" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-	<style name="Comic_Normal" fontName="Comic Sans MS" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="COMIC.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-	<style name="Comic_Bold" fontName="Comic Sans MS" fontSize="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="COMICBD.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>	
 	<parameter name="AppointmentID" class="java.lang.Integer"/>
 	<parameter name="Diagnosis" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="Investigations" class="net.sf.jasperreports.engine.JasperReport"/>
@@ -218,9 +216,9 @@ order by idappointment_history;]]>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="210">
+		<band height="226">
 			<subreport>
-				<reportElement positionType="Float" x="105" y="31" width="175" height="20" isRemoveLineWhenBlank="true" backcolor="#99CCFF"/>
+				<reportElement positionType="Float" x="105" y="31" width="440" height="30" isRemoveLineWhenBlank="true" backcolor="#99CCFF"/>
 				<subreportParameter name="AppointmentID">
 					<subreportParameterExpression><![CDATA[$P{AppointmentID}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -228,21 +226,21 @@ order by idappointment_history;]]>
 				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{Diagnosis}]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement style="Comic_Bold" isPrintRepeatedValues="false" x="12" y="0" width="188" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="Arial_Normal" isPrintRepeatedValues="false" x="12" y="0" width="188" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Comic Sans MS" isBold="true"/>
+					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Diagnosis:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Comic_Bold" isPrintRepeatedValues="false" x="12" y="78" width="188" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="Arial_Normal" isPrintRepeatedValues="false" x="12" y="78" width="188" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Comic Sans MS" isBold="true"/>
+					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Treatment Adviced:]]></text>
 			</staticText>
 			<subreport>
-				<reportElement positionType="Float" x="105" y="111" width="175" height="20" isRemoveLineWhenBlank="true" backcolor="#99CCFF"/>
+				<reportElement positionType="Float" x="105" y="111" width="440" height="30" isRemoveLineWhenBlank="true" backcolor="#99CCFF"/>
 				<subreportParameter name="AppointmentID">
 					<subreportParameterExpression><![CDATA[$P{AppointmentID}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -250,14 +248,14 @@ order by idappointment_history;]]>
 				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{Investigations}]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement style="Comic_Bold" isPrintRepeatedValues="false" x="12" y="151" width="188" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="Arial_Normal" isPrintRepeatedValues="false" x="12" y="151" width="188" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Comic Sans MS" isBold="true"/>
+					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Investigations Adviced:]]></text>
 			</staticText>
 			<subreport>
-				<reportElement positionType="Float" x="105" y="190" width="175" height="20" isRemoveLineWhenBlank="true" backcolor="#99CCFF"/>
+				<reportElement positionType="Float" x="105" y="184" width="440" height="30" isRemoveLineWhenBlank="true" backcolor="#99CCFF"/>
 				<subreportParameter name="AppointmentID">
 					<subreportParameterExpression><![CDATA[$P{AppointmentID}]]></subreportParameterExpression>
 				</subreportParameter>

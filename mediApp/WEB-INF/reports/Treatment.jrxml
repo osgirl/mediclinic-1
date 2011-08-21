@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AddressReport" pageWidth="300" pageHeight="50" columnWidth="175" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AddressReport" pageWidth="400" pageHeight="50" columnWidth="175" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -15,7 +15,7 @@ where idappointment  =$P{AppointmentID}]]>
 	<detail>
 		<band height="15">
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="13" y="3" width="280" height="10"/>
+				<reportElement positionType="Float" x="13" y="3" width="370" height="10"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{suggested_test}]]></textFieldExpression>
 			</textField>

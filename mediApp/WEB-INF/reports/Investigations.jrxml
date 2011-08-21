@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="AppointmentID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select prescription_name , 
+		<![CDATA[select prescription_name ,
 concat('(',dosage,')') as dose
 from patient_prescription pp
 join diagnosis d
@@ -17,12 +17,12 @@ where idappointment  =$P{AppointmentID}]]>
 	<detail>
 		<band height="15">
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="13" y="3" width="216" height="10"/>
+				<reportElement positionType="Float" x="13" y="3" width="350" height="10"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{prescription_name}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="229" y="3" width="161" height="10"/>
+				<reportElement positionType="Float" x="229" y="3" width="100" height="10"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{dose}]]></textFieldExpression>
 			</textField>
