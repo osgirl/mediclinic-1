@@ -346,4 +346,9 @@ public class CommonServiceImpl implements CommonService{
 	public boolean updateStorageFilePath(Admin admin) {
 		return commonDAO.updateStorageFilePath(admin);
 	}
+	
+	public boolean updateAppointment(Appointment appointment) {
+		return commonDAO.updateAppointment(appointment);
+	}
+
 }

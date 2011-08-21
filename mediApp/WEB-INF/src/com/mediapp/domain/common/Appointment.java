@@ -58,8 +58,7 @@ public class Appointment extends MediAppBaseDomain{
 	
 	private String temperature;
 	
-	private String pulse;
-
+	private String pulse;	
 
 	public String getDoctorFirstName() {
 		return doctorFirstName;

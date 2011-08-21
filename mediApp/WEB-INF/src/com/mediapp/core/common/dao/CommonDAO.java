@@ -145,4 +145,6 @@ public interface CommonDAO {
 	public boolean updatePackage(Admin admin) throws DataAccessException,DataIntegrityViolationException;
 	
 	public boolean updateStorageFilePath(Admin admin) throws DataAccessException;
+	
+	public boolean updateAppointment(Appointment appointment)throws DataAccessException;
 }

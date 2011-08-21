@@ -251,8 +251,8 @@ function fn_openAppointment(takeAppointment){
 	jQuery.showModalDialog({
 		 url: url,
 		 dialogArguments: null,
-		 height: 600,
-		 width: 900,
+		 height: 900,
+		 width: 1000,
 		 scrollable: false,
 		 onClose: function(){  var returnedValue = this.returnValue;window.location.href=rurl;  }
 	});
@@ -408,7 +408,8 @@ function addRowToTable()
   el0.name = "diagnosis[" + (num -1 )+ "].codeICD";
   el0.id = "diagnosis[" + (num -1 )+ "].codeICD";
   el0.size = 20;
-  el0.setAttribute("disabled","true");   
+  el0.setAttribute("disabled","true");  
+  el0.style.background ="#cadef4";
   cellLeft.appendChild(el0);
   document.getElementById(el0.name).value= document.getElementById("finddiagnosis").value;
 
@@ -421,6 +422,7 @@ function addRowToTable()
   sel.size = 3;	  
   sel.setAttribute("disabled","true");
   sel.style.width="15em";
+  sel.style.background ="#cadef4";
   cellRightSel.appendChild(sel);
   for(var i = 0; i < document.getElementById("prescriptionList").options.length; i++){
      var newElem = document.createElement("OPTION");
@@ -439,6 +441,7 @@ function addRowToTable()
   sel.size = 3;	  
   sel.setAttribute("disabled","true");
   sel.style.width="15em";
+  sel.style.background ="#cadef4";
   cellRightSel.appendChild(sel);
   for(var i = 0; i < document.getElementById("testList").options.length; i++){
      var newElem = document.createElement("OPTION");

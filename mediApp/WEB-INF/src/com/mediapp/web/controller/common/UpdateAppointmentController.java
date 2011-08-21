@@ -68,7 +68,8 @@ public class UpdateAppointmentController extends MediAppBaseController{
 		int idAppointment = Integer.parseInt(sidAppointment);
 		appointment.setAppointmentID(idAppointment);
 		commonService.updateAppointmentConfirmation(idAppointment, "Y");
-		boolean status = commonService.updateDiagnosisAndTests(appointment);		
+		boolean status = commonService.updateAppointment(appointment);		
+		status = commonService.updateDiagnosisAndTests(appointment);		
 		return null;
     }
 

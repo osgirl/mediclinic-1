@@ -40,54 +40,45 @@
 					         </c:if>
 				        </spring:hasBindErrors>
 					<table border="0" cellpadding="3" class="sample" cellspacing="0" width=680 height=300 align="center">
-						<table border="0" cellpadding="3" class="sample" cellspacing="0" width=680 height=250 align="center">
+						<table border="0" cellpadding="3" class="sample" cellspacing="0" width=680  align="center">
 							<tr bgcolor="lightblue">
 								<font style="text-align: center;font-size: 120%;font-weight: bold;">Reschedule Appointment</font>
 							</tr>
 							<tr>
-								<td >Appointment With:</td>
-								<td class="sansa">
+								<td width="15%">With:</td>
+								<td class="sansa" width="35%">
 									<c:out value="${DoctorDetails.firstName} "></c:out> 
 									<c:out value="${DoctorDetails.middleInitial}"></c:out>
 									<c:out value="${DoctorDetails.lastName}"></c:out>
 								</td>
-								<td></td>
-								<td></td>
+								<td widht="15%" >Purpose :</td>
+								<td class="sansa" width="35%">
+									<c:out value="${appointment.headline}"/>
+								</td>
 							</tr>
+							<tr></tr>
 							<input type="hidden" name="UserName"  value="${UserName}"/>
 							<input type="hidden" name="AppointmentID"  id="AppointmentID" value="${AppointmentID}"/>
 							<input type="hidden" name="PersonID"  id="PersonID" value="${PersonID}"/>
 							<input type="hidden" name="AppointmentDate"  id="AppointmentDate" value="<fmt:formatDate pattern="MM/dd/yyyy" value="${AppointmentDate}"/>">
 							<tr>
-								<td >Headline :</td>
-								<td class="sansa">
-									<spring:bind path="appointment.headline">
-										<input type="text" name="${status.expression}"  value="<c:out value="${appointment.headline}"/>" disabled="disabled"/>					
-									</spring:bind>
-								</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td >Date :</td>
-								<td class="sansa">
+								<td width="15%">On :</td>
+								<td class="sansa" width="35%">
 									<spring:bind path="appointment.dateOfAppointment">
 										<input type="text" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>" disabled="disabled" />
 									</spring:bind>
 								</td>
-								<td></td>
-								<td></td>
-							</tr>
-	
-							<tr>
-								<td >Time :</td>
-								<td class="sansa">
+								<td width="15%">At :</td>
+								<td class="sansa" width="35%">
 									<spring:bind path="appointment.timeOfAppointment">
 										<input type="text" name="${status.expression}"  id="${status.expression}" value="<c:out value="${appointment.timeOfAppointment}"/>" disabled="disabled" />
 									</spring:bind>
 								</td>
-								<td>Duration :</td>
-								<td class="sansa">
+							</tr>
+							<tr></tr>
+							<tr>
+								<td width="15%">Duration :</td>
+								<td class="sansa" width="35%">
 									<spring:bind path="appointment.appointmentDuration">
 										<select id="${status.expression}" name="${status.expression}" style="WIDTH: 150px">
 											<c:forEach items="${appointmentDuration}" var="data">
@@ -96,14 +87,14 @@
 										</select>
 									</spring:bind>
 								</td>
+								<td></td>
+								<td></td>
 							</tr>
 	
 							<tr>
 								<td >Comments:</td>
 								<td class="sansa">
-									<spring:bind path="appointment.comments">
-										<textarea name="${status.expression}"  value="${fn:trim(appointment.comments)}"  rows="3" cols="25" ></textarea>													
-									</spring:bind>
+									<c:out value="${fn:trim(appointment.comments)}"></c:out>
 								</td>
 							</tr>
 								<input type="hidden" name="PersonID"  value="<c:out value="${appointment.doctorPersonID}"/>"/>

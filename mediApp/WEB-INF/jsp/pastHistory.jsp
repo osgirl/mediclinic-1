@@ -80,9 +80,6 @@
               <tr>
                <td >
                  <input type="text" name="selectAllergy"  id="selectAllergy" value=""/>
-                 <script type="text/javascript">
-                   new Autocomplete('selectAllergy', { serviceUrl:'/appointmentPopUp.htm' },'SPECIALTITY');
-                 </script>
                  
                </td>
 		               <td >
@@ -93,7 +90,7 @@
 		               </td>                  
 		               <td >
 			                <spring:bind  path="patientDetails.allergies">
-			                 	<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 25em;" size="3" multiple >
+			                 	<select  name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" style="width: 25em;background:#cadef4;" size="3" multiple >
 			                 		<c:forEach items="${patientDetails.allergies}" varStatus="legg">
 			                   			<option value ="<c:out value="${patientDetails.allergies[legg.index]}"/>"><c:out value="${patientDetails.allergies[legg.index]}"/></option>
 			                   		</c:forEach>  

@@ -59,14 +59,13 @@ public class PersonValidator implements Validator{
 			"Value required.");
 		}
 		
-		if(null == person.getDoctorDetails().getRegistrationNumber() || person.getDoctorDetails().getRegistrationNumber().toString().trim().length() == 0) {
+		if(null != person.getDoctorDetails().getRegistrationNumber() && person.getDoctorDetails().getRegistrationNumber().toString().trim().length() == 0) {
 			errors.rejectValue("doctorDetails.registrationNumber", "error.required.field", null,
 			"Value required.");			
 		}
-		if(null == person.getDoctorDetails().getSpecialization() || person.getDoctorDetails().getSpecialization().toString().trim().length() == 0) {
+		if(null != person.getDoctorDetails().getSpecialization() && person.getDoctorDetails().getSpecialization().toString().trim().length() == 0) {
 			errors.rejectValue("doctorDetails.specialization", "error.required.field", null,
 			"Value required.");
 		}
-
 	}
 }

@@ -89,21 +89,21 @@
 								<td >Previous History:</td>
 								<td class="sansa">
 									<spring:bind path="appointment.previousHistory">
-										<textarea name="${status.expression}"  value="${fn:trim(status.value)}"  rows="3" cols="50" ></textarea>													
+										<textarea name="${status.expression}"  rows="3" cols="50" >${fn:trim(appointment.previousHistory)}</textarea>													
 									</spring:bind>
 								</td>
 							</tr>
-							<tr>
+							<tr>								
 								<td >Complain:</td>
 								<td class="sansa">
 									<spring:bind path="appointment.presentingComplain">
-										<textarea name="${status.expression}"  value="${fn:trim(status.value)}"  rows="3" cols="50" ></textarea>													
+										<textarea name="${status.expression}"  rows="3" cols="50" >${fn:trim(appointment.presentingComplain)}</textarea>													
 									</spring:bind>
 								</td>
 							</tr>
 								<td >BP:&nbsp;&nbsp;&nbsp;&nbsp;
 									<spring:bind path="appointment.bP">
-										<input type="text" name="${status.expression}"  id="${status.expression}" value="<c:out value="${appointment.bP}"/>"  size="2"/>													
+										<input type="text" name="${status.expression}"  id="${status.expression}" value="<c:out value="${appointment.bP}"/>"  size="7"/>													
 									</spring:bind>
 								</td>
 								<td >

@@ -314,6 +314,11 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		appointmentLast.setAppointmentDuration(appointment.get(0).getAppointmentDuration());
 		appointmentLast.setConfirmedIndicator(appointment.get(0).getConfirmationIndicator());
 		appointmentLast.setDoctorID(appointment.get(0).getDoctorID());
+		appointmentLast.setbP(appointment.get(0).getbP());
+		appointmentLast.setPulse(appointment.get(0).getPulse());
+		appointmentLast.setTemperature(appointment.get(0).getTemperature());
+		appointmentLast.setPresentingComplain(appointment.get(0).getPresentingComplain());
+		appointmentLast.setPreviousHistory(appointment.get(0).getPreviousHistory());
 		List <Diagnosis> diagnosis = new ArrayList();
 		int currentIDDiagnosis = 0;
 		Diagnosis eachDiagnosis = new Diagnosis();
@@ -395,7 +400,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 				criteria.put("AppointmentID",appointmentID);
 				Integer diagnosisID = new Integer(appointment.getDiagnosis().get(i).getDiagnosisID() );
 				criteria.put("DiagnosisID", diagnosisID);
-				criteria.put("Prescription", appointment.getDiagnosis().get(i).getPrescription());
+				//criteria.put("Prescription", appointment.getDiagnosis().get(i).getPrescription());
 				criteria.put("ICDCode", appointment.getDiagnosis().get(i).getCodeICD());
 				if(appointment.getDiagnosis().get(i).getCodeICD() !=null){
 					getSqlMapClient().insert("common.insertNewDiagnosis",
@@ -954,6 +959,17 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return flag;
 		
 	}
+
+	public boolean updateAppointment(Appointment appointment)throws DataAccessException{
+ 		int count = updateObject("common.updateAppointment", appointment);
+ 		boolean flag=false;
+ 		if (count > 0){
+ 			flag = true;
+ 		}
+		return flag;
+
+	}
+
 }
 
 

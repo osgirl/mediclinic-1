@@ -344,6 +344,11 @@
 	 	<result property="diagnosisTestResultValue" 	column="test_result_unit"/>
 	 	<result property="comments" 					column="appointment_comment"/>
 	 	<result property="confirmationIndicator" 		column="appointment_confirmation"/>
+	 	<result property="bP"					 		column="BP"/>
+	 	<result property="pulse" 						column="Pulse"/>
+	 	<result property="temperature"			 		column="Temperature"/>
+	 	<result property="previousHistory" 				column="previous_history"/>
+	 	<result property="presentingComplain" 			column="presenting_complain"/>
 	</resultMap>
 	 	
 	<parameterMap id="Get-Appointment-Parm-Map"   class="java.util.HashMap">
@@ -353,7 +358,8 @@
 	<select id="getAppointment" parameterMap="Get-Appointment-Parm-Map" resultMap="Get-Appointment-Result-Map">
 			 select idAppointment_history,ifnull(d.idDiagnosis,0) as idDiagnosis,
 			 appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,  
-			 ICD_code,Prescription_name,dosage,suggested_test,test_result_value,test_result_unit ,appointment_comment,appointment_confirmation    
+			 ICD_code,Prescription_name,dosage,suggested_test,test_result_value,test_result_unit ,appointment_comment,appointment_confirmation,
+			 Bp,Pulse,Temperature, previous_history,presenting_complain   
 			 from person p    
 			 left OUTER join appointment_history ah
 			 on ah.Iddoctor_details = p.idperson
@@ -400,13 +406,12 @@
 	 <parameterMap id="Insert-NewDiagnosis-Parm-Map"   class="java.util.HashMap">
 	    <parameter property="DiagnosisID"   		javaType="java.lang.Integer"   	mode="IN"/>
 	    <parameter property="AppointmentID" 		javaType="java.lang.Integer"    mode="IN"/>
-		<parameter property="Prescription"   		javaType="java.lang.String"   	mode="IN"/>	    
 		<parameter property="ICDCode"   			javaType="java.lang.String"   	mode="IN"/>			    
 	 </parameterMap>
 	
 	<insert id="insertNewDiagnosis" parameterMap="Insert-NewDiagnosis-Parm-Map">
-		INSERT INTO diagnosis (idDiagnosis, idAppointment,Prescription,ICD_code ) 
-		VALUES (?,?,?,? )
+		INSERT INTO diagnosis (idDiagnosis, idAppointment,ICD_code ) 
+		VALUES (?,?,? )
 	</insert>
 
 	 <parameterMap id="Insert-NewTests-Parm-Map"   class="java.util.HashMap">
@@ -1279,6 +1284,12 @@
 	<update id="updatefilePath" >
 		UPDATE code_decode set code_val=#fileStoragePath#
 		where code_ctg='FILESTORAGE'			
+	</update>
+
+ 	<update id="updateAppointment" >
+ 		update appointment_history  set BP=#bP#,Pulse=#pulse#,Temperature=#temperature#,
+ 		previous_history=#previousHistory#,presenting_complain=#presentingComplain# 
+		where idAppointment_History =#appointmentID#
 	</update>
 		
 </sqlMap>
