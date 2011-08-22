@@ -26,6 +26,10 @@
 	</head>
 	<body>
 		<form name="rescheduleAppointment" id="rescheduleAppointment" method="post" >
+			<c:if test="${not empty SuccessMessage}">			
+				<font color="green"><c:out value="${SuccessMessage}" /></font><br/>
+			</c:if>
+		
 			<div class="stp" style="margin-bottom:1.5em;" >
 				<div class="or" style="margin:1em; padding:0;" >
 					<spring:hasBindErrors name="command">

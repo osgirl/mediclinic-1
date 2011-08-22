@@ -25,7 +25,7 @@ public class FallbackJstlViewResolver extends InternalResourceViewResolver {
 		
 		if (!getApplicationContext().getResource(lResourecePath).exists()){			
 			if (mFallBackViewResolver == null){
-				System.out.print("No fall back view resolver configured");
+			//	System.out.print("No fall back view resolver configured");
 				//lView = super.resolveViewName(pViewName, pLocale);
 			}else{
 				lView = mFallBackViewResolver.resolveViewName(pViewName, pLocale);
@@ -35,7 +35,7 @@ public class FallbackJstlViewResolver extends InternalResourceViewResolver {
 			lView = super.resolveViewName(pViewName, pLocale);
 
 		}
-		System.out.println(lResourecePath);
+	//	System.out.println(lResourecePath);
 		return lView;
 	}
 

@@ -94,7 +94,8 @@ public class CreateAppointmentController extends MediAppBaseController{
 		sendSMS.scheduleNewAppointment(newAppointment);
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy"); 
 		String sdate = sdf.format(newAppointment.getDateOfAppointment());
-		return null;
+		request.setAttribute("SuccessMessage", CommonWebConstants.SUCCESS);
+		return new ModelAndView(getSuccessView(),"appointment",newAppointment);
     }
 	
 @Override

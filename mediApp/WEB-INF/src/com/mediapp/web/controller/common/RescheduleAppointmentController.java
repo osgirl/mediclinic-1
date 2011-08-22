@@ -76,8 +76,9 @@ public class RescheduleAppointmentController extends MediAppBaseController{
 		boolean status = commonService.rescheduleAppointment(appointment);
 		sendeMail.scheduleRescheduleAppointment(appointment);
 		sendSMS.scheduleRescheduleAppointment(appointment);
+		request.setAttribute("SuccessMessage", CommonWebConstants.SUCCESS);
+		return new ModelAndView(getSuccessView(),CommonWebConstants.DAY_APPOINTMENT,appointment);
 
-		return null;
     }
 
 	

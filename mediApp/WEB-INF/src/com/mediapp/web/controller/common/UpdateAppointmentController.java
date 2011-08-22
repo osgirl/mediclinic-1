@@ -62,15 +62,16 @@ public class UpdateAppointmentController extends MediAppBaseController{
 	    return appointmentMap;
 	}
 
-	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
+	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
 		Appointment appointment = (Appointment) command;
 		String sidAppointment = request.getParameter("AppointmentID");
 		int idAppointment = Integer.parseInt(sidAppointment);
 		appointment.setAppointmentID(idAppointment);
 		commonService.updateAppointmentConfirmation(idAppointment, "Y");
 		boolean status = commonService.updateAppointment(appointment);		
-		status = commonService.updateDiagnosisAndTests(appointment);		
-		return null;
+		status = commonService.updateDiagnosisAndTests(appointment);
+		request.setAttribute("SuccessMessage", CommonWebConstants.SUCCESS);
+		return new ModelAndView(getSuccessView(),CommonWebConstants.DAY_APPOINTMENT,appointment);
     }
 
 	

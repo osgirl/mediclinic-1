@@ -26,6 +26,9 @@
 	</head>
 	<body>
 		<form name="createAppointment" id="createAppointment" method="post" >
+			<c:if test="${not empty SuccessMessage}">			
+				<font color="green"><c:out value="${SuccessMessage}" /></font><br/>
+			</c:if>
 			<div class="stp" style="margin-bottom:1.5em;" >
 				<div class="or" style="margin:1em; padding:0;" >
 					<table border="0" cellpadding="3" class="sample" cellspacing="0" width=450 height=300 align="center">

@@ -132,13 +132,15 @@ function fn_addAppointment(){
 	if ((navigator.userAgent.indexOf("Chrome"))==-1) {
 	document.forms['createAppointment'].target="Parent";
 	}
-	window.close();
+	//window.close();
 	var form=document.getElementById('createAppointment');
     form.setAttribute('target', 'iframeDialog');
     form.submit();
 }
 function fn_rescheduleAppointmentDate(){
-	window.close();
+	//window.close();
+	document.getElementById('dateOfAppointment').disabled=false;
+	document.getElementById('timeOfAppointment').disabled=false;
 	var form=document.getElementById('rescheduleAppointment');
     form.setAttribute('target', 'iframeDialog');
     form.submit();
@@ -281,7 +283,7 @@ function fn_rescheduleAppointment(){
     var UserName=document.getElementById('UserName').value;
 	var WinSettings = 'scroll:no;help:0;center:yes;resizable:yes;dialogHeight:630px;dialogWidth:1000px;status:no;edge:sunken';	
 	var url = '/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName;
-	var rurl= "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+UserName+"&TakeAppointment=Y";
+	var rurl= "/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+UserName+"&TakeAppointment=N";
 	jQuery.showModalDialog({
 		 url: url,
 		 dialogArguments: null,
@@ -292,7 +294,7 @@ function fn_rescheduleAppointment(){
 	});
 }
 function fn_confirmAppointment(){
-	window.close();
+	//window.close();
 	var form=document.getElementById('updateAppointment');
     form.setAttribute('target', 'iframeDialog');
     form.submit();
@@ -346,7 +348,7 @@ function fn_updateAppointmentDetails(){
   	  
     }
     
-	window.close();
+	//window.close();
 	var form=document.getElementById('updateAppointment');
     form.setAttribute('target', 'iframeDialog');
     form.submit();

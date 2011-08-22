@@ -25,6 +25,10 @@
 	</head>
 	<body>
 		<form name="updateAppointment" id="updateAppointment" method="post" >
+			<c:if test="${not empty SuccessMessage}">			
+				<font color="green"><c:out value="${SuccessMessage}" /></font><br/>
+			</c:if>
+		
 			<div class="stp" style="margin-bottom:1.5em;" >
 				<div class="or" style="margin:1em; padding:0;" >
 					<font style="text-align: center;font-size: 120%;font-weight: bold;">Appointment Details</font>
@@ -74,7 +78,7 @@
 						NotificationDetails n = (NotificationDetails) request.getAttribute("Notification");
 					%>
 					<%  
-					if(!p.getEmailID().equals(n.getPatientEmailAddress()) &&
+					if((null != n && !p.getEmailID().equals(n.getPatientEmailAddress())) &&
 							p.getPackages().contains("Doctor")){
 							
 					%>
@@ -228,7 +232,7 @@
 					<table border="0" cellpadding="0" cellspacing="0" width="450" height="30" align="center">						         
 						<tr >     
 							
-							<%if(!p.getEmailID().equals(n.getPatientEmailAddress())){ %>
+							<%if(null != n && !p.getEmailID().equals(n.getPatientEmailAddress())){ %>
 							
 							<c:if test="${appointment.confirmedIndicator == 'N'}">
 								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
