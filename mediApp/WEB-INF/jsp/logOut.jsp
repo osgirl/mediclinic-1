@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
+<%@ include file="/jsp/include.jsp" %>
 <div id="contentBodyLeft">
    <div id="contentBodyRight">
     <div id="contentBodyCenter">
@@ -19,4 +19,4 @@
    </div>
   </div>
   
-<%@ include file="/WEB-INF/jsp/footer.jsp" %> 
+<%@ include file="/jsp/footer.jsp" %> 

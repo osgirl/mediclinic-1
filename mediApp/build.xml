@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="mediapp" default="all" basedir=".">
+<project name="appment" default="all" basedir=".">
 
 	<target name="init">
 		<property name="dirs.base" value="${basedir}"/>
@@ -8,8 +8,8 @@
 		<property name="web" value="${dirs.base}/web"/>
 		<property name="deploymentdescription" value="${dirs.base}/build/deploymentdescriptors"/>
 
-		<property name="warFile" value="mediapp.war"/>
-		<property name="earFile" value="mediapp.ear"/>
+		<property name="warFile" value="appment.war"/>
+		<property name="earFile" value="appment.ear"/>
 
 
 		<property name="earDir" value="${dirs.base}/build/ear"/>
@@ -111,8 +111,12 @@
 			<fileset dir="${basedir}/js" includes="**/*.*" /> 
 		</copy>
 		
-		<copy todir="${warDir}/WEB-INF/jsp">
+		<copy todir="${warDir}/jsp">
 			<fileset dir="${basedir}/WEB-INF/jsp" includes="**/*.*" /> 
+		</copy>
+
+		<copy todir="${warDir}/reports">
+			<fileset dir="${basedir}/WEB-INF/reports" includes="**/*.*" /> 
 		</copy>
 
 		<copy todir="${warDir}/WEB-INF/tld">
@@ -123,44 +127,14 @@
 			<fileset dir="${basedir}/WEB-INF/lib" includes="*.*" /> 
 		</copy>
 
-		<copy todir="${warDir}/WEB-INF/classes/org">
-			<fileset dir="${basedir}/work/org" includes="**/*.*" /> 
+		<copy todir="${warDir}/WEB-INF/classes">
+			<fileset dir="${basedir}/WEB-INF/src" includes="log4j.properties" /> 
 		</copy>
 
-		<copy todir="${warDir}/WEB-INF/src">
-			<fileset dir="${basedir}/WEB-INF/src" includes="*.properties" /> 
-		</copy>
-
-		<copy todir="${warDir}/WEB-INF/reports">
-			<fileset dir="${basedir}/WEB-INF/reports" includes="*.jrxml" /> 
-		</copy>
-
-		<copy todir="${warDir}/WEB-INF/src/resources/common/ibatis">
-			<fileset dir="${basedir}/WEB-INF/src/resources/common/ibatis" includes="*.xml" /> 
-		</copy>
-
-		<copy todir="${warDir}/WEB-INF/src/resources/common/properties">
-			<fileset dir="${basedir}/WEB-INF/src/resources/common/properties" includes="*.properties" /> 
-		</copy>
-
-		<copy todir="${warDir}/WEB-INF/src/resources/common/spring">
-			<fileset dir="${basedir}/WEB-INF/src/resources/common/spring" includes="*.xml" /> 
-		</copy>
-
-
-		<copy todir="${warDir}/WEB-INF/src/resources/common/velocity">
-			<fileset dir="${basedir}/WEB-INF/src/resources/common/velocity" includes="*.vm" /> 
-		</copy>
-
-
-		<copy todir="${warDir}/WEB-INF/src/resources/common/velocity">
-			<fileset dir="${basedir}/WEB-INF/src/resources/common/velocity" includes="*.JPG" /> 
-		</copy>
-
-		<jar jarfile="${basedir}/WEB-INF/lib/appmentConfig.jar" basedir="${basedir}/WEB-INF/src"   includes="**/*.xml,**/*.properties,**/*.vm" manifest="MANIFEST.MF"/>
+		<jar jarfile="${basedir}/WEB-INF/lib/appmentConfig.jar" basedir="${basedir}/WEB-INF/src"   includes="**/*.xml,**/*.properties,**/*.vm,**/*.JPG" manifest="MANIFEST.MF"/>
 		
 		<jar jarfile="${basedir}/WEB-INF/lib/appment.jar" basedir="${classdir}" includes="**/*.class" manifest="MANIFEST.MF"/>
-
+		
 
 		<!-- Create war file and place in ear directory -->
 		<jar jarfile="${warFile}" basedir="${warDir}"  manifest="MANIFEST.MF"/>

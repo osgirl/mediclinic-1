@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
+<%@ include file="/jsp/include.jsp" %>
 
 
 		
@@ -193,4 +193,4 @@
 						</div>
 					</div>
 				</div>
-<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+<%@ include file="/jsp/footer.jsp" %>

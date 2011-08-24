@@ -31,7 +31,7 @@
 			<div id="controls">
 					<form id="searchform" action="<%=request.getContextPath()%>" method="post">
 					<a href="http://www.facebook.com/apps/application.php?id=152456314791817&v=info" TARGET="_blank">
-					<img src="/images/Facebook-Buttons-11-2.png" title="Find us on Facebook"  
+					<img src="<%=request.getContextPath()%>/images/Facebook-Buttons-11-2.png" title="Find us on Facebook"  
 					alt="Find us on Facebook" width="21px" border="0"/></a><br/>
 				        <%Person p = (Person)request.getSession().getAttribute("person");
 				        	if (p != null) {%>
@@ -58,8 +58,8 @@
 					<table border="0" cellpadding="0" cellspacing="0" width="200" height="30" >      
 									<tr >     
 								  		<td>
-								  			<a href="javascript:void(0);" onclick="fn_easyBugs();" style="font:100% 'ARIAL BLACK'; text-decoration:none;color:black;background: url(/images/down_1.png)">
-								  			ReportIt!<img src="/images/warning.jpg" ></img>
+								  			<a href="javascript:void(0);" onclick="fn_easyBugs();" style="font:100% 'ARIAL BLACK'; text-decoration:none;color:black;background: url(<%=request.getContextPath()%>/images/down_1.png)">
+								  			ReportIt!<img src="<%=request.getContextPath()%>/images/warning.jpg" ></img>
 								  			</a>
 								  		
 								  		</td>

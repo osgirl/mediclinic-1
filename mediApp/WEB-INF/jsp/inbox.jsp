@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
+<%@ include file="/jsp/include.jsp" %>
 
 
 		
@@ -14,29 +14,29 @@
 						<script>
 							var cacheonimg = new Image ();
 							var cacheoffimg = new Image ();
-							cacheonimg.src = '/images/refresh_1.png';
-							cacheoffimg.src = '/images/refresh_0.png';
+							cacheonimg.src = '<%=request.getContextPath()%>/images/refresh_1.png';
+							cacheoffimg.src = '<%=request.getContextPath()%>/images/refresh_0.png';
 
 							var cacheonimgdown = new Image ();
 							var cacheoffimgdown = new Image ();
-							cacheonimgdown.src = '/images/up_0.png';
-							cacheoffimgdown.src = '/images/down_0.png';
+							cacheonimgdown.src = '<%=request.getContextPath()%>/images/up_0.png';
+							cacheoffimgdown.src = '<%=request.getContextPath()%>/images/down_0.png';
 
 							var cacheonimgdown1 = new Image ();
 							var cacheoffimgdown1 = new Image ();
-							cacheonimgdown1.src = '/images/up_0.png';
-							cacheoffimgdown1.src = '/images/down_0.png';
+							cacheonimgdown1.src = '<%=request.getContextPath()%>/images/up_0.png';
+							cacheoffimgdown1.src = '<%=request.getContextPath()%>/images/down_0.png';
 
 							var cacheonimgdownM = new Image ();
 							var cacheoffimgdownM = new Image ();
-							cacheonimgdownM.src = '/images/up_0.png';
-							cacheoffimgdownM.src = '/images/down_0.png';
+							cacheonimgdownM.src = '<%=request.getContextPath()%>/images/up_0.png';
+							cacheoffimgdownM.src = '<%=request.getContextPath()%>/images/down_0.png';
 
 							
 							var cacheonimgshow = new Image ();
 							var cacheoffimgshow = new Image ();
-							cacheonimgshow.src = '/images/show_0.png';
-							cacheoffimgshow.src = '/images/show_0.png';
+							cacheonimgshow.src = '<%=request.getContextPath()%>/images/show_0.png';
+							cacheoffimgshow.src = '<%=request.getContextPath()%>/images/show_0.png';
 							
 						</script>
 						
@@ -62,7 +62,7 @@
 															<tr>
 																<td align="right">
 																	<a href="/inbox.htm" id="refresh" onMouseover="document.buttonimg.src=eval('cacheonimg.src')" onMouseout="document.buttonimg.src=eval('cacheoffimg.src')">
-																		<img src="/images/refresh_0.png" name="buttonimg" width="100" height="15" alt="Refresh">   
+																		<img src="<%=request.getContextPath()%>/images/refresh_0.png" name="buttonimg" width="100" height="15" alt="Refresh">   
 																	</a>
 																</td>
 															</tr>
@@ -75,7 +75,7 @@
 																	</td>
 																	<td >
 																		<a href="javascript:void(0);" onclick="javascript:fn_showReminder();" >
-																			<img src="/images/down_0.png" name="buttonimgdown"  alt="Refresh">   
+																			<img src="<%=request.getContextPath()%>/images/down_0.png" name="buttonimgdown"  alt="Refresh">   
 																		</a>
 															
 																	</td>
@@ -91,7 +91,7 @@
 																						</td>
 																						<td align="right">
 																							<a href="javascript:void(0);" onclick="javascript:fn_openAppointmentInbox('${personID}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>',''${appointments.appointmentID}','${appointments.timeOfAppointment}');" onMouseover="document.buttonimgshow.src=eval('cacheonimgshow.src')" onMouseout="document.buttonimgshow.src=eval('cacheoffimgshow.src')">
-																								<img src="/images/show_0.png" name="buttonimgshow" alt="Show details">   
+																								<img src="<%=request.getContextPath()%>/images/show_0.png" name="buttonimgshow" alt="Show details">   
 																							</a>
 																						</td>
 																					</tr>
@@ -124,7 +124,7 @@
 																	</td>
 																	<td >
 																		<a href="javascript:void(0);" onclick="javascript:fn_showMyReminder();" >
-																			<img src="/images/down_0.png" name="buttonimgdownM"  alt="Refresh">   
+																			<img src="<%=request.getContextPath()%>/images/down_0.png" name="buttonimgdownM"  alt="Refresh">   
 																		</a>
 																	</td>
 																</tr>
@@ -139,7 +139,7 @@
 																						</td>
 																						<td align="right">
 																							<a href="javascript:void(0);" onclick="javascript:fn_openAppointmentInbox('${personID}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>','${appointments.appointmentID}','${appointments.timeOfAppointment}');" onMouseover="document.buttonimgshow.src=eval('cacheonimgshow.src')" onMouseout="document.buttonimgshow.src=eval('cacheoffimgshow.src')">
-																								<img src="/images/show_0.png" name="buttonimgshow" alt="Show details">   
+																								<img src="<%=request.getContextPath()%>/images/show_0.png" name="buttonimgshow" alt="Show details">   
 																							</a>
 																						</td>
 																					</tr>
@@ -173,7 +173,7 @@
 																	</td>
 																	<td >
 																		<a href="javascript:void(0);" onclick="javascript:fn_confirmIt();" >
-																			<img src="/images/down_0.png" name="buttonimgdown1"  alt="Refresh">   
+																			<img src="<%=request.getContextPath()%>/images/down_0.png" name="buttonimgdown1"  alt="Refresh">   
 																		</a>
 														
 																	</td>
@@ -189,7 +189,7 @@
 																						</td>
 																						<td align="right">
 																							<a href="javascript:void(0);" onclick="javascript:fn_openAppointmentInbox('${personID}','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>','${appointments.appointmentID}','${appointments.timeOfAppointment}');" onMouseover="document.buttonimgshow.src=eval('cacheonimgshow.src')" onMouseout="document.buttonimgshow.src=eval('cacheoffimgshow.src')">
-																								<img src="/images/show_0.png" name="buttonimgshow" alt="Show details">   
+																								<img src="<%=request.getContextPath()%>/images/show_0.png" name="buttonimgshow" alt="Show details">   
 																							</a>
 																						</td>
 																					</tr>
@@ -233,4 +233,4 @@
 			</div>
 	</div>
 	
-<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+<%@ include file="/jsp/footer.jsp" %>

@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
+<%@ include file="/jsp/include.jsp" %>
 
 
 		
@@ -109,7 +109,7 @@
             
 				<table border="0" cellpadding="0" cellspacing="0" width="400" height="30" >         
 					<tr >     
-				  		<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%" align="center">  
+				  		<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%" align="center">  
 				  			<a href="javascript:void(0);" onClick="javascript:fn_updatePackage();" style="text-decoration:none"> 
 				  				<font size="+1" color="#FFFFFF" >Save</font> 
 				  			</a>
@@ -131,4 +131,4 @@
 			</div>
 	</div>
 	
-<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+<%@ include file="/jsp/footer.jsp" %>

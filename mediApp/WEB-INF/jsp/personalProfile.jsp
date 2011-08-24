@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
+<%@ include file="/jsp/include.jsp" %>
 
   
 <%@page import="com.mediapp.domain.common.Person"%><div id="contentBodyLeft">
@@ -328,7 +328,7 @@
 	                	</td>                
 	                </tr>
 	                <tr>     
-						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:40;"  align="center">  
+						<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:40;"  align="center">  
 				  			<a href="javascript:void(0);" onClick="javascript:fn_addRowForWorkHours();" style="text-decoration:none"> 
 				  				<font size="+1" color="#FFFFFF" >Add</font>  
 				  			</a>
@@ -402,7 +402,7 @@
             </div>
                     <table border="0" cellpadding="0" cellspacing="0" width="200" height="30"  align="bottom">       
 					<tr>     
-						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
+						<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
 				  			<a href="javascript:void(0);" onClick="javascript:saveProfile();" style="text-decoration:none"> 
 				  				<font size="+1" color="#FFFFFF" >Save</font> 
 				  			</a>
@@ -430,4 +430,4 @@
    </div>
   </div>
   
-<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+<%@ include file="/jsp/footer.jsp" %>

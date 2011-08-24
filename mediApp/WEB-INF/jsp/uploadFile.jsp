@@ -72,12 +72,12 @@
         </td>
 	</tr>
 					<tr>     
-						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
+						<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
 				  			<a href="javascript:void(0);" onClick="javascript:fn_uploadSelectedFile();" style="text-decoration:none"> 
 				  				<font size="+1" color="#FFFFFF" >Upload</font> 
 				  			</a>
 				  		</td>
-						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
+						<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
 				  			<a href="javascript:void(0);" onClick="javascript:window.close();" style="text-decoration:none"> 
 				  				<font size="+1" color="#FFFFFF" >Cancel</font> 
 				  			</a>

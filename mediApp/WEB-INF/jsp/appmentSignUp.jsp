@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
+<%@ include file="/jsp/include.jsp" %>
 		<div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
@@ -10,18 +10,18 @@
 <script>
 var cacheonimg = new Image ();
 var cacheoffimg = new Image ();
-cacheonimg.src = '/images/MCbutton_1.png';
-cacheoffimg.src = '/images/MCbutton_0.png';
+cacheonimg.src = '<%=request.getContextPath()%>/images/MCbutton_1.png';
+cacheoffimg.src = '<%=request.getContextPath()%>/images/MCbutton_0.png';
 
 var cacheonimgl = new Image ();
 var cacheoffimgl = new Image ();
-cacheonimgl.src = '/images/MLbutton_1.png';
-cacheoffimgl.src = '/images/MLbutton_0.png';
+cacheonimgl.src = '<%=request.getContextPath()%>/images/MLbutton_1.png';
+cacheoffimgl.src = '<%=request.getContextPath()%>/images/MLbutton_0.png';
 
 var cacheonimgs = new Image ();
 var cacheoffimgs = new Image ();
-cacheonimgs.src = '/images/submitbutton_1.png';
-cacheoffimgs.src = '/images/submitbutton_0.png';
+cacheonimgs.src = '<%=request.getContextPath()%>/images/submitbutton_1.png';
+cacheoffimgs.src = '<%=request.getContextPath()%>/images/submitbutton_0.png';
 
 </script> 
 						 
@@ -171,7 +171,7 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 												</td>
 												<td >   
 													<div style="display:none;background-color:#cadef4;" >
-														<img  src="/images/notok.jpg" valign="bottom" >
+														<img  src="<%=request.getContextPath()%>/images/notok.jpg" valign="bottom" >
 													</div>
 												</td>
 											</tr>
@@ -231,7 +231,7 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 											    
 											<table border="0" cellpadding="0" cellspacing="0" width="500" height="30" >      
 											<tr>     
-												<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
+												<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;"  align="center">  
 										  			<a href="javascript:void(0);" onClick="fn_signUp();" style="text-decoration:none"> 
 										  				<font size="+1" color="#FFFFFF" >Register</font> 
 										  			</a>
@@ -255,4 +255,4 @@ cacheoffimgs.src = '/images/submitbutton_0.png';
 				</div>
 			</div> 
 		</div>
-<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+<%@ include file="/jsp/footer.jsp" %>

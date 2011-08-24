@@ -89,7 +89,7 @@ cacheoffimgl.src = '/images/MLbutton_0.png';
 
 								<table border="0" cellpadding="0" cellspacing="0" width="100" height="30" >      
 					                <tr>     
-										<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:40;"  align="center">  
+										<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;background-size: 100%;width:100%;height:40;"  align="center">  
 							  				<a href="javascript:void(0);" onClick="history.back();" style="text-decoration:none"> 
 							  					<font size="+1" color="#FFFFFF" >Go Back</font>  
 							  				</a>

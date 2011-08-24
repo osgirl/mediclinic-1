@@ -129,7 +129,7 @@
 						<table  border=""  id="tblSample" class="sample" width=850   align="center">
 							<tbody id="aa">		
 							<tr height="40">
-								<td  style="background: url(/images/submitbutton_0.png) no-repeat ;background-position: top center;"  align="center">  
+								<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat ;background-position: top center;"  align="center">  
 						  			<a href="javascript:void(0);" onClick="javascript:fn_showDiagnosis();" style="text-decoration:none"> 
 						  				<font size="+1" color="#FFFFFF" >Add</font> 
 						  			</a>
@@ -235,21 +235,21 @@
 							<%if(null != n && !p.getEmailID().equals(n.getPatientEmailAddress())){ %>
 							
 							<c:if test="${appointment.confirmedIndicator == 'N'}">
-								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
+								<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
 						  			<a href="javascript:void(0);" onClick="javascript:fn_confirmAppointment();" style="text-decoration:none"> 
 						  				<font size="+1" color="#FFFFFF" >Confirm</font> 
 						  			</a>
 						  		</td>
 					  		</c:if>
 							<c:if test="${appointment.confirmedIndicator == 'Y'}">
-								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
+								<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
 						  			<a href="javascript:void(0);" onClick="javascript:fn_updateAppointmentDetails();" style="text-decoration:none"> 
 						  				<font size="+1" color="#FFFFFF" >Save</font> 
 						  			</a>
 						  		</td>
 					  		</c:if>
 					  		
-								<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
+								<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
 						  			<a href="javascript:void(0);" onClick="" style="text-decoration:none"> 
 						  				<font size="+1" color="#FFFFFF" >Follow Up</font> 
 						  			</a>
@@ -257,7 +257,7 @@
 					  		
 					  		<%} %>
 					  		
-					  		<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%" align="center">  
+					  		<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%" align="center">  
 					  			<a href="javascript:void(0);" onClick="javascript:fn_close();" style="text-decoration:none"> 
 					  				<font size="+1" color="#FFFFFF" >Close</font>
 					  			</a>
@@ -275,7 +275,7 @@
 			       	</td>
 			       	<td style="width:18px" align="right">
 			       		<a href="javascript:hiddenFloatingDiv('windowcontent');void(0);">
-			       			<img alt="Close..." title="Close..." src="/images/close.jpg" border="0">
+			       			<img alt="Close..." title="Close..." src="<%=request.getContextPath()%>/images/close.jpg" border="0">
 			       		</a>
 			       	</td>
 			     </tr>
@@ -353,12 +353,12 @@
 	         		</table>
 					<table border="0" cellpadding="0" cellspacing="0" width="700" height="40" class="sample">						         
 						<tr >     
-							<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
+							<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
 					  			<a href="javascript:void(0);" onClick="javascript:fn_addDetails();" style="text-decoration:none"> 
 					  				<font size="+1" color="#FFFFFF" >Add</font> 
 					  			</a>
 					  		</td>
-							<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
+							<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
 					  			<a href="javascript:void(0);" onClick="javascript:hiddenFloatingDiv('windowcontent');void(0);" style="text-decoration:none"> 
 					  				<font size="+1" color="#FFFFFF" >Close</font> 
 					  			</a>

@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %> 
+<%@ include file="/jsp/include.jsp" %> 
 <%@page import="com.mediapp.domain.common.Person"%><div id="contentBodyLeft">
    <div id="contentBodyRight">
     <div id="contentBodyCenter">
@@ -78,17 +78,17 @@
 	            <input type="hidden" value="N" id="AddOperation" name="AddOperation"/>
 				<table border="0" cellpadding="0" cellspacing="0" width="400" height="30" >         
 					<tr >     
-						<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
+						<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%"  align="center">  
 				  			<a href="javascript:void(0);" onClick="javascript:addRowToCalendar();" style="text-decoration:none"> 
 				  				<font size="+1" color="#FFFFFF" >Add Row</font> 
 				  			</a>
 				  		</td>
-				  		<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%" align="center">  
+				  		<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%" align="center">  
 				  			<a href="javascript:void(0);" onClick="javascript:deleteRow('tblHoliday',this.form);" style="text-decoration:none"> 
 				  				<font size="+1" color="#FFFFFF" >Delete</font>
 				  			</a>
 				  		</td>
-				  		<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%" align="center">  
+				  		<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%" align="center">  
 				  			<a href="javascript:void(0);" onClick="javascript:fn_updateHolidayCalendar();" style="text-decoration:none"> 
 				  				<font size="+1" color="#FFFFFF" >Save</font> 
 				  			</a>
@@ -114,5 +114,5 @@
    </div>
   </div>
   
-<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+<%@ include file="/jsp/footer.jsp" %>
  

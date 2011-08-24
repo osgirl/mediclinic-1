@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/include.jsp" %>
+<%@ include file="/jsp/include.jsp" %>
 <%@page import="com.mediapp.domain.common.Person"%><div id="contentBodyLeft">
 			<div id="contentBodyRight">
 				<div id="contentBodyCenter">
@@ -142,7 +142,7 @@
 														<tr >     
 															<td>
 															</td>
-															<td  style="background: url(/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;;height:30;"  align="center">  
+															<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;;height:30;"  align="center">  
 													  			<a href="javascript:void(0);" onClick="javascript:fn_searchDoctor();" style="text-decoration:none"> 
 													  				<font size="+1" color="#FFFFFF" >Search</font> 
 													  			</a>
@@ -187,7 +187,7 @@
 																				<table width=100>
 																					<tr>
 																						<c:forEach var="num" items="${fn:split(searchResult.workDays, '-')}">
-																							<td style="background: url(/images/blankbutton_0.jpg) no-repeat;overflow: hidden;background-position: top center;height=100%;"  align="center">
+																							<td style="background: url(<%=request.getContextPath()%>/images/blankbutton_0.jpg) no-repeat;overflow: hidden;background-position: top center;height=100%;"  align="center">
 			                        															<c:out value="${num}" /> 
 																							</td>
 																						</c:forEach>
@@ -231,4 +231,4 @@
 			</div>
 		</div>
 		
-<%@ include file="/WEB-INF/jsp/footer.jsp" %> 
+<%@ include file="/jsp/footer.jsp" %> 

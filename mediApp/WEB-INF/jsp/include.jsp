@@ -32,7 +32,7 @@
 		<%Person p = (Person)request.getSession().getAttribute("person"); %>
 			<%if (p != null && p.getPersonTypeString() != null && p.getPersonTypeString().equals("Doctor")) {%> 
 	
-		<div id="header" style="background: url(/images/medical.jpg) no-repeat;">
+		<div id="header" style="background: url(<%=request.getContextPath()%>/images/medical.jpg) no-repeat;">
 			<div id="name">
 				<h3> MediApp
 				</h3>
@@ -61,7 +61,7 @@
 			<div id="controls">
 					<form id="searchform" action="<%=request.getContextPath()%>" method="post">					
 					<a href="http://www.facebook.com/apps/application.php?id=152456314791817&v=info" TARGET="_blank">
-					<img src="/images/Facebook-Buttons-11-2.png" title="Find us on Facebook"  
+					<img src="<%=request.getContextPath()%>/images/Facebook-Buttons-11-2.png" title="Find us on Facebook"  
 					alt="Find us on Facebook" width="21px" border="0"/></a><br/>
 					
 				        <%
@@ -96,15 +96,15 @@
 									<tr >     
 										<td  >  
 								  			<a href="/welcomePage.htm" onClick="" style="text-decoration:none">
-								  			<img src="/images/Home11.png" ></img>
+								  			<img src="<%=request.getContextPath()%>/images/Home11.png" ></img>
 								  			</a>
 								  		</td>
 								  		<td align="center">
-								  		<img src="/images/phone11.png"  onMouseover="showbox(event,'You can book appointment, postpone it or cancel it by sending SMS.</br>Following are the commands</br>1. To schedule an appointment with a fellow appmate at certain date and time</br>SCD &amp;lt;yourusername&amp;gt; &amp;lt;mm/dd/yyyy&amp;gt; &amp;lt;hh:mm:ss&amp;gt; &amp;lt;duration hh:mm:ss&amp;gt; &amp;lt;appmateusername&amp;gt; </br>2. To postpone any appointment that you have already schedule</br>RESCD &amp;lt;yourusername&amp;gt; &amp;lt;old mm/dd/yyyy&amp;gt; &amp;lt;old hh:mm:ss&amp;gt; &amp;lt;new mm/dd/yyyy&amp;gt; &amp;lt;new hh:mm:ss&amp;gt; &amp;lt;duration hh:mm:ss&amp;gt; </br>3. To cancel any appointment that you have already schedule</br>CANCEL &amp;lt;yourusername&amp;gt; &amp;lt;mm/dd/yyyy&amp;gt; &amp;lt;hh:mm:ss&amp;gt;</br>');" onMouseout="hidebox();"/>
+								  		<img src="<%=request.getContextPath()%>/images/phone11.png"  onMouseover="showbox(event,'You can book appointment, postpone it or cancel it by sending SMS.</br>Following are the commands</br>1. To schedule an appointment with a fellow appmate at certain date and time</br>SCD &amp;lt;yourusername&amp;gt; &amp;lt;mm/dd/yyyy&amp;gt; &amp;lt;hh:mm:ss&amp;gt; &amp;lt;duration hh:mm:ss&amp;gt; &amp;lt;appmateusername&amp;gt; </br>2. To postpone any appointment that you have already schedule</br>RESCD &amp;lt;yourusername&amp;gt; &amp;lt;old mm/dd/yyyy&amp;gt; &amp;lt;old hh:mm:ss&amp;gt; &amp;lt;new mm/dd/yyyy&amp;gt; &amp;lt;new hh:mm:ss&amp;gt; &amp;lt;duration hh:mm:ss&amp;gt; </br>3. To cancel any appointment that you have already schedule</br>CANCEL &amp;lt;yourusername&amp;gt; &amp;lt;mm/dd/yyyy&amp;gt; &amp;lt;hh:mm:ss&amp;gt;</br>');" onMouseout="hidebox();"/>
 								  		</td>
 								  		<td>
-								  			<a href="javascript:void(0);" onclick="fn_easyBugs();" style="font:100% 'ARIAL BLACK'; text-decoration:none;color:black;background: url(/images/down_1.png)">
-								  			   &nbsp;&nbsp;&nbsp;&nbsp;ReportIt!<img src="/images/warning.jpg" ></img>
+								  			<a href="javascript:void(0);" onclick="fn_easyBugs();" style="font:100% 'ARIAL BLACK'; text-decoration:none;color:black;background: url(<%=request.getContextPath()%>/images/down_1.png)">
+								  			   &nbsp;&nbsp;&nbsp;&nbsp;ReportIt!<img src="<%=request.getContextPath()%>/images/warning.jpg" ></img>
 								  			</a>
 								  		
 								  		</td>
