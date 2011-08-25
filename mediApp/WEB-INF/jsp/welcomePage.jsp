@@ -35,7 +35,7 @@ cacheoffimgl.src = '<%=request.getContextPath()%>/images/MLbutton_0.png';
 										<td>
 											<div align="center">
 												<div name="addbox" id="addbox">
-												<a name="link1" id="link1" href="/appmentSignUp.htm" ><img border="0" name="banner1" id="banner1" src="<%=request.getContextPath()%>/images/oie_shake_hands_concepts_3.jpg"></a>
+												<a name="link1" id="link1" href="<%=request.getContextPath()%>/appmentSignUp.htm" ><img border="0" name="banner1" id="banner1" src="<%=request.getContextPath()%>/images/oie_shake_hands_concepts_3.jpg"></a>
 												
 											</div>
 										</div>
@@ -66,7 +66,7 @@ cacheoffimgl.src = '<%=request.getContextPath()%>/images/MLbutton_0.png';
 							<div class="stp" style="margin-bottom:1.5em;">
 	  							<div class="or" style="margin:1em; padding:0;">	  							 
 	  								<span style="font-size:2.0em;font-color:black;font:Verdana">  AppMent</span><br /> 
-	  								<a href="/appmentLogin.htm" onMouseover="document.buttonimg.src=eval('cacheonimgl.src')" onMouseout="document.buttonimg.src=eval('cacheoffimgl.src')">
+	  								<a href="<%=request.getContextPath()%>/appmentLogin.htm" onMouseover="document.buttonimg.src=eval('cacheonimgl.src')" onMouseout="document.buttonimg.src=eval('cacheoffimgl.src')">
 	  									<img src="<%=request.getContextPath()%>/images/MLbutton_0.png" name="buttonimg" width="170" height="68" alt="AppMent-Login to your Account">
 	  								</a>
 	  								 
@@ -75,7 +75,7 @@ cacheoffimgl.src = '<%=request.getContextPath()%>/images/MLbutton_0.png';
 							<div class="stp" style="margin-bottom:1.5em;" >
 	  							<div class="or" style="margin:1em; padding:0;" > 
 	  								<span style="font-size:1.3em;font-color:black;font:Verdana" >Don't have account yet?</span><br />   
-	  								<a href="/appmentSignUp.htm" onMouseover="document.buttonimg1.src=eval('cacheonimg.src')" onMouseout="document.buttonimg1.src=eval('cacheoffimg.src')">
+	  								<a href="<%=request.getContextPath()%>/appmentSignUp.htm" onMouseover="document.buttonimg1.src=eval('cacheonimg.src')" onMouseout="document.buttonimg1.src=eval('cacheoffimg.src')">
 	  									<img src="<%=request.getContextPath()%>/images/MCbutton_0.png" name="buttonimg1" width="170" height="68" alt="AppMent-Create a new Account">   
 	  								</a>
 	  							</div>							

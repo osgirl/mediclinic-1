@@ -61,7 +61,7 @@
 														<table  border="0"   width=680 height="20">															
 															<tr>
 																<td align="right">
-																	<a href="/inbox.htm" id="refresh" onMouseover="document.buttonimg.src=eval('cacheonimg.src')" onMouseout="document.buttonimg.src=eval('cacheoffimg.src')">
+																	<a href="<%=request.getContextPath()%>/inbox.htm" id="refresh" onMouseover="document.buttonimg.src=eval('cacheonimg.src')" onMouseout="document.buttonimg.src=eval('cacheoffimg.src')">
 																		<img src="<%=request.getContextPath()%>/images/refresh_0.png" name="buttonimg" width="100" height="15" alt="Refresh">   
 																	</a>
 																</td>

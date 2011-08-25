@@ -95,7 +95,7 @@
 								<table border="0" cellpadding="0" cellspacing="0" width="200" height="30" >      
 									<tr >     
 										<td  >  
-								  			<a href="/welcomePage.htm" onClick="" style="text-decoration:none">
+								  			<a href="<%=request.getContextPath()%>/welcomePage.htm" onClick="" style="text-decoration:none">
 								  			<img src="<%=request.getContextPath()%>/images/Home11.png" ></img>
 								  			</a>
 								  		</td>
