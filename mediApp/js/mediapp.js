@@ -1,4 +1,5 @@
-context =location.pathname.split("/");
+context =location.pathname.split("/")[0];
+
 function fn_signUp(){
 	var e = document.forms["appmentSignUp"].elements;
 	if(e['password'].value != e['repassword'].value){
@@ -1855,11 +1856,13 @@ var str =window.location.toString();
 var htm = str.indexOf(".htm");
 var sls = str.indexOf("/");
 var sls = str.indexOf("/",(sls-1)+3);
+var sls = str.indexOf("/",(sls-1)+3);
 //alert(str.substring(sls,htm+4));
 var url = str.substring(sls,htm+4);
-document.getElementById(url).style.fontWeight ='900';
-document.getElementById(url).style.backgroundColor = "#CCCCB4";
-
+if(null != url){
+	document.getElementById(url).style.fontWeight ='900';
+	document.getElementById(url).style.backgroundColor = "#CCCCB4";
+}
 function fn_easyBugs(){
 	if(document.getElementById('easyBugDiv').style.display == 'none'){
 		document.getElementById('easyBugDiv').style.display = 'block';	
