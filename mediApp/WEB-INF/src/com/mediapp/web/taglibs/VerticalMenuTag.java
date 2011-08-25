@@ -29,7 +29,8 @@ public class VerticalMenuTag  extends TagSupport {
 	   try {
 			  
 		   	Map menuItems = (Map) pageContext.getSession().getAttribute("menuItems");
-			Person person   = (Person) pageContext.getSession().getAttribute("person");
+			Person person   = (Person) pageContext.getSession().getAttribute("person");			
+			String contextPath=pageContext.getServletConfig().getServletContext().getContextPath();
 			Iterator it = menuItems.entrySet().iterator();
 			StringBuffer menuItemTag = new StringBuffer("");
 			//StringBuffer menuItemTag = new StringBuffer("<%Person q = (Person)request.getSession().getAttribute('person');if(null != q.getLastName()&& !''.equal(q.getLastName())){%>");
@@ -38,6 +39,7 @@ public class VerticalMenuTag  extends TagSupport {
 			if(null == person.getLastName() || "".equals(person.getLastName())){
 				 menuItemTag = menuItemTag.append(CommonWebConstants.VERTICAL_MENU_BUTTON_TAG)
 		          .append(CommonWebConstants.QUOTES)
+		          .append(contextPath)
 		          .append("/personalProfile.htm")
 		          .append(CommonWebConstants.QUOTES)
 		          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_AFTER_ONCLICK_TAG)
@@ -49,6 +51,7 @@ public class VerticalMenuTag  extends TagSupport {
 			         menuItemTag = menuItemTag
 			          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_TAG)
 			          .append(CommonWebConstants.QUOTES)
+			          .append(contextPath)
 			          .append(pairs.getValue())
 			          .append(CommonWebConstants.QUOTES)
 			          .append(CommonWebConstants.VERTICAL_MENU_BUTTON_AFTER_ID_TAG)
