@@ -147,7 +147,7 @@ padding-left:22px;
 }
 
 #contentHeadCenter {
-background:url(/images/asual-headcenter.jpg) repeat-x;
+background:url(<%=request.getContextPath()%>/images/asual-headcenter.jpg) repeat-x;
 height:100%;
 margin:0;
 }
@@ -387,11 +387,11 @@ display:block;
 }
 
 div.comment .info {
-background:url(/images/asual-comments.jpg) no-repeat 0 .1em;
+background:url(<%=request.getContextPath()%>/images/asual-comments.jpg) no-repeat 0 .1em;
 }
 
 div.trackback .info {
-background:url(/images/asual-trackbacks.jpg) no-repeat 0 .1em;
+background:url(<%=request.getContextPath()%>/images/asual-trackbacks.jpg) no-repeat 0 .1em;
 }
 
 div.comment .post,div.trackback .post {
@@ -717,7 +717,7 @@ min-height:100px;
 margin-top:50px;
 border:1px solid green;
 background-color:#F2F5F6;
-background-image:url(/images/alert.png);
+background-image:url(<%=request.getContextPath()%>/images/alert.png);
 background-repeat:no-repeat;
 background-position:20px 30px;
 }
@@ -846,7 +846,7 @@ padding:0;
 div.entry ul li,div.entryAlone ul li {
 margin-left:10px;
 list-style:none;
-background:url(/images/asual-disc.jpg) no-repeat 0 .6em;
+background:url(<%=request.getContextPath()%>/images/asual-disc.jpg) no-repeat 0 .6em;
 padding:0 0 .4em 12px;
 }
 
@@ -865,7 +865,7 @@ margin:0 0 .4em;
 
 div.entry blockquote,div.entryAlone blockquote {
 padding-left:20px;
-background:url(/images/asual-blockquote.jpg) no-repeat;
+background:url(<%=request.getContextPath()%>/images/asual-blockquote.jpg) no-repeat;
 margin:10px;
 }
 
@@ -897,7 +897,7 @@ padding:1px;
 
 div.entry .commentslink a span,div.entryAlone .commentslink a span {
 float:left;
-background:url(/images/asual-commentslink.jpg) no-repeat -22px .1em;
+background:url(<%=request.getContextPath()%>/images/asual-commentslink.jpg) no-repeat -22px .1em;
 width:22px;
 height:22px;
 margin-right:2px;
@@ -905,7 +905,7 @@ vertical-align:middle;
 }
 
 div.entry .commentslink a:hover span,div.entryAlone .commentslink a:hover span {
-background:url(/images/asual-commentslink.jpg) no-repeat 0 .1em;
+background:url(<%=request.getContextPath()%>/images/asual-commentslink.jpg) no-repeat 0 .1em;
 }
 
 div.entry .trackbackslink a,div.entryAlone .trackbackslink a {
@@ -916,7 +916,7 @@ padding:1px;
 
 div.entry .trackbackslink a span,div.entryAlone .trackbackslink a span {
 float:left;
-background:url(/images/asual-trackbackslink.jpg) no-repeat -22px .1em;
+background:url(<%=request.getContextPath()%>/images/asual-trackbackslink.jpg) no-repeat -22px .1em;
 width:22px;
 height:22px;
 margin-right:3px;
@@ -924,7 +924,7 @@ vertical-align:middle;
 }
 
 div.entry .trackbackslink a:hover span,div.entryAlone .trackbackslink a:hover span {
-background:url(/images/asual-trackbackslink.jpg) no-repeat 0 .1em;
+background:url(<%=request.getContextPath()%>/images/asual-trackbackslink.jpg) no-repeat 0 .1em;
 }
 
 #trackback,#comments {
@@ -1061,7 +1061,7 @@ div#tcalShade table td {
 
 /*Autocomplete.css*/
 
-.autocomplete-w1 { background:url(/images/shadow.png) no-repeat bottom right; position:absolute; top:4px; left:3px; /* IE6 fix: */ _background:none; _top:1px; }
+.autocomplete-w1 { background:url(<%=request.getContextPath()%>/images/shadow.png) no-repeat bottom right; position:absolute; top:4px; left:3px; /* IE6 fix: */ _background:none; _top:1px; }
 .autocomplete-w2 { padding:0 6px 6px 0; }
 .autocomplete { width:300px; border:1px solid #999; background:#FFF; cursor:default; text-align:left; max-height:350px; overflow:auto; margin:-6px 6px 6px -6px; /* IE specific: */ _height:350px;  _margin:0px 6px 6px 0; overflow-x:hidden; }
 .autocomplete .selected { background:#F0F0F0; }
@@ -1106,10 +1106,10 @@ div.dimmer
 	font-weight:bold;
 	padding:40px;
 
-	background-image:url(/images/honey.png);
+	background-image:url(<%=request.getContextPath()%>/images/honey.png);
 	/* ieWin only stuff */
 	_background-image:none;
-	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale src='/images/honey.png');
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale src='<%=request.getContextPath()%>/images/honey.png');
 }
 
 
