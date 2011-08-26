@@ -124,7 +124,7 @@
 		</copy>
 
 		<copy todir="${warDir}/WEB-INF/lib">
-			<fileset dir="${basedir}/WEB-INF/lib" includes="*.*" /> 
+			<fileset dir="${basedir}/WEB-INF/lib" includes="*.jar" /> 
 		</copy>
 
 		<copy todir="${warDir}/WEB-INF/classes">

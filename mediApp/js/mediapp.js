@@ -1,4 +1,4 @@
-context =location.pathname.split("/")[0];
+context =location.pathname.split("/")[1];
 
 function fn_signUp(){
 	var e = document.forms["appmentSignUp"].elements;

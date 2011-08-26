@@ -33,7 +33,8 @@ cacheoffimgs.src = '<%=request.getContextPath()%>/images/submitbutton_0.png';
 										<script>
 											window.setTimeout('fn1()', 3000);
 											function fn1(){
-												window.location.href = "/appmentLogin.htm";
+												contextName =location.pathname.split("/")[0];												
+												window.location.href = "/"+context+"/appmentLogin.htm";
 												}
 										
 										</script>

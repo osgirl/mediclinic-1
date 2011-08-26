@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/jdbc
+		   http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
 
 	<description>MediApp Data Access Object Application Context</description>
 	
@@ -24,8 +27,20 @@
         <property name="maxActive" value="20"/>
     </bean>
 	<!-- Development datasource -->
+	<jdbc:initialize-database data-source="JdbcDataSource" enabled="false">
+  		<jdbc:script location="classpath:createDatabase.sql"/>
+  		<jdbc:script location="classpath:create_tables.sql"/>
+  		<jdbc:script location="classpath:Create_codeDecode.sql"/>
+  		<jdbc:script location="classpath:log.sql"/>
+  		<jdbc:script location="classpath:currval.sql"/>
+  		<jdbc:script location="classpath:nextval.sql"/>
+  		<jdbc:script location="classpath:bulknextval.sql"/>
+  		<jdbc:script location="classpath:inboundTrigger.sql"/>
+  		<jdbc:script location="classpath:otherMetaData.sql"/>
+  		<jdbc:script location="classpath:create_triggers.sql"/>
+	</jdbc:initialize-database>
 
-	<bean id="JasperJdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<bean id="JasperJdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource" >
         <property name="driverClassName" value="org.gjt.mm.mysql.Driver"/>
   		<property name="url" value="jdbc:mysql://localhost:3306/mediapp"/>
         <property name="username" value="root"/>
