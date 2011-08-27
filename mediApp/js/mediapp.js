@@ -1,5 +1,5 @@
-context =location.pathname.split("/")[1];
-
+//context =location.pathname.split("/")[1];
+var context = "<%= response.encodeURL( request.getContextPath())%>";
 function fn_signUp(){
 	var e = document.forms["appmentSignUp"].elements;
 	if(e['password'].value != e['repassword'].value){
