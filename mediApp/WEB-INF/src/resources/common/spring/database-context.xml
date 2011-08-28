@@ -46,7 +46,7 @@
     <!-- Cloud Development datasource -->
     
 	<!-- Development datasource -->
-	<jdbc:initialize-database data-source="dataSource" enabled="false">
+	<jdbc:initialize-database data-source="dataSource" >
   		<!--<jdbc:script location="classpath:createDatabase.sql"/>-->
   		<jdbc:script location="classpath:create_tables.sql"/>
   		<jdbc:script location="classpath:Create_codeDecode.sql"/>
