@@ -94,8 +94,9 @@ public class AppmentCache implements InitializingBean {
 	 }
 
 	 private void startSMSService() {
-		 List <CodeDecode> codes = getcodeDecodeForCategory("SMSSERVER");
-		 System.setProperty(codes.get(0).getCodeDescription(), codes.get(0).getCodeDecode());
+		 //List <CodeDecode> codes = getcodeDecodeForCategory("SMSSERVER");
+		 //System.setProperty(codes.get(0).getCodeDescription(), codes.get(0).getCodeDecode());
+		 System.setProperty("smsserver.configfile","classpath://SMSServer.conf");
 		 String[] arg = {""};
 		SMSServer.main(arg);
 		

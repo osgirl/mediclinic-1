@@ -22,8 +22,7 @@
 
 
 	<!-- Development datasource -->
-<!--	
-	<bean id="JdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="$mediAppDataSource{mediApp.jdbc.driverClassName}"/>
 		<property name="url" value="$mediAppDataSource{mediApp.jdbc.url}"/>
         <property name="username" value="$mediAppDataSource{mediApp.jdbc.username}"/>
@@ -31,9 +30,10 @@
         <property name="initialSize" value="1"/>
         <property name="maxActive" value="20"/>
     </bean>
--->
+
 
 	<!-- Cloud Development datasource -->
+<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -46,6 +46,7 @@
 	</bean>
 
     	<cloud:data-source id="dataSource" />
+ -->    	
     <!-- Cloud Development datasource -->
     
 	<!-- Development datasource -->
@@ -62,16 +63,7 @@
   		<jdbc:script location="classpath:create_triggers.sql" separator="//"/>
 	</jdbc:initialize-database>
 
-<!--
-	<bean id="JasperJdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource" >
-        <property name="driverClassName" value="org.gjt.mm.mysql.Driver"/>
-  		<property name="url" value="jdbc:mysql://localhost:3306/mediapp"/>
-        <property name="username" value="root"/>
-        <property name="password" value="123456"/>
-        <property name="initialSize" value="1"/>
-        <property name="maxActive" value="20"/>
-    </bean> 
--->
+
     <!-- Production datasource commented for now --><!--
     <bean id="JndiDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="$mediAppDataSource{mediApp.jdbc.datasource}" />

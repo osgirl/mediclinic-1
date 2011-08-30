@@ -7,7 +7,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath:resources/common/spring/database-context.xml
+			classpath:resources/common/spring/database-context_${ENV}.xml
 			classpath:resources/common/spring/common-context.xml
 			classpath:resources/common/spring/mediApp-aop-context.xml
 		</param-value>
