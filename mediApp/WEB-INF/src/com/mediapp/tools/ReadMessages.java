@@ -66,7 +66,7 @@ public class ReadMessages
 
 			// Create new Service object - the parent of all and the main interface
 			// to you.
-			this.srv = new Service();
+			this.srv = Service.getInstance();
 
 			// Create the Gateway representing the serial GSM modem.
 			SerialModemGateway gateway = new SerialModemGateway("modem.com1", "COM1", 9600, "SIMCOM_SIM300", "300");

@@ -17,7 +17,7 @@ public class SendEncryptedMessage
 		System.out.println("Example: Send an encrypted message from a serial gsm modem.");
 		System.out.println(Library.getLibraryDescription());
 		System.out.println("Version: " + Library.getLibraryVersion());
-		srv = new Service();
+		srv = Service.getInstance();
 		SerialModemGateway gateway = new SerialModemGateway("modem.com1", "COM5", 57600, "Nokia", "E60");
 		gateway.setInbound(true);
 		gateway.setOutbound(true);

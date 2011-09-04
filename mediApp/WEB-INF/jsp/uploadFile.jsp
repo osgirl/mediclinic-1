@@ -35,6 +35,7 @@
 <body>
 <form name="uploadFile" id="uploadFile" method="post"
 	action="uploadFile.htm" enctype="multipart/form-data">
+	<input type="hidden" name="context" id="context" value="<%=request.getContextPath()%>"/>
 			<div class="stp" style="margin-bottom:1.5em;" >
 				<div class="or" style="margin:1em; padding:0;" >
 <table border="" class="sample" width=680  height=200 cellpadding="200" align="center">

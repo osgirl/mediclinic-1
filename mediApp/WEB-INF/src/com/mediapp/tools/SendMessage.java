@@ -29,7 +29,7 @@ public class SendMessage
 		System.out.println("Example: Send message from a serial gsm modem.");
 		System.out.println(Library.getLibraryDescription());
 		System.out.println("Version: " + Library.getLibraryVersion());
-		srv = new Service();
+		srv = Service.getInstance();
 		SerialModemGateway gateway = new SerialModemGateway("modem.com1", "COM1", 9600, "SIMCOM_SIM300", "300");		
 		gateway.setInbound(true);
 		gateway.setOutbound(true);

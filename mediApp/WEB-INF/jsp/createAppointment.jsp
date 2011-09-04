@@ -26,6 +26,7 @@
 	</head>
 	<body>
 		<form name="createAppointment" id="createAppointment" method="post" >
+		<input type="hidden" name="context" id="context" value="<%=request.getContextPath()%>"/>
 			<c:if test="${not empty SuccessMessage}">			
 				<font color="green"><c:out value="${SuccessMessage}" /></font><br/>
 			</c:if>

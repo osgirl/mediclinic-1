@@ -3,13 +3,14 @@
 // Public Domain Software... You're welcome.
 
 // default settins
+var context =document.getElementById("context").value;
 var A_TCALDEF = {
 	'months' : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 	'weekdays' : ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 	'yearscroll': true, // show year scroller
 	'weekstart': 0, // first day of week: 0-Su or 1-Mo
 	'centyear'  : 70, // 2 digit years less than 'centyear' are in 20xx, othewise in 19xx.
-	'imgpath' : '/images/' // directory with calendar images
+	'imgpath' : context+'/images/' // directory with calendar images
 }
 // date parsing function
 function f_tcalParseDate (s_date) {

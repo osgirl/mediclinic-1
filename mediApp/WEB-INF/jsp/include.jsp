@@ -29,6 +29,7 @@
 </head>
 <body >
 	<div id="main">
+	<input type="hidden" name="context" id="context" value="<%=request.getContextPath()%>"/>
 		<%Person p = (Person)request.getSession().getAttribute("person"); %>
 			<%if (p != null && p.getPersonTypeString() != null && p.getPersonTypeString().equals("Doctor")) {%> 
 	
@@ -38,6 +39,7 @@
 				</h3>
 				<h4> Easy way to get medical attention!
 				</h4>
+				
 	
 			</div>
 			<div id="controls">

@@ -1,5 +1,7 @@
 //context =location.pathname.split("/")[1];
-var context = "<%= response.encodeURL( request.getContextPath())%>";
+//var context = "<%= response.encodeURL( request.getContextPath())%>";
+//alert(context);
+var context =document.getElementById("context").value;
 function fn_signUp(){
 	var e = document.forms["appmentSignUp"].elements;
 	if(e['password'].value != e['repassword'].value){
@@ -18,13 +20,13 @@ function fn_showType(){
 	menuStyle.display="block";
 }
 function fn_openFile(fileName){
-	window.open("/"+context+"/download.htm?file="+fileName,"download","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
+	window.open(context+"/download.htm?file="+fileName,"download","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
 }
 function fn_Print(type){
 	if(type == 1){
-		window.open("/"+context+"/generateMedicalReport.pdf?AppointmentID="+document.getElementById('AppointmentID').value,"Print","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
+		window.open(context+"/generateMedicalReport.pdf?AppointmentID="+document.getElementById('AppointmentID').value,"Print","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
 	}else{
-		window.open("/"+context+"/simpleReportCompile.pdf?AppointmentID="+document.getElementById('AppointmentID').value,"Print","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
+		window.open(context+"/simpleReportCompile.pdf?AppointmentID="+document.getElementById('AppointmentID').value,"Print","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
 	}
 	
 }
@@ -103,15 +105,15 @@ function CkDateValue(obj,format){
 	 return true;
 }
 function fn_dayAppointment(personID, userName){	
-	 window.location.href = "/"+context+"/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('searchCriteria.dateOfAppointment').value+"&UserName="+userName+"&TakeAppointment=Y";
+	 window.location.href = context+"/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+document.getElementById('searchCriteria.dateOfAppointment').value+"&UserName="+userName+"&TakeAppointment=Y";
 }
 function fn_createAppointment(personID,doctorID,timeOfAppointment,appointmentDate,userName,doctorPersonID){
 	if(CkDateValue(appointmentDate,'mm/dd/yyyy')){		 
 		if (userName !=""){
 			window.name = "Parent";
 			var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:630px;status:no;edge:sunken';	
-			var url = "/"+context+'/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&UserName="+userName+"&DoctorPersonID="+doctorPersonID;
-			var rurl= "/"+context+"/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+userName+"&TakeAppointment=Y";
+			var url = context+'/createAppointment.htm?PersonID='+personID+"&DoctorID="+doctorID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&UserName="+userName+"&DoctorPersonID="+doctorPersonID;
+			var rurl= context+"/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+userName+"&TakeAppointment=Y";
 			jQuery.showModalDialog({
 				 url: url,
 				 dialogArguments: null,
@@ -250,8 +252,8 @@ function fn_openAppointment(takeAppointment){
 	var myObject = new Object();
 	myObject.URL = '/dayAppointment.htm';
 	var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:400px;dialogWidth:670px;status:no;edge:sunken';
-	var url = "/"+context+'/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName;	
-	var rurl= "/"+context+"/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+UserName+"&TakeAppointment=N";
+	var url = context+'/updateAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName;	
+	var rurl= context+"/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+UserName+"&TakeAppointment=N";
 	jQuery.showModalDialog({
 		 url: url,
 		 dialogArguments: null,
@@ -273,7 +275,7 @@ function fn_openAppointmentInbox(personID,appointmentDate,appointmentID,timeOfAp
 		 height: 500,
 		 width: 900,
 		 scrollable: false,
-		 onClose: function(){  var returnedValue = this.returnValue;window.location.href="/"+context+"/inbox.htm";  }
+		 onClose: function(){  var returnedValue = this.returnValue;window.location.href=context+"/inbox.htm";  }
 	});
 }
 function fn_rescheduleAppointment(){
@@ -284,8 +286,8 @@ function fn_rescheduleAppointment(){
     var timeOfAppointment=document.getElementById('TimeOfAppointment').value;		
     var UserName=document.getElementById('UserName').value;
 	var WinSettings = 'scroll:no;help:0;center:yes;resizable:yes;dialogHeight:630px;dialogWidth:1000px;status:no;edge:sunken';	
-	var url = "/"+context+'/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName;
-	var rurl= "/"+context+"/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+UserName+"&TakeAppointment=N";
+	var url = context+'/rescheduleAppointment.htm?PersonID='+personID+"&AppointmentDate="+appointmentDate+"&AppointmentTime="+timeOfAppointment+"&AppointmentID="+appointmentID+"&UserName="+UserName;
+	var rurl= context+"/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate+"&UserName="+UserName+"&TakeAppointment=N";
 	jQuery.showModalDialog({
 		 url: url,
 		 dialogArguments: null,
@@ -487,8 +489,8 @@ function fn_uploadFile(){
 	 window.name = "ParentWindow"; 
 	 //var WinSettings = 'help:0;center:yes;resizable:yes;dialogHeight:300px;dialogWidth:700px;status:no;edge:sunken'; 
     //var c = window.showModalDialog('/uploadFile.htm', window, WinSettings);
-	var url = "/"+context+'/uploadFile.htm';
-	var rurl= "/"+context+"/pastHistory.htm";
+	var url = context+'/uploadFile.htm';
+	var rurl= context+"/pastHistory.htm";
 	jQuery.showModalDialog({
 		 url: url,
 		 dialogArguments: null,
@@ -799,12 +801,12 @@ objPrevElement = myElement;
 document.all("selectedDate").value = myElement.children["calDateText"].innerText;
 document.all("selectedMonth").value =document.all("tbSelMonth").value;
 document.all("selectedYear").value =document.all("tbSelYear").value;
-window.location.href = "/"+context+"/dayAppointment.htm?selectedDate="+myElement.children["calDateText"].innerText+"&selectedMpnth="+document.all("tbSelMonth").value+"&selectedYear="+document.all("tbSelYear").value; 
+window.location.href = context+"/dayAppointment.htm?selectedDate="+myElement.children["calDateText"].innerText+"&selectedMpnth="+document.all("tbSelMonth").value+"&selectedYear="+document.all("tbSelYear").value; 
       }
    }
 }
 function getAppointment(personID,appointmentDate){	
-	window.location.href = "/"+context+"/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate;	
+	window.location.href = context+"/dayAppointment.htm?PersonID="+personID+"&AppointmentDate="+appointmentDate;	
 }
 
 function fn_moveDiv(event){
@@ -1009,10 +1011,10 @@ function initVar() {
   Duplicate URLs are permitted. */
 
   // Enter the location of the banner graphics in the array below.
-  bannerLocations = new Array("/"+context+"/images/oie_shake_hands_concepts_3.jpg","/images/oie_medical.jpg");
+  bannerLocations = new Array(context+"/images/oie_shake_hands_concepts_3.jpg","/images/oie_medical.jpg");
 
   // Enter the URL's to which the banners will link to in the array below.
-  bannerURLs = new Array("/"+context+"/appmentSignUp.htm","appmentSignUp.htm");
+  bannerURLs = new Array(context+"/appmentSignUp.htm","appmentSignUp.htm");
 }
 
 function moveBanner(){
@@ -1832,7 +1834,7 @@ init();
 
 function generateHistory(personID){
 	
-	window.open("/"+context+"/generateHistory.pdf?PatientID="+personID,"History","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
+	window.open(context+"/generateHistory.pdf?PatientID="+personID,"History","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
 }
 
 function fn_updatePackage(){	

@@ -15,7 +15,7 @@ public class SendSMS {
 		Service srv;
 		OutboundMessage msg;
 		OutboundNotification outboundNotification = new OutboundNotification();
-		srv = new Service();
+		srv =  Service.getInstance();
 		SerialModemGateway gateway = new SerialModemGateway("modem.com1", "COM1", 9600, "SIMCOM_SIM300", "300");
 		gateway.setInbound(true);
 		gateway.setOutbound(true);
@@ -43,7 +43,7 @@ public class SendSMS {
 		Service srv;
 		OutboundMessage msg;
 		OutboundNotification outboundNotification = new OutboundNotification();
-		srv = new Service();
+		srv =Service.getInstance();;
 		SerialModemGateway gateway = new SerialModemGateway("modem.com1", "COM1", 9600, "SIMCOM_SIM300", "300");
 		gateway.setInbound(true);
 		gateway.setOutbound(true);
@@ -71,7 +71,7 @@ public class SendSMS {
 		Service srv;
 		OutboundMessage msg;
 		OutboundNotification outboundNotification = new OutboundNotification();
-		srv = new Service();
+		srv =Service.getInstance();;
 		SerialModemGateway gateway = new SerialModemGateway("modem.com1", "COM1", 9600, "SIMCOM_SIM300", "300");
 		gateway.setInbound(true);
 		gateway.setOutbound(true);
@@ -100,7 +100,7 @@ public class SendSMS {
 		Service srv;
 		OutboundMessage msg;
 		OutboundNotification outboundNotification = new OutboundNotification();
-		srv = new Service();
+		srv = Service.getInstance();;
 		SerialModemGateway gateway = new SerialModemGateway("modem.com1", "COM1", 9600, "SIMCOM_SIM300", "300");
 		gateway.setInbound(true);
 		gateway.setOutbound(true);
@@ -128,7 +128,7 @@ public class SendSMS {
 		Service srv;
 		OutboundMessage msg;
 		OutboundNotification outboundNotification = new OutboundNotification();
-		srv = new Service();
+		srv =Service.getInstance();;
 		SerialModemGateway gateway = new SerialModemGateway("modem.com1", "COM1", 9600, "SIMCOM_SIM300", "300");
 		gateway.setInbound(true);
 		gateway.setOutbound(true);
@@ -156,7 +156,7 @@ public class SendSMS {
 		Service srv;
 		OutboundMessage msg;
 		OutboundNotification outboundNotification = new OutboundNotification();
-		srv = new Service();
+		srv = Service.getInstance();
 		SerialModemGateway gateway = new SerialModemGateway("modem.com1", "COM1", 9600, "SIMCOM_SIM300", "300");
 		gateway.setInbound(true);
 		gateway.setOutbound(true);
