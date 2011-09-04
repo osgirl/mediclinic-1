@@ -60,7 +60,7 @@
 
 	     <manifest file="MANIFEST.MF">
 		<attribute name="Built-By" value="${user.name}"/>
-		<attribute name="Main-Class" value="mediapp"/>
+		<attribute name="Main-Class" value="appment"/>
 		<attribute name="Implementation-Version" 
 			 value="${version.num}-b${build.number}"/>     
 		<attribute name="Built-Date" value="${TODAY}"/>    
