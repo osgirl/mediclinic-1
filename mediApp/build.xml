@@ -87,7 +87,7 @@
 			<fileset dir="${basedir}/WEB-INF" includes="web.xml" /> 
 		</copy>
 
-		<copy todir="${warDir}/classes">
+		<copy todir="${warDir}/WEB-INF/classes">
 			<fileset dir="${basedir}/WEB-INF" includes="SMSServer.conf" /> 
 		</copy>
 
