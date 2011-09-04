@@ -1857,7 +1857,9 @@ function fn_populatePackage(){
 var str =window.location.toString();
 var htm = str.indexOf(".htm");
 var sls = str.indexOf("/");
-var sls = str.indexOf("/",(sls-1)+3);
+if(context != ""){
+	var sls = str.indexOf("/",(sls-1)+3);
+}
 var sls = str.indexOf("/",(sls-1)+3);
 //alert(str.substring(sls,htm+4));
 var url = str.substring(sls,htm+4);
