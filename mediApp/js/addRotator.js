@@ -23,10 +23,10 @@ function initVar() {
   Duplicate URLs are permitted. */
 
   // Enter the location of the banner graphics in the array below.
-  bannerLocations = new Array("/images/oie_shake_hands_concepts_3.jpg","/images/oie_medical.jpg");
+  bannerLocations = new Array(context+"/images/oie_shake_hands_concepts_3.jpg",context+"/images/oie_medical.jpg");
 
   // Enter the URL's to which the banners will link to in the array below.
-  bannerURLs = new Array("/appmentSignUp.htm","appmentSignUp.htm");
+  bannerURLs = new Array(context+"/appmentSignUp.htm",context+"/appmentSignUp.htm");
 }
 
 function moveBanner(){
