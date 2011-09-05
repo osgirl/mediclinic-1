@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MedicalHistory" pageWidth="595" pageHeight="842" columnWidth="270" columnSpacing="15" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="20"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Arial_Normal" isDefault="true" fontName="Arial" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 	<style name="Arial_Bold" fontName="Arial" fontSize="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 	<style name="Arial_Italic" fontName="Arial" fontSize="8" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -10,7 +10,7 @@
 	<style name="Comic_Bold" fontName="Comic Sans MS" fontSize="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="COMICBD.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<parameter name="PatientID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select idappointment_history,date_format(date_of_appointment,'%D %M %Y') as date_of_appointment , ICD_code as ShipName,
+		<![CDATA[select idappointment_history,date_format(date_of_appointment,'%D %M %Y') as date_of_appointment , IFNULL(ICD_code,'None') as ShipName,
 IFNULL(mpr.prescription_name,'None')as ShipRegion, IFNULL(tst.suggested_test,'None')as OrderDate,
 concat('Dr. ',ps_doc.first_name,' ',ps_doc.last_name) as doctor, concat(ps_pat.first_name,' ',ps_pat.last_name) as Patient
 from
@@ -28,6 +28,7 @@ on dg.iddiagnosis = tst.fdiagnosis
 left outer join mediapp.patient_prescription mpr
 on dg.iddiagnosis = mpr.iddiagnosis
 where idpatient_details = $P{PatientID}
+and (ICD_code  is not null or mpr.prescription_name is not null or tst.suggested_test is not null)
 order by idappointment_history desc]]>
 	</queryString>
 	<field name="idappointment_history" class="java.lang.Integer"/>
@@ -46,64 +47,64 @@ order by idappointment_history desc]]>
 	<variable name="RegionCountCountryGroup" class="java.lang.Integer" resetType="Group" resetGroup="CountryGroup" calculation="Count">
 		<variableExpression><![CDATA[$F{ShipRegion}]]></variableExpression>
 	</variable>
-	<group name="FirstLetterGroup" isStartNewColumn="true" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="200">
+	<group name="FirstLetterGroup" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="200" keepTogether="true">
 		<groupExpression><![CDATA[$V{FirstLetter}]]></groupExpression>
 		<groupHeader>
-			<band height="25" splitType="Stretch">
+			<band height="24" splitType="Stretch">
 				<staticText>
 					<reportElement style="Arial_Italic" mode="Opaque" x="1" y="3" width="120" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement>
-						<font size="12" isUnderline="true"/>
+						<font size="10" isBold="true" isItalic="false" isUnderline="false"/>
 					</textElement>
 					<text><![CDATA[Appointment With:]]></text>
 				</staticText>
-				<textField>
-					<reportElement style="Arial_Bold" mode="Opaque" x="121" y="3" width="311" height="22" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Arial_Bold" mode="Opaque" x="121" y="3" width="173" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement>
-						<font size="12"/>
+						<font size="10"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$V{FirstLetter}]]></textFieldExpression>
 				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Arial_Bold" x="425" y="3" width="127" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{date_of_appointment}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Arial_Italic" mode="Opaque" x="305" y="3" width="120" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement>
+						<font size="10" isBold="true" isItalic="false" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Appointment On:]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="15" splitType="Stretch"/>
+			<band height="4" splitType="Stretch"/>
 		</groupFooter>
 	</group>
 	<group name="CountryGroup" isReprintHeaderOnEachPage="true">
 		<groupExpression><![CDATA[$F{date_of_appointment}]]></groupExpression>
 		<groupHeader>
-			<band height="46" splitType="Stretch">
-				<textField>
-					<reportElement style="Arial_Bold" x="121" y="0" width="311" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{date_of_appointment}]]></textFieldExpression>
-				</textField>
+			<band height="23" splitType="Stretch">
 				<staticText>
-					<reportElement style="Arial_Italic" mode="Opaque" x="1" y="0" width="120" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
-					<textElement>
-						<font size="12" isUnderline="true"/>
-					</textElement>
-					<text><![CDATA[Appointment On:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement style="Arial_Bold" mode="Opaque" x="2" y="20" width="198" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
+					<reportElement style="Arial_Bold" mode="Opaque" x="2" y="0" width="198" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="11"/>
 					</textElement>
 					<text><![CDATA[Diagnosis]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Arial_Bold" mode="Opaque" x="200" y="20" width="202" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
+					<reportElement style="Arial_Bold" mode="Opaque" x="200" y="0" width="202" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="11"/>
 					</textElement>
 					<text><![CDATA[Prescription]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Arial_Bold" mode="Opaque" x="402" y="20" width="148" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
+					<reportElement style="Arial_Bold" mode="Opaque" x="402" y="0" width="148" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="11"/>
 					</textElement>
@@ -112,9 +113,9 @@ order by idappointment_history desc]]>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="26" splitType="Stretch">
+			<band height="14" splitType="Stretch">
 				<rectangle>
-					<reportElement x="0" y="0" width="550" height="11" forecolor="#C0C0C0" backcolor="#C0C0C0"/>
+					<reportElement x="3" y="3" width="550" height="11" forecolor="#C0C0C0" backcolor="#C0C0C0"/>
 				</rectangle>
 			</band>
 		</groupFooter>
@@ -122,17 +123,17 @@ order by idappointment_history desc]]>
 	<group name="BreakGroup">
 		<groupExpression><![CDATA[new Boolean($V{BreakGroup_COUNT}.intValue() > 5)]]></groupExpression>
 		<groupHeader>
-			<band height="10" splitType="Stretch"/>
+			<band height="1" splitType="Stretch"/>
 		</groupHeader>
 		<groupFooter>
-			<band height="5" splitType="Stretch"/>
+			<band height="3" splitType="Stretch"/>
 		</groupFooter>
 	</group>
 	<title>
-		<band height="100" splitType="Stretch">
+		<band height="95" splitType="Stretch">
 			<elementGroup>
 				<line>
-					<reportElement x="2" y="81" width="550" height="1"/>
+					<reportElement x="2" y="60" width="550" height="1"/>
 				</line>
 			</elementGroup>
 			<staticText>
@@ -152,9 +153,9 @@ order by idappointment_history desc]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="40" splitType="Stretch">
+		<band height="5" splitType="Stretch">
 			<textField evaluationTime="Report">
-				<reportElement x="10" y="0" width="540" height="40" forecolor="#000000" backcolor="#CADEF4"/>
+				<reportElement x="10" y="-36" width="540" height="29" forecolor="#000000" backcolor="#CADEF4"/>
 				<textElement textAlignment="Center">
 					<font size="24"/>
 				</textElement>
@@ -163,41 +164,35 @@ order by idappointment_history desc]]>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="28" splitType="Stretch"/>
+		<band height="7" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="27" splitType="Stretch">
-			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="10" y="0" width="204" height="15"/>
-				<textElement>
+		<band height="19" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="2" y="0" width="212" height="15"/>
+				<textElement textAlignment="Justified">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{ShipName}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["-"+$F{ShipName}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="214" y="0" width="188" height="15"/>
-				<textElement>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="214" y="0" width="188" height="15"/>
+				<textElement textAlignment="Justified">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{ShipRegion}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["-"+$F{ShipRegion}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="402" y="0" width="148" height="15"/>
-				<textElement>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="402" y="0" width="148" height="15"/>
+				<textElement textAlignment="Justified">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{OrderDate}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["-"+$F{OrderDate}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement positionType="Float" x="0" y="19" width="550" height="1" forecolor="#808080"/>
-				<graphicElement>
-					<pen lineWidth="0.5" lineStyle="Solid"/>
-				</graphicElement>
-			</line>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="11" splitType="Stretch"/>
+		<band height="5" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="30" splitType="Stretch">
