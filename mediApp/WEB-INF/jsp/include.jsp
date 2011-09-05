@@ -12,6 +12,7 @@
 <head>
 <% response.setHeader("Expires","Mon, 26 Jul 2020 05:00:00 GMT"); %>
     <title>AppMent</title>
+    <input type="hidden" name="context" id="context" value="<%=request.getContextPath()%>"/>
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/shakehand1.ico" type="image/x-icon" />    
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css" type="text/css" />
 	<link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
@@ -29,7 +30,6 @@
 </head>
 <body >
 	<div id="main">
-	<input type="hidden" name="context" id="context" value="<%=request.getContextPath()%>"/>
 		<%Person p = (Person)request.getSession().getAttribute("person"); %>
 			<%if (p != null && p.getPersonTypeString() != null && p.getPersonTypeString().equals("Doctor")) {%> 
 	
