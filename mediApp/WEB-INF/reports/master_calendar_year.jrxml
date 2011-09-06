@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="master_calendar_landscape" columnCount="4" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="195" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="year" class="java.lang.String">
+		<parameterDescription><![CDATA[year in the YYYY format]]></parameterDescription>
+		<defaultValueExpression><![CDATA["2010"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["subreport_calendar_landscape.jasper"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT  distinct
+       DATE_FORMAT(cal_date,'%m') numeric_month,
+       DATE_FORMAT(cal_date,'%Y') numeric_year,
+       DATE_FORMAT(cal_date,'%M') string_month
+FROM
+calendar
+where cal_date between STR_TO_DATE(CONCAT('01','01',$P{year}), '%m%d%Y')  and
+(DATE_FORMAT(STR_TO_DATE(CONCAT('12','01',$P{year}), '%m%d%Y') ,'%Y-%m-01') );]]>
+	</queryString>
+	<field name="NUMERIC_YEAR" class="java.lang.String"/>
+	<field name="NUMERIC_MONTH" class="java.lang.String"/>
+	<field name="STRING_MONTH" class="java.lang.String"/>
+	<background>
+		<band height="555" splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="181" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement key="subreport-1" x="4" y="0" width="189" height="175" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="string_month">
+					<subreportParameterExpression><![CDATA[$F{STRING_MONTH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numeric_year">
+					<subreportParameterExpression><![CDATA[$P{year}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numeric_month">
+					<subreportParameterExpression><![CDATA[$F{NUMERIC_MONTH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

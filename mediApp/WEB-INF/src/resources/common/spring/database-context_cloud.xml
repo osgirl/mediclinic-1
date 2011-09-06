@@ -60,6 +60,7 @@
   		<jdbc:script location="classpath:bulknextval.sql" separator="//"/>
   		<jdbc:script location="classpath:inboundTrigger.sql" separator="//"/>
   		<jdbc:script location="classpath:create_triggers.sql" separator="//"/>
+  		<jdbc:script location="classpath:create_calendar.sql" separator="//"/>
 	</jdbc:initialize-database>
 
 <!--

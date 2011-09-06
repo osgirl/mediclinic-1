@@ -29,7 +29,7 @@ left outer join mediapp.patient_prescription mpr
 on dg.iddiagnosis = mpr.iddiagnosis
 where idpatient_details = $P{PatientID}
 and (ICD_code  is not null or mpr.prescription_name is not null or tst.suggested_test is not null)
-order by idappointment_history desc]]>
+order by idappointment_history desc,ICD_code,mpr.prescription_name,tst.suggested_test]]>
 	</queryString>
 	<field name="idappointment_history" class="java.lang.Integer"/>
 	<field name="date_of_appointment" class="java.lang.String"/>
@@ -169,25 +169,25 @@ order by idappointment_history desc]]>
 	<detail>
 		<band height="19" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="2" y="0" width="212" height="15"/>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="2" y="0" width="212" height="15" printWhenGroupChanges="FirstLetterGroup"/>
 				<textElement textAlignment="Justified">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["-"+$F{ShipName}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["- "+$F{ShipName}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="214" y="0" width="188" height="15"/>
 				<textElement textAlignment="Justified">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["-"+$F{ShipRegion}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["- "+$F{ShipRegion}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="402" y="0" width="148" height="15"/>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="402" y="0" width="148" height="15" printWhenGroupChanges="FirstLetterGroup"/>
 				<textElement textAlignment="Justified">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["-"+$F{OrderDate}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["- "+$F{OrderDate}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
