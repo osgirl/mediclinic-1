@@ -18,7 +18,7 @@
 		<defaultValueExpression><![CDATA["01"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["subreport_day_names.jasper"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["subreport_day_names_year.jasper"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT date_format(cal_date,'%Y%m%d') STRING_DATE,
@@ -34,6 +34,57 @@ FROM
 calendar
 where cal_date between STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y')  and
 SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL DAYOFMONTH( STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y') ) DAY)
+union all
+SELECT date_format(cal_date,'%Y%m%d') STRING_DATE,
+       DATE_FORMAT(cal_date,'%d') numeric_day ,
+       DATE_FORMAT(cal_date,'%m') numeric_month,
+       DATE_FORMAT(cal_date,'%Y') numeric_year,
+       DATE_FORMAT(cal_date,'%W') string_day,
+       case
+           when  DATE_FORMAT(cal_date,'%w') = 0 then 1
+           else 0
+       end as sunday
+FROM
+calendar
+where (convert($P{numeric_month}, UNSIGNED) != 1 and (cal_date between DATE_SUB(SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
+DAYOFMONTH( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y') ) DAY), INTERVAL
+DAYOFWEEK(SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y'), INTERVAL 1 MONTH),
+INTERVAL DAYOFMONTH( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y') ) DAY)) -2
+DAY)  and
+SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
+DAYOFMONTH( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y') ) DAY)
+and
+DAYOFWEEK(STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y') ) !=1
+) or
+(
+cal_date between DATE_SUB(SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
+DAYOFMONTH( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y') ) DAY), INTERVAL 5
+DAY)  and
+SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
+DAYOFMONTH( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y') ) DAY)
+and
+DAYOFWEEK(STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y') ) =1
+))
+or
+(convert($P{numeric_month}, UNSIGNED) = 1 and (cal_date between DATE_SUB(SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
+DAYOFMONTH( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y') ) DAY), INTERVAL
+DAYOFWEEK(SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y'), INTERVAL 1 MONTH),
+INTERVAL DAYOFMONTH( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y') ) DAY)) -2
+DAY)  and
+SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
+DAYOFMONTH( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y') ) DAY)
+and
+DAYOFWEEK(STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y') ) !=1
+) or
+(
+cal_date between DATE_SUB(SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
+DAYOFMONTH( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y') ) DAY), INTERVAL 5
+DAY)  and
+SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
+DAYOFMONTH( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y') ) DAY)
+and
+DAYOFWEEK(STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y') ) =1
+))
 order by string_date;]]>
 	</queryString>
 	<field name="STRING_DATE" class="java.lang.String"/>
@@ -49,9 +100,9 @@ order by string_date;]]>
 		<band splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="41" splitType="Stretch">
+		<band height="44" splitType="Stretch">
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-1" mode="Opaque" x="0" y="0" width="189" height="20" backcolor="#CCCCCC"/>
+				<reportElement key="textField-1" mode="Opaque" x="0" y="0" width="189" height="20" isPrintWhenDetailOverflows="true" backcolor="#CCCCCC"/>
 				<box>
 					<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -61,22 +112,99 @@ order by string_date;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{string_month}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{string_month}]]></textFieldExpression>
 			</textField>
-			<subreport isUsingCache="true">
-				<reportElement key="subreport-1" isPrintRepeatedValues="false" mode="Opaque" x="0" y="20" width="189" height="21" isPrintWhenDetailOverflows="true"/>
-				<subreportParameter name="month">
-					<subreportParameterExpression><![CDATA[$P{numeric_month}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="year">
-					<subreportParameterExpression><![CDATA[$P{numeric_year}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
-			</subreport>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" mode="Transparent" x="0" y="24" width="27" height="20"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Mo"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" mode="Transparent" x="27" y="24" width="27" height="20"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tu"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" mode="Transparent" x="54" y="24" width="27" height="20"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA["We"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" mode="Transparent" x="81" y="24" width="27" height="20"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Th"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" mode="Transparent" x="108" y="24" width="27" height="20"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fr"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" mode="Transparent" x="135" y="24" width="27" height="20"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Sa"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" mode="Transparent" x="162" y="24" width="27" height="20" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Su"]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -85,8 +213,12 @@ order by string_date;]]>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-2" mode="Transparent" x="0" y="0" width="27" height="20">
-					<printWhenExpression><![CDATA[new Boolean(($P{numeric_year}+$P{numeric_month}).equals($F{NUMERIC_YEAR}+$F{NUMERIC_MONTH}))]]></printWhenExpression>
+				<reportElement key="textField-4" mode="Opaque" x="6" y="0" width="21" height="20" backcolor="#CCCCCC">
+					<printWhenExpression><![CDATA[new Boolean(
+	$F{SUNDAY}.intValue()==1
+&&
+($P{numeric_year}+$P{numeric_month}).equals($F{NUMERIC_YEAR}+$F{NUMERIC_MONTH})
+)]]></printWhenExpression>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -97,7 +229,22 @@ order by string_date;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{NUMERIC_DAY}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NUMERIC_DAY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-2" mode="Transparent" x="6" y="0" width="21" height="20" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$F{SUNDAY}.intValue()!=1 && new Boolean(($P{numeric_year}+$P{numeric_month}).equals($F{NUMERIC_YEAR}+$F{NUMERIC_MONTH}))]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUMERIC_DAY}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
