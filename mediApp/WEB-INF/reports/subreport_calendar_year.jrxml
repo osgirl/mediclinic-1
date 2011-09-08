@@ -17,9 +17,7 @@
 	<parameter name="numeric_month" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["subreport_day_names_year.jasper"]]></defaultValueExpression>
-	</parameter>
+	<parameter name="patient_id" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT date_format(cal_date,'%Y%m%d') STRING_DATE,
        DATE_FORMAT(cal_date,'%d') numeric_day ,
@@ -27,11 +25,11 @@
        DATE_FORMAT(cal_date,'%Y') numeric_year,
        DATE_FORMAT(cal_date,'%W') string_day,
        case
-           when  DATE_FORMAT(cal_date,'%w') = 0 then 1
+           when  (select count(date_of_appointment) from appointment_history where date_of_appointment= c.cal_date and idPatient_details=$P{patient_id} ) > 0 then 1
            else 0
        end as sunday
 FROM
-calendar
+calendar  c
 where cal_date between STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y')  and
 SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL DAYOFMONTH( STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y') ) DAY)
 union all
@@ -46,7 +44,7 @@ SELECT date_format(cal_date,'%Y%m%d') STRING_DATE,
        end as sunday
 FROM
 calendar
-where (convert($P{numeric_month}, UNSIGNED) != 1 and (cal_date between DATE_SUB(SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
+where (convert($P{numeric_month}, UNSIGNED) != 1 and ((cal_date between DATE_SUB(SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
 DAYOFMONTH( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y') ) DAY), INTERVAL
 DAYOFWEEK(SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y'), INTERVAL 1 MONTH),
 INTERVAL DAYOFMONTH( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y') ) DAY)) -2
@@ -64,9 +62,9 @@ SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGN
 DAYOFMONTH( STR_TO_DATE(CONCAT('01',LPAD(convert($P{numeric_month}, UNSIGNED)-1,2,'0'),$P{numeric_year}), '%d%m%Y') ) DAY)
 and
 DAYOFWEEK(STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y') ) =1
-))
+)))
 or
-(convert($P{numeric_month}, UNSIGNED) = 1 and (cal_date between DATE_SUB(SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
+(convert($P{numeric_month}, UNSIGNED) = 1 and ((cal_date between DATE_SUB(SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
 DAYOFMONTH( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y') ) DAY), INTERVAL
 DAYOFWEEK(SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y'), INTERVAL 1 MONTH),
 INTERVAL DAYOFMONTH( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y') ) DAY)) -2
@@ -83,7 +81,7 @@ DAY)  and
 SUBDATE( ADDDATE( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y'), INTERVAL 1 MONTH), INTERVAL
 DAYOFMONTH( STR_TO_DATE(CONCAT('01','12',convert($P{numeric_year}, UNSIGNED)-1), '%d%m%Y') ) DAY)
 and
-DAYOFWEEK(STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y') ) =1
+DAYOFWEEK(STR_TO_DATE(CONCAT('01',$P{numeric_month},$P{numeric_year}), '%d%m%Y') ) =1)
 ))
 order by string_date;]]>
 	</queryString>
@@ -212,13 +210,13 @@ order by string_date;]]>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
-			<textField isBlankWhenNull="false">
+			<textField isBlankWhenNull="false" hyperlinkType="RemoteAnchor" hyperlinkTarget="blank">
 				<reportElement key="textField-4" mode="Opaque" x="6" y="0" width="21" height="20" backcolor="#CCCCCC">
 					<printWhenExpression><![CDATA[new Boolean(
-	$F{SUNDAY}.intValue()==1
-&&
-($P{numeric_year}+$P{numeric_month}).equals($F{NUMERIC_YEAR}+$F{NUMERIC_MONTH})
-)]]></printWhenExpression>
+                        $F{SUNDAY}.intValue()==1
+                                &&
+                        ($P{numeric_year}+$P{numeric_month}).equals($F{NUMERIC_YEAR}+$F{NUMERIC_MONTH})
+                        )]]></printWhenExpression>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -230,6 +228,7 @@ order by string_date;]]>
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NUMERIC_DAY}]]></textFieldExpression>
+				<hyperlinkReferenceExpression><![CDATA["./Medical_History.pdf?PATIENTID="+ $P{patient_id}]]></hyperlinkReferenceExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField-2" mode="Transparent" x="6" y="0" width="21" height="20" isPrintWhenDetailOverflows="true">
