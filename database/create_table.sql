@@ -188,6 +188,17 @@ CREATE  TABLE IF NOT EXISTS `mediapp`.`Tests` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `mediapp`.`Calendar`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mediapp`.`Calendar` ;
+
+CREATE  TABLE IF NOT EXISTS `mediapp`.`Calendar` (
+  `idcalendar` INT NOT NULL AUTO_INCREMENT ,
+  `cal_date` DATE NULL
+  PRIMARY KEY (`idcalendar`) )
+ENGINE = InnoDB;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
