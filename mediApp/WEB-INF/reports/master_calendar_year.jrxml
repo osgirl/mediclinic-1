@@ -12,9 +12,6 @@
 		<parameterDescription><![CDATA[year in the YYYY format]]></parameterDescription>
 		<defaultValueExpression><![CDATA["2010"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String">
-		<defaultValueExpression><![CDATA["subreport_calendar_year.jasper"]]></defaultValueExpression>
-	</parameter>
 	<parameter name="patient_id" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT  distinct
@@ -58,10 +55,10 @@ where cal_date between STR_TO_DATE(CONCAT('01','01',$P{year}), '%m%d%Y')  and
 					<subreportParameterExpression><![CDATA[$P{patient_id}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["subreport_calendar_year.jasper"]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
+				<subreportExpression><![CDATA["subreport_calendar_year.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
