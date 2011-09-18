@@ -1291,5 +1291,16 @@
  		previous_history=#previousHistory#,presenting_complain=#presentingComplain# 
 		where idAppointment_History =#appointmentID#
 	</update>
+
+	<select id="getReports" resultClass="java.util.HashMap">
+           select report_name, report_search_criteria from report_master;
+ 	</select>
+
+	<select id="getReportPackage" resultClass="java.util.HashMap">
+           select report_name, package from
+			report_master rm,
+			report_to_package rp
+			where idreport_master= report_master_id 
+ 	</select>
 		
 </sqlMap>

@@ -17,7 +17,7 @@
 	<parameter name="numeric_month" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="patient_id" class="java.lang.String"/>
+	<parameter name="patient_id" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT date_format(cal_date,'%Y%m%d') STRING_DATE,
        DATE_FORMAT(cal_date,'%d') numeric_day ,
@@ -228,7 +228,7 @@ order by string_date;]]>
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NUMERIC_DAY}]]></textFieldExpression>
-				<hyperlinkReferenceExpression><![CDATA["./Medical_History.pdf?PATIENTID="+ $P{patient_id}]]></hyperlinkReferenceExpression>
+				<hyperlinkReferenceExpression><![CDATA["/Medical_History.pdf?PATIENTID="+ $P{patient_id}+"&APMTDATE="+$F{STRING_DATE}]]></hyperlinkReferenceExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField-2" mode="Transparent" x="6" y="0" width="21" height="20" isPrintWhenDetailOverflows="true">

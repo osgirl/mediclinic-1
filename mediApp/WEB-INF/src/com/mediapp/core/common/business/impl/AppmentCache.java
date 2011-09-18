@@ -17,6 +17,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 
 import com.mediapp.domain.common.CodeDecode;
+import com.mediapp.domain.common.ReportPackage;
 import com.mediapp.core.common.dao.AppmentCachingDAO;
 
 public class AppmentCache implements InitializingBean {
@@ -54,6 +55,9 @@ public class AppmentCache implements InitializingBean {
 	private boolean reloadCacheFlag;
 
 	private List<CodeDecode> codeDecode;
+	
+	private List<ReportPackage> reportPackage =new ArrayList<ReportPackage>() ;
+
 
 	 /**
 	  * The constructor will call the initializeCache() method
@@ -118,7 +122,9 @@ public class AppmentCache implements InitializingBean {
 	 private synchronized void populateCacheElements()   {
 	  
 	  loadCodeDecode();
-
+	  loadReports();
+	  
+	  
 	 }
 
 	 /**
@@ -127,6 +133,7 @@ public class AppmentCache implements InitializingBean {
 	 protected Map < String, List <CodeDecode> > getAllCodeDecode() {
 	  return Collections.unmodifiableMap(allCodeDecode);
 	 }
+
 
 	 /**
 	  * This method will be called once the variable properties are set and the constructor method is called.This
@@ -165,12 +172,27 @@ public class AppmentCache implements InitializingBean {
 	  }
 	 }
 
+	 private void loadReports(){
+		 List<ReportPackage> reportPackageList = appmentCachingDAO.getReportPackage();
+
+		  if (null == reportPackageList) {
+		   throw new IllegalStateException("data not found!");
+		  }
+		  synchronized (this.reportPackage) {
+			   this.reportPackage = reportPackageList;
+			  }
+
+	 }
 	 /**
 	  * @return the loanCodeDecode
 	  */
 	 protected List < CodeDecode > getcodeDecode() {	  
-	return codeDecode;
+		 return codeDecode;
 	 }
+
+	 public List < ReportPackage> getReportPackage() {	  
+			return reportPackage;
+	}
 
 	 /**
 	  * @param loanCodeDecode the loanCodeDecode to set

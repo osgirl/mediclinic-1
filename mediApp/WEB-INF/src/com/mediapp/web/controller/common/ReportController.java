@@ -73,6 +73,24 @@ public class ReportController extends MultiActionController {
 		  return new ModelAndView("generateHistory", getModelForHsitory(idPerson));
 		 }
 
+ public ModelAndView handleGenerateAppointmentMonthView(HttpServletRequest request,
+		   HttpServletResponse response) throws Exception {
+			String sidPerson = request.getParameter("PatientID");		
+			Integer idPerson = new Integer(sidPerson);
+			String year = request.getParameter("Year");
+			String month = request.getParameter("Month");
+		  return new ModelAndView("generateAppointmentMonthView", getModelForAppointmentMonthView(idPerson,month,year));
+		 }
+
+ public ModelAndView handleGenerateAppointmentYearView(HttpServletRequest request,
+		   HttpServletResponse response) throws Exception {
+			String sidPerson = request.getParameter("PatientID");		
+			Integer idPerson = new Integer(sidPerson);
+			String year = request.getParameter("Year");
+		  return new ModelAndView("generateAppointmentYearView", getModelForAppointmentYearView(idPerson,year));
+		 }
+
+ 
  public ModelAndView handleSimpleReportHtml(HttpServletRequest request,
    HttpServletResponse response) throws Exception {
 
@@ -145,7 +163,25 @@ public class ReportController extends MultiActionController {
 	  return model;
 	 }
 
- 
+ private Map getModelForAppointmentMonthView(Integer personID, String month, String year) {
+	  Map model = new HashMap();
+	  model.put("ReportTitle", "Appointments");
+	  model.put("dataSource", "JasperJdbcDataSource");
+	  model.put("month",month);
+	  model.put("year",year);
+	  model.put("patient_id",personID);
+	  return model;
+	 }
+
+ private Map getModelForAppointmentYearView(Integer personID, String year) {
+	  Map model = new HashMap();
+	  model.put("ReportTitle", "Appointments");
+	  model.put("dataSource", "JasperJdbcDataSource");
+	  model.put("year",year);
+	  model.put("patient_id",personID);
+	  return model;
+	 }
+
  private List getData() {
   List list = new ArrayList();
   return list;

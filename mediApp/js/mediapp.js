@@ -1876,3 +1876,18 @@ function fn_easyBugs(){
 	 
 	document.getElementById('if').src='http://www.easy-bugs.com/projects/appment/issues/new.widget';
 }
+
+function loadFrame(){
+//	alert(document.getElementById('reportName').value);
+	//alert(myMap[document.getElementById('reportName').value]);
+	document.getElementById('SearchFrame').innerHTML=myMap[document.getElementById('reportName').value];
+}
+
+
+function getReport(reportName){
+	if(reportName=="generateAppointmentMonthView")
+	document.getElementById("ReportTab").src=context+"/generateAppointmentMonthView.pdf?PatientID="+document.getElementById("PatientID").value+"&Month="+document.getElementById("MonthField").value+"&Year="+document.getElementById("YearField").value;
+	else if (reportName=="generateAppointmentYearView")
+	document.getElementById("ReportTab").src=context+"/generateAppointmentYearView.pdf?PatientID="+document.getElementById("PatientID").value+"&Year="+document.getElementById("YearField").value;
+
+}

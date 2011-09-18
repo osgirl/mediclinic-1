@@ -112,7 +112,7 @@
 		</copy>
 		
 		<copy todir="${warDir}/jsp">
-			<fileset dir="${basedir}/WEB-INF/jsp" includes="**/*.*" /> 
+			<fileset dir="${basedir}/jsp" includes="**/*.*" /> 
 		</copy>
 
 		<copy todir="${warDir}/reports">

@@ -15,6 +15,7 @@ xcopy appment.war "C:\Program Files\Apache Software Foundation\Tomcat 6.0\webapp
 pushd C:\Program Files\Apache Software Foundation\Tomcat 6.0\logs
 del /S /Q *.log
 popd
+echo build completed!!
 rem pushd C:\Program Files\Apache Software Foundation\Tomcat 6.0\bin\
 rem java -jar bootstrap.jar start
 rem popd
