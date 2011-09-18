@@ -621,4 +621,37 @@ CREATE TABLE `tests` (
   CONSTRAINT `tests_diagnosis` FOREIGN KEY (`fDiagnosis`) REFERENCES `diagnosis` (`idDiagnosis`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
--- Dump completed on 2011-08-07 20:30:21
+
+--
+-- Table structure for table `report_master`
+--
+
+DROP TABLE IF EXISTS `report_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `report_master` (
+  `idreport_master` int(11) NOT NULL,
+  `report_name` varchar(45) DEFAULT NULL,
+  `report_search_criteria` varchar(4000) DEFAULT NULL,
+  PRIMARY KEY (`idreport_master`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `report_to_package`
+--
+
+DROP TABLE IF EXISTS `report_to_package`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `report_to_package` (
+  `idreport_to_package` int(11) NOT NULL,
+  `report_master_id` int(11) DEFAULT NULL,
+  `package` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idreport_to_package`),
+  KEY `report_id` (`report_master_id`),
+  CONSTRAINT `report_id` FOREIGN KEY (`report_master_id`) REFERENCES `report_master` (`idreport_master`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+

@@ -35,7 +35,7 @@ CREATE TABLE `address` (
   PRIMARY KEY (`idAddress`),
   KEY `personID` (`personID`),
   CONSTRAINT `personID` FOREIGN KEY (`personID`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +74,21 @@ CREATE TABLE `appointment_history` (
   KEY `idReferenceDoctor` (`reference_doctor_id`),
   KEY `ahDoctor` (`idDoctor_details`),
   CONSTRAINT `idDiagnosis` FOREIGN KEY (`idDiagnosis`) REFERENCES `diagnosis` (`idDiagnosis`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `calendar`
+--
+
+DROP TABLE IF EXISTS `calendar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `calendar` (
+  `idcalendar` int(11) NOT NULL,
+  `cal_date` date DEFAULT NULL,
+  PRIMARY KEY (`idcalendar`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +163,7 @@ CREATE TABLE `doctor_details` (
   PRIMARY KEY (`idDoctor_details`),
   UNIQUE KEY `idPerson1` (`idPerson`),
   CONSTRAINT `idPerson1` FOREIGN KEY (`idPerson`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='doctor details';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COMMENT='doctor details';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +182,7 @@ CREATE TABLE `doctor_work_timings` (
   PRIMARY KEY (`iddoctor_work_timings`),
   KEY `fk_doctor_id` (`doctor_id`),
   CONSTRAINT `fk_doctor_id` FOREIGN KEY (`doctor_id`) REFERENCES `doctor_details` (`idDoctor_details`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,7 +274,7 @@ CREATE TABLE `job_inputs` (
   PRIMARY KEY (`idjob_inputs`),
   KEY `idScheduleJob` (`idschedule_job`),
   CONSTRAINT `idScheduleJob` FOREIGN KEY (`idschedule_job`) REFERENCES `schedule_job` (`idschedule_job`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -368,7 +382,7 @@ CREATE TABLE `patient_prescription` (
   PRIMARY KEY (`idpatient_prescription`),
   KEY `prescription_to_diagnosis` (`idDiagnosis`),
   CONSTRAINT `prescription_to_diagnosis` FOREIGN KEY (`idDiagnosis`) REFERENCES `diagnosis` (`idDiagnosis`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -413,7 +427,7 @@ CREATE TABLE `person_package` (
   PRIMARY KEY (`idperson_package`),
   KEY `person_id` (`person_id`),
   CONSTRAINT `person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`idPerson`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -477,6 +491,38 @@ CREATE TABLE `prescription_meta_data` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `report_master`
+--
+
+DROP TABLE IF EXISTS `report_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `report_master` (
+  `idreport_master` int(11) NOT NULL,
+  `report_name` varchar(45) DEFAULT NULL,
+  `report_search_criteria` varchar(4000) DEFAULT NULL,
+  PRIMARY KEY (`idreport_master`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `report_to_package`
+--
+
+DROP TABLE IF EXISTS `report_to_package`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `report_to_package` (
+  `idreport_to_package` int(11) NOT NULL,
+  `report_master_id` int(11) DEFAULT NULL,
+  `package` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idreport_to_package`),
+  KEY `report_id` (`report_master_id`),
+  CONSTRAINT `report_id` FOREIGN KEY (`report_master_id`) REFERENCES `report_master` (`idreport_master`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `schedule_job`
 --
 
@@ -493,7 +539,7 @@ CREATE TABLE `schedule_job` (
   PRIMARY KEY (`idschedule_job`),
   KEY `job_status` (`job_status`),
   KEY `effectiveDate` (`effectiveDate`)
-) ENGINE=InnoDB AUTO_INCREMENT=502 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=520 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -585,7 +631,7 @@ CREATE TABLE `smsserver_out` (
   `errors` int(2) NOT NULL DEFAULT '0',
   `gateway_id` varchar(64) NOT NULL DEFAULT '*',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=145 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=155 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -619,7 +665,7 @@ CREATE TABLE `tests` (
   KEY `fDiagnosis` (`fDiagnosis`),
   KEY `tests_diagnosis` (`fDiagnosis`),
   CONSTRAINT `tests_diagnosis` FOREIGN KEY (`fDiagnosis`) REFERENCES `diagnosis` (`idDiagnosis`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -778,4 +824,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-08-21 22:04:55
+-- Dump completed on 2011-09-18 22:46:49
