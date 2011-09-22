@@ -1885,9 +1885,24 @@ function loadFrame(){
 
 
 function getReport(reportName){
-	if(reportName=="generateAppointmentMonthView")
-	document.getElementById("ReportTab").src=context+"/generateAppointmentMonthView.pdf?PatientID="+document.getElementById("PatientID").value+"&Month="+document.getElementById("MonthField").value+"&Year="+document.getElementById("YearField").value;
-	else if (reportName=="generateAppointmentYearView")
-	document.getElementById("ReportTab").src=context+"/generateAppointmentYearView.pdf?PatientID="+document.getElementById("PatientID").value+"&Year="+document.getElementById("YearField").value;
+	var e=document.getElementById("SearchFrame").getElementsByTagName('input');
+	var queryString = "/"+reportName+".pdf?";
+	
+	 for (var i=0;i<e.length;i++){
+		 queryString = queryString + e[i].name+"="+document.getElementById(e[i].name).value + "&";
+	 }
+	 var e=document.getElementById("SearchFrame").getElementsByTagName('select');
+	 	
+	 for (var i=0;i<e.length;i++){
+		 queryString = queryString + e[i].name+"="+document.getElementById(e[i].name).value + "&";
+	 }
+	 //queryString= queryString.substring(0, queryString.length-1);
+	 queryString = queryString + "PatientID="+document.getElementById("PatientID").value;
+//	 alert(queryString );
+	 document.getElementById("ReportTab").src=context+queryString;
+	//if(reportName=="generateAppointmentMonthView")
+	//document.getElementById("ReportTab").src=context+"/generateAppointmentMonthView.pdf?PatientID="+document.getElementById("PatientID").value+"&Month="+document.getElementById("MonthField").value+"&Year="+document.getElementById("YearField").value;
+	//else if (reportName=="generateAppointmentYearView")
+	//document.getElementById("ReportTab").src=context+"/generateAppointmentYearView.pdf?PatientID="+document.getElementById("PatientID").value+"&Year="+document.getElementById("YearField").value;
 
 }

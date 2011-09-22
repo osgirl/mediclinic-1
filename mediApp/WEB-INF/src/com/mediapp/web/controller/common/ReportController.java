@@ -79,7 +79,8 @@ public class ReportController extends MultiActionController {
 			Integer idPerson = new Integer(sidPerson);
 			String year = request.getParameter("Year");
 			String month = request.getParameter("Month");
-		  return new ModelAndView("generateAppointmentMonthView", getModelForAppointmentMonthView(idPerson,month,year));
+			String format =request.getParameter("Format");
+		  return new ModelAndView("generateAppointmentMonthView", getModelForAppointmentMonthView(idPerson,month,year,format));
 		 }
 
  public ModelAndView handleGenerateAppointmentYearView(HttpServletRequest request,
@@ -87,7 +88,8 @@ public class ReportController extends MultiActionController {
 			String sidPerson = request.getParameter("PatientID");		
 			Integer idPerson = new Integer(sidPerson);
 			String year = request.getParameter("Year");
-		  return new ModelAndView("generateAppointmentYearView", getModelForAppointmentYearView(idPerson,year));
+			String format =request.getParameter("Format");
+		  return new ModelAndView("generateAppointmentYearView", getModelForAppointmentYearView(idPerson,year,format));
 		 }
 
  
@@ -158,27 +160,27 @@ public class ReportController extends MultiActionController {
 	  model.put("ReportTitle", "History");
 	  model.put("dataSource", "JasperJdbcDataSource");
 	  model.put("PatientID",personID);
-
-
 	  return model;
 	 }
 
- private Map getModelForAppointmentMonthView(Integer personID, String month, String year) {
+ private Map getModelForAppointmentMonthView(Integer personID, String month, String year,String format) {
 	  Map model = new HashMap();
 	  model.put("ReportTitle", "Appointments");
 	  model.put("dataSource", "JasperJdbcDataSource");
 	  model.put("month",month);
 	  model.put("year",year);
 	  model.put("patient_id",personID);
+	  model.put("format",format);
 	  return model;
 	 }
 
- private Map getModelForAppointmentYearView(Integer personID, String year) {
+ private Map getModelForAppointmentYearView(Integer personID, String year,String format) {
 	  Map model = new HashMap();
 	  model.put("ReportTitle", "Appointments");
 	  model.put("dataSource", "JasperJdbcDataSource");
 	  model.put("year",year);
 	  model.put("patient_id",personID);
+	  model.put("format",format);
 	  return model;
 	 }
 
