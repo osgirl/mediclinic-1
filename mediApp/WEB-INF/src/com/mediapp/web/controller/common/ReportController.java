@@ -80,7 +80,8 @@ public class ReportController extends MultiActionController {
 			String year = request.getParameter("Year");
 			String month = request.getParameter("Month");
 			String format =request.getParameter("Format");
-		  return new ModelAndView("generateAppointmentMonthView", getModelForAppointmentMonthView(idPerson,month,year,format));
+			String URI =request.getParameter("URI");
+		  return new ModelAndView("generateAppointmentMonthView", getModelForAppointmentMonthView(idPerson,month,year,format,URI));
 		 }
 
  public ModelAndView handleGenerateAppointmentYearView(HttpServletRequest request,
@@ -163,7 +164,7 @@ public class ReportController extends MultiActionController {
 	  return model;
 	 }
 
- private Map getModelForAppointmentMonthView(Integer personID, String month, String year,String format) {
+ private Map getModelForAppointmentMonthView(Integer personID, String month, String year,String format,String URI) {
 	  Map model = new HashMap();
 	  model.put("ReportTitle", "Appointments");
 	  model.put("dataSource", "JasperJdbcDataSource");
@@ -171,6 +172,7 @@ public class ReportController extends MultiActionController {
 	  model.put("year",year);
 	  model.put("patient_id",personID);
 	  model.put("format",format);
+	  model.put("URI",URI);
 	  return model;
 	 }
 

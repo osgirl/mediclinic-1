@@ -1885,6 +1885,13 @@ function loadFrame(){
 
 
 function getReport(reportName){
+	var URI="http:/";
+	arrURI=window.location.href.split("/");
+	len=arrURI.length -1;
+	for(var i=2;i<len;i++){
+		URI=URI+ "/"+ arrURI[i];
+	}
+
 	var e=document.getElementById("SearchFrame").getElementsByTagName('input');
 	var queryString = "/"+reportName+".pdf?";
 	
@@ -1897,7 +1904,7 @@ function getReport(reportName){
 		 queryString = queryString + e[i].name+"="+document.getElementById(e[i].name).value + "&";
 	 }
 	 //queryString= queryString.substring(0, queryString.length-1);
-	 queryString = queryString + "PatientID="+document.getElementById("PatientID").value;
+	 queryString = queryString + "PatientID="+document.getElementById("PatientID").value +"&URI="+URI;
 //	 alert(queryString );
 	 document.getElementById("ReportTab").src=context+queryString;
 	//if(reportName=="generateAppointmentMonthView")

@@ -42,7 +42,7 @@
 														</table>
 														<div id="SearchFrame">
 														</div>
-														<input type="hidden" name="PatientID" id="PatientID" value="<%=p.getIdPerson()%>"/>
+														<input type="hidden" name="PatientID" id="PatientID" value="<%=p.getIdPerson()%>"/>														
 															<iframe id="ReportTab" width="680" height="500">
 															</iframe>
 															<script>
