@@ -229,7 +229,7 @@ order by string_date;]]>
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NUMERIC_DAY}]]></textFieldExpression>
-				<hyperlinkReferenceExpression><![CDATA[$P{URI}+"/Medical_History.pdf?PATIENTID="+ $P{patient_id}+"&APMTDATE="+$F{STRING_DATE}
+				<hyperlinkReferenceExpression><![CDATA[$P{URI}+"/Medical_History_For_Day.pdf?PATIENTID="+ $P{patient_id}+"&APMTDATE="+$F{STRING_DATE}
                     +"&URI="+$P{URI}+"&RPT=/master_calendar_year.pdf"]]></hyperlinkReferenceExpression>
 				<hyperlinkTooltipExpression><![CDATA["Open Appointments"]]></hyperlinkTooltipExpression>
 			</textField>
