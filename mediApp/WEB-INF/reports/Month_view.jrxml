@@ -78,7 +78,9 @@ order by numeric_year, numeric_month, numeric_day]]>
 					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Appointments"]]></textFieldExpression>
-				<hyperlinkReferenceExpression><![CDATA[$P{URI}+"/Medical_History.pdf?PATIENTID="+ $P{patient_id}+"&APMTDATE="+$F{STRING_DATE}]]></hyperlinkReferenceExpression>
+				<hyperlinkReferenceExpression><![CDATA[$P{URI}+"/Medical_History.pdf?PATIENTID="+ $P{patient_id}+"&APMTDATE="+$F{STRING_DATE}
+                    +"RtnURL="+$P{URI}+"/Month_view.pdf?PATIENTID="+ $P{patient_id}]]></hyperlinkReferenceExpression>
+				<hyperlinkTooltipExpression><![CDATA["Open Appointments"]]></hyperlinkTooltipExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField-2" mode="Transparent" x="10" y="25" width="94" height="29">

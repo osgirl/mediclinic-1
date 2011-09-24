@@ -8,9 +8,9 @@
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
-	<parameter name="year" class="java.lang.String">
+	<parameter name="numeric_year" class="java.lang.String">
 		<parameterDescription><![CDATA[year in the YYYY format]]></parameterDescription>
-		<defaultValueExpression><![CDATA["2010"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["2011"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="patient_id" class="java.lang.Integer"/>
 	<parameter name="MonthReport" class="net.sf.jasperreports.engine.JasperReport"/>
@@ -21,8 +21,8 @@
        DATE_FORMAT(cal_date,'%M') string_month
 FROM
 calendar
-where cal_date between STR_TO_DATE(CONCAT('01','01',$P{year}), '%m%d%Y')  and
-(DATE_FORMAT(STR_TO_DATE(CONCAT('12','01',$P{year}), '%m%d%Y') ,'%Y-%m-01') );]]>
+where cal_date between STR_TO_DATE(CONCAT('01','01',$P{numeric_year}), '%m%d%Y')  and
+(DATE_FORMAT(STR_TO_DATE(CONCAT('12','01',$P{numeric_year}), '%m%d%Y') ,'%Y-%m-01') );]]>
 	</queryString>
 	<field name="NUMERIC_YEAR" class="java.lang.String"/>
 	<field name="NUMERIC_MONTH" class="java.lang.String"/>
@@ -47,7 +47,7 @@ where cal_date between STR_TO_DATE(CONCAT('01','01',$P{year}), '%m%d%Y')  and
 					<subreportParameterExpression><![CDATA[$F{STRING_MONTH}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="numeric_year">
-					<subreportParameterExpression><![CDATA[$P{year}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{numeric_year}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="numeric_month">
 					<subreportParameterExpression><![CDATA[$F{NUMERIC_MONTH}]]></subreportParameterExpression>
@@ -56,7 +56,7 @@ where cal_date between STR_TO_DATE(CONCAT('01','01',$P{year}), '%m%d%Y')  and
 					<subreportParameterExpression><![CDATA[$P{patient_id}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{MonthReport}]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{MonthReport}]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
