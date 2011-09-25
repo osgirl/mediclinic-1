@@ -65,6 +65,7 @@ public class ReportController extends MultiActionController {
 		  return new ModelAndView("generateMedicalReport", getModelForMedicalReport(idAppointment));
 		 }
 
+
  public ModelAndView handleGenerateHistory(HttpServletRequest request,
 		   HttpServletResponse response) throws Exception {
 			String sidPerson = request.getParameter("PatientID");		
@@ -73,6 +74,18 @@ public class ReportController extends MultiActionController {
 		  return new ModelAndView("generateHistory", getModelForHsitory(idPerson));
 		 }
 
+ public ModelAndView handleGenerateMedicalHistoryForDay(HttpServletRequest request,
+		   HttpServletResponse response) throws Exception {
+			String sidPerson = request.getParameter("PATIENTID");		
+			Integer idPerson = new Integer(sidPerson);
+			String apmtDate = request.getParameter("APMTDATE");
+			String URI =request.getParameter("URI");
+			String rptName =request.getParameter("RPT");
+			String rFormat =request.getParameter("Format");
+		  return new ModelAndView("generateHistoryForDay", getModelForHistoryForDay(idPerson,apmtDate,URI,rptName,rFormat));
+		 }
+
+ 
  public ModelAndView handleGenerateAppointmentMonthView(HttpServletRequest request,
 		   HttpServletResponse response) throws Exception {
 			String sidPerson = request.getParameter("PatientID");		
@@ -163,6 +176,17 @@ public class ReportController extends MultiActionController {
 	  model.put("PatientID",personID);
 	  return model;
 	 }
+ private Map  getModelForHistoryForDay(Integer idPerson,String apmtDate,String URI,String rptName,String rFormat){
+	  Map model = new HashMap();
+	  model.put("ReportTitle", "History");
+	  model.put("dataSource", "JasperJdbcDataSource");
+	  model.put("PatientID",idPerson);
+	  model.put("URI",URI);
+	  model.put("RPT",rptName);
+	  model.put("APMTDATE",apmtDate);
+	  model.put("Format",rFormat);
+	  return model;
+	 }
 
  private Map getModelForAppointmentMonthView(Integer personID, String month, String year,String format,String URI) {
 	  Map model = new HashMap();
@@ -172,6 +196,7 @@ public class ReportController extends MultiActionController {
 	  model.put("year",year);
 	  model.put("patient_id",personID);
 	  model.put("format",format);
+	  model.put("Format",format);
 	  model.put("URI",URI);
 	  return model;
 	 }
@@ -183,6 +208,7 @@ public class ReportController extends MultiActionController {
 	  model.put("year",year);
 	  model.put("patient_id",personID);
 	  model.put("format",format);
+	  model.put("Format",format);
 	  return model;
 	 }
 

@@ -19,6 +19,7 @@
 	</parameter>
 	<parameter name="patient_id" class="java.lang.Integer"/>
 	<parameter name="URI" class="java.lang.String"/>
+	<parameter name="Format" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT date_format(cal_date,'%Y%m%d') STRING_DATE,
        DATE_FORMAT(cal_date,'%d') numeric_day ,
@@ -211,7 +212,7 @@ order by string_date;]]>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
-			<textField isBlankWhenNull="false" hyperlinkType="Reference" hyperlinkTarget="Blank">
+			<textField isBlankWhenNull="false" hyperlinkType="Reference">
 				<reportElement key="textField-4" mode="Opaque" x="6" y="0" width="21" height="20" backcolor="#CCCCCC">
 					<printWhenExpression><![CDATA[new Boolean(
                         $F{SUNDAY}.intValue()==1
@@ -229,8 +230,8 @@ order by string_date;]]>
 					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NUMERIC_DAY}]]></textFieldExpression>
-				<hyperlinkReferenceExpression><![CDATA[$P{URI}+"/Medical_History_For_Day.pdf?PATIENTID="+ $P{patient_id}+"&APMTDATE="+$F{STRING_DATE}
-                    +"&URI="+$P{URI}+"&RPT=/master_calendar_year.pdf"]]></hyperlinkReferenceExpression>
+				<hyperlinkReferenceExpression><![CDATA[$P{URI}+"/generateMedicalHistoryForDay.pdf?PATIENTID="+ $P{patient_id}+"&APMTDATE="+$F{STRING_DATE}
+                    +"&URI="+$P{URI}+"&RPT=/master_calendar_year.pdf"+"&Format="+$P{Format}]]></hyperlinkReferenceExpression>
 				<hyperlinkTooltipExpression><![CDATA["Open Appointments"]]></hyperlinkTooltipExpression>
 			</textField>
 			<textField isBlankWhenNull="false">

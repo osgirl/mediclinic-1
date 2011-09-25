@@ -480,6 +480,7 @@
 				<prop key="/generateMedicalReport.pdf">handleGenerateMedicalReport</prop>
 				<prop key="/generateAppointmentMonthView.pdf">handleGenerateAppointmentMonthView</prop>
 				<prop key="/generateAppointmentYearView.pdf">handleGenerateAppointmentYearView</prop>
+				<prop key="/generateMedicalHistoryForDay.pdf">handleGenerateMedicalHistoryForDay</prop>				
 				<prop key="/simpleReportHtml.html">handleSimpleReportHtml</prop>
 				<prop key="/simpleReportCsv.csv">handleSimpleReportCsv</prop>
 				<prop key="/simpleReportExcel.xls">handleSimpleReportExcel</prop>

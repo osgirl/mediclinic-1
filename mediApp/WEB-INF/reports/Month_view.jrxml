@@ -12,6 +12,7 @@
 	<parameter name="year" class="java.lang.String"/>
 	<parameter name="patient_id" class="java.lang.Integer"/>
 	<parameter name="URI" class="java.lang.String"/>
+	<parameter name="Format" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT date_format(cal_date,'%Y%m%d') STRING_DATE,
        DATE_FORMAT(cal_date,'%d') numeric_day,
@@ -63,8 +64,8 @@ order by numeric_year, numeric_month, numeric_day]]>
 	</columnHeader>
 	<detail>
 		<band height="82" splitType="Stretch">
-			<textField isBlankWhenNull="false" hyperlinkType="Reference" hyperlinkTarget="Blank">
-				<reportElement key="textField-4" mode="Transparent" x="10" y="54" width="94" height="18" backcolor="#CCCCCC">
+			<textField isBlankWhenNull="false" hyperlinkType="Reference">
+				<reportElement key="textField-4" mode="Transparent" x="0" y="54" width="104" height="18" backcolor="#CCCCCC">
 					<printWhenExpression><![CDATA[new Boolean($F{SUNDAY}.intValue()==1 &&
                         ($P{year}+$P{month}).equals($F{NUMERIC_YEAR}+$F{NUMERIC_MONTH}))]]></printWhenExpression>
 				</reportElement>
@@ -78,12 +79,12 @@ order by numeric_year, numeric_month, numeric_day]]>
 					<font size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Appointments"]]></textFieldExpression>
-				<hyperlinkReferenceExpression><![CDATA[$P{URI}+"/Medical_History_For_Day.pdf?PATIENTID="+ $P{patient_id}+"&APMTDATE="+$F{STRING_DATE}
-                    +"&URI="+$P{URI}+"&RPT=/Month_view.pdf"]]></hyperlinkReferenceExpression>
+				<hyperlinkReferenceExpression><![CDATA[$P{URI}+"/generateMedicalHistoryForDay.pdf?PATIENTID="+ $P{patient_id}+"&APMTDATE="+$F{STRING_DATE}
+                    +"&URI="+$P{URI}+"&RPT=/generateAppointmentMonthView.pdf"+"&Format="+$P{Format}]]></hyperlinkReferenceExpression>
 				<hyperlinkTooltipExpression><![CDATA["Open Appointments"]]></hyperlinkTooltipExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-2" mode="Transparent" x="10" y="25" width="94" height="29">
+				<reportElement key="textField-2" mode="Transparent" x="0" y="25" width="104" height="29">
 					<printWhenExpression><![CDATA[new Boolean( ($P{year}+$P{month}).equals($F{NUMERIC_YEAR}+$F{NUMERIC_MONTH}))]]></printWhenExpression>
 				</reportElement>
 				<box leftPadding="5">
@@ -98,7 +99,7 @@ order by numeric_year, numeric_month, numeric_day]]>
 				<textFieldExpression><![CDATA[$F{NUMERIC_DAY}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-3" mode="Transparent" x="24" y="0" width="80" height="25">
+				<reportElement key="textField-3" mode="Transparent" x="0" y="0" width="104" height="25">
 					<printWhenExpression><![CDATA[new Boolean(($P{year}+$P{month}).equals($F{NUMERIC_YEAR}+$F{NUMERIC_MONTH}))]]></printWhenExpression>
 				</reportElement>
 				<box rightPadding="5">
