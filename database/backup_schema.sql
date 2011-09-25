@@ -186,6 +186,22 @@ CREATE TABLE `doctor_work_timings` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `help`
+--
+
+DROP TABLE IF EXISTS `help`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `help` (
+  `idhelp` int(11) NOT NULL,
+  `page_name` varchar(100) DEFAULT NULL,
+  `component_name` varchar(100) DEFAULT NULL,
+  `help_text` varchar(5000) DEFAULT NULL,
+  PRIMARY KEY (`idhelp`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `holiday_calendar`
 --
 
@@ -824,4 +840,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-09-16 22:41:25
+-- Dump completed on 2011-09-25 22:58:23

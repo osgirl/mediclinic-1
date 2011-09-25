@@ -655,3 +655,18 @@ CREATE TABLE `report_to_package` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
+--
+-- Table structure for table `help`
+--
+
+DROP TABLE IF EXISTS `help`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `help` (
+  `idhelp` int(11) NOT NULL,
+  `page_name` varchar(100) DEFAULT NULL,
+  `component_name` varchar(100) DEFAULT NULL,
+  `help_text` varchar(5000) DEFAULT NULL,
+  PRIMARY KEY (`idhelp`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
