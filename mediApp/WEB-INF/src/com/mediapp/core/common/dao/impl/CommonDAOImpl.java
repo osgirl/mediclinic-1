@@ -969,7 +969,6 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		return flag;
 
 	}
-
 }
 
 

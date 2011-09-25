@@ -76,4 +76,5 @@ public interface CommonService {
 	public boolean updateStorageFilePath(Admin admin) ;
 	
 	public boolean updateAppointment(Appointment appointment);
+	
 }

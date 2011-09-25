@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 
 import com.mediapp.core.common.dao.AppmentCachingDAO;
 import com.mediapp.domain.common.CodeDecode;
+import com.mediapp.domain.common.Help;
 import com.mediapp.domain.common.ReportPackage;
 
 public class AppmentCachingDAOImpl  extends MediAppBaseDAOImpl  implements AppmentCachingDAO {
@@ -48,5 +49,8 @@ public class AppmentCachingDAOImpl  extends MediAppBaseDAOImpl  implements Appme
 	    }
 		return reportpackage;
 	}
-	
+
+	public List < Help > getHelp()throws DataAccessException{
+		return (ArrayList<Help>) getListNoOptions("common.getHelp");
+	}
 }

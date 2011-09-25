@@ -1302,5 +1302,15 @@
 			report_to_package rp
 			where idreport_master= report_master_id 
  	</select>
+
+ 	<resultMap class="com.mediapp.domain.common.Help" id="Get-Help-Result-Map">
+	 	<result property="pageName" 			column="page_name"/> 	
+	 	<result property="componentName" 		column="component_name"/>
+	 	<result property="helpText" 			column="help_text"/>
+	 	
+	</resultMap>
+	<select id="getHelp"  resultMap="Get-Help-Result-Map">
+		select page_name,component_name,help_text from help 
+ 	</select>
 		
 </sqlMap>

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 
 import com.mediapp.domain.common.CodeDecode;
+import com.mediapp.domain.common.Help;
 import com.mediapp.domain.common.ReportPackage;
 import com.mediapp.core.common.dao.AppmentCachingDAO;
 
@@ -55,6 +56,8 @@ public class AppmentCache implements InitializingBean {
 	private boolean reloadCacheFlag;
 
 	private List<CodeDecode> codeDecode;
+	
+	private List<Help> help;
 	
 	private List<ReportPackage> reportPackage =new ArrayList<ReportPackage>() ;
 
@@ -123,7 +126,7 @@ public class AppmentCache implements InitializingBean {
 	  
 	  loadCodeDecode();
 	  loadReports();
-	  
+	  loadHelp();
 	  
 	 }
 
@@ -183,6 +186,19 @@ public class AppmentCache implements InitializingBean {
 			  }
 
 	 }
+
+	 private void loadHelp(){
+		 List<Help> helpList = appmentCachingDAO.getHelp();
+
+		  if (null == helpList) {
+		   throw new IllegalStateException("data not found!");
+		  }
+		  synchronized (this.help) {
+			   this.help = helpList;
+			  }
+
+	 }
+
 	 /**
 	  * @return the loanCodeDecode
 	  */
@@ -205,6 +221,18 @@ public class AppmentCache implements InitializingBean {
 
 	 public List < CodeDecode > getcodeDecodeForCategory(String category) {
 			return allCodeDecode.get(category);
+	}
+
+	 public String  getHelpForComponent(String pageName,String componentName) {
+		 String helpText="";
+		 for(Help eachHelp: help){
+			 if (eachHelp.getPageName().equals(pageName) &&
+					 eachHelp.getComponentName().equals(componentName)){
+				 helpText = eachHelp.getHelpText();
+			 }
+				 
+		 }
+			return helpText;
 	}
 
 		private class ProcessSMS implements Runnable {
