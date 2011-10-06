@@ -166,6 +166,16 @@
 		</property>
 	
 	</bean>
+
+    <bean id="help" class="com.mediapp.web.controller.common.HelpController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Help</value></property>
+        <property name="formView"><value>help</value></property>
+        <property name="successView"><value>help</value></property>
+		<property name="appmentCache">
+			<ref bean="appMentCache"/>
+		</property>
+    </bean>
 	
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
@@ -392,6 +402,9 @@
 				</entry>
 				<entry key="/reportDashboard.htm">
 					<ref bean="reportDashboard"/>
+				</entry>
+				<entry key="/help.htm">
+					<ref bean="help"/>
 				</entry>
 				
 			</map>

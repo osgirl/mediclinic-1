@@ -57,7 +57,7 @@ public class AppmentCache implements InitializingBean {
 
 	private List<CodeDecode> codeDecode;
 	
-	private List<Help> help;
+	private List<Help> help =new ArrayList<Help>() ;
 	
 	private List<ReportPackage> reportPackage =new ArrayList<ReportPackage>() ;
 
@@ -226,6 +226,8 @@ public class AppmentCache implements InitializingBean {
 	 public String  getHelpForComponent(String pageName,String componentName) {
 		 String helpText="";
 		 for(Help eachHelp: help){
+			 System.out.println("hi"+ pageName+ ":"+ componentName);
+			 System.out.println("hi1"+ eachHelp.getPageName()+ ":"+ eachHelp.getComponentName());
 			 if (eachHelp.getPageName().equals(pageName) &&
 					 eachHelp.getComponentName().equals(componentName)){
 				 helpText = eachHelp.getHelpText();

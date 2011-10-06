@@ -25,8 +25,8 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar_us.js"></script>	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.4.2.js" ></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.jgrowl.js" ></script>	
-	
-
+    <script type="text/javascript"  src="<%=request.getContextPath()%>/js/scriptaculous.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/HelpBalloon.js" ></script>
 </head>
 <body >
 	<div id="main">

@@ -38,6 +38,7 @@
             <table width=200 align="left"   class="sample" style="border-width: 0px 0px 0px 0px;"> 
                    <tr>
         	           	<td>
+        	           		
             		       	<menu:verticalMenuItemTag></menu:verticalMenuItemTag>
                    		</td>
                    </tr>
@@ -52,6 +53,11 @@
                 <input type="text"  name="${status.expression}" id="${status.expression}"  value="${person.firstName}"/>
                 <font color="red"><c:out value="${status.errorMessage}" /></font>
                </spring:bind>
+   				<script type="text/javascript">
+					var hb4 = new HelpBalloon({
+						dataURL: './help.htm?PageName=all&ComponentName=menu'
+					});
+				</script>
                
               </td>
              </tr>
