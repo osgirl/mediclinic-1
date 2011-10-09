@@ -167,11 +167,11 @@
 	
 	</bean>
 
-    <bean id="help" class="com.mediapp.web.controller.common.HelpController">
+    <bean id="helpForm" class="com.mediapp.web.controller.common.HelpController">
         <property name="sessionForm"><value>true</value></property>
         <property name="commandClass"><value>com.mediapp.domain.common.Help</value></property>
-        <property name="formView"><value>help</value></property>
-        <property name="successView"><value>help</value></property>
+        <property name="formView"><value>helpPage</value></property>
+        <property name="successView"><value>helpPage</value></property>
 		<property name="appmentCache">
 			<ref bean="appMentCache"/>
 		</property>
@@ -346,11 +346,11 @@
 				<entry key="/logon.htm">
 					<ref bean="logonForm"/>
 				</entry>
-				<entry key="/welcomeDoc.htm">
-					<ref bean="docWelcomeController" />
-				</entry>
 				<entry key="/personalProfile.htm">
 					<ref bean="personalProfileForm" />
+				</entry>
+				<entry key="/helpPage.htm">
+					<ref bean="helpForm"/>
 				</entry>
 				<entry key="/takeAppointment.htm">
 					<ref bean="takeAppointmentForm" />
@@ -402,9 +402,6 @@
 				</entry>
 				<entry key="/reportDashboard.htm">
 					<ref bean="reportDashboard"/>
-				</entry>
-				<entry key="/help.htm">
-					<ref bean="help"/>
 				</entry>
 				
 			</map>

@@ -5,7 +5,7 @@ public class Help extends MediAppBaseDomain {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1233434L;
+	private static final long serialVersionUID = 123343434L;
 	
 	private String pageName;
 	

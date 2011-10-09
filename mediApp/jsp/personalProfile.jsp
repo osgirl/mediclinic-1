@@ -53,11 +53,6 @@
                 <input type="text"  name="${status.expression}" id="${status.expression}"  value="${person.firstName}"/>
                 <font color="red"><c:out value="${status.errorMessage}" /></font>
                </spring:bind>
-   				<script type="text/javascript">
-					var hb4 = new HelpBalloon({
-						dataURL: './help.htm?PageName=all&ComponentName=menu'
-					});
-				</script>
                
               </td>
              </tr>
@@ -305,6 +300,12 @@
 				<td>
 				</td>
 				<td><font size="2" color="black" >Please provide your working hours here. This would help other AppMates to locate you and take appointments with you.</font>
+				<script type="text/javascript">
+					var hb4 = new HelpBalloon({
+						dataURL: './helpPage.htm?PageName=personalProfile&ComponentName=availability'
+					});
+				</script>
+				
 				</td>
 			</tr>
             
