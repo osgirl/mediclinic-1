@@ -298,13 +298,14 @@
              
             <tr>
 				<td>
-				</td>
-				<td><font size="2" color="black" >Please provide your working hours here. This would help other AppMates to locate you and take appointments with you.</font>
 				<script type="text/javascript">
 					var hb4 = new HelpBalloon({
 						dataURL: './helpPage.htm?PageName=personalProfile&ComponentName=availability'
 					});
 				</script>
+				
+				</td>
+				<td><font size="2" color="black" >Please provide your working hours here. This would help other AppMates to locate you and take appointments with you.</font>
 				
 				</td>
 			</tr>
