@@ -67,5 +67,7 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/slf4j-api-1.4.3.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/slf4j-log4j12-1.4.3.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/handlebar-0.6-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/spring-webmvc-3.0.6.RELEASE.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>

@@ -343,19 +343,35 @@
 				<entry key="/welcomePage.htm">
 					<ref bean="welcomePage"/>
 				</entry>
+				<entry key="/welcomePage.json">
+					<ref bean="welcomePage"/>
+				</entry>
+
 				<entry key="/logon.htm">
 					<ref bean="logonForm"/>
 				</entry>
 				<entry key="/personalProfile.htm">
 					<ref bean="personalProfileForm" />
 				</entry>
+				<entry key="/personalProfile.json">
+					<ref bean="personalProfileForm" />
+				</entry>
 				<entry key="/helpPage.htm">
+					<ref bean="helpForm"/>
+				</entry>
+				<entry key="/helpPage.json">
 					<ref bean="helpForm"/>
 				</entry>
 				<entry key="/takeAppointment.htm">
 					<ref bean="takeAppointmentForm" />
 				</entry>
+				<entry key="/takeAppointment.json">
+					<ref bean="takeAppointmentForm" />
+				</entry>
 				<entry key="/dayAppointment.htm">
+					<ref bean="dayAppointmentForm" />
+				</entry>
+				<entry key="/dayAppointment.json">
 					<ref bean="dayAppointmentForm" />
 				</entry>
 				<entry key="appointmentPopUp.htm">
@@ -388,10 +404,16 @@
 				<entry key="/appmentLogin.htm">
 					<ref bean="appmentLoginForm"/>
 				</entry>
+				<entry key="/appmentLogin.json">
+					<ref bean="appmentLoginForm"/>
+				</entry>
 				<entry key="/appmentSignUp.htm">
 					<ref bean="appmentSignUpForm"/>
 				</entry>
 				<entry key="/inbox.htm">
+					<ref bean="inboxForm"/>
+				</entry>
+				<entry key="/inbox.json">
 					<ref bean="inboxForm"/>
 				</entry>
 				<entry key="/download.htm">
@@ -414,18 +436,38 @@
 		
 	</bean>
 	
+<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	  <property name="order" value="1" />
+  <property name="mediaTypes">
+    <map>
+      <entry key="html" value="text/html"/>
+      <entry key="json" value="application/json"/>
+    </map>
+  </property>
+  <property name="viewResolvers">
+    <list>
 	 <bean id="ClientView" class="com.mediapp.web.common.FallbackJstlViewResolver">
 	  <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 	  <property name="prefix" value="/jsp/"/>
 	  <property name="suffix" value=".jsp"/>  
-	  <property name="order" value="1"/>
+	 </bean>
+    </list>
+  </property>
+  <property name="defaultViews">
+    <list>
+      <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+        <property name="prefixJson" value="true"/>
+      </bean>
+    </list>
+  </property>
+</bean>
+
+	 <bean id="rViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+	     <property name="basename" value="views"/>
+	      <property name="order" value="2"/>
 	 </bean>
 	 
-	 <bean id="rViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-	     <property name="order" value="2"/>
-	     <property name="basename" value="views"/>
-	 </bean>
-    
+ 
     <!-- Generic Exception Handler  -->
 	<bean id="exceptionHandler" class="com.mediapp.web.common.MediApplBaseExceptionResolver">
 		<property name="exceptionMappings">
