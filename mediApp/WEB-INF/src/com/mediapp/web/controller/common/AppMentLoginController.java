@@ -66,8 +66,19 @@ public class AppMentLoginController extends MediAppBaseController  {
 	}
 	
 	
-	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {		
-		Person person = loginService.authenticate((Person)command);
+	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
+		//Person usePerson=new Person();
+		Person usePerson=(Person)command;
+	/*	if (request.getRequestURI().contains("json")){
+			logger.info("Request for JSON");
+			usePerson.setUsername(request.getParameter("UserName"));
+			usePerson.setPassword(request.getParameter("Password"));
+		}else{
+			logger.info("Request for HTM");
+			usePerson = (Person)command;
+		}
+	*/
+		Person person = loginService.authenticate(usePerson);
 		HttpSession sessionObj = request.getSession(true);
 		sessionObj.setAttribute("menuItems", loginService.getMenuItems(person.getIdPerson()));
 		CommonWebUtil.setSessionAttribute(request, CommonWebConstants.USER_ID, person);
