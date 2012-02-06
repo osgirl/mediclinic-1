@@ -55,7 +55,29 @@
         <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
         <property name="validator"><ref bean="logonValidator"/></property>
         <property name="formView"><value>appmentLogin</value></property>
-        <property name="successView"><value>personalProfile</value></property>
+        <property name="successView"><value>redirect:/inbox</value></property>
+        <property name="loginService">
+			<ref bean="loginService"/>
+		</property>
+        <property name="commonService">
+			<ref bean="commonService"/>
+		</property>
+		
+		<property name="sendeMail">
+			<ref bean="sendeMail"/>
+		</property>
+		<property name="sendSMS">
+			<ref bean="sendSMS"/>
+		</property>
+		
+    </bean>
+
+	<bean id="appmentLoginFormJSON" class="com.mediapp.web.controller.common.AppMentLoginController">
+        <property name="sessionForm"><value>false</value></property>
+        <property name="commandName"><value>person</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="formView"><value>appmentLogin</value></property>
+        <property name="successView"><value>redirect:/inbox</value></property>
         <property name="loginService">
 			<ref bean="loginService"/>
 		</property>
@@ -108,6 +130,24 @@
 		</property>
 		
     </bean>
+	<bean id="inboxJSON" class="com.mediapp.web.controller.common.InboxController">
+        <property name="sessionForm"><value>false</value></property>
+        <property name="commandName"><value>person</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
+        <property name="formView"><value>inbox</value></property>
+        <property name="successView"><value>inbox</value></property>
+        <property name="commonService">
+			<ref bean="commonService"/>
+		</property>
+		<property name="sendeMail">
+			<ref bean="sendeMail"/>
+		</property>
+		<property name="sendSMS">
+			<ref bean="sendSMS"/>
+		</property>
+		
+    </bean>
+
 
 	<bean id="adminConsole" class="com.mediapp.web.controller.common.AdminController">
         <property name="sessionForm"><value>true</value></property>
@@ -405,7 +445,7 @@
 					<ref bean="appmentLoginForm"/>
 				</entry>
 				<entry key="/appmentLogin.json">
-					<ref bean="appmentLoginForm"/>
+					<ref bean="appmentLoginFormJSON"/>
 				</entry>
 				<entry key="/appmentSignUp.htm">
 					<ref bean="appmentSignUpForm"/>
@@ -414,7 +454,7 @@
 					<ref bean="inboxForm"/>
 				</entry>
 				<entry key="/inbox.json">
-					<ref bean="inboxForm"/>
+					<ref bean="inboxJSON"/>
 				</entry>
 				<entry key="/download.htm">
 					<ref bean="downloadFileController"/>
@@ -436,31 +476,32 @@
 		
 	</bean>
 	
-<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-	  <property name="order" value="1" />
-  <property name="mediaTypes">
-    <map>
-      <entry key="html" value="text/html"/>
-      <entry key="json" value="application/json"/>
-    </map>
-  </property>
-  <property name="viewResolvers">
-    <list>
-	 <bean id="ClientView" class="com.mediapp.web.common.FallbackJstlViewResolver">
-	  <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-	  <property name="prefix" value="/jsp/"/>
-	  <property name="suffix" value=".jsp"/>  
-	 </bean>
-    </list>
-  </property>
-  <property name="defaultViews">
-    <list>
-      <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
-        <property name="prefixJson" value="true"/>
-      </bean>
-    </list>
-  </property>
-</bean>
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		  <property name="order" value="1" />
+	  <property name="mediaTypes">
+	    <map>
+	      <entry key="html" value="text/html"/>
+	      <entry key="json" value="application/json"/>
+	    </map>
+	  </property>
+	  <property name="viewResolvers">
+	    <list>
+		 <bean id="ClientView" class="com.mediapp.web.common.FallbackJstlViewResolver">
+		  <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		  <property name="prefix" value="/jsp/"/>
+		  <property name="suffix" value=".jsp"/>  
+		 </bean>
+	    </list>
+	  </property>
+	  <property name="defaultViews">
+	    <list>
+	      <bean class="com.mediapp.web.common.SimpleJacksonJsonView">
+	        <property name="prefixJson" value="false"/>
+	        
+	      </bean>
+	    </list>
+	  </property>
+	</bean>
 
 	 <bean id="rViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
 	     <property name="basename" value="views"/>

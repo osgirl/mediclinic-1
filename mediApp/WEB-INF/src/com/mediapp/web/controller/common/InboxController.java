@@ -15,6 +15,7 @@ import com.mediapp.core.common.business.CommonService;
 import com.mediapp.core.common.business.impl.ScheduleEMail;
 import com.mediapp.core.common.business.impl.ScheduleSMS;
 import com.mediapp.domain.common.Appointment;
+import com.mediapp.domain.common.Appointments;
 import com.mediapp.domain.common.Person;
 import com.mediapp.web.constants.common.CommonWebConstants;
 import com.mediapp.web.util.common.CommonWebUtil;
@@ -37,7 +38,11 @@ public class InboxController extends MediAppBaseController{
 	}
 	
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
-		return null;
+		Person usePerson=(Person)command;
+		//List <List<Appointment>> inboxList =		commonService.getInbox(usePerson.getIdPerson());
+		Appointments appointment = new Appointments();
+		appointment.setInboxList(commonService.getInbox(usePerson.getIdPerson()));
+		return new ModelAndView(getFormView(),"inbox", appointment);
 	}
 	
 	public CommonService getCommonService() {
