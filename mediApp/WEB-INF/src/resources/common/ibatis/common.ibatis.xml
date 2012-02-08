@@ -1312,5 +1312,48 @@
 	<select id="getHelp"  resultMap="Get-Help-Result-Map">
 		select page_name,component_name,help_text from help 
  	</select>
+
+ 	<resultMap class="com.mediapp.domain.common.Appointment" id="Get-All-Appointment-Result-Map">
+	 	<result property="appointmentID" 		column="idAppointment_History"/> 	
+	 	<result property="headline" 			column="appointment_headline"/>
+	 	<result property="dateOfAppointment" 	column="date_of_appointment"/>
+	 	<result property="timeOfAppointment" 	column="time_of_appointment"/>
+	 	<result property="appointmentDuration" 	column="appointment_duration"/>
+	 	<result property="patientFirstName" 	column="PatientFirstName"/>
+	 	<result property="patientMiddleInitial" column="PatientMiddleInitial"/>
+	 	<result property="patientLastName" 		column="PatientLastName"/>
+	 	<result property="doctorFirstName" 		column="DoctorFirstName"/>
+	 	<result property="doctorMiddleInitial" 	column="DoctorMiddleInitial"/>
+	 	<result property="doctorLastName" 		column="DoctorLastName"/>	 		 		 		 	
+	 	<result property="comments"			 	column="appointment_comment"/>
+	 	<result property="appointmentEndTime" 	column="appointment_end_time"/>
+	 	<result property="confirmedIndicator" 	column="appointment_confirmation"/>
+	</resultMap>
+	 	
+	<parameterMap id="Get-All-Appointment-Parm-Map"   class="java.util.HashMap">
+		<parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>
+	    <parameter property="PersonID"    			javaType="java.lang.Integer"   	mode="IN"/>	    
+	    <parameter property="DateOfAppointment"    	javaType="java.util.Date"   	mode="IN"/>	    
+	</parameterMap>
+
+	<select id="getAllAppointment" parameterMap="Get-All-Appointment-Parm-Map" resultMap="Get-All-Appointment-Result-Map">
+		select idAppointment_History,date_of_appointment,time_of_appointment,appointment_confirmation,
+		appointment_headline,appointment_comment,appointment_duration,appointment_end_time,
+		patient.first_name as PatientFirstName, patient.middle_name as PatientMiddleInitial,  patient.last_name as PatientLastName, 
+		doctor.first_name as DoctorFirstName,doctor.middle_name as DoctorMiddleInitial, doctor.last_name as DoctorLastName
+		from appointment_history ah,
+		person patient,
+		person doctor,
+		code_decode cd1,
+		code_decode cd2
+		where 
+        ah.idPatient_details = patient.idperson
+		and ah.iddoctor_details = doctor.idperson
+		and (ah.idpatient_details =? or ah.iddoctor_details =?)
+		and cd1.code_ctg = 'REMINDER_END_TIME'
+		and cd2.code_ctg = 'REMINDER_START_TIME'
+		and date_of_appointment = date_format(?,'%Y-%m-%d'); 
+ 	</select>
+
 		
 </sqlMap>

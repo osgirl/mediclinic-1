@@ -341,7 +341,7 @@
 		       
 	</bean>
 
-	<bean id="dayAppointmentJSON" class="com.mediapp.web.controller.common.DayAppointmentController">
+	<bean id="getAppointmentJSON" class="com.mediapp.web.controller.common.GetAppointmentController">
         <property name="sessionForm"><value>false</value></property>
         <property name="commandName"><value>person</value></property>
         <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
@@ -429,8 +429,8 @@
 				<entry key="/dayAppointment.htm">
 					<ref bean="dayAppointmentForm" />
 				</entry>
-				<entry key="/dayAppointment.json">
-					<ref bean="dayAppointmentJSON" />
+				<entry key="/getAppointment.json">
+					<ref bean="getAppointmentJSON" />
 				</entry>
 				<entry key="appointmentPopUp.htm">
 					<ref bean="appointmentPopUpForm" />

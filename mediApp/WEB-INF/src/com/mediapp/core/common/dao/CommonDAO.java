@@ -147,5 +147,6 @@ public interface CommonDAO {
 	public boolean updateStorageFilePath(Admin admin) throws DataAccessException;
 	
 	public boolean updateAppointment(Appointment appointment)throws DataAccessException;
-	
+
+	public List<Appointment> getAppointments(int  idPerson,Date dateOfAppointment ) throws DataAccessException;
 }

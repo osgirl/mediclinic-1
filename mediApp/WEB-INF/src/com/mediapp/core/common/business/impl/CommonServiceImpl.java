@@ -351,4 +351,7 @@ public class CommonServiceImpl implements CommonService{
 		return commonDAO.updateAppointment(appointment);
 	}
 
+	public List<Appointment> getAppointments(int  idPerson,Date dateOfAppointment ){
+		return commonDAO.getAppointments(idPerson, dateOfAppointment);
+	}
 }

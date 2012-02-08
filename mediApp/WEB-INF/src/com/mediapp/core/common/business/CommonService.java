@@ -76,5 +76,6 @@ public interface CommonService {
 	public boolean updateStorageFilePath(Admin admin) ;
 	
 	public boolean updateAppointment(Appointment appointment);
-	
+
+	public List<Appointment> getAppointments(int  idPerson,Date dateOfAppointment ) ;
 }
