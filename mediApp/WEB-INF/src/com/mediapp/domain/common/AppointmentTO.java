@@ -68,6 +68,12 @@ public class AppointmentTO extends MediAppBaseDomain{
 	
 	private String pulse;	
 
+    private String doctorFirstName;
+    
+	private String doctorMiddleInitial;
+    
+    private String doctorLastName;
+
 	
 	public String getConfirmationIndicator() {
 		return confirmationIndicator;
@@ -307,6 +313,30 @@ public class AppointmentTO extends MediAppBaseDomain{
 
 	public void setPulse(String pulse) {
 		this.pulse = pulse;
+	}
+
+    public String getDoctorFirstName() {
+		return doctorFirstName;
+	}
+
+	public void setDoctorFirstName(String doctorFirstName) {
+		this.doctorFirstName = doctorFirstName;
+	}
+
+	public String getDoctorMiddleInitial() {
+		return doctorMiddleInitial;
+	}
+
+	public void setDoctorMiddleInitial(String doctorMiddleInitial) {
+		this.doctorMiddleInitial = doctorMiddleInitial;
+	}
+
+	public String getDoctorLastName() {
+		return doctorLastName;
+	}
+
+	public void setDoctorLastName(String doctorLastName) {
+		this.doctorLastName = doctorLastName;
 	}
 
 }

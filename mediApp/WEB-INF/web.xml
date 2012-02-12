@@ -44,7 +44,7 @@
 
 
 	<welcome-file-list>
-		<welcome-file>welcomePage</welcome-file>
+		<welcome-file>/jsp/welcomePage.jsp</welcome-file>
 	</welcome-file-list>
 	<taglib>
   		<taglib-uri>/spring</taglib-uri> 

@@ -11,6 +11,7 @@
 <html>
 	<head>
 	    <title>AppMent</title>    
+	    <input type="hidden" name="context" id="context" value="<%=request.getContextPath()%>"/>
 		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
 	    <link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
 	    <link href="<%=request.getContextPath()%>/css/autocomplete.css" rel="stylesheet" type="text/css">

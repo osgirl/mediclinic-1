@@ -10,6 +10,7 @@
      <div id="contentSingleEntry" style="">
       <div id="entries">
        <div class="entryAlone">
+       
         <form name="personalProfile" id="personalProfile" method="post" >
 			<c:if test="${not empty SuccessMessage}">			
 				<font color="green"><c:out value="${SuccessMessage}" /></font><br/>
@@ -45,6 +46,8 @@
             </table>
 
             <div id="Personal Details"  style="display:block" align="center">
+                  <font color="green">Please provide all the mandatory fields for getting started on using Appment.</font><br/>
+            
             <table  border=""  class="sample" width=720 cellpadding="200">
              <tr >
               <td >First Name: <font color="red">*</font></td> 

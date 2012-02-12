@@ -319,6 +319,9 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		appointmentLast.setTemperature(appointment.get(0).getTemperature());
 		appointmentLast.setPresentingComplain(appointment.get(0).getPresentingComplain());
 		appointmentLast.setPreviousHistory(appointment.get(0).getPreviousHistory());
+		appointmentLast.setDoctorFirstName(appointment.get(0).getDoctorFirstName());
+		appointmentLast.setDoctorLastName(appointment.get(0).getDoctorLastName());
+		appointmentLast.setDoctorMiddleInitial(appointment.get(0).getDoctorMiddleInitial());
 		List <Diagnosis> diagnosis = new ArrayList();
 		int currentIDDiagnosis = 0;
 		Diagnosis eachDiagnosis = new Diagnosis();

@@ -1863,7 +1863,7 @@ if(context != ""){
 var sls = str.indexOf("/",(sls-1)+3);
 //alert(str.substring(sls,htm+4));
 var url = str.substring(sls,htm+4);
-if(null != url){
+if(null != url && null != document.getElementById(url)){
 	document.getElementById(url).style.fontWeight ='900';
 	document.getElementById(url).style.backgroundColor = "#CCCCB4";
 }

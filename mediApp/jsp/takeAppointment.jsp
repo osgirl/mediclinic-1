@@ -153,17 +153,9 @@
 																					</c:otherwise>
 																				</c:choose>
 																					<font size="1" face="verdana,arial,helvetica">
-																						<c:choose>
-																							<c:when test="${appointments.isWorking eq 'Y'}">
 																								<a href="javascript:void(0);" onclick="javascript:getAppointment('<c:out value="${personID}"/>','<fmt:formatDate pattern="MM/dd/yyyy" value="${appointments.dateOfAppointment}"/>');" style="text-decoration:none">																						
 																									<b><font color="#000000"><fmt:formatDate pattern="dd" value="${appointments.dateOfAppointment}"/></font></b>
 																								</a>
-																							</c:when>
-																							<c:otherwise>
-																									<font color="#000000"><fmt:formatDate pattern="dd" value="${appointments.dateOfAppointment}"/></font>
-																							</c:otherwise>
-																						</c:choose>
-																						
 																						<c:if  test='${appointments.appointmentCount > 0}'>
 																							<font color="#000000"><br><br><br>${appointments.appointmentCount}</font>
 																						</c:if>

@@ -10,7 +10,8 @@
 <%@page import="com.mediapp.domain.common.Person"%>
 <html>
 	<head>
-	    <title>mediApp</title>    
+	    <title>Appment</title>    
+	    <input type="hidden" name="context" id="context" value="<%=request.getContextPath()%>"/>
 		<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css" type="text/css" />
 	    <link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
@@ -53,7 +54,7 @@
 								<td width="15%">With:</td>
 								<td class="sansa" width="35%">
 									<c:out value="${DoctorDetails.firstName} "></c:out> 
-									<c:out value="${DoctorDetails.middleInitial}"></c:out>
+									<c:out value="${DoctorDetails.middleInitial} "></c:out>
 									<c:out value="${DoctorDetails.lastName}"></c:out>
 								</td>
 								<td widht="15%" >Purpose :</td>

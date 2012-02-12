@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
@@ -75,7 +76,10 @@ public class AppMentLoginController extends MediAppBaseController  {
 		if("Admin".equals(person.getPersonTypeString())){
 			return new ModelAndView("redirect:/adminConsole.htm",CommonWebConstants.USER_ID, person);
 		}
-		return new ModelAndView(getFormView(),CommonWebConstants.USER_ID, person);
+		if(StringUtils.isBlank(person.getGender())){			
+			return new ModelAndView("redirect:/personalProfile.htm",CommonWebConstants.USER_ID, person);
+		}
+		return new ModelAndView(getSuccessView(),CommonWebConstants.USER_ID, person);
     }
 	/**
 	 * @param loginService the loginService to set

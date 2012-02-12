@@ -349,6 +349,9 @@
 	 	<result property="temperature"			 		column="Temperature"/>
 	 	<result property="previousHistory" 				column="previous_history"/>
 	 	<result property="presentingComplain" 			column="presenting_complain"/>
+	 	<result property="doctorFirstName" 			column="first_name"/>
+	 	<result property="doctorLastName" 			column="last_name"/>
+	 	<result property="doctorMiddleInitial" 			column="middle_name"/>
 	</resultMap>
 	 	
 	<parameterMap id="Get-Appointment-Parm-Map"   class="java.util.HashMap">
@@ -359,7 +362,7 @@
 			 select idAppointment_history,ifnull(d.idDiagnosis,0) as idDiagnosis,
 			 appointment_headline,date_of_appointment,time_of_appointment, appointment_duration,ah.idDoctor_details,  
 			 ICD_code,Prescription_name,dosage,suggested_test,test_result_value,test_result_unit ,appointment_comment,appointment_confirmation,
-			 Bp,Pulse,Temperature, previous_history,presenting_complain   
+			 Bp,Pulse,Temperature, previous_history,presenting_complain,first_name,last_name,middle_name   
 			 from person p    
 			 left OUTER join appointment_history ah
 			 on ah.Iddoctor_details = p.idperson

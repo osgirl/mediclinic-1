@@ -12,6 +12,7 @@
 <%@page import="com.mediapp.domain.common.NotificationDetails"%><html>
 	<head>
 	    <title>AppMent</title>
+	    <input type="hidden" name="context" id="context" value="<%=request.getContextPath()%>"/>
 	    <link href="<%=request.getContextPath()%>/css/mycss.css" rel="stylesheet" type="text/css">
 	    <link href="<%=request.getContextPath()%>/css/autocomplete.css" rel="stylesheet" type="text/css">
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui.css" type="text/css" />
