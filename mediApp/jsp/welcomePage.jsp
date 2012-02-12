@@ -23,40 +23,76 @@ cacheoffimgl.src = '<%=request.getContextPath()%>/images/MLbutton_0.png';
 				<div id="contentBodyCenter">
 					<div class="stp" style="margin-bottom:1.5em;">
 					<div class="or" style="margin:1em; padding:0;" >
-					<div id="contentSingleEntry" style="">
+					<div id="contentSingleEntry" >
 						<div id="entries">
-							<div class="entryAlone" class="or">
 								<form name="welcomePage" id="welcomePage" method="post" >
-								<table   width=900 height="100" align="center" >
-									<tr >
-              										<td class="sansa"><big><big><b>Welcome to AppMent!</b></big></big></td>	
-             						</tr>
+								<table   align="right" cellspacing="0" >
+								
 									<tr >
 										<td>
-											<div align="center">
-												<div name="addbox" id="addbox">
-												<a name="link1" id="link1" href="<%=request.getContextPath()%>/appmentSignUp.htm" ><img border="0" name="banner1" id="banner1" src="<%=request.getContextPath()%>/images/oie_shake_hands_concepts_3.jpg"></a>
-												
+											<div>
+												<img border="0" name="banner12" id="banner12" width=100% height=100% src="<%=request.getContextPath()%>/images/savetime.jpg">
 											</div>
-										</div>
+										</td>
+										<td>
+											<div >
+												<img border="0" name="banner11" id="banner11" width=100% height=100% src="<%=request.getContextPath()%>/images/setho.jpg">
+											</div>
 										 
 										</td>
+
 									</tr>
+								</table>
+								<table width="400">
+									<h1>Welcome to appointment managing application - Appment</h1></br>
+									<h4 style="font-family:Arial;color:#000;font-size:14px;">This application will help doctors, hospitals to allow their patients take appointment online. 
+									</br>Doctors can be searched on the website, once enrolled (like in social networking sites) </br>email, sms notifications are sent to doctor when an appointment is scheduled. 
+									</br>Diagnosis is stored and is available for review later as part of various reports. </br>
+									More features like uploading of old reports, doctors holiday updates 
+									</br>(leading to cancellation notification to patients), follow up meetings is also available. 
+									</br>It has an Android application too to keep updated on appontments!</h4></br>
 									
-									<tr >
-										<td class="sansa">
-													AppMent is appointment management software. <br/>
-													Once you sign up with AppMent, you can find other AppMates. Other AppMates can find you too.<br/>
-													Take appointments not just from this website, you can also take it through SMS.<br/>
-													Other features of rescheduling, follow up and lot more features<br/>
+								</table>
+								<table>
+									<tr>
+										<td>
+											<table  border=""  class="layout" >
+												<tr>
+													<td><h3 style="font-family:Arial;color:#000;font-size:18px;">Find out how to get Started!</h3>
+													<span style="font-family:Arial;color:#000;font-size:12px;">
+													The application is pretty simple to get started with.</br>Complete step-by-step help can be found here:</br>
+													<a href="http://www.slideshare.net/mpadmaraj/appointment-management-application-app-ment" >
+													Appment Help
+													</a>
+													</span>
+
+													</td>
+
+												</tr>
+											</table>
 										</td>
-									</tr>  
+										<td>									
+											<table  border=""  class="layout" >
+												<tr>
+													<td><h3 style="font-family:Arial;color:#000;font-size:18px;">About Android Application!</h3>
+													<span style="font-family:Arial;color:#000;font-size:12px;">
+													Yes, we also have android version of the application!.</br>Find out more here:</br>
+													<a href="http://www.facebook.com/media/set/?set=a.301833309875268.71114.118415181550416&type=1" >
+													Android App
+													</a>
+													</span>
+
+													</td>
+
+												</tr>
+											</table>
+										</td>
+									</tr>
 								</table>
 								
 															
 							</form>
 	
-							</div>
 						</div>
 						<div id="column">
 								<%
