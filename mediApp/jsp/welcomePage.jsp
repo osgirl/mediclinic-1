@@ -31,12 +31,12 @@ cacheoffimgl.src = '<%=request.getContextPath()%>/images/MLbutton_0.png';
 									<tr >
 										<td>
 											<div>
-												<img border="0" name="banner12" id="banner12" width=100% height=100% src="<%=request.getContextPath()%>/images/savetime.jpg">
+												<img border="0" name="banner12" id="banner12"  src="<%=request.getContextPath()%>/images/savetime.jpg">
 											</div>
 										</td>
 										<td>
 											<div >
-												<img border="0" name="banner11" id="banner11" width=100% height=100% src="<%=request.getContextPath()%>/images/setho.jpg">
+												<img border="0" name="banner11" id="banner11" src="<%=request.getContextPath()%>/images/setho.jpg">
 											</div>
 										 
 										</td>
