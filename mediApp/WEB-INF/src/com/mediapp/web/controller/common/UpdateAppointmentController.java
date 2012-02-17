@@ -1,6 +1,8 @@
 package com.mediapp.web.controller.common;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -22,6 +24,7 @@ import com.mediapp.core.common.business.CommonService;
 import com.mediapp.domain.common.Appointment;
 import com.mediapp.domain.common.DoctorSearch;
 import com.mediapp.domain.common.NotificationDetails;
+import com.mediapp.domain.common.Person;
 import com.mediapp.domain.common.SearchCriteria;
 import com.mediapp.web.common.CustomTimeEditor;
 import com.mediapp.web.constants.common.CommonWebConstants;
@@ -36,10 +39,14 @@ public class UpdateAppointmentController extends MediAppBaseController{
 	@Override
 	protected Map referenceData(HttpServletRequest request, Object command,
 			Errors errors) throws Exception {
-		String sidPerson = request.getParameter("PersonID");		
-		int idPerson = Integer.parseInt(sidPerson);
-		String sidAppointment = request.getParameter("AppointmentID");		
-		int idAppointment = Integer.parseInt(sidAppointment);
+		String sidPerson = request.getParameter("PersonID");
+		int idPerson =0;
+		if(sidPerson != null)
+		idPerson = Integer.parseInt(sidPerson);
+		String sidAppointment = request.getParameter("AppointmentID");
+		int idAppointment =0;
+		if(sidAppointment != null)
+		idAppointment = Integer.parseInt(sidAppointment);
 		String sAppointmentDate = request.getParameter("AppointmentDate");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");	
 		Date dateOfAppointment = null;
@@ -59,11 +66,12 @@ public class UpdateAppointmentController extends MediAppBaseController{
 	    appointmentMap.put("Notification", notificationDetails);
 	    String userName = request.getParameter("UserName");
 	    appointmentMap.put("UserName", userName);
+	    appointmentMap.put("SuccessMessage", request.getParameter("SuccessMessage"));	    
 	    return appointmentMap;
 	}
 
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
-		Appointment appointment = (Appointment) command;
+		Appointment appointment = new Appointment();
 		String sidAppointment = request.getParameter("AppointmentID");
 		int idAppointment = Integer.parseInt(sidAppointment);
 		appointment.setAppointmentID(idAppointment);
@@ -71,7 +79,10 @@ public class UpdateAppointmentController extends MediAppBaseController{
 		boolean status = commonService.updateAppointment(appointment);		
 		status = commonService.updateDiagnosisAndTests(appointment);
 		request.setAttribute("SuccessMessage", CommonWebConstants.SUCCESS);
-		return new ModelAndView(getSuccessView(),CommonWebConstants.DAY_APPOINTMENT,appointment);
+		request.setAttribute("AppointmentID", sidAppointment);
+		request.setAttribute("PersonID", request.getParameter("PersonID"));
+		request.setAttribute("AppointmentDate", request.getParameter("AppointmentDate"));
+		return new ModelAndView(getSuccessView());
     }
 
 	
@@ -108,5 +119,8 @@ public class UpdateAppointmentController extends MediAppBaseController{
 
 	}
 	
-
+	protected boolean suppressBinding ( HttpServletRequest request ){
+		return true;
+	}
+	
 }

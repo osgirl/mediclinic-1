@@ -29,8 +29,19 @@
 			<input type="hidden" name="context" id="context" value="<%=request.getContextPath()%>"/>
 			<c:if test="${not empty SuccessMessage}">			
 				<font color="green"><c:out value="${SuccessMessage}" /></font><br/>
+					<table border="0" cellpadding="0" cellspacing="0" width="700" height="40" class="sample">						         
+						<tr >     
+					  		<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%" align="center">  
+					  			<a href="javascript:void(0);" onClick="javascript:fn_close();" style="text-decoration:none"> 
+					  				<font size="+1" color="#FFFFFF" >Close</font>
+					  			</a>
+					  		</td>
+					  	</tr>
+					  	
+					  </table>	         		
+				
 			</c:if>
-		
+		<c:if test="${empty SuccessMessage}">
 			<div class="stp" style="margin-bottom:1.5em;" >
 				<div class="or" style="margin:1em; padding:0;" >
 					<font style="text-align: center;font-size: 120%;font-weight: bold;">Appointment Details</font>
@@ -369,7 +380,7 @@
 					  	
 					  </table>	         		
 			</div>
-			
+			</c:if>
 		</form>
 	</body>
 </html>
