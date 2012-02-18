@@ -65,7 +65,7 @@ public class MediAppHandlerInterceptor extends HandlerInterceptorAdapter {
 		if ( !requestURI.equals( welcomePageURL ) && !requestURI.equals(loginURL) 
 				&& !requestURI.equals(signUpURL) 
 				&& !requestURI.equals(loginURLJSON)
-				//&& !requestURI.contains(".json")
+				&& !requestURI.contains(".json")
 			) {
 			result = CommonWebUtil.getUser(request).isAuthenticated();
 		}

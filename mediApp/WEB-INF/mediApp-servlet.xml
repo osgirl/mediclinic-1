@@ -77,7 +77,7 @@
         <property name="commandName"><value>person</value></property>
         <property name="commandClass"><value>com.mediapp.domain.common.Person</value></property>
         <property name="formView"><value>appmentLogin.htm</value></property>
-        <property name="successView"><value>redirect:/inbox</value></property>
+        <property name="successView"><value>redirect:/inbox.htm</value></property>
         <property name="loginService">
 			<ref bean="loginService"/>
 		</property>
@@ -304,8 +304,10 @@
 
 	<bean id="updateAppointment" class="com.mediapp.web.controller.common.UpdateAppointmentController">
         <property name="sessionForm"><value>false</value></property>
+        <property name="commandName"><value>appointment</value></property>
+        <property name="commandClass"><value>com.mediapp.domain.common.Appointment</value></property>
         <property name="formView"><value>updateAppointment</value></property>
-        <property name="successView"><value>updateAppointment</value></property>        
+        <property name="successView"><value>updateAppointment</value></property>     
         <property name="commonService">
 			<ref bean="commonService"/>
 		</property>

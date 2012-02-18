@@ -29,24 +29,25 @@
 			<input type="hidden" name="context" id="context" value="<%=request.getContextPath()%>"/>
 			<c:if test="${not empty SuccessMessage}">			
 				<font color="green"><c:out value="${SuccessMessage}" /></font><br/>
-					<table border="0" cellpadding="0" cellspacing="0" width="700" height="40" class="sample">						         
-						<tr >     
-					  		<td  style="background: url(<%=request.getContextPath()%>/images/submitbutton_0.png) no-repeat;overflow: hidden;background-position: top center;height:100%;width:33%" align="center">  
-					  			<a href="javascript:void(0);" onClick="javascript:fn_close();" style="text-decoration:none"> 
-					  				<font size="+1" color="#FFFFFF" >Close</font>
-					  			</a>
-					  		</td>
-					  	</tr>
-					  	
-					  </table>	         		
-				
 			</c:if>
-		<c:if test="${empty SuccessMessage}">
+		
 			<div class="stp" style="margin-bottom:1.5em;" >
 				<div class="or" style="margin:1em; padding:0;" >
 					<font style="text-align: center;font-size: 120%;font-weight: bold;">Appointment Details</font>
 					<table border="0" cellpadding="0" class="sample" cellspacing="0" width=850  align="center" >
 					<input type="hidden" value="1" id="counter"/>
+					<spring:bind path="appointment.dateOfAppointment">
+						<input type="hidden" name="${status.expression}" id="${status.expression}"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>"  />
+					</spring:bind>
+					<spring:bind path="appointment.timeOfAppointment">
+						<input type="hidden" name="${status.expression}"  id="${status.expression}" value="<c:out value="${appointment.timeOfAppointment}"/>" />
+					</spring:bind>
+					<spring:bind path="appointment.appointmentDuration">
+						<input type="hidden" name="${status.expression}"  id="${status.expression}" value="<c:out value="${appointment.appointmentDuration}"/>"  />
+					</spring:bind>
+					<spring:bind path="appointment.appointmentEndTime">
+						<input type="hidden" name="${status.expression}"  value="<c:out value="${appointment.timeOfAppointment}"/>"/>					
+					</spring:bind>
 						<tr >
 							<td width="15%">With:</td>
 							<td width="35%" class="sansa">
@@ -58,6 +59,7 @@
 							</td>							
 						</tr>
 						<tr>
+						
 						</tr>
 						<tr>
 							<td width="15%" >At:</td>
@@ -84,9 +86,8 @@
 							</spring:bind>
 							<input type="hidden" name="PersonID"  value="${PersonID}"/>
 							<input type="hidden" name="AppointmentDate"  value="<fmt:formatDate pattern="MM/dd/yyyy" value="${appointment.dateOfAppointment}"/>"/>							
-							<input type="hidden" name="AppointmentID"  value="${appointment.appointmentID}"/>
 							<input type="hidden" name="UserName"  value="${UserName}"/>
-							
+					</table>		
 					<%	Person p = (Person)request.getSession().getAttribute("person");
 						NotificationDetails n = (NotificationDetails) request.getAttribute("Notification");
 					%>
@@ -380,7 +381,7 @@
 					  	
 					  </table>	         		
 			</div>
-			</c:if>
+			
 		</form>
 	</body>
 </html>
