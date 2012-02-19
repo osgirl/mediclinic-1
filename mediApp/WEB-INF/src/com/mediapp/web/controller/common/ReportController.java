@@ -74,6 +74,14 @@ public class ReportController extends MultiActionController {
 		  return new ModelAndView("generateHistory", getModelForHsitory(idPerson));
 		 }
 
+ public ModelAndView handleGeneratePatientHistory(HttpServletRequest request,
+		   HttpServletResponse response) throws Exception {
+			String patientAppmentID = request.getParameter("PatientAppmentID");		
+
+		  return new ModelAndView("generatePatientHistory", getModelForPatientHistory(patientAppmentID));
+		 }
+
+ 
  public ModelAndView handleGenerateMedicalHistoryForDay(HttpServletRequest request,
 		   HttpServletResponse response) throws Exception {
 			String sidPerson = request.getParameter("PATIENTID");		
@@ -176,6 +184,14 @@ public class ReportController extends MultiActionController {
 	  model.put("PatientID",personID);
 	  return model;
 	 }
+ private Map getModelForPatientHistory(String patientAppmentID) {
+	  Map model = new HashMap();
+	  model.put("ReportTitle", "History");
+	  model.put("dataSource", "JasperJdbcDataSource");
+	  model.put("PatientAppmentID",patientAppmentID);
+	  return model;
+	 }
+
  private Map  getModelForHistoryForDay(Integer idPerson,String apmtDate,String URI,String rptName,String rFormat){
 	  Map model = new HashMap();
 	  model.put("ReportTitle", "History");

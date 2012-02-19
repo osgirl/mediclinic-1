@@ -589,6 +589,7 @@
 				<prop key="/simpleReportPost.action">handleSimpleReportPost</prop>
 				<prop key="/simpleReportCompile.pdf">handleSimpleReportCompile</prop>
 				<prop key="/generateHistory.pdf">handleGenerateHistory</prop>				
+				<prop key="/generatePatientHistory.pdf">handleGeneratePatientHistory</prop>
 				<prop key="/generateMedicalReport.pdf">handleGenerateMedicalReport</prop>
 				<prop key="/generateAppointmentMonthView.pdf">handleGenerateAppointmentMonthView</prop>
 				<prop key="/generateAppointmentYearView.pdf">handleGenerateAppointmentYearView</prop>

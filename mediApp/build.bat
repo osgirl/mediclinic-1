@@ -20,4 +20,5 @@ rem pushd C:\Program Files\Apache Software Foundation\Tomcat 6.0\bin\
 rem java -jar bootstrap.jar start
 rem popd
 rem pause
+pause
 
