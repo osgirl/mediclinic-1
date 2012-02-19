@@ -145,14 +145,21 @@ function fn_rescheduleAppointmentDate(){
 	//window.close();
 	document.getElementById('dateOfAppointment').disabled=false;
 	document.getElementById('timeOfAppointment').disabled=false;
+	//this.form.elements.AppointmentID.removeAttribute('name');
+	//e=this.form.elements.AppointmentID;
+	//e.parentNode.removeChild(e);
+	document.getElementById("AppointmentID").disabled =true;
+	if ((navigator.userAgent.indexOf("Chrome"))==-1) {
+		document.forms['createAppointment'].target="parent";
+	}
 	var form=document.getElementById('rescheduleAppointment');
     form.setAttribute('target', 'iframeDialog');
     form.submit();
 }
 function fn_GetDayAppointment(indicator){
 	var date = new Date(document.getElementById('AppointmentDate').value);
-	window.name = "mySelf";
-	document.forms['rescheduleAppointment'].target="mySelf";
+	//window.name = "mySelf";
+	//document.forms['rescheduleAppointment'].target="mySelf";
 	var currentMonth = date.getMonth()+1;
 	if (indicator == 1){		
 		var nextDay = date.getDate()-1;		
@@ -167,8 +174,8 @@ function fn_GetDayAppointment(indicator){
 }
 function fn_GetMonthAppointment(indicator){
 	var date = new Date(document.getElementById('AppointmentDate').value);
-	window.name = "mySelf";
-	document.forms['rescheduleAppointment'].target="mySelf";
+	//window.name = "mySelf";
+	//document.forms['rescheduleAppointment'].target="mySelf";
 	if (indicator == 1){		
 		document.getElementById('AppointmentDate').value = date.getMonth()+"/"+date.getDate()+"/"+ date.getFullYear();
 	}
@@ -336,19 +343,17 @@ function fn_updateAppointmentDetails(){
     var num = (document.getElementById("counter").value - 2) + 1 ;
     for(var j=0;j<num;j++) {    	
     	var elSel = document.getElementById("diagnosis["+j+"].codeICD");
-    	  elSel.disabled = false;
+    	elSel.disabled = false;
     	var elSel = document.getElementById("diagnosis["+j+"].prescriptionList");
-	  elSel.disabled = false;
-  	  var elSel = document.getElementById("diagnosis["+j+"].testList");
-  	  elSel.disabled = false;
-	  for(var i = 0; i < document.getElementById("diagnosis["+j+"].prescriptionList").options.length; i++){
-		     document.getElementById("diagnosis["+j+"].prescriptionList").options[i].selected = true;
-	  }
-	  for(var i = 0; i < document.getElementById("diagnosis["+j+"].testList").options.length; i++){
-		     document.getElementById("diagnosis["+j+"].testList").options[i].selected = true;
-	  }
-															
-  	  
+    	elSel.disabled = false;
+	  	  var elSel = document.getElementById("diagnosis["+j+"].testList");
+	  	  elSel.disabled = false;
+		  for(var i = 0; i < document.getElementById("diagnosis["+j+"].prescriptionList").options.length; i++){
+			     document.getElementById("diagnosis["+j+"].prescriptionList").options[i].selected = true;
+		  }
+		  for(var i = 0; i < document.getElementById("diagnosis["+j+"].testList").options.length; i++){
+			     document.getElementById("diagnosis["+j+"].testList").options[i].selected = true;
+		  }
     }
     
 	//window.close();

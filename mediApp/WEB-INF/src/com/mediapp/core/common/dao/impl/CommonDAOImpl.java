@@ -379,14 +379,12 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		deleteObject("common.deletePrescription", appointment);
 		deleteObject("common.deleteTests", appointment);
 		deleteObject("common.deleteDiagnosis", appointment);
-		System.out.println("delete done");
 		int count = appointment.getDiagnosis().size();
 		Integer countInteger = new Integer(count);
 		Map<String,Object> criteria =  new HashMap < String, Object > () ;
 		criteria.put("SequenceName","s_diagnosis_id" );
 		criteria.put("HowMuch",countInteger );
 		Integer maxDianosisID =  (Integer)getObject("common.bulkNextVal",criteria );
-		System.out.println("sid is "+ maxDianosisID + " "+countInteger);
 		int minDiagnosisID = maxDianosisID.intValue() - count;
 		int whileCounter = 0;
 		while(minDiagnosisID <=maxDianosisID){
@@ -396,6 +394,7 @@ public class CommonDAOImpl extends MediAppBaseDAOImpl implements CommonDAO {
 		}
 		try {
 			this.getSqlMapClient().startBatch();
+			System.out.println("size is "+ appointment.getDiagnosis().size());
 			for (int i = 0; i < appointment.getDiagnosis().size(); i++) {
 
 				criteria =  new HashMap < String, Object > () ;

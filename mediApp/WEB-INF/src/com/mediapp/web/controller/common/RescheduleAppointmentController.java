@@ -40,9 +40,11 @@ public class RescheduleAppointmentController extends MediAppBaseController{
 
 	protected Map referenceData(HttpServletRequest request, Object command,
 			Errors errors) throws Exception {
-		String sidPerson = request.getParameter("PersonID");		
+		String sidPerson = request.getParameter("PersonID");	
 		int idPerson = Integer.parseInt(sidPerson);		
-		String sidAppointment = request.getParameter("AppointmentID");		
+		String sidAppointment = request.getParameter("AppointmentID");	
+		//String sidAppointment = request.getParameter("AppointmentID");		
+		//int idAppointment = Integer.parseInt(sidAppointment);
 		int idAppointment = Integer.parseInt(sidAppointment);
 		String sAppointmentDate = request.getParameter("AppointmentDate");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");		
@@ -60,8 +62,8 @@ public class RescheduleAppointmentController extends MediAppBaseController{
 	    appointmentMap.put("PersonID", idPerson);	    
 	    appointmentMap.put("AppointmentDate", dateOfAppointment);
 	    appointmentMap.put("AppointmentID", idAppointment);
-	    List <CodeDecode> appointmentDuration = commonService.getCodeValue("APPOINTMENT_DURATION");
-	    appointmentMap.put("appointmentDuration", appointmentDuration);
+	    List <CodeDecode> appointmentD = commonService.getCodeValue("APPOINTMENT_DURATION");
+	    appointmentMap.put("AppointmentD", appointmentD);
 	    String userName = request.getParameter("UserName");
 	    appointmentMap.put("UserName", userName);
 	    return appointmentMap;
@@ -70,9 +72,7 @@ public class RescheduleAppointmentController extends MediAppBaseController{
 
 	public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) {
 		Appointment appointment = (Appointment) command;
-		String sidAppointment = request.getParameter("AppointmentID");		
-		int idAppointment = Integer.parseInt(sidAppointment);
-		appointment.setAppointmentID(idAppointment);
+		appointment.setAppointmentID(appointment.getAppointmentID());
 		boolean status = commonService.rescheduleAppointment(appointment);
 		sendeMail.scheduleRescheduleAppointment(appointment);
 		sendSMS.scheduleRescheduleAppointment(appointment);

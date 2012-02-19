@@ -87,8 +87,8 @@
 								<td class="sansa" width="35%">
 									<spring:bind path="appointment.appointmentDuration">
 										<select id="${status.expression}" name="${status.expression}" style="WIDTH: 150px">
-											<c:forEach items="${appointmentDuration}" var="data">
-												<option value='${data.codeDecode}' >${data.codeDecode}</option>
+											<c:forEach items="${AppointmentD}" var="data">
+												<option value='${data.codeDecode}' ${appointment.appointmentDuration==data.codeDecode ?"selected=\"selected\"":"" }>${data.codeDecode}</option>
 											</c:forEach>
 										</select>
 									</spring:bind>

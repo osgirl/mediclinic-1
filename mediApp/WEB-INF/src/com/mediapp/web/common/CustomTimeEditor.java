@@ -12,10 +12,14 @@ public class CustomTimeEditor extends CustomDateEditor {
 		}
 
 		public Object getValue() {
-			if(super.getValue() != null){
+			try{
+			if(super.getValue() != null){				
 				return new Time(((Date)super.getValue()).getTime());
 			}else{
 				return null;
+			}
+			}catch(Exception e){
+				return super.getValue();
 			}
 		}
 

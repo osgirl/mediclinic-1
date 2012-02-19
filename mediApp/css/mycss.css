@@ -945,6 +945,7 @@ border-width:1px;
 
 table.sample th,table.sample td,table.sample1 th,table.sample1 td {
 background-color:#cadef4;
+color:black;
 -moz-border-radius:12px;
 border-color:#000;
 border-style:groove;
