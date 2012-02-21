@@ -26,23 +26,6 @@ cacheoffimgl.src = '<%=request.getContextPath()%>/images/MLbutton_0.png';
 					<div id="contentSingleEntry" >
 						<div id="entries">
 								<form name="welcomePage" id="welcomePage" method="post" >
-								<table   align="right" cellspacing="0" >
-								
-									<tr >
-										<td>
-											<div>
-												<img border="0" name="banner12" id="banner12"  src="<%=request.getContextPath()%>/images/savetime.jpg">
-											</div>
-										</td>
-										<td>
-											<div >
-												<img border="0" name="banner11" id="banner11" src="<%=request.getContextPath()%>/images/setho.jpg">
-											</div>
-										 
-										</td>
-
-									</tr>
-								</table>
 								<table width="400">
 									<h1>Welcome to appointment managing application - Appment</h1></br>
 									<h4 style="font-family:Arial;color:#000;font-size:14px;">This application will help doctors, hospitals to allow their patients take appointment online. 
@@ -61,7 +44,7 @@ cacheoffimgl.src = '<%=request.getContextPath()%>/images/MLbutton_0.png';
 													<td><h3 style="font-family:Arial;color:#000;font-size:18px;">Find out how to get Started!</h3>
 													<span style="font-family:Arial;color:#000;font-size:12px;">
 													The application is pretty simple to get started with.</br>Complete step-by-step help can be found here:</br>
-													<a href="http://www.slideshare.net/mpadmaraj/appointment-management-application-app-ment" >
+													<a href="javascript:void(0);" onClick="javascript:fn_openHelp();" >
 													Appment Help
 													</a>
 													</span>
@@ -89,8 +72,6 @@ cacheoffimgl.src = '<%=request.getContextPath()%>/images/MLbutton_0.png';
 										</td>
 									</tr>
 								</table>
-								
-															
 							</form>
 	
 						</div>

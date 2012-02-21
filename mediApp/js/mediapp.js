@@ -19,6 +19,11 @@ function fn_showType(){
 	var menuStyle=document.getElementById("TypeForm").style; 
 	menuStyle.display="block";
 }
+
+function fn_openHelp(){
+	window.open("http://www.slideshare.net/slideshow/embed_code/5775479?rel=0","Appment","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
+
+}
 function fn_openFile(fileName){
 	window.open(context+"/download.htm?file="+fileName,"download","location=0,status=0,toolbar=0,directories=0,resizable=0,scrollbars=1");
 }
