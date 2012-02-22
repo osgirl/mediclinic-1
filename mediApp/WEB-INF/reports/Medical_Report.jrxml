@@ -25,14 +25,14 @@
     ps_pat.gender as sex,
     extract(year from current_date)-extract(year from ps_pat.date_of_birth)  as age
 from
-mediapp.appointment_history ah
-join mediapp.person ps_pat
+appointment_history ah
+join person ps_pat
 on ps_pat.idperson = ah.idpatient_details
-join mediapp.person ps_doc
+join person ps_doc
 on ah.iddoctor_details = ps_doc.idperson
-join mediapp.doctor_details dd
+join doctor_details dd
 on dd.idperson = ps_doc.idperson
-left outer join mediapp.address ad
+left outer join address ad
 on ad.personID = ps_doc.idperson
 where idappointment_history =$P{AppointmentID}
 order by idappointment_history;]]>

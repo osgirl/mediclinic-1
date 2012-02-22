@@ -14,18 +14,18 @@
 IFNULL(mpr.prescription_name,'None')as ShipRegion, IFNULL(tst.suggested_test,'None')as OrderDate,
 concat('Dr. ',ps_doc.first_name,' ',ps_doc.last_name) as doctor, concat(ps_pat.first_name,' ',ps_pat.last_name) as Patient
 from
-mediapp.appointment_history ah
-join mediapp.person ps_pat
+appointment_history ah
+join person ps_pat
 on ps_pat.idperson = ah.idpatient_details
-join mediapp.person ps_doc
+join person ps_doc
 on ah.iddoctor_details = ps_doc.idperson
-join mediapp.doctor_details dd
+join doctor_details dd
 on dd.idperson = ps_doc.idperson
-left outer join mediapp.diagnosis dg
+left outer join diagnosis dg
 on dg.idappointment = ah.idappointment_history
-left outer join mediapp.tests tst
+left outer join tests tst
 on dg.iddiagnosis = tst.fdiagnosis
-left outer join mediapp.patient_prescription mpr
+left outer join patient_prescription mpr
 on dg.iddiagnosis = mpr.iddiagnosis
 where ps_pat.user_name =$P{PatientAppmentID}
 and (ICD_code  is not null or mpr.prescription_name is not null or tst.suggested_test is not null)
@@ -201,7 +201,7 @@ order by idappointment_history desc,ICD_code,mpr.prescription_name,tst.suggested
 				<textElement textAlignment="Right">
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}.toString()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="275" y="10" width="5" height="20"/>
@@ -215,7 +215,7 @@ order by idappointment_history desc,ICD_code,mpr.prescription_name,tst.suggested
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}.toString()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

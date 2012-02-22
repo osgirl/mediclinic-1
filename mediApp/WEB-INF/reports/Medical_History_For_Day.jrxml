@@ -18,18 +18,18 @@
 IFNULL(mpr.prescription_name,'None')as ShipRegion, IFNULL(tst.suggested_test,'None')as OrderDate,
 concat('Dr. ',ps_doc.first_name,' ',ps_doc.last_name) as doctor, concat(ps_pat.first_name,' ',ps_pat.last_name) as Patient
 from
-mediapp.appointment_history ah
-join mediapp.person ps_pat
+appointment_history ah
+join person ps_pat
 on ps_pat.idperson = ah.idpatient_details
-join mediapp.person ps_doc
+join person ps_doc
 on ah.iddoctor_details = ps_doc.idperson
-join mediapp.doctor_details dd
+join doctor_details dd
 on dd.idperson = ps_doc.idperson
-left outer join mediapp.diagnosis dg
+left outer join diagnosis dg
 on dg.idappointment = ah.idappointment_history
-left outer join mediapp.tests tst
+left outer join tests tst
 on dg.iddiagnosis = tst.fdiagnosis
-left outer join mediapp.patient_prescription mpr
+left outer join patient_prescription mpr
 on dg.iddiagnosis = mpr.iddiagnosis
 where idpatient_details = $P{PatientID}
 and (ICD_code  is not null or mpr.prescription_name is not null or tst.suggested_test is not null)
