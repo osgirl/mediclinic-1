@@ -3,9 +3,9 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<style name="Arial_Normal" isDefault="true" fontName="Arial" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-	<style name="Arial_Bold" fontName="Arial" fontSize="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-	<style name="Arial_Italic" fontName="Arial" fontSize="8" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="SansSerif_Normal" isDefault="true" fontName="SansSerif" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="SansSerif_Bold" fontName="SansSerif" fontSize="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="SansSerif_Italic" fontName="SansSerif" fontSize="8" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 	<style name="Comic_Normal" fontName="Comic Sans MS" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="COMIC.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<style name="Comic_Bold" fontName="Comic Sans MS" fontSize="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="COMICBD.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<parameter name="PatientID" class="java.lang.Integer"/>
@@ -52,28 +52,28 @@ order by idappointment_history desc,ICD_code,mpr.prescription_name,tst.suggested
 		<groupHeader>
 			<band height="24" splitType="Stretch">
 				<staticText>
-					<reportElement style="Arial_Italic" mode="Opaque" x="1" y="3" width="120" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement style="SansSerif_Italic" mode="Opaque" x="1" y="3" width="120" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement>
 						<font size="10" isBold="true" isItalic="false" isUnderline="false"/>
 					</textElement>
 					<text><![CDATA[Appointment With:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-					<reportElement style="Arial_Bold" mode="Opaque" x="121" y="3" width="173" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement style="SansSerif_Bold" mode="Opaque" x="121" y="3" width="173" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement>
 						<font size="10"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$V{FirstLetter}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-					<reportElement style="Arial_Bold" x="425" y="3" width="127" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement style="SansSerif_Bold" x="425" y="3" width="127" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement>
 						<font size="10"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{date_of_appointment}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Arial_Italic" mode="Opaque" x="305" y="3" width="120" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement style="SansSerif_Italic" mode="Opaque" x="305" y="3" width="120" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement>
 						<font size="10" isBold="true" isItalic="false" isUnderline="false"/>
 					</textElement>
@@ -90,21 +90,21 @@ order by idappointment_history desc,ICD_code,mpr.prescription_name,tst.suggested
 		<groupHeader>
 			<band height="23" splitType="Stretch">
 				<staticText>
-					<reportElement style="Arial_Bold" mode="Opaque" x="2" y="0" width="198" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
+					<reportElement style="SansSerif_Bold" mode="Opaque" x="2" y="0" width="198" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="11"/>
 					</textElement>
 					<text><![CDATA[Diagnosis]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Arial_Bold" mode="Opaque" x="200" y="0" width="202" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
+					<reportElement style="SansSerif_Bold" mode="Opaque" x="200" y="0" width="202" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="11"/>
 					</textElement>
 					<text><![CDATA[Prescription]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="Arial_Bold" mode="Opaque" x="402" y="0" width="148" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
+					<reportElement style="SansSerif_Bold" mode="Opaque" x="402" y="0" width="148" height="22" forecolor="#FFFFFF" backcolor="#333333"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="11"/>
 					</textElement>
@@ -139,14 +139,14 @@ order by idappointment_history desc,ICD_code,mpr.prescription_name,tst.suggested
 			<staticText>
 				<reportElement x="2" y="1" width="233" height="34" forecolor="#FF3333"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="24" isBold="true"/>
+					<font fontName="SansSerif" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[AppMent]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="57" y="35" width="178" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Verdana" isBold="false"/>
+					<font fontName="SansSerif" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Easy way to get organized!]]></text>
 			</staticText>

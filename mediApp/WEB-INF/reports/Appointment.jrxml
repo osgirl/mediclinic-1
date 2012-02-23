@@ -63,14 +63,14 @@ order by idappointment_history;]]>
 			<staticText>
 				<reportElement x="0" y="16" width="233" height="34" forecolor="#FF3333"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="24" isBold="true"/>
+					<font fontName="SansSerif" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[AppMent]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="55" y="50" width="178" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Verdana" isBold="false"/>
+					<font fontName="SansSerif" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Easy way to get organized!]]></text>
 			</staticText>

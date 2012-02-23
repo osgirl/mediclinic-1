@@ -3,9 +3,9 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="94"/>
-	<style name="Arial_Normal" isDefault="true" fontName="Arial" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-	<style name="Arial_Bold" fontName="Arial" fontSize="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-	<style name="Arial_Italic" fontName="Arial" fontSize="8" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="SansSerif_Normal" isDefault="true" fontName="SansSerif" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="SansSerif_Bold" fontName="SansSerif" fontSize="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="SansSerif_Italic" fontName="SansSerif" fontSize="8" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 	<parameter name="AppointmentID" class="java.lang.Integer"/>
 	<parameter name="Diagnosis" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="Investigations" class="net.sf.jasperreports.engine.JasperReport"/>
@@ -83,14 +83,14 @@ order by idappointment_history;]]>
 			<staticText>
 				<reportElement x="2" y="1" width="133" height="34" forecolor="#FF3333"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="24" isBold="true"/>
+					<font fontName="SansSerif" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[AppMent]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="2" y="35" width="133" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Verdana" isBold="false"/>
+					<font fontName="SansSerif" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Easy way to get organized!]]></text>
 			</staticText>
@@ -100,7 +100,7 @@ order by idappointment_history;]]>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{add1}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement style="Arial_Bold" x="135" y="5" width="380" height="30"/>
+				<reportElement style="SansSerif_Bold" x="135" y="5" width="380" height="30"/>
 				<textElement textAlignment="Center">
 					<font size="18"/>
 				</textElement>
@@ -121,14 +121,14 @@ order by idappointment_history;]]>
 	<pageHeader>
 		<band height="151">
 			<staticText>
-				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="10" y="10" width="74" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="SansSerif_Bold" isPrintRepeatedValues="false" x="10" y="10" width="74" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Patient Name:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="10" y="50" width="95" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="SansSerif_Bold" isPrintRepeatedValues="false" x="10" y="50" width="95" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -156,7 +156,7 @@ order by idappointment_history;]]>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{age} + "yrs"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="135" y="30" width="46" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="SansSerif_Bold" isPrintRepeatedValues="false" x="135" y="30" width="46" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -177,14 +177,14 @@ order by idappointment_history;]]>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{apt}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="10" y="30" width="29" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="SansSerif_Bold" isPrintRepeatedValues="false" x="10" y="30" width="29" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Age:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="12" y="85" width="93" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="SansSerif_Bold" isPrintRepeatedValues="false" x="12" y="85" width="93" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -198,21 +198,21 @@ order by idappointment_history;]]>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{appointment_comment}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="13" y="123" width="71" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="SansSerif_Bold" isPrintRepeatedValues="false" x="13" y="123" width="71" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Temperature:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="135" y="123" width="62" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="SansSerif_Bold" isPrintRepeatedValues="false" x="135" y="123" width="62" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[BP:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Arial_Bold" isPrintRepeatedValues="false" x="268" y="124" width="39" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="SansSerif_Bold" isPrintRepeatedValues="false" x="268" y="124" width="39" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -234,16 +234,16 @@ order by idappointment_history;]]>
 				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{Diagnosis}]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement style="Arial_Normal" isPrintRepeatedValues="false" x="12" y="0" width="188" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="SansSerif_Normal" isPrintRepeatedValues="false" x="12" y="0" width="188" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Diagnosis:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Arial_Normal" isPrintRepeatedValues="false" x="12" y="78" width="188" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="SansSerif_Normal" isPrintRepeatedValues="false" x="12" y="78" width="188" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Treatment Adviced:]]></text>
 			</staticText>
@@ -256,9 +256,9 @@ order by idappointment_history;]]>
 				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{Investigations}]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement style="Arial_Normal" isPrintRepeatedValues="false" x="12" y="151" width="188" height="20" isPrintInFirstWholeBand="true"/>
+				<reportElement style="SansSerif_Normal" isPrintRepeatedValues="false" x="12" y="151" width="188" height="20" isPrintInFirstWholeBand="true"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Investigations Adviced:]]></text>
 			</staticText>
