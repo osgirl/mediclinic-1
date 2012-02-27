@@ -62,7 +62,6 @@
 																</spring:bind>	
 															</td>
 														</tr>
-														<%if (p != null && p.getPersonTypeString() != null && p.getPersonTypeString().equals("Doctor")) {%>
 														<tr>
 															<td>Speciality:</td>
 																<td>
@@ -74,24 +73,6 @@
 																</script>
 															</td>
 														</tr>
-														<%}else if(p != null && p.getPersonTypeString() != null && !p.getPersonTypeString().equals("Doctor")){ %>
-														<tr>
-															<td>Profession:</td>
-															<td>
-																<spring:bind path="doctorSearch.searchCriteria.personType">				
-																	<select id="${status.expression}" name="${status.expression}" style="WIDTH: 150px">
-																		<option value=""></option>
-																		<c:forEach items="${personType}" var="data">
-																			<option value='${data.codeDecode}' ${doctorSearch.searchCriteria.personType==data.codeDecode ?"selected=\"selected\"":"" }>${data.codeDecode}</option>
-																		</c:forEach>
-																	</select>
-																 </spring:bind>  
-															
-															</td>
-														</tr>
-														 
-														<%} %>
-
 													<tr>
 														<td width="40%">Date: </td>
 														<td width="30%">
