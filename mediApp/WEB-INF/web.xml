@@ -44,7 +44,7 @@
 
 
 	<welcome-file-list>
-		<welcome-file>/jsp/welcomePage.jsp</welcome-file>
+		<welcome-file>appmentLogin.htm</welcome-file>
 	</welcome-file-list>
 	<taglib>
   		<taglib-uri>/spring</taglib-uri> 
@@ -58,6 +58,6 @@
 
  	<error-page>
         <error-code>404</error-code>
-        <location>/appment/welcomePage.jsp</location>
+        <location>/appmentLogin.htm</location>
     </error-page>
 </web-app>

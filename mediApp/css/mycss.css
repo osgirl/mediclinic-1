@@ -212,7 +212,8 @@ padding:16px 22px 0;
 }
 
 #entries {
-width:100%;
+width:800px;
+height: 450px;
 float:left;
 clear:both;
 margin-right:-20em;
@@ -224,7 +225,7 @@ overflow:hidden;
 
 #column {
 font-size:80%;
-width:210px;
+width:400px;
 float:right;
 /*background:url(/images/asual-bodycenter.jpg);*/
 }
@@ -609,6 +610,15 @@ border-width:1px;
 }
 
 table.sample {
+border-spacing:2px;
+border-collapse:separate;
+background-color:#cadef4;
+border-color:green;
+border-style:outset;
+border-width:1px;
+}
+
+.sample {
 border-spacing:2px;
 border-collapse:separate;
 background-color:#cadef4;
@@ -1149,4 +1159,25 @@ textarea
 {
 	border:1px solid #93b4d9;
 
+}
+
+.wheader
+{
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 32px;
+color: grey;
+width: 600px;
+text-align: center;
+}
+.signupheader
+{
+font-size:1.2em;
+font-color:black;
+font:Verdana;
+}
+.googlelogin
+{
+
+position: relative;
+top: 12px;
 }

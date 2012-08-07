@@ -45,8 +45,8 @@ cacheoffimgs.src = '<%=request.getContextPath()%>/images/submitbutton_0.png';
 									 </c:if>
 									 <c:if test="${empty SuccessMessage}">
 								 
-										<span  style="font-size:1.5em;font-color:black;font:Verdana">Please provide following information for creating account</span><br /><br />       
-										<table class="sample"  width="500">
+										<span  class="signupheader">Please provide following information for creating account</span><br /><br />       
+										<table class="sample"  >
 											<tr >   
 												<td width="40%" align="right" >First Name: </td>
 												<td width="40%" align="left"> 

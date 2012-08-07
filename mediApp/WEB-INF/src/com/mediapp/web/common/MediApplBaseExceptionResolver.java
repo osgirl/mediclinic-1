@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.mediapp.web.common;
 
@@ -25,7 +25,7 @@ import com.mediapp.web.util.common.CommonWebUtil;
  *
  */
 public class MediApplBaseExceptionResolver extends SimpleMappingExceptionResolver {
-	
+
 	private final Log logger = LogFactory.getLog(getClass());
 	/**
 	 * This method will get invoked on encountering exceptions in the Spring
@@ -43,7 +43,7 @@ public class MediApplBaseExceptionResolver extends SimpleMappingExceptionResolve
 		List<String> errorList = new ArrayList<String>();
 		errorList.add(ex.getMessage());
 		CommonWebUtil.addErrorMessagesInReq(request, errorList);
-		return new ModelAndView("redirect:/welcomePage.htm",CommonWebConstants.USER_ID, CommonWebUtil.getUser(request));
+		return new ModelAndView("redirect:/appmentLogin.htm",CommonWebConstants.USER_ID, CommonWebUtil.getUser(request));
 	}
 
 }

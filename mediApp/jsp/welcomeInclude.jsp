@@ -7,7 +7,8 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<%@page import="com.mediapp.domain.common.Person"%><html>
+<%@page import="com.mediapp.domain.common.Person"%>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head> 
     <title>AppMent</title>    
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/shakehand.ico" type="image/x-icon" />
@@ -17,6 +18,11 @@
     <script type="text/javascript"  src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
     <script type="text/javascript"  src="<%=request.getContextPath()%>/js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/customalert.js"></script>
+	<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+	  api_key: 4di6vnacmt5a
+	  authorize : true
+</script>
+ <script src="https://apis.google.com/js/client.js"></script>
 
 </head>
 <body onLoad="initVar(); moveBanner()">

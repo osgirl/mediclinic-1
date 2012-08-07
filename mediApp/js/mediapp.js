@@ -1,7 +1,11 @@
 //context =location.pathname.split("/")[1];
 //var context = "<%= response.encodeURL( request.getContextPath())%>";
 //alert(context);
-var context =document.getElementById("context").value;
+var context ;
+if($("#context")!= null){
+var context =$("#context").val();
+}
+//document.getElementById("context").value;
 function fn_signUp(){
 	var e = document.forms["appmentSignUp"].elements;
 	if(e['password'].value != e['repassword'].value){
@@ -1010,8 +1014,8 @@ function initVar() {
   banner1 = document.getElementById("banner1");
   banner2 = document.getElementById("banner2");
 
-  banner1.style.left = 0;
-  banner2.style.left = 500;
+//  banner1.style.left = 0;
+//  banner2.style.left = 500;
 
   bannerIndex = 1;
 
@@ -1928,3 +1932,67 @@ function getReport(reportName){
 	//document.getElementById("ReportTab").src=context+"/generateAppointmentYearView.pdf?PatientID="+document.getElementById("PatientID").value+"&Year="+document.getElementById("YearField").value;
 
 }
+
+$("#password").keypress(function(e){
+    if(e.which == 13){
+    	fn_login();
+        }
+	
+	});
+	
+$("#googlelogin").click(function(){
+		window.location.href="https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&state=%2Fprofile&redirect_uri=http%3A%2F%2Fappment.cloudfoundry.com%2F&response_type=token&client_id=925894800945.apps.googleusercontent.com";
+
+	}
+)
+
+//FB
+window.fbAsyncInit = function() {
+FB.init({appId: '395053670543151', status: true, cookie: true, xfbml: true});
+
+/* All the events registered */
+FB.Event.subscribe('auth.login', function(response) {
+    // do something with response
+    fb_login();
+});
+FB.Event.subscribe('auth.logout', function(response) {
+    // do something with response
+    fb_logout();
+});
+
+FB.getLoginStatus(function(response) {
+    if (response.session) {
+	// logged in and connected user, someone you know
+	fb_login();
+    }
+});
+};
+(function() {
+var e = document.createElement('script');
+e.type = 'text/javascript';
+e.src = document.location.protocol +
+    '//connect.facebook.net/en_US/all.js';
+e.async = true;
+document.getElementById('fb-root').appendChild(e);
+}());
+
+function fb_login(){
+FB.api('/me', function(response) {
+	//response.first_name, response.last_name, response.name
+});
+}
+function fb_logout(){
+document.getElementById('login').style.display = "none";
+}
+
+IN.Event.on(IN, "auth",function(response){
+	  IN.API.Profile(linkedinArray[i])
+	    .fields(["id", "firstName", "lastName", "pictureUrl", "publicProfileUrl"])
+	    .result(function(result) {
+	    	//result.values[0].pictureUrl;
+	    })
+	    .error(function(err) {
+	      //alert(err);
+	    });
+	   			
+	  } );

@@ -5,7 +5,7 @@
 					<div class="stp" style="margin-bottom:1.5em;">
 						<div class="or" style="margin:1em; padding:0;" >								
 					<div id="contentSingleEntry" style="">
-						<div id="entries" align="left">
+						<div id="entries" align="left" >
 <script>
 var cacheonimg = new Image ();
 var cacheoffimg = new Image ();
@@ -28,30 +28,9 @@ cacheoffimgs.src = '<%=request.getContextPath()%>/images/submitbutton_0.png';
 							<table>
 							<tr>
 								<td width="65%">
-								<table  border="0"    align="left">  
+								<table  border="0"    align="left" class="wheader">  
 										  <tr>
-										  		<td>
-													<form action="j_spring_openid_security_check" method="post" id="openid_form">
-														<input type="hidden" name="action" value="verify" />
-													 
-														<fieldset>
-													    		<legend>Sign-in with if you already have any of these ID</legend>
-													    		
-													    		<div id="openid_choice">
-														    		<p>Please click your account provider:</p>
-														    		<div id="openid_btns"></div>
-																</div>
-																
-																<div id="openid_input_area">
-																	<input id="openid_identifier" name="openid_identifier" type="text" value="http://" />
-																	<input id="openid_submit" type="submit" value="Sign-In"/>
-																</div>
-																<noscript>
-																<p>OpenID is service that allows you to log-on to many different websites using a single indentity.
-																Find out <a href="http://openid.net/what/">more about OpenID</a> and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.</p>
-																</noscript>
-														</fieldset>
-													</form>
+										  		<td> Manage Appointment
 												</td>										  
 										  </tr>
 										
@@ -74,7 +53,7 @@ cacheoffimgs.src = '<%=request.getContextPath()%>/images/submitbutton_0.png';
 											<td  align="right" >Name: </td>
 											<td align="left">
 												<spring:bind path="person.username">
-													<input type="text" name="username"  id="username"  value="<c:out value="${status.value}"/>" size="10" tabindex="1" />		
+													<input type="text" name="username"  id="username"  value="<c:out value="${status.value}"/>" size="30" tabindex="1" />		
 													<script>document.getElementById('username').focus()</script>
 
 												</spring:bind>
@@ -91,10 +70,10 @@ cacheoffimgs.src = '<%=request.getContextPath()%>/images/submitbutton_0.png';
 										</tr>
 
 										<tr>
-											<td  align="right" >Key: </td>
+											<td  align="right" >Password: </td>
 											<td  align="left">
 												<spring:bind	path="person.password">
-													<input type="password" name="password" id="password" tabindex="2" size="10" />
+													<input type="password" name="password" id="password" tabindex="2" size="30" />
 												</spring:bind>
 											</td>
 											<td colspan="2" align="center">
@@ -121,6 +100,30 @@ cacheoffimgs.src = '<%=request.getContextPath()%>/images/submitbutton_0.png';
 	  								 
 	  							</div>							
 							</div>
+							<div class="stp" style="margin-bottom:1.5em;" >
+	  							<div class="or" style="margin:1em; padding:0;" > 
+										<table class="sample"  >
+											<tr >   
+												<td>
+													<script type="IN/Login" >
+
+													</script>
+												</td>											
+												<td  > 										  		
+													<a href="javascript:void(0);" id="googlelogin" >
+													<img class="googlelogin" src="/images/signin-google.png">
+													</a>
+												</td>
+												<td>
+													<div id="fb-root"></div>
+													<fb:login-button autologoutlink="true" perms="email,user_birthday,status_update,publish_stream"></fb:login-button>
+												</td>
+											</tr>
+
+										</table>
+	  							</div>							
+							</div>
+							
 							<div class="stp" style="margin-bottom:1.5em;" >
 	  							<div class="or" style="margin:1em; padding:0;" > 
 	  								<span style="font-size:1.3em;font-color:black;font:Verdana" >Don't have account yet?</span><br />   

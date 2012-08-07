@@ -50,7 +50,16 @@
     
 	<!-- Development datasource -->
 	<jdbc:initialize-database data-source="dataSource" enabled="true">
-  		<jdbc:script location="classpath:updates.sql"/>
+  		<jdbc:script location="classpath:create_tables.sql"/>
+  		<jdbc:script location="classpath:Create_codeDecode.sql"/>
+  		<jdbc:script location="classpath:otherMetaData.sql"/>
+  		<jdbc:script location="classpath:log.sql" separator="//"/>
+  		<jdbc:script location="classpath:currval.sql" separator="//"/>
+  		<jdbc:script location="classpath:nextval.sql" separator="//"/>
+  		<jdbc:script location="classpath:bulknextval.sql" separator="//"/>
+  		<jdbc:script location="classpath:inboundTrigger.sql" separator="//"/>
+  		<jdbc:script location="classpath:create_triggers.sql" separator="//"/>
+  		<jdbc:script location="classpath:create_calendar.sql" separator="//"/>
 	</jdbc:initialize-database>
 
 <!--
