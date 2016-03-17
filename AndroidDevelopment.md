@@ -1,0 +1,1 @@
+http://androidforums.com/developer-101/2314-installing-eclipse-android-sdk-windows-xp.html

@@ -1,0 +1,1 @@
+http://world.ccavenue.com/downloads/CCAVenueWorldIntegrationManual.pdf

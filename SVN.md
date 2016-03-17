@@ -1,0 +1,1 @@
+Please download SVN torotoise client from http://sourceforge.net/projects/tortoisesvn/files/Application/1.6.7/TortoiseSVN-1.6.7.18415-win32-svn-1.6.9.msi/download?use_mirror=autoselect
